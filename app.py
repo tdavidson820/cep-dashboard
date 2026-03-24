@@ -21,10 +21,10 @@ COLORS = {
     'text_primary': '#1D1D1F',
     'text_secondary': '#6E6E73',
     
-    # CEP Status colors - Professional palette
-    'full_cep': '#34C759',      # Apple green - success
-    'partial_cep': '#FF9500',    # Apple orange - warning
-    'no_cep': '#FF3B30',         # Apple red - alert
+    # CEP Status colors - HIGH CONTRAST for map visibility
+    'full_cep': '#34C759',      # Apple green - Full CEP
+    'partial_cep': '#FF9F0A',   # Bright orange - Partial CEP (more yellow/orange)
+    'no_cep': '#FF3B30',         # Bright red - No CEP
     
     # Accent colors
     'accent_blue': '#007AFF',    # Apple blue
@@ -414,7 +414,7 @@ def create_executive_us_map():
     return fig
 
 def create_state_county_map(df, state_abbr, fips_dict):
-    """Create professional county-level choropleth map"""
+    """Create professional county-level choropleth map with clear color distinction"""
     df['FIPS'] = df['County'].map(fips_dict)
     
     fig = go.Figure(go.Choropleth(
@@ -423,22 +423,26 @@ def create_state_county_map(df, state_abbr, fips_dict):
         z=df['CEP_Schools'],
         text=df['County'],
         colorscale=[
-            [0, COLORS['no_cep']],
-            [0.5, COLORS['partial_cep']],
-            [1, COLORS['full_cep']]
+            [0, COLORS['no_cep']],       # 0 schools = Bright Red
+            [0.01, COLORS['partial_cep']], # 1+ schools = Bright Orange
+            [1, COLORS['full_cep']]       # Max schools = Green
         ],
         marker_line_color='white',
-        marker_line_width=1,
+        marker_line_width=1.5,
         colorbar=dict(
-            title="CEP<br>Schools",
+            title="<b>CEP Schools</b>",
             titlefont=dict(
                 size=14,
-                family='SF Pro Display, -apple-system, system-ui, sans-serif'
+                family='SF Pro Display, -apple-system, system-ui, sans-serif',
+                color=COLORS['text_primary']
             ),
             tickfont=dict(
                 size=12,
-                family='SF Pro Text, -apple-system, system-ui, sans-serif'
-            )
+                family='SF Pro Text, -apple-system, system-ui, sans-serif',
+                color=COLORS['text_secondary']
+            ),
+            thickness=15,
+            len=0.7
         )
     ))
     
@@ -458,13 +462,30 @@ def create_state_county_map(df, state_abbr, fips_dict):
     )
     
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        margin={"r": 0, "t": 40, "l": 0, "b": 0},
         height=550,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         font=dict(
             family='SF Pro Display, -apple-system, system-ui, sans-serif'
-        )
+        ),
+        annotations=[
+            dict(
+                text="<b>Legend:</b> <span style='color:#FF3B30;'>●</span> No CEP  <span style='color:#FF9F0A;'>●</span> Partial CEP  <span style='color:#34C759;'>●</span> Full CEP",
+                xref="paper",
+                yref="paper",
+                x=0,
+                y=1.05,
+                xanchor="left",
+                yanchor="bottom",
+                showarrow=False,
+                font=dict(
+                    size=13,
+                    family='SF Pro Text, -apple-system, system-ui, sans-serif',
+                    color=COLORS['text_secondary']
+                )
+            )
+        ]
     )
     
     return fig
@@ -488,32 +509,37 @@ def create_county_table(df, state_abbr):
                 'fontWeight': '500',
                 'color': COLORS['text_primary'],
                 'fontSize': '15px',
-                'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif',
+                'padding': '16px 20px'
             }),
             html.Td(f"{row['Students_in_CEP']:,}", style={
                 'textAlign': 'right',
                 'color': COLORS['text_primary'],
                 'fontSize': '15px',
-                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif',
+                'padding': '16px 20px'
             }),
             html.Td(f"{row[poverty_col]:,}", style={
                 'textAlign': 'right',
                 'color': COLORS['text_secondary'],
                 'fontSize': '15px',
-                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif',
+                'padding': '16px 20px'
             }),
             html.Td(f"{row['CEP_Schools']}/{row['Eligible_Schools']}", style={
                 'textAlign': 'center',
                 'color': COLORS['text_primary'],
                 'fontSize': '15px',
-                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif',
+                'padding': '16px 20px'
             }),
             html.Td(f"{coverage:.0f}%", style={
                 'textAlign': 'right',
                 'fontWeight': '500',
                 'color': COLORS['text_primary'],
                 'fontSize': '15px',
-                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif',
+                'padding': '16px 20px'
             }),
             html.Td(
                 html.Span(row['Status'], style={
@@ -525,7 +551,7 @@ def create_county_table(df, state_abbr):
                     'fontWeight': '500',
                     'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
                 }),
-                style={'textAlign': 'center'}
+                style={'textAlign': 'center', 'padding': '16px 20px'}
             )
         ], style={
             'borderBottom': f'1px solid {COLORS["border"]}',
