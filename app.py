@@ -1,6 +1,6 @@
-# CEP State Dashboard - Multi-State Version
-# Complete deployment with Wisconsin (72 counties) and New Jersey (21 counties)
-# Vibrant landing page with US map and state cards
+# CEP State Dashboard - Executive Edition
+# Fortune 500-level design for state leadership and policymakers
+# Apple Store-inspired aesthetic with professional data visualization
 
 import dash
 from dash import dcc, html, Input, Output, State
@@ -11,20 +11,28 @@ import pandas as pd
 application = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = application.server
 
-# Color scheme
+# Premium Color Palette - Apple-inspired
 COLORS = {
+    # Core neutrals
     'background': '#FFFFFF',
-    'text': '#1F2937',
-    'primary': '#DC2626',
-    'secondary': '#F59E0B',
-    'success': '#065F46',
-    'gray': '#6B7280',
-    'light_gray': '#F3F4F6',
-    'border_gray': '#E5E7EB',
-    'vibrant_blue': '#3B82F6',
-    'vibrant_green': '#10B981',
-    'vibrant_purple': '#8B5CF6',
-    'vibrant_orange': '#F97316'
+    'off_white': '#FAFAFA',
+    'light_gray': '#F5F5F7',
+    'border': '#D2D2D7',
+    'text_primary': '#1D1D1F',
+    'text_secondary': '#6E6E73',
+    
+    # CEP Status colors - Professional palette
+    'full_cep': '#34C759',      # Apple green - success
+    'partial_cep': '#FF9500',    # Apple orange - warning
+    'no_cep': '#FF3B30',         # Apple red - alert
+    
+    # Accent colors
+    'accent_blue': '#007AFF',    # Apple blue
+    'accent_purple': '#AF52DE',  # Apple purple
+    
+    # Gradient stops
+    'gradient_start': '#007AFF',
+    'gradient_end': '#5856D6'
 }
 
 # ====================
@@ -201,7 +209,8 @@ STATE_DATA = {
         'coverage_pct': 55,
         'rank': 42,
         'has_data': True,
-        'color': '#DC2626'
+        'lat': 44.5,
+        'lon': -89.5
     },
     'NJ': {
         'name': 'New Jersey',
@@ -213,7 +222,8 @@ STATE_DATA = {
         'coverage_pct': 14,
         'rank': 48,
         'has_data': True,
-        'color': '#3B82F6'
+        'lat': 40.0,
+        'lon': -74.5
     },
     'VA': {
         'name': 'Virginia',
@@ -225,7 +235,8 @@ STATE_DATA = {
         'coverage_pct': 57,
         'rank': 15,
         'has_data': False,
-        'color': '#10B981'
+        'lat': 37.5,
+        'lon': -78.5
     },
     'SC': {
         'name': 'South Carolina',
@@ -237,7 +248,8 @@ STATE_DATA = {
         'coverage_pct': 89,
         'rank': 1,
         'has_data': False,
-        'color': '#8B5CF6'
+        'lat': 33.8,
+        'lon': -81.0
     },
     'NV': {
         'name': 'Nevada',
@@ -249,7 +261,8 @@ STATE_DATA = {
         'coverage_pct': 43,
         'rank': 35,
         'has_data': False,
-        'color': '#F97316'
+        'lat': 39.0,
+        'lon': -117.0
     },
     'AR': {
         'name': 'Arkansas',
@@ -261,7 +274,8 @@ STATE_DATA = {
         'coverage_pct': 61,
         'rank': 12,
         'has_data': False,
-        'color': '#EAB308'
+        'lat': 34.8,
+        'lon': -92.2
     }
 }
 
@@ -270,105 +284,137 @@ STATE_DATA = {
 # ====================
 
 def get_status_color(status):
-    """Return color based on CEP status"""
+    """Return color based on CEP status - professional palette"""
     if status == 'Full CEP':
-        return COLORS['success']
+        return COLORS['full_cep']
     elif status == 'Partial CEP':
-        return COLORS['secondary']
+        return COLORS['partial_cep']
     else:
-        return COLORS['primary']
+        return COLORS['no_cep']
 
 def create_metric_card(title, value, subtitle=""):
-    """Create a metric card component"""
+    """Create premium metric card - Apple aesthetic"""
     return html.Div([
-        html.Div(title, style={'fontSize': '14px', 'color': COLORS['gray'], 'marginBottom': '8px'}),
-        html.Div(value, style={'fontSize': '32px', 'fontWeight': 'bold', 'color': COLORS['text']}),
-        html.Div(subtitle, style={'fontSize': '12px', 'color': COLORS['gray'], 'marginTop': '4px'})
+        html.Div(title, style={
+            'fontSize': '13px',
+            'color': COLORS['text_secondary'],
+            'marginBottom': '12px',
+            'textTransform': 'uppercase',
+            'letterSpacing': '0.5px',
+            'fontWeight': '600',
+            'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+        }),
+        html.Div(value, style={
+            'fontSize': '40px',
+            'fontWeight': '600',
+            'color': COLORS['text_primary'],
+            'lineHeight': '1',
+            'marginBottom': '8px',
+            'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+        }),
+        html.Div(subtitle, style={
+            'fontSize': '14px',
+            'color': COLORS['text_secondary'],
+            'lineHeight': '1.4',
+            'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+        })
     ], style={
         'backgroundColor': COLORS['background'],
-        'padding': '24px',
-        'borderRadius': '8px',
-        'boxShadow': '0 1px 3px rgba(0,0,0,0.1)',
-        'border': f'1px solid {COLORS["border_gray"]}'
+        'padding': '32px 28px',
+        'borderRadius': '18px',
+        'border': f'1px solid {COLORS["border"]}',
+        'transition': 'all 0.3s ease'
     })
 
-def create_us_map():
-    """Create vibrant US map showing all tracked states"""
-    # State locations for markers
-    state_coords = {
-        'WI': {'lat': 44.5, 'lon': -89.5},
-        'NJ': {'lat': 40.0, 'lon': -74.5},
-        'VA': {'lat': 37.5, 'lon': -78.5},
-        'SC': {'lat': 33.8, 'lon': -81.0},
-        'NV': {'lat': 39.0, 'lon': -117.0},
-        'AR': {'lat': 34.8, 'lon': -92.2}
-    }
+def create_executive_us_map():
+    """Create premium US map with checkmarks on states with data - Apple aesthetic"""
     
-    # Create data for scatter plot
-    lats = []
-    lons = []
-    texts = []
-    colors = []
-    sizes = []
-    
-    for state_abbr, data in STATE_DATA.items():
-        coords = state_coords[state_abbr]
-        lats.append(coords['lat'])
-        lons.append(coords['lon'])
-        texts.append(f"{data['name']}<br>{data['coverage_pct']}% Coverage<br>Rank #{data['rank']}")
-        colors.append(data['color'])
-        sizes.append(data['coverage_pct'] * 0.5 + 20)  # Size based on coverage
-    
+    # Create figure with US state boundaries
     fig = go.Figure()
     
-    # Add US state boundaries
-    fig.add_trace(go.Scattergeo(
-        locationmode='USA-states',
-        lon=lons,
-        lat=lats,
-        text=texts,
-        mode='markers+text',
-        marker=dict(
-            size=sizes,
-            color=colors,
-            line=dict(width=2, color='white'),
-            opacity=0.8
-        ),
-        textfont=dict(size=10, color='white', family='Arial Black'),
-        textposition='middle center',
-        hoverinfo='text'
-    ))
+    # Add markers for tracked states with checkmarks for data availability
+    for state_abbr, data in STATE_DATA.items():
+        # Checkmark or circle based on data availability
+        symbol = 'circle' if not data['has_data'] else 'circle'
+        marker_color = COLORS['accent_blue'] if data['has_data'] else COLORS['border']
+        marker_size = 30 if data['has_data'] else 20
+        
+        # Add state marker
+        fig.add_trace(go.Scattergeo(
+            locationmode='USA-states',
+            lon=[data['lon']],
+            lat=[data['lat']],
+            mode='markers+text',
+            marker=dict(
+                size=marker_size,
+                color=marker_color,
+                line=dict(width=2, color='white'),
+                opacity=0.9
+            ),
+            text=data['abbr'],
+            textfont=dict(
+                size=11,
+                color='white' if data['has_data'] else COLORS['text_secondary'],
+                family='SF Pro Display, -apple-system, system-ui, sans-serif',
+                weight=600
+            ),
+            textposition='middle center',
+            hovertext=f"{data['name']}<br>{data['coverage_pct']}% Coverage<br>Rank #{data['rank']}{'<br>✓ Data Available' if data['has_data'] else ''}",
+            hoverinfo='text',
+            showlegend=False
+        ))
+    
+    # Add checkmarks for states with data
+    for state_abbr, data in STATE_DATA.items():
+        if data['has_data']:
+            fig.add_trace(go.Scattergeo(
+                locationmode='USA-states',
+                lon=[data['lon'] + 2],  # Offset to top-right
+                lat=[data['lat'] + 1],
+                mode='text',
+                text='✓',
+                textfont=dict(
+                    size=16,
+                    color=COLORS['full_cep'],
+                    family='SF Pro Display, -apple-system, system-ui, sans-serif',
+                    weight=700
+                ),
+                textposition='middle center',
+                hoverinfo='skip',
+                showlegend=False
+            ))
     
     fig.update_geos(
         scope='usa',
         projection_type='albers usa',
         showland=True,
-        landcolor='rgb(243, 244, 246)',
-        coastlinecolor='rgb(229, 231, 235)',
+        landcolor=COLORS['off_white'],
+        coastlinecolor=COLORS['border'],
         showlakes=True,
-        lakecolor='rgb(191, 219, 254)',
+        lakecolor='rgb(225, 235, 245)',
         showcountries=False,
         showsubunits=True,
-        subunitcolor='rgb(229, 231, 235)'
+        subunitcolor=COLORS['border'],
+        subunitwidth=1
     )
     
     fig.update_layout(
-        title={
-            'text': 'CEP Coverage Across States',
-            'font': {'size': 24, 'color': COLORS['text'], 'family': 'Arial'},
-            'x': 0.5,
-            'xanchor': 'center'
-        },
-        height=500,
-        margin={"r": 0, "t": 60, "l": 0, "b": 0},
-        paper_bgcolor=COLORS['background'],
-        geo=dict(bgcolor=COLORS['background'])
+        margin={"r": 0, "t": 20, "l": 0, "b": 0},
+        height=600,
+        paper_bgcolor='rgba(0,0,0,0)',
+        geo=dict(
+            bgcolor='rgba(0,0,0,0)',
+            lakecolor='rgb(225, 235, 245)'
+        ),
+        font=dict(
+            family='SF Pro Display, -apple-system, system-ui, sans-serif'
+        )
     )
     
     return fig
 
 def create_state_county_map(df, state_abbr, fips_dict):
-    """Create county-level choropleth map"""
+    """Create professional county-level choropleth map"""
     df['FIPS'] = df['County'].map(fips_dict)
     
     fig = go.Figure(go.Choropleth(
@@ -377,13 +423,23 @@ def create_state_county_map(df, state_abbr, fips_dict):
         z=df['CEP_Schools'],
         text=df['County'],
         colorscale=[
-            [0, COLORS['primary']],
-            [0.5, COLORS['secondary']],
-            [1, COLORS['success']]
+            [0, COLORS['no_cep']],
+            [0.5, COLORS['partial_cep']],
+            [1, COLORS['full_cep']]
         ],
         marker_line_color='white',
-        marker_line_width=0.5,
-        colorbar_title="CEP Schools"
+        marker_line_width=1,
+        colorbar=dict(
+            title="CEP<br>Schools",
+            titlefont=dict(
+                size=14,
+                family='SF Pro Display, -apple-system, system-ui, sans-serif'
+            ),
+            tickfont=dict(
+                size=12,
+                family='SF Pro Text, -apple-system, system-ui, sans-serif'
+            )
+        )
     ))
     
     # Get state center coordinates
@@ -403,15 +459,18 @@ def create_state_county_map(df, state_abbr, fips_dict):
     
     fig.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
-        height=500,
-        paper_bgcolor=COLORS['background'],
-        plot_bgcolor=COLORS['background']
+        height=550,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(
+            family='SF Pro Display, -apple-system, system-ui, sans-serif'
+        )
     )
     
     return fig
 
 def create_county_table(df, state_abbr):
-    """Create detailed county table"""
+    """Create executive-level county table with Apple aesthetic"""
     
     # Determine which columns to show based on state
     if state_abbr == 'NJ':
@@ -425,263 +484,384 @@ def create_county_table(df, state_abbr):
         coverage = (row['CEP_Schools'] / row['Eligible_Schools'] * 100) if row['Eligible_Schools'] > 0 else 0
         
         rows.append(html.Tr([
-            html.Td(row['County'], style={'fontWeight': '500'}),
-            html.Td(f"{row['Students_in_CEP']:,}", style={'textAlign': 'right'}),
-            html.Td(f"{row[poverty_col]:,}", style={'textAlign': 'right'}),
-            html.Td(f"{row['CEP_Schools']}/{row['Eligible_Schools']}", style={'textAlign': 'center'}),
-            html.Td(f"{coverage:.0f}%", style={'textAlign': 'right'}),
+            html.Td(row['County'], style={
+                'fontWeight': '500',
+                'color': COLORS['text_primary'],
+                'fontSize': '15px',
+                'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+            }),
+            html.Td(f"{row['Students_in_CEP']:,}", style={
+                'textAlign': 'right',
+                'color': COLORS['text_primary'],
+                'fontSize': '15px',
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+            }),
+            html.Td(f"{row[poverty_col]:,}", style={
+                'textAlign': 'right',
+                'color': COLORS['text_secondary'],
+                'fontSize': '15px',
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+            }),
+            html.Td(f"{row['CEP_Schools']}/{row['Eligible_Schools']}", style={
+                'textAlign': 'center',
+                'color': COLORS['text_primary'],
+                'fontSize': '15px',
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+            }),
+            html.Td(f"{coverage:.0f}%", style={
+                'textAlign': 'right',
+                'fontWeight': '500',
+                'color': COLORS['text_primary'],
+                'fontSize': '15px',
+                'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+            }),
             html.Td(
                 html.Span(row['Status'], style={
                     'backgroundColor': status_color,
                     'color': 'white',
-                    'padding': '4px 12px',
-                    'borderRadius': '12px',
-                    'fontSize': '12px',
-                    'fontWeight': '500'
+                    'padding': '6px 14px',
+                    'borderRadius': '20px',
+                    'fontSize': '13px',
+                    'fontWeight': '500',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
                 }),
                 style={'textAlign': 'center'}
             )
-        ], style={'borderBottom': f'1px solid {COLORS["border_gray"]}'}))
+        ], style={
+            'borderBottom': f'1px solid {COLORS["border"]}',
+            'transition': 'background-color 0.15s ease'
+        }))
     
-    return html.Table([
-        html.Thead(html.Tr([
-            html.Th('County', style={'textAlign': 'left', 'padding': '12px', 'fontWeight': '600'}),
-            html.Th('Students in CEP', style={'textAlign': 'right', 'padding': '12px', 'fontWeight': '600'}),
-            html.Th('Children in Poverty', style={'textAlign': 'right', 'padding': '12px', 'fontWeight': '600'}),
-            html.Th('CEP/Eligible', style={'textAlign': 'center', 'padding': '12px', 'fontWeight': '600'}),
-            html.Th('Coverage', style={'textAlign': 'right', 'padding': '12px', 'fontWeight': '600'}),
-            html.Th('Status', style={'textAlign': 'center', 'padding': '12px', 'fontWeight': '600'})
-        ], style={'backgroundColor': COLORS['light_gray'], 'borderBottom': f'2px solid {COLORS["border_gray"]}'})),
-        html.Tbody(rows)
-    ], style={'width': '100%', 'borderCollapse': 'collapse', 'backgroundColor': 'white'})
+    return html.Div([
+        html.Table([
+            html.Thead(html.Tr([
+                html.Th('County', style={
+                    'textAlign': 'left',
+                    'padding': '16px 20px',
+                    'fontWeight': '600',
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                }),
+                html.Th('Students in CEP', style={
+                    'textAlign': 'right',
+                    'padding': '16px 20px',
+                    'fontWeight': '600',
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                }),
+                html.Th('Children in Poverty', style={
+                    'textAlign': 'right',
+                    'padding': '16px 20px',
+                    'fontWeight': '600',
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                }),
+                html.Th('CEP/Eligible', style={
+                    'textAlign': 'center',
+                    'padding': '16px 20px',
+                    'fontWeight': '600',
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                }),
+                html.Th('Coverage', style={
+                    'textAlign': 'right',
+                    'padding': '16px 20px',
+                    'fontWeight': '600',
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                }),
+                html.Th('Status', style={
+                    'textAlign': 'center',
+                    'padding': '16px 20px',
+                    'fontWeight': '600',
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px',
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                })
+            ], style={
+                'backgroundColor': COLORS['off_white'],
+                'borderBottom': f'1px solid {COLORS["border"]}'
+            })),
+            html.Tbody(rows, style={'backgroundColor': COLORS['background']})
+        ], style={
+            'width': '100%',
+            'borderCollapse': 'collapse',
+            'backgroundColor': COLORS['background'],
+            'borderRadius': '12px',
+            'overflow': 'hidden'
+        })
+    ], style={
+        'border': f'1px solid {COLORS["border"]}',
+        'borderRadius': '12px',
+        'overflow': 'hidden'
+    })
 
 def create_peer_comparison_chart(state_abbr, coverage_pct):
-    """Create peer state comparison bar chart"""
+    """Create professional peer state comparison bar chart"""
     peer_states = ['SC', 'AR', 'VA', 'WI', 'NV', 'NJ']
     peer_coverage = [89, 61, 57, 55, 43, 14]
     
-    colors = [STATE_DATA[state]['color'] if state == state_abbr else COLORS['gray'] for state in peer_states]
+    # Highlight current state in blue, others in gray
+    colors = [COLORS['accent_blue'] if state == state_abbr else COLORS['border'] for state in peer_states]
     
     fig = go.Figure(go.Bar(
         x=peer_states,
         y=peer_coverage,
         marker_color=colors,
         text=[f"{c}%" for c in peer_coverage],
-        textposition='outside'
+        textposition='outside',
+        textfont=dict(
+            size=14,
+            color=COLORS['text_primary'],
+            family='SF Pro Display, -apple-system, system-ui, sans-serif',
+            weight=600
+        )
     ))
     
     fig.update_layout(
-        title="CEP Coverage: Peer State Comparison",
-        xaxis_title="State",
-        yaxis_title="Coverage %",
-        height=300,
-        margin={"r": 20, "t": 40, "l": 40, "b": 40},
-        paper_bgcolor=COLORS['background'],
-        plot_bgcolor=COLORS['background'],
-        yaxis=dict(range=[0, 100])
+        title={
+            'text': 'Peer State Comparison',
+            'font': {
+                'size': 24,
+                'color': COLORS['text_primary'],
+                'family': 'SF Pro Display, -apple-system, system-ui, sans-serif',
+                'weight': 600
+            },
+            'x': 0,
+            'xanchor': 'left'
+        },
+        xaxis=dict(
+            title='',
+            tickfont=dict(
+                size=15,
+                color=COLORS['text_primary'],
+                family='SF Pro Text, -apple-system, system-ui, sans-serif'
+            ),
+            showgrid=False
+        ),
+        yaxis=dict(
+            title='Coverage %',
+            titlefont=dict(
+                size=13,
+                color=COLORS['text_secondary'],
+                family='SF Pro Text, -apple-system, system-ui, sans-serif'
+            ),
+            tickfont=dict(
+                size=13,
+                color=COLORS['text_secondary'],
+                family='SF Pro Text, -apple-system, system-ui, sans-serif'
+            ),
+            range=[0, 100],
+            showgrid=True,
+            gridcolor=COLORS['border']
+        ),
+        height=320,
+        margin={"r": 20, "t": 60, "l": 60, "b": 40},
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(family='SF Pro Display, -apple-system, system-ui, sans-serif')
     )
     
     return fig
 
 def create_landing_page():
-    """Create vibrant landing page with US map and state cards"""
+    """Create executive-level landing page - Apple Store aesthetic"""
     return html.Div([
-        # Header
+        # Premium Header
         html.Div([
-            html.H1("Community Eligibility Provision (CEP) Dashboard", 
-                   style={
-                       'color': COLORS['text'], 
-                       'marginBottom': '8px',
-                       'fontSize': '48px',
-                       'fontWeight': '800'
-                   }),
-            html.P("Track CEP participation and coverage across states - Ensuring every child has access to nutritious meals",
-                  style={
-                      'color': COLORS['gray'], 
-                      'fontSize': '20px',
-                      'maxWidth': '800px',
-                      'margin': '0 auto'
-                  })
-        ], style={
-            'textAlign': 'center', 
-            'padding': '60px 20px 40px 20px',
-            'background': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            'color': 'white'
-        }),
-        
-        # US Map Section
-        html.Div([
-            dcc.Graph(
-                figure=create_us_map(),
-                config={'displayModeBar': False},
-                style={'marginBottom': '40px'}
-            )
-        ], style={
-            'maxWidth': '1400px',
-            'margin': '0 auto',
-            'padding': '40px 20px'
-        }),
-        
-        # State Cards Grid
-        html.Div([
-            html.H2("State Profiles", style={
-                'textAlign': 'center',
-                'color': COLORS['text'],
-                'marginBottom': '32px',
-                'fontSize': '32px',
-                'fontWeight': '700'
-            }),
             html.Div([
-                create_state_card(state_abbr, data)
-                for state_abbr, data in sorted(STATE_DATA.items(), key=lambda x: x[1]['coverage_pct'], reverse=True)
+                html.H1("Community Eligibility Provision", style={
+                    'fontSize': '56px',
+                    'fontWeight': '600',
+                    'letterSpacing': '-0.02em',
+                    'color': COLORS['text_primary'],
+                    'margin': '0',
+                    'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                }),
+                html.P("Ensuring every child has access to nutritious school meals across America", style={
+                    'fontSize': '21px',
+                    'lineHeight': '1.4',
+                    'color': COLORS['text_secondary'],
+                    'marginTop': '12px',
+                    'maxWidth': '800px',
+                    'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                })
             ], style={
-                'display': 'grid',
-                'gridTemplateColumns': 'repeat(auto-fit, minmax(320px, 1fr))',
-                'gap': '24px',
                 'maxWidth': '1400px',
-                'margin': '0 auto'
+                'margin': '0 auto',
+                'padding': '80px 40px 60px 40px',
+                'textAlign': 'center'
             })
-        ], style={'padding': '40px 20px 60px 20px'}),
+        ], style={'backgroundColor': COLORS['background']}),
+        
+        # Main Content - Map Left, State List Right
+        html.Div([
+            html.Div([
+                # Left Side - Map
+                html.Div([
+                    html.H2("State Coverage", style={
+                        'fontSize': '32px',
+                        'fontWeight': '600',
+                        'color': COLORS['text_primary'],
+                        'marginBottom': '20px',
+                        'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                    }),
+                    html.P("✓ indicates data available", style={
+                        'fontSize': '14px',
+                        'color': COLORS['text_secondary'],
+                        'marginBottom': '24px',
+                        'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                    }),
+                    dcc.Graph(
+                        figure=create_executive_us_map(),
+                        config={'displayModeBar': False},
+                        style={'marginTop': '20px'}
+                    )
+                ], style={
+                    'flex': '1',
+                    'paddingRight': '40px'
+                }),
+                
+                # Right Side - State List
+                html.Div([
+                    html.H2("State Profiles", style={
+                        'fontSize': '32px',
+                        'fontWeight': '600',
+                        'color': COLORS['text_primary'],
+                        'marginBottom': '32px',
+                        'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                    }),
+                    html.Div([
+                        create_executive_state_row(state_abbr, data)
+                        for state_abbr, data in sorted(STATE_DATA.items(), key=lambda x: x[1]['coverage_pct'], reverse=True)
+                    ], style={
+                        'display': 'flex',
+                        'flexDirection': 'column',
+                        'gap': '1px',
+                        'backgroundColor': COLORS['border'],
+                        'borderRadius': '12px',
+                        'overflow': 'hidden'
+                    })
+                ], style={
+                    'width': '480px',
+                    'flexShrink': '0'
+                })
+                
+            ], style={
+                'display': 'flex',
+                'maxWidth': '1400px',
+                'margin': '0 auto',
+                'padding': '0 40px 80px 40px'
+            })
+        ], style={'backgroundColor': COLORS['background']}),
         
         # Footer
         html.Div([
-            html.P("Data updated February 2026 | Community Eligibility Provision enables schools with high poverty rates to offer free meals to all students",
-                  style={'color': COLORS['gray'], 'fontSize': '14px', 'textAlign': 'center'})
-        ], style={'padding': '20px', 'borderTop': f'1px solid {COLORS["border_gray"]}'})
+            html.Div([
+                html.P("Data current as of February 2026", style={
+                    'fontSize': '12px',
+                    'color': COLORS['text_secondary'],
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                })
+            ], style={
+                'maxWidth': '1400px',
+                'margin': '0 auto',
+                'padding': '24px 40px',
+                'textAlign': 'center',
+                'borderTop': f'1px solid {COLORS["border"]}'
+            })
+        ], style={'backgroundColor': COLORS['off_white']})
         
-    ], style={'backgroundColor': COLORS['light_gray'], 'minHeight': '100vh'})
+    ], style={'backgroundColor': COLORS['background'], 'minHeight': '100vh'})
 
-def create_state_card(state_abbr, data):
-    """Create vibrant individual state card for landing page"""
+def create_executive_state_row(state_abbr, data):
+    """Create clean, Apple-style state row for the list"""
     return html.A(
         href=f"/state/{state_abbr}",
         children=[
             html.Div([
-                # Header with state color
+                # Left side - State info
                 html.Div([
-                    html.H3(data['name'], style={
-                        'color': 'white',
-                        'margin': '0',
-                        'fontSize': '24px',
-                        'fontWeight': '700'
-                    }),
-                    html.Div(data['abbr'], style={
-                        'color': 'white',
-                        'fontSize': '14px',
-                        'fontWeight': '500',
-                        'opacity': '0.9'
-                    })
-                ], style={
-                    'background': data['color'],
-                    'padding': '20px',
-                    'borderRadius': '8px 8px 0 0'
-                }),
-                
-                # Content
-                html.Div([
-                    # Main metric - Coverage
                     html.Div([
-                        html.Div("CEP Coverage", style={
-                            'fontSize': '14px', 
-                            'color': COLORS['gray'],
-                            'fontWeight': '500'
+                        html.Span(data['name'], style={
+                            'fontSize': '17px',
+                            'fontWeight': '600',
+                            'color': COLORS['text_primary'],
+                            'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
                         }),
-                        html.Div(f"{data['coverage_pct']}%", style={
-                            'fontSize': '48px',
-                            'fontWeight': 'bold',
-                            'color': data['color'],
-                            'lineHeight': '1'
-                        }),
-                        html.Div(f"Rank #{data['rank']} nationally", style={
-                            'fontSize': '12px',
-                            'color': COLORS['gray'],
-                            'marginTop': '4px'
-                        })
-                    ], style={'marginBottom': '20px'}),
-                    
-                    # Stats grid
-                    html.Div([
-                        html.Div([
-                            html.Div("Students Served", style={
-                                'fontSize': '12px', 
-                                'color': COLORS['gray'],
-                                'marginBottom': '4px'
-                            }),
-                            html.Div(f"{data['students_in_cep']:,}", style={
-                                'fontSize': '18px',
-                                'fontWeight': '600',
-                                'color': COLORS['text']
-                            })
-                        ], style={'marginBottom': '12px'}),
-                        
-                        html.Div([
-                            html.Div("Without CEP", style={
-                                'fontSize': '12px', 
-                                'color': COLORS['gray'],
-                                'marginBottom': '4px'
-                            }),
-                            html.Div(f"{data['children_without_cep']:,}", style={
-                                'fontSize': '18px',
-                                'fontWeight': '600',
-                                'color': COLORS['text']
-                            })
-                        ], style={'marginBottom': '12px'}),
-                        
-                        html.Div([
-                            html.Div("School Coverage", style={
-                                'fontSize': '12px', 
-                                'color': COLORS['gray'],
-                                'marginBottom': '4px'
-                            }),
-                            html.Div(f"{data['cep_schools']}/{data['eligible_schools']}", style={
-                                'fontSize': '18px',
-                                'fontWeight': '600',
-                                'color': COLORS['text']
-                            })
-                        ])
+                        (html.Span(' ✓', style={
+                            'fontSize': '14px',
+                            'color': COLORS['full_cep'],
+                            'marginLeft': '6px'
+                        }) if data['has_data'] else html.Span())
                     ]),
-                    
-                    # Status badge
-                    html.Div(
-                        "✓ Full Data Available" if data['has_data'] else "◷ Placeholder Data",
-                        style={
-                            'marginTop': '20px',
-                            'padding': '10px 16px',
-                            'backgroundColor': COLORS['success'] if data['has_data'] else COLORS['secondary'],
-                            'color': 'white',
-                            'borderRadius': '6px',
-                            'fontSize': '13px',
-                            'textAlign': 'center',
-                            'fontWeight': '600'
-                        }
-                    ),
-                    
-                    # View button
-                    html.Div("View Full Dashboard →", style={
-                        'marginTop': '16px',
-                        'color': data['color'],
-                        'fontSize': '14px',
-                        'fontWeight': '600',
-                        'textAlign': 'center'
+                    html.Div(f"{data['students_in_cep']:,} students served • Rank #{data['rank']}", style={
+                        'fontSize': '13px',
+                        'color': COLORS['text_secondary'],
+                        'marginTop': '2px',
+                        'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
                     })
-                    
-                ], style={'padding': '20px'})
+                ], style={'flex': '1'}),
+                
+                # Right side - Coverage %
+                html.Div([
+                    html.Div(f"{data['coverage_pct']}%", style={
+                        'fontSize': '28px',
+                        'fontWeight': '600',
+                        'color': COLORS['text_primary'],
+                        'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                    }),
+                    html.Div("coverage", style={
+                        'fontSize': '11px',
+                        'color': COLORS['text_secondary'],
+                        'textAlign': 'right',
+                        'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                    })
+                ], style={'textAlign': 'right'}),
+                
+                # Arrow
+                html.Div('›', style={
+                    'fontSize': '24px',
+                    'color': COLORS['text_secondary'],
+                    'marginLeft': '16px',
+                    'fontWeight': '300'
+                })
                 
             ], style={
-                'backgroundColor': 'white',
-                'borderRadius': '8px',
-                'boxShadow': '0 4px 12px rgba(0,0,0,0.1)',
-                'border': f'2px solid {COLORS["border_gray"]}',
-                'transition': 'all 0.3s ease',
-                'cursor': 'pointer',
-                'height': '100%'
+                'display': 'flex',
+                'alignItems': 'center',
+                'padding': '20px 24px',
+                'backgroundColor': COLORS['background'],
+                'transition': 'background-color 0.2s ease',
+                ':hover': {'backgroundColor': COLORS['off_white']}
             })
         ],
-        style={'textDecoration': 'none', 'display': 'block'}
+        style={
+            'textDecoration': 'none',
+            'display': 'block',
+            'cursor': 'pointer'
+        }
     )
 
 def create_state_dashboard(state_abbr):
-    """Create state-specific dashboard with consistent layout"""
+    """Create executive-level state dashboard - Apple aesthetic"""
     state_info = STATE_DATA.get(state_abbr)
     if not state_info:
         return html.Div("State not found")
@@ -707,42 +887,52 @@ def create_state_dashboard(state_abbr):
         fips_dict = {}
     
     return html.Div([
-        # Header with back button and state color
+        # Premium Header with gradient
         html.Div([
             html.Div([
-                html.A("← Back to All States", href="/", style={
-                    'color': 'white',
+                html.A("← All States", href="/", style={
+                    'color': COLORS['text_primary'],
                     'textDecoration': 'none',
-                    'fontSize': '16px',
+                    'fontSize': '15px',
                     'fontWeight': '500',
-                    'marginBottom': '16px',
+                    'marginBottom': '24px',
                     'display': 'inline-block',
-                    'opacity': '0.9'
+                    'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
                 }),
-                html.H1(f"{state_info['name']} CEP Dashboard", 
-                       style={'color': 'white', 'marginBottom': '8px', 'fontSize': '40px', 'fontWeight': '700'}),
-                html.P(f"Coverage: {state_info['coverage_pct']}% | National Rank: #{state_info['rank']}",
-                      style={'color': 'white', 'fontSize': '18px', 'opacity': '0.9'})
-            ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 20px'})
-        ], style={
-            'padding': '32px 20px',
-            'background': state_info['color'],
-            'borderBottom': f'1px solid {COLORS["border_gray"]}'
-        }),
+                html.H1(state_info['name'], style={
+                    'color': COLORS['text_primary'],
+                    'marginBottom': '12px',
+                    'fontSize': '56px',
+                    'fontWeight': '600',
+                    'letterSpacing': '-0.02em',
+                    'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                }),
+                html.P(f"{state_info['coverage_pct']}% CEP Coverage • National Rank #{state_info['rank']}", style={
+                    'color': COLORS['text_secondary'],
+                    'fontSize': '21px',
+                    'lineHeight': '1.4',
+                    'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                })
+            ], style={
+                'maxWidth': '1400px',
+                'margin': '0 auto',
+                'padding': '60px 40px'
+            })
+        ], style={'backgroundColor': COLORS['background']}),
         
         # Main content
         html.Div([
-            # Metrics Row - Leadership Banner
+            # Metrics Grid - Leadership Banner
             html.Div([
                 create_metric_card("CEP Coverage", f"{state_info['coverage_pct']}%", f"Rank #{state_info['rank']} nationally"),
-                create_metric_card("Students Served", f"{state_info['students_in_cep']:,}", "In CEP schools"),
-                create_metric_card("Children Without CEP", f"{state_info['children_without_cep']:,}", "Missing out"),
-                create_metric_card("School Coverage", f"{state_info['cep_schools']}/{state_info['eligible_schools']}", "CEP vs Eligible")
+                create_metric_card("Students Served", f"{state_info['students_in_cep']:,}", "Children in CEP schools"),
+                create_metric_card("Opportunity", f"{state_info['children_without_cep']:,}", "Children without CEP"),
+                create_metric_card("Schools", f"{state_info['cep_schools']}/{state_info['eligible_schools']}", "CEP vs Eligible")
             ], style={
                 'display': 'grid', 
-                'gridTemplateColumns': 'repeat(auto-fit, minmax(250px, 1fr))', 
-                'gap': '20px', 
-                'marginBottom': '32px'
+                'gridTemplateColumns': 'repeat(auto-fit, minmax(260px, 1fr))', 
+                'gap': '16px', 
+                'marginBottom': '48px'
             }),
             
             # Peer Comparison Chart
@@ -752,70 +942,75 @@ def create_state_dashboard(state_abbr):
                     config={'displayModeBar': False}
                 )
             ], style={
-                'backgroundColor': 'white',
-                'padding': '24px',
-                'borderRadius': '8px',
-                'boxShadow': '0 1px 3px rgba(0,0,0,0.1)',
-                'marginBottom': '32px'
+                'backgroundColor': COLORS['background'],
+                'padding': '32px',
+                'borderRadius': '18px',
+                'border': f'1px solid {COLORS["border"]}',
+                'marginBottom': '48px'
             }),
             
             # Opportunity Alert (if coverage < 50%)
             (html.Div([
-                html.H3("⚠️ Immediate Opportunity", style={
-                    'color': COLORS['text'],
-                    'marginBottom': '12px',
-                    'fontSize': '24px',
-                    'fontWeight': '700'
-                }),
-                html.P(f"{state_info['children_without_cep']:,} children could be served with full CEP implementation.",
-                      style={'fontSize': '16px', 'margin': '0', 'color': COLORS['text']})
+                html.Div([
+                    html.H3("Immediate Opportunity", style={
+                        'color': COLORS['text_primary'],
+                        'marginBottom': '8px',
+                        'fontSize': '28px',
+                        'fontWeight': '600',
+                        'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
+                    }),
+                    html.P(f"{state_info['children_without_cep']:,} children could benefit from expanded CEP implementation.", style={
+                        'fontSize': '17px',
+                        'margin': '0',
+                        'color': COLORS['text_secondary'],
+                        'lineHeight': '1.4',
+                        'fontFamily': 'SF Pro Text, -apple-system, system-ui, sans-serif'
+                    })
+                ], style={'padding': '28px'})
             ], style={
-                'backgroundColor': '#FEF3C7',
-                'border': f'3px solid {COLORS["secondary"]}',
-                'borderRadius': '8px',
-                'padding': '24px',
-                'marginBottom': '32px'
+                'background': 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)',
+                'borderRadius': '18px',
+                'marginBottom': '48px',
+                'border': f'1px solid {COLORS["border"]}'
             }) if state_info['coverage_pct'] < 50 else html.Div()),
             
             # County Map (only for states with FIPS data)
             (html.Div([
-                html.H2("County-Level CEP Coverage", style={
-                    'marginBottom': '16px',
-                    'fontSize': '28px',
-                    'fontWeight': '700',
-                    'color': COLORS['text']
+                html.H2("County-Level Coverage", style={
+                    'marginBottom': '24px',
+                    'fontSize': '32px',
+                    'fontWeight': '600',
+                    'color': COLORS['text_primary'],
+                    'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
                 }),
-                dcc.Graph(
-                    figure=create_state_county_map(df, state_abbr, fips_dict),
-                    config={'displayModeBar': False}
-                )
-            ], style={
-                'backgroundColor': 'white',
-                'padding': '24px',
-                'borderRadius': '8px',
-                'boxShadow': '0 1px 3px rgba(0,0,0,0.1)',
-                'marginBottom': '32px'
-            })
+                html.Div([
+                    dcc.Graph(
+                        figure=create_state_county_map(df, state_abbr, fips_dict),
+                        config={'displayModeBar': False}
+                    )
+                ], style={
+                    'backgroundColor': COLORS['background'],
+                    'padding': '24px',
+                    'borderRadius': '18px',
+                    'border': f'1px solid {COLORS["border"]}'
+                })
+            ], style={'marginBottom': '48px'})
             if fips_dict else html.Div()),
             
             # County Table
             html.Div([
                 html.H2("County Details", style={
-                    'marginBottom': '16px',
-                    'fontSize': '28px',
-                    'fontWeight': '700',
-                    'color': COLORS['text']
+                    'marginBottom': '24px',
+                    'fontSize': '32px',
+                    'fontWeight': '600',
+                    'color': COLORS['text_primary'],
+                    'fontFamily': 'SF Pro Display, -apple-system, system-ui, sans-serif'
                 }),
                 create_county_table(df, state_abbr)
-            ], style={
-                'backgroundColor': 'white',
-                'padding': '24px',
-                'borderRadius': '8px',
-                'boxShadow': '0 1px 3px rgba(0,0,0,0.1)'
-            })
+            ], style={'marginBottom': '48px'})
             
-        ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '32px 20px'})
-    ], style={'backgroundColor': COLORS['light_gray'], 'minHeight': '100vh'})
+        ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
+    ], style={'backgroundColor': COLORS['off_white'], 'minHeight': '100vh'})
 
 # ====================
 # APP LAYOUT & CALLBACKS
