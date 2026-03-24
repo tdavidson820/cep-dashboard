@@ -247,8 +247,7 @@ def create_sortable_county_table(df):
             sort_action='native', 
             sort_mode='multi', 
             filter_action='native',  # Filters in HEADER only
-            page_action='native', 
-            page_size=20, 
+            page_action='none',  # REMOVED PAGINATION - show all counties
             style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'}, 
             style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'}, 
             style_cell={'padding': '16px 20px', 'fontSize': '15px', 'fontFamily': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'}, 
@@ -259,10 +258,10 @@ def create_sortable_county_table(df):
                 {'if': {'column_id': 'Status'}, 'minWidth': '140px', 'textAlign': 'center'}  # Wider status column
             ], 
             style_data_conditional=[
-                # ENHANCEMENT 4: Highly visible status badges
-                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 'backgroundColor': COLORS['full_cep'], 'color': 'white', 'fontWeight': '600', 'fontSize': '14px', 'padding': '10px 18px', 'borderRadius': '20px'}, 
-                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 'backgroundColor': COLORS['partial_cep'], 'color': '#1a1a1a', 'fontWeight': '600', 'fontSize': '14px', 'padding': '10px 18px', 'borderRadius': '20px'}, 
-                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 'backgroundColor': COLORS['no_cep'], 'color': 'white', 'fontWeight': '600', 'fontSize': '14px', 'padding': '10px 18px', 'borderRadius': '20px'}, 
+                # Status chips with proper readable colors
+                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#d1fae5', 'color': '#065f46', 'fontWeight': '600', 'fontSize': '14px', 'padding': '10px 18px', 'borderRadius': '20px'}, 
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#fef3c7', 'color': '#92400e', 'fontWeight': '600', 'fontSize': '14px', 'padding': '10px 18px', 'borderRadius': '20px'}, 
+                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 'backgroundColor': '#fee2e2', 'color': '#991b1b', 'fontWeight': '600', 'fontSize': '14px', 'padding': '10px 18px', 'borderRadius': '20px'}, 
                 {'if': {'row_index': 'odd'}, 'backgroundColor': COLORS['white']}, 
                 {'if': {'row_index': 'even'}, 'backgroundColor': COLORS['off_white']}
             ], 
