@@ -258,7 +258,11 @@ def create_sortable_county_table(df):
                 {'if': {'column_id': 'Status'}, 'minWidth': '180px', 'paddingLeft': '12px', 'paddingRight': '12px'}  # Wider for full pill
             ], 
             style_data_conditional=[
-                # Google Sheets-style status pills
+                # Row highlighting based on status
+                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#f0fdf4'},  # Light green rows
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fefce8'},  # Light yellow rows
+                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fef2f2'},  # Light red rows
+                # Status pills (on top of row colors)
                 {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#c6e7d0', 'color': '#0f6938', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
@@ -270,9 +274,7 @@ def create_sortable_county_table(df):
                 {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#f4cccc', 'color': '#85200c', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
-                    'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
-                {'if': {'row_index': 'odd'}, 'backgroundColor': COLORS['white']}, 
-                {'if': {'row_index': 'even'}, 'backgroundColor': COLORS['off_white']}
+                    'textAlign': 'left', 'display': 'block', 'width': '100%'}
             ], 
             # ENHANCEMENT 3: Filter styling (header-only)
             style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '14px'}
