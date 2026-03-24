@@ -106,10 +106,8 @@ def load_wisconsin_data():
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
     # Normalize status using shared function
     df['Status'] = df['Status'].apply(normalize_status)
-    # Add dropdown arrow to match Google Sheets style
-    df['Status'] = df['Status'] + ' ▼'
     # Add numeric status for map
-    df['Status_Numeric'] = df['Status'].apply(lambda x: status_to_numeric(x.replace(' ▼', '')))
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
     return df
 
 WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': '55009', 'Racine': '55101', 'Outagamie': '55087', 'Kenosha': '55059', 'Rock': '55105', 'Winnebago': '55139', 'Marathon': '55073', 'Washington': '55131', 'Ozaukee': '55089', 'Sheboygan': '55117', 'La Crosse': '55063', 'Fond du Lac': '55039', 'Eau Claire': '55035', 'Walworth': '55127', 'Wood': '55141', 'St. Croix': '55109', 'Dodge': '55027', 'Jefferson': '55055', 'Portage': '55097', 'Barron': '55005', 'Chippewa': '55017', 'Grant': '55043', 'Columbia': '55021', 'Manitowoc': '55071', 'Sauk': '55111', 'Shawano': '55115', 'Clark': '55019', 'Pierce': '55093', 'Polk': '55095', 'Waupaca': '55135', 'Waushara': '55137', 'Adams': '55001', 'Green': '55045', 'Marinette': '55075', 'Dunn': '55033', 'Douglas': '55031', 'Juneau': '55057', 'Trempealeau': '55121', 'Monroe': '55081', 'Vernon': '55123', 'Calumet': '55015', 'Sawyer': '55113', 'Crawford': '55023', 'Richland': '55103', 'Jackson': '55053', 'Iowa': '55049', 'Green Lake': '55047', 'Burnett': '55013', 'Rusk': '55107', 'Ashland': '55003', 'Marquette': '55077', 'Lafayette': '55065', 'Bayfield': '55007', 'Oneida': '55085', 'Taylor': '55119', 'Vilas': '55125', 'Price': '55099', 'Lincoln': '55069', 'Door': '55029', 'Langlade': '55067', 'Washburn': '55129', 'Iron': '55051', 'Buffalo': '55011', 'Pepin': '55091', 'Forest': '55041', 'Florence': '55037', 'Menominee': '55078'}
@@ -260,16 +258,16 @@ def create_sortable_county_table(df):
                 {'if': {'column_id': 'Status'}, 'minWidth': '180px', 'paddingLeft': '12px', 'paddingRight': '12px'}  # Wider for full pill
             ], 
             style_data_conditional=[
-                # Google Sheets-style status pills matching reference image
-                {'if': {'filter_query': '{Status} contains "FULL CEP"', 'column_id': 'Status'}, 
+                # Google Sheets-style status pills
+                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#c6e7d0', 'color': '#0f6938', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
-                {'if': {'filter_query': '{Status} contains "PARTIAL CEP"', 'column_id': 'Status'}, 
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#f9e79f', 'color': '#7d6608', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
-                {'if': {'filter_query': '{Status} contains "NO CEP"', 'column_id': 'Status'}, 
+                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#f4cccc', 'color': '#85200c', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
