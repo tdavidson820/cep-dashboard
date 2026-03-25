@@ -80,14 +80,16 @@ STATE_EXECUTIVES = {
     'WI': {
         'Governor': {'name': 'Tony Evers', 'party': 'Democrat'},
         'State Treasurer': {'name': 'John Leiber', 'party': 'Republican'},
-        'Senate Finance Co-Chair': {'name': 'Howard Marklein', 'party': 'Republican'},
-        'Assembly Finance Co-Chair': {'name': 'Mark Born', 'party': 'Republican'}
+        'Senate Majority Leader': {'name': 'Devin LeMahieu', 'party': 'Republican'},
+        'Senate Education Chair': {'name': 'John Jagler', 'party': 'Republican'},
+        'Senate Appropriations Chair': {'name': 'Howard Marklein', 'party': 'Republican'}
     },
     'NJ': {
-        'Governor': {'name': 'Phil Murphy', 'party': 'Democrat'},
-        'State Treasurer': {'name': 'Elizabeth Maher Muoio', 'party': 'Democrat'},
-        'Senate Budget Chair': {'name': 'Paul Sarlo', 'party': 'Democrat'},
-        'Assembly Budget Chair': {'name': 'Eliana Pintor Marin', 'party': 'Democrat'}
+        'Governor': {'name': 'Mikie Sherrill', 'party': 'Democrat'},
+        'State Treasurer': {'name': 'Aaron Binder', 'party': 'Democrat'},
+        'Senate Majority Leader': {'name': 'M. Teresa Ruiz', 'party': 'Democrat'},
+        'Senate Education Chair': {'name': 'Vin Gopal', 'party': 'Democrat'},
+        'Senate Appropriations Chair': {'name': 'Paul Sarlo', 'party': 'Democrat'}
     }
 }
 
@@ -211,6 +213,18 @@ def create_state_executives_section(state_abbr):
     if not executives:
         return html.Div()
     
+    # Party legend with symbols
+    legend = html.Div([
+        html.Div([
+            html.Span('●', style={'color': COLORS['democrat_name'], 'fontSize': '20px', 'marginRight': '6px'}),
+            html.Span('Democratic', style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginRight': '20px'})
+        ], style={'display': 'inline-flex', 'alignItems': 'center'}),
+        html.Div([
+            html.Span('●', style={'color': COLORS['republican_name'], 'fontSize': '20px', 'marginRight': '6px'}),
+            html.Span('Republican', style={'fontSize': '13px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'inline-flex', 'alignItems': 'center'})
+    ], style={'display': 'flex', 'gap': '16px', 'marginBottom': '20px', 'paddingBottom': '12px', 'borderBottom': f'1px solid {COLORS["border"]}'})
+    
     cards = []
     for position, official in executives.items():
         name_color = get_party_color(official['party'])
@@ -221,7 +235,7 @@ def create_state_executives_section(state_abbr):
         ], style={'background': 'white', 'padding': '20px 24px', 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}', 'minWidth': '200px'})
         cards.append(card)
     
-    return html.Div([html.Div([html.H2("State Leadership", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '20px'}), html.Div(cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(200px, 1fr))', 'gap': '16px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 40px 40px'})], style={'background': COLORS['off_white'], 'borderBottom': f'1px solid {COLORS["border"]}'})
+    return html.Div([html.Div([html.H2("State Leadership", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '20px'}), legend, html.Div(cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(200px, 1fr))', 'gap': '16px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 40px 40px'})], style={'background': COLORS['off_white'], 'borderBottom': f'1px solid {COLORS["border"]}'})
 
 def create_county_map(df, fips_dict, state_abbr):
     """ENHANCEMENT 2: Map correctly shows Full/Partial/No CEP"""
@@ -295,17 +309,17 @@ def create_sortable_county_table(df):
                 {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#f0fdf4'},  # Light green rows
                 {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fefce8'},  # Light yellow rows
                 {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fef2f2'},  # Light red rows
-                # Status pills (on top of row colors)
+                # Status pills (on top of row colors) - CORRECTED TO MATCH APPROVED COLORS
                 {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#c6e7d0', 'color': '#0f6938', 'fontWeight': '600', 
+                    'backgroundColor': '#10b981', 'color': '#ffffff', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
                 {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#f9e79f', 'color': '#7d6608', 'fontWeight': '600', 
+                    'backgroundColor': '#fbbf24', 'color': '#1a1a1a', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
                 {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#f4cccc', 'color': '#85200c', 'fontWeight': '600', 
+                    'backgroundColor': '#ef4444', 'color': '#ffffff', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}
             ], 
