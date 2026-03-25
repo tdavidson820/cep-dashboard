@@ -82,6 +82,12 @@ STATE_EXECUTIVES = {
         'State Treasurer': {'name': 'John Leiber', 'party': 'Republican'},
         'Senate Finance Co-Chair': {'name': 'Howard Marklein', 'party': 'Republican'},
         'Assembly Finance Co-Chair': {'name': 'Mark Born', 'party': 'Republican'}
+    },
+    'NJ': {
+        'Governor': {'name': 'Phil Murphy', 'party': 'Democrat'},
+        'State Treasurer': {'name': 'Elizabeth Maher Muoio', 'party': 'Democrat'},
+        'Senate Budget Chair': {'name': 'Paul Sarlo', 'party': 'Democrat'},
+        'Assembly Budget Chair': {'name': 'Eliana Pintor Marin', 'party': 'Democrat'}
     }
 }
 
@@ -112,8 +118,28 @@ def load_wisconsin_data():
 
 WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': '55009', 'Racine': '55101', 'Outagamie': '55087', 'Kenosha': '55059', 'Rock': '55105', 'Winnebago': '55139', 'Marathon': '55073', 'Washington': '55131', 'Ozaukee': '55089', 'Sheboygan': '55117', 'La Crosse': '55063', 'Fond du Lac': '55039', 'Eau Claire': '55035', 'Walworth': '55127', 'Wood': '55141', 'St. Croix': '55109', 'Dodge': '55027', 'Jefferson': '55055', 'Portage': '55097', 'Barron': '55005', 'Chippewa': '55017', 'Grant': '55043', 'Columbia': '55021', 'Manitowoc': '55071', 'Sauk': '55111', 'Shawano': '55115', 'Clark': '55019', 'Pierce': '55093', 'Polk': '55095', 'Waupaca': '55135', 'Waushara': '55137', 'Adams': '55001', 'Green': '55045', 'Marinette': '55075', 'Dunn': '55033', 'Douglas': '55031', 'Juneau': '55057', 'Trempealeau': '55121', 'Monroe': '55081', 'Vernon': '55123', 'Calumet': '55015', 'Sawyer': '55113', 'Crawford': '55023', 'Richland': '55103', 'Jackson': '55053', 'Iowa': '55049', 'Green Lake': '55047', 'Burnett': '55013', 'Rusk': '55107', 'Ashland': '55003', 'Marquette': '55077', 'Lafayette': '55065', 'Bayfield': '55007', 'Oneida': '55085', 'Taylor': '55119', 'Vilas': '55125', 'Price': '55099', 'Lincoln': '55069', 'Door': '55029', 'Langlade': '55067', 'Washburn': '55129', 'Iron': '55051', 'Buffalo': '55011', 'Pepin': '55091', 'Forest': '55041', 'Florence': '55037', 'Menominee': '55078'}
 
+NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
+
 def load_new_jersey_data():
-    return pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
+    """Load complete New Jersey county data - 21 counties, all 11 columns"""
+    data = {
+        'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden', 'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union', 'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May', 'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
+        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461850, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
+        'Children_in_Poverty': [18673, 171186, 36226, 108492, 160613, 94227, 94967, 39807, 51129, 13924, 36275, 60987, 89769, 44338, 50805, 65946, 6097, 21067, 7499, 25973, 4642],
+        'School_Districts': [4, 12, 8, 15, 22, 18, 18, 11, 13, 9, 14, 21, 25, 18, 19, 70, 6, 15, 8, 39, 18],
+        'Eligible_Schools': [23, 140, 51, 134, 225, 147, 96, 61, 87, 18, 52, 124, 157, 74, 104, 114, 24, 59, 12, 90, 18],
+        'CEP_Schools': [3, 32, 15, 58, 58, 44, 6, 1, 27, 0, 3, 0, 0, 0, 11, 3, 5, 0, 0, 0, 0],
+        'Students_in_CEP': [1219, 14232, 7791, 41992, 25210, 17558, 1853, 339, 13723, 0, 1188, 0, 0, 0, 3547, 753, 1011, 0, 0, 0, 0],
+        'Coverage_Pct': [13, 23, 29, 43, 26, 30, 6, 2, 31, 0, 6, 0, 0, 0, 11, 3, 21, 0, 0, 0, 0],
+        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+    }
+    df = pd.DataFrame(data)
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    # Normalize status using shared function
+    df['Status'] = df['Status'].apply(normalize_status)
+    # Add numeric status for map
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
 
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'rank': 42, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
@@ -286,11 +312,15 @@ def create_state_page(state_abbr):
     if not state_data:
         return html.Div("State not found")
     
+    # Load county data based on state
     if state_abbr == 'WI':
         df = load_wisconsin_data()
         fips_dict = WI_FIPS
-    else:
+    elif state_abbr == 'NJ':
         df = load_new_jersey_data()
+        fips_dict = NJ_FIPS
+    else:
+        df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
         fips_dict = {}
     
     return html.Div([
