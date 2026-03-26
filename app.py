@@ -37,11 +37,14 @@ STATE_CATEGORIES = {
     'universal_breakfast': ['AR', 'PA']  # 2 states with free breakfast only
 }
 
-# State flag emoji mapping (Unicode flags)
+# State flag SVG URLs from reliable CDN (actual official state flags)
 STATE_FLAGS = {
-    'WI': '🧀', 'NJ': '🏖️', 'VA': '🏛️', 'SC': '🌴', 'NV': '🎰', 'AR': '💎',
-    'CA': '🐻', 'ME': '🦞', 'CO': '🏔️', 'MN': '❄️', 'NM': '🌵', 
-    'VT': '🍁', 'MI': '🚗', 'MA': '🦃', 'NY': '🗽', 'PA': '🔔'
+    'WI': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Flag_of_Wisconsin.svg/45px-Flag_of_Wisconsin.svg.png',
+    'NJ': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_New_Jersey.svg/45px-Flag_of_New_Jersey.svg.png',
+    'VA': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Flag_of_Virginia.svg/45px-Flag_of_Virginia.svg.png',
+    'SC': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Flag_of_South_Carolina.svg/45px-Flag_of_South_Carolina.svg.png',
+    'NV': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flag_of_Nevada.svg/45px-Flag_of_Nevada.svg.png',
+    'AR': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Flag_of_Arkansas.svg/45px-Flag_of_Arkansas.svg.png'
 }
 
 # ====================
@@ -291,14 +294,14 @@ def create_explore_states_panel():
             border_color = 'transparent'
             subtitle = f"{state_data.get('coverage_pct', 0)}% coverage"
         
-        flag = STATE_FLAGS.get(state_abbr, '🏴')
+        flag_url = STATE_FLAGS.get(state_abbr, '')
         
         return html.A(
             href=f"/state/{state_abbr}",
             children=[
                 html.Div([
                     html.Div([
-                        html.Span(flag, style={'fontSize': '24px', 'marginRight': '12px'}),
+                        html.Img(src=flag_url, style={'width': '32px', 'height': '21px', 'marginRight': '12px', 'border': '0.5px solid #e5e7eb', 'borderRadius': '2px', 'objectFit': 'cover'}),
                         html.Div([
                             html.Div(state_data.get('name', state_abbr), style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '2px'}),
                             html.Div(subtitle, style={'fontSize': '13px', 'color': COLORS['text_secondary']})
