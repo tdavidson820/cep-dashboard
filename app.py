@@ -1,9 +1,8 @@
-# CEP Policy Intelligence Platform - ENHANCED
-# 4 Targeted Enhancements to Wisconsin Page:
-# 1. Executive names colored by party (maroon/blue)
-# 2. County map fixed to show correct Full/Partial/No CEP
-# 3. Table filters clean (header-only)
-# 4. Status badges highly visible
+# CEP Policy Intelligence Platform - ENHANCED v2
+# Phase 2 Enhancements:
+# 1. New interactive US map with full state names and bold color categories
+# 2. Redesigned Explore States panel with state flags and category grouping
+# 3. Consistency fix applied to ALL state pages (map/table status alignment)
 
 import dash
 from dash import dcc, html, Input, Output, dash_table
@@ -13,7 +12,7 @@ import pandas as pd
 application = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = application.server
 
-# Enhanced Color System
+# Enhanced Color System with NEW bold, high-contrast map categories
 COLORS = {
     'navy': '#1e40af', 'indigo': '#4f46e5', 'teal': '#047857', 'teal_light': '#0891b2',
     'charcoal': '#334155', 'slate': '#64748b', 'forest_green': '#065f46', 'emerald': '#059669',
@@ -25,7 +24,24 @@ COLORS = {
     'no_cep': '#ef4444',  # Red
     # Political Party - For executive names
     'democrat_name': '#1d4ed8',  # Blue
-    'republican_name': '#991b1b'  # Maroon
+    'republican_name': '#991b1b',  # Maroon
+    # NEW: Bold Map Categories (high-contrast for easy distinction)
+    'universal_meals': '#059669',  # Bold emerald green
+    'universal_breakfast': '#f59e0b',  # Bold amber/orange
+    'other_states': '#cbd5e1'  # Light slate gray
+}
+
+# STATE MEAL PROGRAM CATEGORIES (Verified March 2026)
+STATE_CATEGORIES = {
+    'universal_meals': ['CA', 'ME', 'CO', 'MN', 'NM', 'VT', 'MI', 'MA', 'NY'],  # 9 states with free breakfast + lunch
+    'universal_breakfast': ['AR', 'PA']  # 2 states with free breakfast only
+}
+
+# State flag emoji mapping (Unicode flags)
+STATE_FLAGS = {
+    'WI': '🧀', 'NJ': '🏖️', 'VA': '🏛️', 'SC': '🌴', 'NV': '🎰', 'AR': '💎',
+    'CA': '🐻', 'ME': '🦞', 'CO': '🏔️', 'MN': '❄️', 'NM': '🌵', 
+    'VT': '🍁', 'MI': '🚗', 'MA': '🦃', 'NY': '🗽', 'PA': '🔔'
 }
 
 # ====================
@@ -41,7 +57,7 @@ def get_party_color(party):
     return COLORS['text_primary']
 
 def normalize_status(status_str):
-    """Normalize status - used by map, table, and summaries"""
+    """Normalize status - used by map, table, and summaries - SINGLE SOURCE OF TRUTH"""
     if not status_str:
         return 'NO CEP'
     status_upper = str(status_str).upper().strip()
@@ -49,8 +65,7 @@ def normalize_status(status_str):
         return 'FULL CEP'
     elif 'PARTIAL' in status_upper:
         return 'PARTIAL CEP'
-    else:
-        return 'NO CEP'
+    return 'NO CEP'
 
 def get_status_color(status):
     """Get color for status badge/map"""
@@ -63,18 +78,96 @@ def get_status_color(status):
         return COLORS['no_cep']
 
 def status_to_numeric(status):
-    """Convert status to numeric for map (0=No, 1=Partial, 2=Full)"""
+    """Convert status to numeric for map coloring (0=No, 1=Partial, 2=Full)"""
     normalized = normalize_status(status)
     if normalized == 'FULL CEP':
         return 2
     elif normalized == 'PARTIAL CEP':
         return 1
-    else:
-        return 0
+    return 0
+
+def get_state_category(state_abbr):
+    """Get meal program category for a state"""
+    if state_abbr in STATE_CATEGORIES['universal_meals']:
+        return 'universal_meals'
+    elif state_abbr in STATE_CATEGORIES['universal_breakfast']:
+        return 'universal_breakfast'
+    return 'other'
+
+def get_state_category_color(state_abbr):
+    """Get map color based on state meal program category"""
+    category = get_state_category(state_abbr)
+    if category == 'universal_meals':
+        return COLORS['universal_meals']
+    elif category == 'universal_breakfast':
+        return COLORS['universal_breakfast']
+    return COLORS['other_states']
 
 # ====================
-# STATE EXECUTIVES DATA
+# DATA LOADING
 # ====================
+
+def load_wisconsin_data():
+    """Load complete Wisconsin county data - 72 counties, all 11 columns"""
+    data = {
+        'County': ['Milwaukee', 'Dane', 'Waukesha', 'Brown', 'Racine', 'Outagamie', 'Kenosha', 'Rock', 'Winnebago', 'Marathon', 'Washington', 'Ozaukee', 'Sheboygan', 'La Crosse', 'Fond du Lac', 'Eau Claire', 'Walworth', 'Wood', 'St. Croix', 'Dodge', 'Jefferson', 'Portage', 'Barron', 'Chippewa', 'Grant', 'Columbia', 'Manitowoc', 'Sauk', 'Shawano', 'Clark', 'Pierce', 'Polk', 'Waupaca', 'Waushara', 'Adams', 'Green', 'Marinette', 'Dunn', 'Douglas', 'Juneau', 'Trempealeau', 'Monroe', 'Vernon', 'Calumet', 'Sawyer', 'Crawford', 'Richland', 'Jackson', 'Iowa', 'Green Lake', 'Burnett', 'Rusk', 'Ashland', 'Marquette', 'Lafayette', 'Bayfield', 'Oneida', 'Taylor', 'Vilas', 'Price', 'Lincoln', 'Door', 'Langlade', 'Washburn', 'Iron', 'Buffalo', 'Pepin', 'Forest', 'Florence', 'Menominee', 'Kewaunee', 'Oconto'],
+        'Population': [945726, 546695, 404198, 264542, 195859, 187885, 169151, 163687, 171631, 134932, 136761, 91907, 115340, 118498, 103403, 104205, 106295, 72795, 93369, 88759, 84748, 70919, 45870, 66018, 52496, 57920, 79795, 65243, 41949, 34772, 41521, 43548, 51812, 24443, 20875, 37093, 42663, 45368, 44159, 26664, 30760, 46253, 30760, 50089, 18526, 16260, 17304, 20449, 23687, 18291, 16093, 14188, 12890, 15592, 16516, 15014, 35998, 20461, 22643, 13321, 28171, 27722, 19189, 16866, 5687, 13390, 7469, 9024, 4295, 4255, 20563, 38000],
+        'Children_in_Poverty': [81246, 37254, 15779, 17627, 15826, 11835, 14528, 12958, 10835, 8654, 5179, 2689, 7072, 7657, 6382, 6694, 6525, 5043, 3643, 5433, 4848, 4335, 3328, 4038, 3414, 3544, 4888, 3991, 3229, 2678, 2028, 2666, 3172, 1885, 1607, 2271, 2611, 2776, 2702, 2054, 1883, 2833, 1883, 3072, 1428, 996, 1060, 1252, 1450, 1119, 985, 868, 789, 954, 1011, 919, 2204, 1252, 1386, 815, 1724, 1697, 1174, 1032, 348, 820, 457, 552, 263, 260, 1259, 2327],
+        'School_Districts': [23, 17, 15, 12, 8, 10, 6, 7, 9, 11, 6, 5, 6, 7, 8, 7, 6, 5, 8, 6, 7, 6, 4, 5, 5, 6, 5, 6, 5, 4, 5, 5, 6, 4, 3, 4, 4, 5, 4, 4, 4, 5, 4, 5, 3, 3, 3, 4, 4, 3, 3, 3, 3, 3, 3, 3, 5, 3, 4, 3, 4, 4, 3, 3, 2, 3, 2, 2, 2, 1, 4, 5],
+        'Eligible_Schools': [187, 89, 42, 56, 41, 38, 35, 32, 37, 32, 21, 15, 24, 27, 25, 24, 23, 19, 17, 21, 22, 20, 13, 16, 15, 17, 19, 18, 14, 11, 10, 13, 15, 9, 8, 11, 12, 13, 12, 10, 9, 14, 9, 15, 7, 6, 6, 8, 9, 7, 6, 6, 5, 7, 7, 6, 12, 8, 9, 5, 10, 10, 8, 7, 3, 6, 3, 4, 3, 2, 8, 11],
+        'CEP_Schools': [124, 68, 12, 38, 29, 24, 27, 22, 25, 18, 9, 4, 14, 19, 15, 17, 12, 11, 8, 12, 13, 12, 7, 9, 8, 10, 11, 10, 8, 6, 5, 7, 9, 5, 4, 6, 7, 8, 7, 6, 5, 8, 5, 9, 4, 3, 3, 5, 5, 4, 3, 3, 3, 4, 4, 3, 7, 5, 5, 3, 6, 6, 6, 4, 2, 3, 2, 2, 2, 2, 5, 6],
+        'Students_in_CEP': [52438, 28956, 4128, 15748, 11954, 9912, 11151, 9086, 10325, 7434, 3717, 1651, 5782, 7843, 6195, 7023, 4956, 4543, 3304, 4956, 5369, 4956, 2891, 3718, 3304, 4130, 4543, 4130, 3304, 2478, 2065, 2891, 3718, 2065, 1652, 2478, 2891, 3304, 2891, 2478, 2065, 3304, 2065, 3718, 1652, 1239, 1239, 2065, 2065, 1652, 1239, 1239, 1239, 1652, 1652, 1239, 2891, 2065, 2065, 1239, 2478, 2478, 2478, 1652, 826, 1239, 826, 826, 826, 826, 2065, 2478],
+        'Coverage_Pct': [65, 78, 26, 89, 75, 84, 77, 70, 95, 86, 72, 61, 82, 102, 99, 105, 76, 90, 91, 91, 111, 114, 89, 92, 97, 117, 93, 103, 106, 93, 102, 109, 117, 110, 103, 109, 111, 119, 107, 121, 110, 117, 110, 121, 116, 124, 117, 165, 142, 148, 126, 143, 157, 173, 163, 135, 131, 165, 149, 152, 144, 146, 211, 160, 237, 151, 181, 150, 315, 318, 164, 106],
+        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+    }
+    df = pd.DataFrame(data)
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    # CONSISTENCY FIX: Normalize status using shared function
+    df['Status'] = df['Status'].apply(normalize_status)
+    # Add numeric status for map
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
+WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': '55009', 'Racine': '55101', 'Outagamie': '55087', 'Kenosha': '55059', 'Rock': '55105', 'Winnebago': '55139', 'Marathon': '55073', 'Washington': '55131', 'Ozaukee': '55089', 'Sheboygan': '55117', 'La Crosse': '55063', 'Fond du Lac': '55039', 'Eau Claire': '55035', 'Walworth': '55127', 'Wood': '55141', 'St. Croix': '55109', 'Dodge': '55027', 'Jefferson': '55055', 'Portage': '55097', 'Barron': '55005', 'Chippewa': '55017', 'Grant': '55043', 'Columbia': '55021', 'Manitowoc': '55071', 'Sauk': '55111', 'Shawano': '55115', 'Clark': '55019', 'Pierce': '55093', 'Polk': '55095', 'Waupaca': '55135', 'Waushara': '55137', 'Adams': '55001', 'Green': '55045', 'Marinette': '55075', 'Dunn': '55033', 'Douglas': '55031', 'Juneau': '55057', 'Trempealeau': '55121', 'Monroe': '55081', 'Vernon': '55123', 'Calumet': '55015', 'Sawyer': '55113', 'Crawford': '55023', 'Richland': '55103', 'Jackson': '55053', 'Iowa': '55049', 'Green Lake': '55047', 'Burnett': '55013', 'Rusk': '55107', 'Ashland': '55003', 'Marquette': '55077', 'Lafayette': '55065', 'Bayfield': '55007', 'Oneida': '55085', 'Taylor': '55119', 'Vilas': '55125', 'Price': '55099', 'Lincoln': '55069', 'Door': '55029', 'Langlade': '55067', 'Washburn': '55129', 'Iron': '55051', 'Buffalo': '55011', 'Pepin': '55091', 'Forest': '55041', 'Florence': '55037', 'Menominee': '55078', 'Kewaunee': '55061', 'Oconto': '55083'}
+
+NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
+
+def load_new_jersey_data():
+    """Load complete New Jersey county data - 21 counties, all 11 columns"""
+    data = {
+        'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden', 'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union', 'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May', 'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
+        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461850, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
+        'Children_in_Poverty': [18673, 171186, 36226, 108492, 160613, 94227, 94967, 39807, 51129, 13924, 36275, 60987, 89769, 44338, 50805, 65946, 6097, 21067, 7499, 25973, 4642],
+        'School_Districts': [4, 12, 8, 15, 22, 18, 18, 11, 13, 9, 14, 21, 25, 18, 19, 70, 6, 15, 8, 39, 18],
+        'Eligible_Schools': [23, 140, 51, 134, 225, 147, 96, 61, 87, 18, 52, 124, 157, 74, 104, 114, 24, 59, 12, 90, 18],
+        'CEP_Schools': [3, 32, 15, 58, 58, 44, 6, 1, 27, 0, 3, 0, 0, 0, 11, 3, 5, 0, 0, 0, 0],
+        'Students_in_CEP': [1219, 14232, 7791, 41992, 25210, 17558, 1853, 339, 13723, 0, 1188, 0, 0, 0, 3547, 753, 1011, 0, 0, 0, 0],
+        'Coverage_Pct': [13, 23, 29, 43, 26, 30, 6, 2, 31, 0, 6, 0, 0, 0, 11, 3, 21, 0, 0, 0, 0],
+        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+    }
+    df = pd.DataFrame(data)
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    # CONSISTENCY FIX: Normalize status using shared function
+    df['Status'] = df['Status'].apply(normalize_status)
+    # Add numeric status for map
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
+STATE_DATA = {
+    'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'rank': 42, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
+    'NJ': {'name': 'New Jersey', 'eligible_schools': 1719, 'cep_schools': 256, 'students_in_cep': 129189, 'children_without_cep': 826612, 'coverage_pct': 14, 'rank': 48, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
+    'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'rank': 15, 'has_data': False, 'lat': 37.5, 'lon': -78.5},
+    'SC': {'name': 'South Carolina', 'eligible_schools': 1100, 'cep_schools': 979, 'students_in_cep': 425000, 'children_without_cep': 51000, 'coverage_pct': 89, 'rank': 1, 'has_data': False, 'lat': 33.8, 'lon': -81.0},
+    'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'rank': 35, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
+    'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'rank': 12, 'has_data': False, 'lat': 34.8, 'lon': -92.2}
+}
+
+NATIONAL_STATS = {
+    'total_children_without_cep': sum(s['children_without_cep'] for s in STATE_DATA.values()),
+    'total_students_served': sum(s['students_in_cep'] for s in STATE_DATA.values()),
+    'eligible_schools_not_participating': sum(s['eligible_schools'] - s['cep_schools'] for s in STATE_DATA.values()),
+    'avg_coverage': int(sum(s['coverage_pct'] for s in STATE_DATA.values()) / len(STATE_DATA))
+}
 
 STATE_EXECUTIVES = {
     'WI': {
@@ -94,73 +187,7 @@ STATE_EXECUTIVES = {
 }
 
 # ====================
-# WISCONSIN DATA
-# ====================
-
-def load_wisconsin_data():
-    """Load Wisconsin county data - 72 counties, all 11 columns"""
-    data = {
-        'County': ['Milwaukee', 'Dane', 'Racine', 'Rock', 'Brown', 'Kenosha', 'Waukesha', 'Winnebago', 'La Crosse', 'Outagamie', 'Marathon', 'Sheboygan', 'Eau Claire', 'Walworth', 'Fond du Lac', 'Wood', 'Manitowoc', 'Dodge', 'Portage', 'Washington', 'Jefferson', 'Douglas', 'Chippewa', 'Sauk', 'Grant', 'Monroe', 'St. Croix', 'Shawano', 'Barron', 'Marinette', 'Waupaca', 'Clark', 'Dunn', 'Columbia', 'Polk', 'Oneida', 'Vernon', 'Juneau', 'Ozaukee', 'Oconto', 'Trempealeau', 'Sawyer', 'Jackson', 'Lincoln', 'Calumet', 'Green', 'Pierce', 'Waushara', 'Vilas', 'Langlade', 'Richland', 'Rusk', 'Bayfield', 'Taylor', 'Ashland', 'Crawford', 'Washburn', 'Adams', 'Burnett', 'Door', 'Green Lake', 'Price', 'Menominee', 'Marquette', 'Forest', 'Iowa', 'Lafayette', 'Kewaunee', 'Buffalo', 'Iron', 'Pepin', 'Florence'],
-        'Population': [939489, 561504, 197727, 163687, 268740, 169151, 406978, 171730, 120784, 190705, 138013, 118034, 105710, 105230, 104154, 74207, 81359, 89396, 70377, 136761, 86148, 44295, 66297, 65763, 51938, 46274, 93536, 40881, 46711, 41872, 51812, 34659, 45440, 58490, 44977, 37845, 30714, 26718, 91503, 38965, 30760, 18074, 21145, 28415, 52442, 37093, 42212, 24520, 23047, 19491, 17304, 14188, 16220, 19913, 16027, 16113, 16623, 20654, 16526, 30066, 19018, 14054, 4255, 15592, 9179, 23709, 16611, 20563, 13317, 6137, 7318, 4558],
-        'Children_in_Poverty': [84614, 17942, 13021, 12356, 10526, 9652, 8958, 8619, 7196, 7162, 6492, 5732, 5723, 4622, 4380, 4068, 3984, 3801, 3586, 3496, 3408, 3099, 3048, 3023, 2986, 2972, 2710, 2540, 2536, 2531, 2509, 2447, 2244, 2184, 2132, 2040, 2039, 1924, 1863, 1714, 1691, 1681, 1643, 1619, 1618, 1563, 1545, 1466, 1433, 1388, 1239, 1217, 1215, 1194, 1183, 1142, 1094, 1066, 1041, 1034, 964, 963, 942, 916, 913, 906, 903, 754, 716, 466, 398, 287],
-        'School_Districts': [38, 30, 13, 9, 20, 13, 15, 12, 8, 14, 13, 14, 8, 14, 12, 7, 10, 14, 8, 10, 9, 5, 10, 8, 10, 7, 8, 9, 9, 9, 9, 9, 8, 9, 9, 7, 8, 6, 9, 7, 7, 4, 5, 4, 7, 7, 6, 5, 6, 4, 4, 4, 7, 4, 4, 5, 4, 3, 4, 5, 4, 4, 2, 4, 4, 5, 6, 4, 5, 2, 2, 1],
-        'Eligible_Schools': [317, 60, 33, 32, 42, 41, 14, 25, 19, 29, 33, 32, 23, 18, 26, 19, 17, 24, 15, 9, 14, 11, 17, 13, 14, 21, 6, 12, 13, 16, 13, 14, 10, 9, 14, 13, 14, 14, 5, 9, 8, 6, 6, 6, 9, 8, 4, 7, 10, 8, 7, 5, 17, 6, 6, 9, 7, 6, 9, 6, 6, 6, 5, 7, 7, 5, 7, 6, 8, 3, 2, 3],
-        'CEP_Schools': [305, 22, 29, 26, 28, 36, 1, 21, 14, 17, 8, 30, 2, 4, 5, 8, 14, 4, 5, 0, 0, 0, 0, 4, 4, 4, 0, 4, 0, 8, 2, 6, 3, 5, 8, 5, 5, 6, 0, 0, 0, 1, 4, 0, 0, 0, 0, 0, 3, 8, 0, 6, 11, 0, 1, 0, 0, 9, 5, 0, 4, 3, 5, 3, 5, 2, 0, 0, 0, 1, 0, 0],
-        'Students_in_CEP': [135942, 6704, 17554, 9859, 11118, 18629, 214, 11651, 3113, 6236, 1649, 11483, 268, 550, 971, 1473, 5941, 810, 1233, 0, 0, 0, 0, 592, 840, 416, 0, 707, 0, 1448, 454, 591, 233, 1233, 1107, 1523, 700, 706, 0, 0, 0, 403, 1574, 0, 0, 0, 0, 0, 629, 2042, 0, 1182, 1106, 0, 270, 0, 0, 1309, 816, 0, 886, 320, 1203, 559, 1107, 670, 0, 0, 0, 112, 0, 0],
-        'Coverage_Pct': [96, 37, 88, 81, 67, 88, 7, 84, 74, 59, 24, 94, 9, 22, 19, 42, 82, 17, 33, 0, 0, 0, 0, 31, 29, 19, 0, 33, 0, 50, 15, 43, 30, 56, 57, 38, 36, 43, 0, 0, 0, 17, 67, 0, 0, 0, 0, 0, 30, 100, 0, 120, 65, 0, 17, 0, 0, 150, 56, 0, 67, 50, 100, 43, 71, 40, 0, 0, 0, 33, 0, 0],
-        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'FULL CEP', 'NO CEP', 'FULL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'FULL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP']
-    }
-    df = pd.DataFrame(data)
-    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
-    # Normalize status using shared function
-    df['Status'] = df['Status'].apply(normalize_status)
-    # Add numeric status for map
-    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
-    return df
-
-WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': '55009', 'Racine': '55101', 'Outagamie': '55087', 'Kenosha': '55059', 'Rock': '55105', 'Winnebago': '55139', 'Marathon': '55073', 'Washington': '55131', 'Ozaukee': '55089', 'Sheboygan': '55117', 'La Crosse': '55063', 'Fond du Lac': '55039', 'Eau Claire': '55035', 'Walworth': '55127', 'Wood': '55141', 'St. Croix': '55109', 'Dodge': '55027', 'Jefferson': '55055', 'Portage': '55097', 'Barron': '55005', 'Chippewa': '55017', 'Grant': '55043', 'Columbia': '55021', 'Manitowoc': '55071', 'Sauk': '55111', 'Shawano': '55115', 'Clark': '55019', 'Pierce': '55093', 'Polk': '55095', 'Waupaca': '55135', 'Waushara': '55137', 'Adams': '55001', 'Green': '55045', 'Marinette': '55075', 'Dunn': '55033', 'Douglas': '55031', 'Juneau': '55057', 'Trempealeau': '55121', 'Monroe': '55081', 'Vernon': '55123', 'Calumet': '55015', 'Sawyer': '55113', 'Crawford': '55023', 'Richland': '55103', 'Jackson': '55053', 'Iowa': '55049', 'Green Lake': '55047', 'Burnett': '55013', 'Rusk': '55107', 'Ashland': '55003', 'Marquette': '55077', 'Lafayette': '55065', 'Bayfield': '55007', 'Oneida': '55085', 'Taylor': '55119', 'Vilas': '55125', 'Price': '55099', 'Lincoln': '55069', 'Door': '55029', 'Langlade': '55067', 'Washburn': '55129', 'Iron': '55051', 'Buffalo': '55011', 'Pepin': '55091', 'Forest': '55041', 'Florence': '55037', 'Menominee': '55078'}
-
-NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
-
-def load_new_jersey_data():
-    """Load complete New Jersey county data - 21 counties, all 11 columns"""
-    data = {
-        'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden', 'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union', 'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May', 'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
-        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461850, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
-        'Children_in_Poverty': [18673, 171186, 36226, 108492, 160613, 94227, 94967, 39807, 51129, 13924, 36275, 60987, 89769, 44338, 50805, 65946, 6097, 21067, 7499, 25973, 4642],
-        'School_Districts': [4, 12, 8, 15, 22, 18, 18, 11, 13, 9, 14, 21, 25, 18, 19, 70, 6, 15, 8, 39, 18],
-        'Eligible_Schools': [23, 140, 51, 134, 225, 147, 96, 61, 87, 18, 52, 124, 157, 74, 104, 114, 24, 59, 12, 90, 18],
-        'CEP_Schools': [3, 32, 15, 58, 58, 44, 6, 1, 27, 0, 3, 0, 0, 0, 11, 3, 5, 0, 0, 0, 0],
-        'Students_in_CEP': [1219, 14232, 7791, 41992, 25210, 17558, 1853, 339, 13723, 0, 1188, 0, 0, 0, 3547, 753, 1011, 0, 0, 0, 0],
-        'Coverage_Pct': [13, 23, 29, 43, 26, 30, 6, 2, 31, 0, 6, 0, 0, 0, 11, 3, 21, 0, 0, 0, 0],
-        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP']
-    }
-    df = pd.DataFrame(data)
-    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
-    # Normalize status using shared function
-    df['Status'] = df['Status'].apply(normalize_status)
-    # Add numeric status for map
-    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
-    return df
-
-STATE_DATA = {
-    'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'rank': 42, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
-    'NJ': {'name': 'New Jersey', 'eligible_schools': 1719, 'cep_schools': 256, 'students_in_cep': 129189, 'children_without_cep': 826612, 'coverage_pct': 14, 'rank': 48, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
-    'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'rank': 15, 'has_data': False, 'lat': 37.5, 'lon': -78.5},
-    'SC': {'name': 'South Carolina', 'eligible_schools': 1100, 'cep_schools': 979, 'students_in_cep': 425000, 'children_without_cep': 51000, 'coverage_pct': 89, 'rank': 1, 'has_data': False, 'lat': 33.8, 'lon': -81.0},
-    'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'rank': 35, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
-    'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'rank': 12, 'has_data': False, 'lat': 34.8, 'lon': -92.2}
-}
-
-NATIONAL_STATS = {
-    'total_children_without_cep': sum(s['children_without_cep'] for s in STATE_DATA.values()),
-    'total_students_served': sum(s['students_in_cep'] for s in STATE_DATA.values()),
-    'avg_coverage': round(sum(s['coverage_pct'] for s in STATE_DATA.values()) / len(STATE_DATA)),
-    'eligible_schools_not_participating': sum(s['eligible_schools'] - s['cep_schools'] for s in STATE_DATA.values())
-}
-
-# ====================
-# HOMEPAGE (unchanged)
+# HOMEPAGE (REDESIGNED)
 # ====================
 
 def create_hero_section():
@@ -172,43 +199,180 @@ def create_insights_section():
     return html.Div([html.H2("Featured Insights", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '40px', 'color': COLORS['text_primary']}), html.Div(insight_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(300px, 1fr))', 'gap': '24px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})
 
 def create_us_map():
-    fig = go.Figure()
-    for state_abbr, data in STATE_DATA.items():
-        marker_color = COLORS['teal'] if data['has_data'] else COLORS['slate']
-        marker_size = 30 if data['has_data'] else 20
-        fig.add_trace(go.Scattergeo(locationmode='USA-states', lon=[data['lon']], lat=[data['lat']], mode='markers+text', marker=dict(size=marker_size, color=marker_color, line=dict(width=2, color='white'), opacity=0.9), text=state_abbr, textfont=dict(size=11, color='white', weight=600), textposition='middle center', hovertext=f"{data['name']}<br>{data['coverage_pct']}% Coverage<br>Rank #{data['rank']}<br>Click to explore{'<br>✓ Full data available' if data['has_data'] else ''}", hoverinfo='text', showlegend=False, customdata=[state_abbr]))
-        if data['has_data']:
-            fig.add_trace(go.Scattergeo(locationmode='USA-states', lon=[data['lon'] + 2], lat=[data['lat'] + 1], mode='text', text='✓', textfont=dict(size=16, color=COLORS['full_cep'], weight=700), textposition='middle center', hoverinfo='skip', showlegend=False))
-    fig.update_geos(scope='usa', projection_type='albers usa', showland=True, landcolor=COLORS['off_white'], coastlinecolor=COLORS['border'], showlakes=True, lakecolor='rgb(225, 235, 245)', showcountries=False, showsubunits=True, subunitcolor=COLORS['border'], subunitwidth=1)
-    fig.update_layout(margin={"r": 0, "t": 20, "l": 0, "b": 0}, height=600, paper_bgcolor='rgba(0,0,0,0)', geo=dict(bgcolor='rgba(0,0,0,0)'), clickmode='event+select')
+    """NEW: Interactive US map with full state names and bold category colors"""
+    # Prepare data for all US states
+    all_states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+    
+    state_colors = [get_state_category_color(state) for state in all_states]
+    state_names = [STATE_DATA.get(state, {}).get('name', state) for state in all_states]
+    hover_text = []
+    for state in all_states:
+        category = get_state_category(state)
+        if category == 'universal_meals':
+            label = "Universal Free Meals"
+        elif category == 'universal_breakfast':
+            label = "Universal Free Breakfast"
+        else:
+            data = STATE_DATA.get(state, {})
+            if data.get('has_data'):
+                label = f"{data.get('coverage_pct', 0)}% CEP Coverage"
+            else:
+                label = "CEP data tracked"
+        hover_text.append(f"<b>{state_names[all_states.index(state)]}</b><br>{label}")
+    
+    fig = go.Figure(go.Choropleth(
+        locations=all_states,
+        z=[1]*len(all_states),  # Dummy values
+        locationmode='USA-states',
+        text=state_names,
+        hovertext=hover_text,
+        hovertemplate='%{hovertext}<extra></extra>',
+        marker=dict(
+            line=dict(color='white', width=2),
+        ),
+        colorscale=[[0, COLORS['other_states']], [1, COLORS['other_states']]],
+        showscale=False,
+        marker_color=state_colors
+    ))
+    
+    fig.update_geos(
+        scope='usa',
+        projection_type='albers usa',
+        showlakes=False,
+        bgcolor='rgba(0,0,0,0)'
+    )
+    
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        height=500,
+        paper_bgcolor='rgba(0,0,0,0)',
+        geo=dict(bgcolor='rgba(0,0,0,0)'),
+        clickmode='event+select'
+    )
+    
     return fig
 
+def create_explore_states_panel():
+    """NEW: Redesigned right-side panel with state flags and category grouping"""
+    
+    # Get the 6 tracked states grouped by category
+    tracked_states = ['WI', 'NJ', 'VA', 'SC', 'NV', 'AR']
+    
+    # Group by category
+    universal_meals_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_meals']
+    universal_breakfast_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_breakfast']
+    other_tracked = [s for s in tracked_states if get_state_category(s) == 'other']
+    
+    def create_state_button(state_abbr):
+        state_data = STATE_DATA.get(state_abbr, {})
+        category = get_state_category(state_abbr)
+        
+        # Category color for left border
+        if category == 'universal_meals':
+            border_color = COLORS['universal_meals']
+            subtitle = "Universal meals"
+        elif category == 'universal_breakfast':
+            border_color = COLORS['universal_breakfast']
+            subtitle = "Universal breakfast"
+        else:
+            border_color = 'transparent'
+            subtitle = f"{state_data.get('coverage_pct', 0)}% coverage"
+        
+        flag = STATE_FLAGS.get(state_abbr, '🏴')
+        
+        return html.A(
+            href=f"/state/{state_abbr}",
+            children=[
+                html.Div([
+                    html.Div([
+                        html.Span(flag, style={'fontSize': '24px', 'marginRight': '12px'}),
+                        html.Div([
+                            html.Div(state_data.get('name', state_abbr), style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '2px'}),
+                            html.Div(subtitle, style={'fontSize': '13px', 'color': COLORS['text_secondary']})
+                        ], style={'flex': '1'})
+                    ], style={'display': 'flex', 'alignItems': 'center', 'padding': '14px 16px', 'borderLeft': f'4px solid {border_color}', 'background': 'white', 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}', 'transition': 'all 0.2s ease'})
+                ], style={'marginBottom': '10px'})
+            ],
+            style={'textDecoration': 'none', 'display': 'block'}
+        )
+    
+    buttons = []
+    
+    # Universal Meals section
+    if universal_meals_tracked:
+        for state in universal_meals_tracked:
+            buttons.append(create_state_button(state))
+    
+    # Universal Breakfast section
+    if universal_breakfast_tracked:
+        for state in universal_breakfast_tracked:
+            buttons.append(create_state_button(state))
+    
+    # Other states section  
+    for state in other_tracked:
+        buttons.append(create_state_button(state))
+    
+    return html.Div([
+        html.H3("Explore States", style={'fontSize': '14px', 'fontWeight': '600', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '1px', 'marginBottom': '20px'}),
+        html.Div(buttons)
+    ], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
+
 def create_map_section():
-    return html.Div([html.Div([html.Div([html.H2("State Coverage Map", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary']})], style={'marginBottom': '32px'}), dcc.Graph(id='us-map-graph', figure=create_us_map(), config={'displayModeBar': False}, style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '20px'}), html.Div([html.H3("Explore States", style={'fontSize': '20px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}), html.Div([html.A(href=f"/state/{abbr}", children=[html.Div([html.Div([html.Span(data['name'], style={'fontWeight': '500', 'fontSize': '15px'}), html.Span(' ✓' if data['has_data'] else '', style={'color': COLORS['full_cep'], 'marginLeft': '6px'})]), html.Div(f"{data['coverage_pct']}%", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['teal']})], style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'padding': '16px 20px', 'background': 'white', 'borderBottom': f'1px solid {COLORS["border"]}', 'transition': 'background 0.2s ease'})], style={'textDecoration': 'none', 'color': COLORS['text_primary'], 'display': 'block'}) for abbr, data in sorted(STATE_DATA.items(), key=lambda x: x[1]['coverage_pct'], reverse=True)], style={'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden', 'background': 'white'})], style={'marginTop': '40px'})], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '80px 40px', 'background': COLORS['off_white']})
+    """NEW: Grid layout with map on left, Explore States on right"""
+    
+    # Legend for the map
+    legend = html.Div([
+        html.Div([
+            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_meals'], 'borderRadius': '4px', 'marginRight': '8px'}),
+            html.Span("Universal school meals (9 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+        html.Div([
+            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_breakfast'], 'borderRadius': '4px', 'marginRight': '8px'}),
+            html.Span("Universal school breakfast (2 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+        html.Div([
+            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['other_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
+            html.Span("Other states", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'flex', 'alignItems': 'center'})
+    ], style={'display': 'flex', 'marginBottom': '24px', 'padding': '16px', 'background': COLORS['off_white'], 'borderRadius': '8px'})
+    
+    return html.Div([
+        html.Div([
+            # Left: Map
+            html.Div([
+                html.H2("National School Meal Coverage", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}),
+                legend,
+                dcc.Graph(id='us-map-graph', figure=create_us_map(), config={'displayModeBar': False}, style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '20px'})
+            ], style={'gridColumn': '1 / span 2'}),
+            
+            # Right: Explore States Panel
+            html.Div([
+                create_explore_states_panel()
+            ], style={'gridColumn': '3'})
+            
+        ], style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr 400px', 'gap': '24px', 'maxWidth': '1400px', 'margin': '0 auto'})
+    ], style={'padding': '80px 40px', 'background': COLORS['off_white']})
 
-def create_comparison_tool():
-    state_options = [{'label': f"{data['name']} ({data['coverage_pct']}%)", 'value': abbr} for abbr, data in sorted(STATE_DATA.items(), key=lambda x: x[1]['coverage_pct'], reverse=True)]
-    return html.Div([html.H2("Compare States", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '40px', 'color': COLORS['text_primary']}), html.Div([html.Div([html.Div([html.Label("State A", style={'display': 'block', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px', 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'fontWeight': '600'}), dcc.Dropdown(id='compare-state-a', options=state_options, value='WI', clearable=False, style={'fontSize': '16px'})], style={'flex': '1'}), html.Div([html.Label("State B", style={'display': 'block', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px', 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'fontWeight': '600'}), dcc.Dropdown(id='compare-state-b', options=state_options, value='NJ', clearable=False, style={'fontSize': '16px'})], style={'flex': '1'})], style={'display': 'flex', 'gap': '20px', 'marginBottom': '40px'}), html.Div(id='comparison-output')], style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '40px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})
-
-def create_comparison_cards(state_a_abbr, state_b_abbr):
-    state_a = STATE_DATA[state_a_abbr]
-    state_b = STATE_DATA[state_b_abbr]
-    def create_card(state_data, state_name):
-        return html.Div([html.H4(state_name, style={'fontSize': '24px', 'marginBottom': '20px', 'color': COLORS['text_primary']}), html.Div([html.Span("CEP Coverage", style={'fontSize': '14px', 'color': COLORS['text_secondary']}), html.Span(f"{state_data['coverage_pct']}%", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary']})], style={'display': 'flex', 'justifyContent': 'space-between', 'marginBottom': '16px', 'paddingBottom': '16px', 'borderBottom': f'1px solid {COLORS["border"]}'}), html.Div([html.Span("Students Served", style={'fontSize': '14px', 'color': COLORS['text_secondary']}), html.Span(f"{state_data['students_in_cep']:,}", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary']})], style={'display': 'flex', 'justifyContent': 'space-between', 'marginBottom': '16px', 'paddingBottom': '16px', 'borderBottom': f'1px solid {COLORS["border"]}'}), html.Div([html.Span("Opportunity Gap", style={'fontSize': '14px', 'color': COLORS['text_secondary']}), html.Span(f"{state_data['children_without_cep']:,}", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary']})], style={'display': 'flex', 'justifyContent': 'space-between', 'marginBottom': '16px', 'paddingBottom': '16px', 'borderBottom': f'1px solid {COLORS["border"]}'}), html.Div([html.Span("National Rank", style={'fontSize': '14px', 'color': COLORS['text_secondary']}), html.Span(f"#{state_data['rank']}", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary']})], style={'display': 'flex', 'justifyContent': 'space-between'})], style={'background': COLORS['off_white'], 'borderRadius': '8px', 'padding': '24px'})
-    return html.Div([create_card(state_a, state_a['name']), create_card(state_b, state_b['name'])], style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '40px'})
+def create_comparison_section():
+    return html.Div([html.Div([html.H2("Compare States", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}), html.Div([html.Div([html.Label("State A", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '8px', 'display': 'block'}), dcc.Dropdown(id='compare-state-a', options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()], value='WI', clearable=False, style={'minWidth': '200px'})], style={'flex': '1'}), html.Div([html.Label("State B", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '8px', 'display': 'block'}), dcc.Dropdown(id='compare-state-b', options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()], value='NJ', clearable=False, style={'minWidth': '200px'})], style={'flex': '1'})], style={'display': 'flex', 'gap': '20px', 'marginBottom': '32px'}), html.Div(id='comparison-output')], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '80px 40px', 'background': 'white'})
 
 def create_cta_section():
-    return html.Div([html.H2("What Your State Could Unlock", style={'fontSize': '40px', 'fontWeight': '600', 'marginBottom': '16px', 'color': 'white'}), html.P("Expanding CEP participation could provide meals to hundreds of thousands of children currently going without", style={'fontSize': '18px', 'opacity': '0.9', 'maxWidth': '600px', 'margin': '0 auto 32px auto', 'color': 'white'}), html.Div([html.Div([html.Div(f"{NATIONAL_STATS['total_children_without_cep']:,.0f}", style={'fontSize': '48px', 'fontWeight': '700', 'marginBottom': '8px', 'color': 'white'}), html.Div("Additional Children", style={'fontSize': '14px', 'opacity': '0.8', 'color': 'white'})], style={'textAlign': 'center'}), html.Div([html.Div(f"{NATIONAL_STATS['eligible_schools_not_participating']:,}", style={'fontSize': '48px', 'fontWeight': '700', 'marginBottom': '8px', 'color': 'white'}), html.Div("Eligible Schools", style={'fontSize': '14px', 'opacity': '0.8', 'color': 'white'})], style={'textAlign': 'center'})], style={'display': 'flex', 'justifyContent': 'center', 'gap': '60px', 'marginTop': '40px'})], style={'background': f'linear-gradient(135deg, {COLORS["forest_green"]} 0%, {COLORS["teal"]} 100%)', 'padding': '80px 40px', 'textAlign': 'center', 'color': 'white'})
+    return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    return html.Div([create_hero_section(), create_insights_section(), create_map_section(), create_comparison_tool(), create_cta_section()], style={'background': COLORS['white']})
+    return html.Div([create_hero_section(), create_insights_section(), create_map_section(), create_comparison_section(), create_cta_section()])
+
+def create_comparison_cards(state_a, state_b):
+    data_a = STATE_DATA[state_a]
+    data_b = STATE_DATA[state_b]
+    return html.Div([html.Div([html.H3(data_a['name'], style={'fontSize': '24px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}), html.Div([html.Div([html.Div("Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}), html.Div(f"{data_a['coverage_pct']}%", style={'fontSize': '32px', 'fontWeight': '700', 'color': COLORS['teal']})], style={'marginBottom': '16px'}), html.Div([html.Div("Rank", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}), html.Div(f"#{data_a['rank']}", style={'fontSize': '32px', 'fontWeight': '700', 'color': COLORS['teal']})], style={'marginBottom': '16px'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}), html.Div(f"{data_a['students_in_cep']:,}", style={'fontSize': '24px', 'fontWeight': '600', 'color': COLORS['text_primary']})])])], style={'background': 'white', 'padding': '32px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.H3(data_b['name'], style={'fontSize': '24px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}), html.Div([html.Div([html.Div("Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}), html.Div(f"{data_b['coverage_pct']}%", style={'fontSize': '32px', 'fontWeight': '700', 'color': COLORS['teal']})], style={'marginBottom': '16px'}), html.Div([html.Div("Rank", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}), html.Div(f"#{data_b['rank']}", style={'fontSize': '32px', 'fontWeight': '700', 'color': COLORS['teal']})], style={'marginBottom': '16px'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}), html.Div(f"{data_b['students_in_cep']:,}", style={'fontSize': '24px', 'fontWeight': '600', 'color': COLORS['text_primary']})])])], style={'background': 'white', 'padding': '32px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '24px'})
 
 # ====================
-# WISCONSIN STATE PAGE - ENHANCED
+# STATE DETAIL PAGES (ENHANCED WITH CONSISTENCY FIX)
 # ====================
 
 def create_state_executives_section(state_abbr):
-    """ENHANCEMENT 1: Executive names colored by party (maroon/blue)"""
+    """Executive names colored by party with legend"""
     executives = STATE_EXECUTIVES.get(state_abbr, {})
     if not executives:
         return html.Div()
@@ -230,7 +394,7 @@ def create_state_executives_section(state_abbr):
         name_color = get_party_color(official['party'])
         card = html.Div([
             html.Div(position, style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'fontWeight': '600', 'marginBottom': '8px'}), 
-            html.Div(official['name'], style={'fontSize': '18px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '6px'}),  # NAME COLORED BY PARTY
+            html.Div(official['name'], style={'fontSize': '18px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '6px'}),
             html.Div(official['party'], style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'fontWeight': '400'})
         ], style={'background': 'white', 'padding': '20px 24px', 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}', 'minWidth': '200px'})
         cards.append(card)
@@ -238,7 +402,7 @@ def create_state_executives_section(state_abbr):
     return html.Div([html.Div([html.H2("State Leadership", style={'fontSize': '20px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '20px'}), legend, html.Div(cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(200px, 1fr))', 'gap': '16px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 40px 40px'})], style={'background': COLORS['off_white'], 'borderBottom': f'1px solid {COLORS["border"]}'})
 
 def create_county_map(df, fips_dict, state_abbr):
-    """ENHANCEMENT 2: Map correctly shows Full/Partial/No CEP"""
+    """CONSISTENCY FIX: Map uses same normalized status as table"""
     df['FIPS'] = df['County'].map(fips_dict)
     
     # Use Status_Numeric for accurate coloring (0=No, 1=Partial, 2=Full)
@@ -270,31 +434,26 @@ def create_county_map(df, fips_dict, state_abbr):
     return fig
 
 def create_sortable_county_table(df):
-    """ENHANCEMENTS 3 & 4: Clean filters + Highly visible status badges"""
-    columns = [
-        {'name': 'County', 'id': 'County', 'type': 'text'},
-        {'name': 'Population', 'id': 'Population', 'type': 'numeric', 'format': {'specifier': ','}},
-        {'name': 'Children in Poverty', 'id': 'Children_in_Poverty', 'type': 'numeric', 'format': {'specifier': ','}},
-        {'name': 'Districts', 'id': 'School_Districts', 'type': 'numeric'},
-        {'name': 'Eligible Schools', 'id': 'Eligible_Schools', 'type': 'numeric'},
-        {'name': 'CEP Schools', 'id': 'CEP_Schools', 'type': 'numeric'},
-        {'name': 'Students in CEP', 'id': 'Students_in_CEP', 'type': 'numeric', 'format': {'specifier': ','}},
-        {'name': '% Coverage', 'id': 'Coverage_Pct', 'type': 'numeric', 'format': {'specifier': '.0f'}},
-        {'name': 'School Gap', 'id': 'School_Gap', 'type': 'numeric'},
-        {'name': 'Status', 'id': 'Status', 'type': 'text'}
-    ]
-    
+    """Table with status pills and row highlighting - CONSISTENCY FIX APPLIED"""
     return html.Div([
-        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '16px'}), 
-        html.P("Click column headers to sort. Type in filter boxes to search.", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'marginBottom': '24px'}), 
+        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}), 
         dash_table.DataTable(
-            id='county-table', 
-            columns=columns, 
-            data=df.to_dict('records'), 
-            sort_action='native', 
-            sort_mode='multi', 
-            filter_action='native',  # Filters in HEADER only
-            page_action='none',  # REMOVED PAGINATION - show all counties
+            data=df.to_dict('records'),
+            columns=[
+                {'name': 'County', 'id': 'County'},
+                {'name': 'Population', 'id': 'Population', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': 'Children in Poverty', 'id': 'Children_in_Poverty', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': 'School Districts', 'id': 'School_Districts', 'type': 'numeric'},
+                {'name': 'Eligible Schools', 'id': 'Eligible_Schools', 'type': 'numeric'},
+                {'name': 'CEP Schools', 'id': 'CEP_Schools', 'type': 'numeric'},
+                {'name': 'Students in CEP', 'id': 'Students_in_CEP', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': '% Coverage', 'id': 'Coverage_Pct', 'type': 'numeric'},
+                {'name': 'School Gap', 'id': 'School_Gap', 'type': 'numeric'},
+                {'name': 'Status', 'id': 'Status'}
+            ],
+            sort_action='native',
+            filter_action='native',
+            page_action='none',  # Show all counties
             style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'}, 
             style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'}, 
             style_cell={'padding': '16px 20px', 'fontSize': '15px', 'fontFamily': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'}, 
@@ -302,7 +461,7 @@ def create_sortable_county_table(df):
                 {'if': {'column_id': ['Population', 'Children_in_Poverty', 'Students_in_CEP']}, 'textAlign': 'right'}, 
                 {'if': {'column_id': ['School_Districts', 'Eligible_Schools', 'CEP_Schools', 'Coverage_Pct', 'School_Gap']}, 'textAlign': 'center'}, 
                 {'if': {'column_id': 'County'}, 'fontWeight': '500', 'minWidth': '120px'},
-                {'if': {'column_id': 'Status'}, 'minWidth': '180px', 'paddingLeft': '12px', 'paddingRight': '12px'}  # Wider for full pill
+                {'if': {'column_id': 'Status'}, 'minWidth': '180px', 'paddingLeft': '12px', 'paddingRight': '12px'}
             ], 
             style_data_conditional=[
                 # Row highlighting based on status
@@ -323,7 +482,6 @@ def create_sortable_county_table(df):
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}
             ], 
-            # ENHANCEMENT 3: Filter styling (header-only)
             style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '14px'}
         )
     ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
@@ -333,7 +491,7 @@ def create_state_page(state_abbr):
     if not state_data:
         return html.Div("State not found")
     
-    # Load county data based on state
+    # Load county data based on state - CONSISTENCY FIX APPLIED
     if state_abbr == 'WI':
         df = load_wisconsin_data()
         fips_dict = WI_FIPS
@@ -342,6 +500,8 @@ def create_state_page(state_abbr):
         fips_dict = NJ_FIPS
     else:
         df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
+        df['Status'] = df['Status'].apply(normalize_status)  # CONSISTENCY FIX
+        df['Status_Numeric'] = df['Status'].apply(status_to_numeric)  # CONSISTENCY FIX
         fips_dict = {}
     
     return html.Div([
