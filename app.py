@@ -203,7 +203,17 @@ def create_us_map():
     # Prepare data for all US states
     all_states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
     
-    state_colors = [get_state_category_color(state) for state in all_states]
+    # Map states to numeric categories for color mapping
+    state_z_values = []
+    for state in all_states:
+        category = get_state_category(state)
+        if category == 'universal_meals':
+            state_z_values.append(3)  # Green
+        elif category == 'universal_breakfast':
+            state_z_values.append(2)  # Amber
+        else:
+            state_z_values.append(1)  # Gray
+    
     state_names = [STATE_DATA.get(state, {}).get('name', state) for state in all_states]
     hover_text = []
     for state in all_states:
@@ -222,17 +232,20 @@ def create_us_map():
     
     fig = go.Figure(go.Choropleth(
         locations=all_states,
-        z=[1]*len(all_states),  # Dummy values
+        z=state_z_values,
         locationmode='USA-states',
         text=state_names,
         hovertext=hover_text,
         hovertemplate='%{hovertext}<extra></extra>',
         marker=dict(
-            line=dict(color='white', width=2),
+            line=dict(color='white', width=2)
         ),
-        colorscale=[[0, COLORS['other_states']], [1, COLORS['other_states']]],
-        showscale=False,
-        marker_color=state_colors
+        colorscale=[
+            [0, COLORS['other_states']],      # 1 = Gray
+            [0.5, COLORS['universal_breakfast']],  # 2 = Amber
+            [1, COLORS['universal_meals']]    # 3 = Green
+        ],
+        showscale=False
     ))
     
     fig.update_geos(
@@ -530,4 +543,4 @@ def update_comparison(state_a, state_b):
     return html.Div()
 
 if __name__ == '__main__':
-    application.run_server(debug=False, host='0.0.0.0', port=8000)
+    application.run(debug=False, host='0.0.0.0', port=8000)
