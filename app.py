@@ -421,6 +421,18 @@ def create_county_map(df, fips_dict, state_abbr):
     """CONSISTENCY FIX: Map uses same normalized status as table"""
     df['FIPS'] = df['County'].map(fips_dict)
     
+    # Debug: Print county status mapping
+    print(f"\n=== DEBUG: County Map for {state_abbr} ===")
+    for idx, row in df.iterrows():
+        print(f"County: {row['County']:20s} | Status: {row['Status']:12s} | Numeric: {row['Status_Numeric']} | FIPS: {row.get('FIPS', 'N/A')}")
+    
+    # Check for unmatched counties
+    unmatched = df[df['FIPS'].isna()]
+    if len(unmatched) > 0:
+        print(f"\n⚠️  WARNING: {len(unmatched)} counties have no FIPS match:")
+        for county in unmatched['County']:
+            print(f"   - {county}")
+    
     # Use Status_Numeric for accurate coloring (0=No, 1=Partial, 2=Full)
     fig = go.Figure(go.Choropleth(
         geojson="https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json",
@@ -433,6 +445,8 @@ def create_county_map(df, fips_dict, state_abbr):
             [0.5, COLORS['partial_cep']], # 1 = Partial = Yellow
             [1, COLORS['full_cep']]     # 2 = Full = Green
         ],
+        zmin=0,  # CRITICAL FIX: Force scale to 0-2 range
+        zmax=2,  # This ensures discrete mapping: 0→red, 1→yellow, 2→green
         marker_line_color='white',
         marker_line_width=1.5,
         showscale=False
@@ -447,6 +461,9 @@ def create_county_map(df, fips_dict, state_abbr):
     
     fig.update_geos(fitbounds="locations", visible=False, center=center, projection_scale=8)
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0}, height=500, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    
+    print(f"✓ Map created with Status_Numeric range: {df['Status_Numeric'].min()} to {df['Status_Numeric'].max()}\n")
+    
     return fig
 
 def create_sortable_county_table(df):
