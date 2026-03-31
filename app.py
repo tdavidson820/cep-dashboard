@@ -33,7 +33,7 @@ COLORS = {
 
 # STATE MEAL PROGRAM CATEGORIES (Updated March 2026)
 STATE_CATEGORIES = {
-    'universal_meals': ['CA', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY'],  # 8 states with free breakfast + lunch (removed ME - Maine, kept one NM)
+    'universal_meals': ['CA', 'ME', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY'],  # 9 states with free breakfast + lunch
     'universal_breakfast': ['AR', 'DE', 'PA']  # 3 states with free breakfast only (added DE - Delaware)
 }
 
@@ -245,9 +245,11 @@ def create_us_map():
         ),
         colorscale=[
             [0, COLORS['other_states']],      # 1 = Gray
-            [0.5, COLORS['universal_breakfast']],  # 2 = Amber
+            [0.5, COLORS['universal_breakfast']],  # 2 = Amber/Yellow
             [1, COLORS['universal_meals']]    # 3 = Green
         ],
+        zmin=1,  # CRITICAL: Force scale to 1-3 range for discrete mapping
+        zmax=3,  # Ensures: z=1→gray, z=2→amber, z=3→green
         showscale=False
     ))
     
@@ -340,7 +342,7 @@ def create_map_section():
     legend = html.Div([
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_meals'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("Universal school meals (8 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+            html.Span("Universal school meals (9 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
         ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_breakfast'], 'borderRadius': '4px', 'marginRight': '8px'}),
