@@ -246,23 +246,22 @@ def create_us_map():
         
         if category == 'universal_meals':
             label = "Universal Free Meals"
+            hover_text.append(f"<b>{state_name}</b><br>{label}")
         elif category == 'universal_breakfast':
             label = "Universal Free Breakfast"
+            hover_text.append(f"<b>{state_name}</b><br>{label}")
         elif category == 'fpl_states':
             label = fpl_percentages.get(state, 'Federal Poverty Level')
-        else:
-            # For gray states: show only state name (removed "CEP data tracked")
-            data = STATE_DATA.get(state, {})
-            if data.get('has_data'):
-                label = f"{data.get('coverage_pct', 0)}% CEP Coverage"
-            else:
-                label = state_name  # Just the state name, nothing else
-        
-        # Only show state name + label for special categories; just label for gray states
-        if category in ['universal_meals', 'universal_breakfast', 'fpl_states']:
             hover_text.append(f"<b>{state_name}</b><br>{label}")
         else:
-            hover_text.append(f"<b>{label}</b>")  # For gray states, label IS the state name
+            # For gray states
+            data = STATE_DATA.get(state, {})
+            if data.get('has_data'):
+                # Tracked states: show state name + coverage
+                hover_text.append(f"<b>{state_name}</b><br>{data.get('coverage_pct', 0)}% CEP Coverage")
+            else:
+                # Other gray states: just state name
+                hover_text.append(f"<b>{state_name}</b>")
     
     fig = go.Figure(go.Choropleth(
         locations=all_states,
