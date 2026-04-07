@@ -136,17 +136,17 @@ WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': 
 NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
 
 def load_new_jersey_data():
-    """Load complete New Jersey county data - 21 counties, all 11 columns"""
+    """Load complete New Jersey county data - 21 counties, SY2026 CEP data"""
     data = {
         'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden', 'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union', 'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May', 'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
         'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461850, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
         'Children_in_Poverty': [18673, 171186, 36226, 108492, 160613, 94227, 94967, 39807, 51129, 13924, 36275, 60987, 89769, 44338, 50805, 65946, 6097, 21067, 7499, 25973, 4642],
         'School_Districts': [4, 12, 8, 15, 22, 18, 18, 11, 13, 9, 14, 21, 25, 18, 19, 70, 6, 15, 8, 39, 18],
         'Eligible_Schools': [23, 140, 51, 134, 225, 147, 96, 61, 87, 18, 52, 124, 157, 74, 104, 114, 24, 59, 12, 90, 18],
-        'CEP_Schools': [3, 32, 15, 58, 58, 44, 6, 1, 27, 0, 3, 0, 0, 0, 11, 3, 5, 0, 0, 0, 0],
-        'Students_in_CEP': [1219, 14232, 7791, 41992, 25210, 17558, 1853, 339, 13723, 0, 1188, 0, 0, 0, 3547, 753, 1011, 0, 0, 0, 0],
-        'Coverage_Pct': [13, 23, 29, 43, 26, 30, 6, 2, 31, 0, 6, 0, 0, 0, 11, 3, 21, 0, 0, 0, 0],
-        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+        'CEP_Schools': [11, 78, 49, 90, 78, 61, 18, 29, 42, 4, 15, 2, 16, 21, 31, 11, 5, 23, 0, 0, 0],
+        'Students_in_CEP': [3881, 44309, 18795, 44037, 30758, 17964, 13863, 15566, 17786, 2130, 6879, 618, 8628, 9561, 11366, 2574, 1021, 10582, 0, 0, 0],
+        'Coverage_Pct': [48, 56, 96, 67, 35, 41, 19, 48, 48, 22, 29, 2, 10, 28, 30, 10, 21, 39, 0, 0, 0],
+        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP']
     }
     df = pd.DataFrame(data)
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
@@ -158,7 +158,7 @@ def load_new_jersey_data():
 
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'rank': 42, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
-    'NJ': {'name': 'New Jersey', 'eligible_schools': 1719, 'cep_schools': 256, 'students_in_cep': 129189, 'children_without_cep': 826612, 'coverage_pct': 14, 'rank': 48, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
+    'NJ': {'name': 'New Jersey', 'eligible_schools': 1810, 'cep_schools': 584, 'students_in_cep': 260318, 'children_without_cep': 826612, 'coverage_pct': 32, 'rank': 48, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'rank': 15, 'has_data': False, 'lat': 37.5, 'lon': -78.5},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1100, 'cep_schools': 979, 'students_in_cep': 425000, 'children_without_cep': 51000, 'coverage_pct': 89, 'rank': 1, 'has_data': False, 'lat': 33.8, 'lon': -81.0},
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'rank': 35, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
