@@ -251,12 +251,18 @@ def create_us_map():
         elif category == 'fpl_states':
             label = fpl_percentages.get(state, 'Federal Poverty Level')
         else:
+            # For gray states: show only state name (removed "CEP data tracked")
             data = STATE_DATA.get(state, {})
             if data.get('has_data'):
                 label = f"{data.get('coverage_pct', 0)}% CEP Coverage"
             else:
-                label = "CEP data tracked"
-        hover_text.append(f"<b>{state_name}</b><br>{label}")
+                label = state_name  # Just the state name, nothing else
+        
+        # Only show state name + label for special categories; just label for gray states
+        if category in ['universal_meals', 'universal_breakfast', 'fpl_states']:
+            hover_text.append(f"<b>{state_name}</b><br>{label}")
+        else:
+            hover_text.append(f"<b>{label}</b>")  # For gray states, label IS the state name
     
     fig = go.Figure(go.Choropleth(
         locations=all_states,
@@ -279,11 +285,26 @@ def create_us_map():
         showscale=False
     ))
     
+    # Enhanced tooltip styling for clean, minimal appearance
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='white',
+            font_size=14,
+            font_family='Inter, system-ui, -apple-system, sans-serif',
+            font_color='#1a1a1a',
+            bordercolor='#e5e7eb',
+            align='left'
+        )
+    )
+    
     fig.update_geos(
         scope='usa',
         projection_type='albers usa',
         showlakes=False,
-        bgcolor='rgba(0,0,0,0)'
+        bgcolor='rgba(0,0,0,0)',
+        showsubunits=True,  # Show state boundaries with labels
+        subunitcolor='white',
+        subunitwidth=2
     )
     
     fig.update_layout(
