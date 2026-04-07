@@ -28,13 +28,22 @@ COLORS = {
     # NEW: Bold Map Categories (high-contrast for easy distinction)
     'universal_meals': '#059669',  # Bold emerald green
     'universal_breakfast': '#f59e0b',  # Bold amber/orange
+    'fpl_states': '#3b82f6',  # Bold blue - Federal Poverty Level states
     'other_states': '#cbd5e1'  # Light slate gray
 }
 
 # STATE MEAL PROGRAM CATEGORIES (Updated March 2026)
 STATE_CATEGORIES = {
     'universal_meals': ['CA', 'ME', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY'],  # 9 states with free breakfast + lunch
-    'universal_breakfast': ['AR', 'DE', 'PA']  # 3 states with free breakfast only (added DE - Delaware)
+    'universal_breakfast': ['AR', 'DE', 'PA'],  # 3 states with free breakfast only (added DE - Delaware)
+    'fpl_states': ['HI', 'NJ', 'ND']  # 3 states with Federal Poverty Level eligibility
+}
+
+# FPL percentages for hover display on landing page
+FPL_PERCENTAGES = {
+    'HI': '300% of FPL',
+    'NJ': '225% of FPL',
+    'ND': '225% of FPL'
 }
 
 # State flag icons as inline SVG (simple, reliable, no external dependencies)
@@ -95,6 +104,8 @@ def get_state_category(state_abbr):
         return 'universal_meals'
     elif state_abbr in STATE_CATEGORIES['universal_breakfast']:
         return 'universal_breakfast'
+    elif state_abbr in STATE_CATEGORIES.get('fpl_states', []):
+        return 'fpl_states'
     return 'other'
 
 def get_state_category_color(state_abbr):
@@ -211,27 +222,41 @@ def create_us_map():
     for state in all_states:
         category = get_state_category(state)
         if category == 'universal_meals':
-            state_z_values.append(3)  # Green
+            state_z_values.append(4)  # Green
         elif category == 'universal_breakfast':
-            state_z_values.append(2)  # Amber
+            state_z_values.append(3)  # Amber
+        elif category == 'fpl_states':
+            state_z_values.append(2)  # Blue (FPL states)
         else:
             state_z_values.append(1)  # Gray
     
     state_names = [STATE_DATA.get(state, {}).get('name', state) for state in all_states]
+    
+    # FPL percentage mapping
+    fpl_percentages = {
+        'HI': '300% of FPL',
+        'NJ': '225% of FPL',
+        'ND': '225% of FPL'
+    }
+    
     hover_text = []
     for state in all_states:
         category = get_state_category(state)
+        state_name = state_names[all_states.index(state)]
+        
         if category == 'universal_meals':
             label = "Universal Free Meals"
         elif category == 'universal_breakfast':
             label = "Universal Free Breakfast"
+        elif category == 'fpl_states':
+            label = fpl_percentages.get(state, 'Federal Poverty Level')
         else:
             data = STATE_DATA.get(state, {})
             if data.get('has_data'):
                 label = f"{data.get('coverage_pct', 0)}% CEP Coverage"
             else:
                 label = "CEP data tracked"
-        hover_text.append(f"<b>{state_names[all_states.index(state)]}</b><br>{label}")
+        hover_text.append(f"<b>{state_name}</b><br>{label}")
     
     fig = go.Figure(go.Choropleth(
         locations=all_states,
@@ -245,11 +270,12 @@ def create_us_map():
         ),
         colorscale=[
             [0, COLORS['other_states']],      # 1 = Gray
-            [0.5, COLORS['universal_breakfast']],  # 2 = Amber/Yellow
-            [1, COLORS['universal_meals']]    # 3 = Green
+            [0.33, COLORS['fpl_states']],     # 2 = Blue (FPL states)
+            [0.67, COLORS['universal_breakfast']],  # 3 = Amber/Yellow
+            [1, COLORS['universal_meals']]    # 4 = Green
         ],
-        zmin=1,  # CRITICAL: Force scale to 1-3 range for discrete mapping
-        zmax=3,  # Ensures: z=1→gray, z=2→amber, z=3→green
+        zmin=1,  # CRITICAL: Force scale to 1-4 range for discrete mapping
+        zmax=4,  # Ensures: z=1→gray, z=2→blue, z=3→amber, z=4→green
         showscale=False
     ))
     
@@ -347,6 +373,10 @@ def create_map_section():
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_breakfast'], 'borderRadius': '4px', 'marginRight': '8px'}),
             html.Span("Universal school breakfast (3 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+        html.Div([
+            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['fpl_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
+            html.Span("FPL States (3 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
         ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['other_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
