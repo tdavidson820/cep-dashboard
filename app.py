@@ -317,7 +317,10 @@ def create_us_map():
     return fig
 
 def create_explore_states_panel():
-    """NEW: Redesigned right-side panel with state flags and category grouping"""
+    """NEW: Redesigned right-side panel with state flags and category grouping
+    UPDATED: Includes FPL states support - New Jersey should appear with blue border
+    Version: 2026-04-10-FPL-FIX
+    """
     
     # Get the 6 tracked states grouped by category
     tracked_states = ['WI', 'NJ', 'VA', 'SC', 'NV', 'AR']
