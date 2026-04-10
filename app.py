@@ -325,6 +325,7 @@ def create_explore_states_panel():
     # Group by category
     universal_meals_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_meals']
     universal_breakfast_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_breakfast']
+    fpl_tracked = [s for s in tracked_states if get_state_category(s) == 'fpl_states']
     other_tracked = [s for s in tracked_states if get_state_category(s) == 'other']
     
     def create_state_button(state_abbr):
@@ -338,6 +339,9 @@ def create_explore_states_panel():
         elif category == 'universal_breakfast':
             border_color = COLORS['universal_breakfast']
             subtitle = "Universal breakfast"
+        elif category == 'fpl_states':
+            border_color = COLORS['fpl_states']
+            subtitle = "FPL State"
         else:
             border_color = 'transparent'
             subtitle = f"{state_data.get('coverage_pct', 0)}% coverage"
@@ -370,6 +374,11 @@ def create_explore_states_panel():
     # Universal Breakfast section
     if universal_breakfast_tracked:
         for state in universal_breakfast_tracked:
+            buttons.append(create_state_button(state))
+    
+    # FPL States section
+    if fpl_tracked:
+        for state in fpl_tracked:
             buttons.append(create_state_button(state))
     
     # Other states section  
