@@ -213,7 +213,7 @@ def create_insights_section():
     return html.Div([html.H2("Featured Insights", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '40px', 'color': COLORS['text_primary']}), html.Div(insight_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(300px, 1fr))', 'gap': '24px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})
 
 def create_us_map():
-    """NEW: Interactive US map with full state names and bold category colors"""
+    """Enhanced: Clean interactive US map - NO hover labels, click to reveal"""
     # Prepare data for all US states
     all_states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
     
@@ -232,44 +232,12 @@ def create_us_map():
     
     state_names = [STATE_DATA.get(state, {}).get('name', state) for state in all_states]
     
-    # FPL percentage mapping
-    fpl_percentages = {
-        'HI': '300% of FPL',
-        'NJ': '225% of FPL',
-        'ND': '225% of FPL'
-    }
-    
-    hover_text = []
-    for state in all_states:
-        category = get_state_category(state)
-        state_name = state_names[all_states.index(state)]
-        
-        if category == 'universal_meals':
-            label = "Universal Free Meals"
-            hover_text.append(f"<b>{state_name}</b><br>{label}")
-        elif category == 'universal_breakfast':
-            label = "Universal Free Breakfast"
-            hover_text.append(f"<b>{state_name}</b><br>{label}")
-        elif category == 'fpl_states':
-            label = fpl_percentages.get(state, 'Federal Poverty Level')
-            hover_text.append(f"<b>{state_name}</b><br>{label}")
-        else:
-            # For gray states
-            data = STATE_DATA.get(state, {})
-            if data.get('has_data'):
-                # Tracked states: show state name + coverage
-                hover_text.append(f"<b>{state_name}</b><br>{data.get('coverage_pct', 0)}% CEP Coverage")
-            else:
-                # Other gray states: just state name
-                hover_text.append(f"<b>{state_name}</b>")
-    
     fig = go.Figure(go.Choropleth(
         locations=all_states,
         z=state_z_values,
         locationmode='USA-states',
         text=state_names,
-        hovertext=hover_text,
-        hovertemplate='%{hovertext}<extra></extra>',
+        hoverinfo='skip',  # CRITICAL: Remove all hover tooltips
         marker=dict(
             line=dict(color='white', width=2)
         ),
@@ -279,29 +247,17 @@ def create_us_map():
             [0.67, COLORS['universal_breakfast']],  # 3 = Amber/Yellow
             [1, COLORS['universal_meals']]    # 4 = Green
         ],
-        zmin=1,  # CRITICAL: Force scale to 1-4 range for discrete mapping
-        zmax=4,  # Ensures: z=1→gray, z=2→blue, z=3→amber, z=4→green
+        zmin=1,
+        zmax=4,
         showscale=False
     ))
-    
-    # Enhanced tooltip styling for clean, minimal appearance
-    fig.update_traces(
-        hoverlabel=dict(
-            bgcolor='white',
-            font_size=14,
-            font_family='Inter, system-ui, -apple-system, sans-serif',
-            font_color='#1a1a1a',
-            bordercolor='#e5e7eb',
-            align='left'
-        )
-    )
     
     fig.update_geos(
         scope='usa',
         projection_type='albers usa',
         showlakes=False,
         bgcolor='rgba(0,0,0,0)',
-        showsubunits=True,  # Show state boundaries with labels
+        showsubunits=True,
         subunitcolor='white',
         subunitwidth=2
     )
@@ -315,6 +271,183 @@ def create_us_map():
     )
     
     return fig
+
+def create_state_detail_panel(state_abbr=None):
+    """Enhanced: Premium detail panel that appears when state is clicked"""
+    if not state_abbr:
+        # Default state - no selection
+        return html.Div([
+            html.Div([
+                html.Div("Click any state to view detailed information", 
+                    style={
+                        'fontSize': '14px',
+                        'color': COLORS['text_secondary'],
+                        'textAlign': 'center',
+                        'padding': '40px 20px'
+                    })
+            ])
+        ], style={
+            'background': 'white',
+            'padding': '24px',
+            'borderRadius': '12px',
+            'border': f'1px solid {COLORS["border"]}',
+            'minHeight': '400px',
+            'display': 'flex',
+            'alignItems': 'center',
+            'justifyContent': 'center'
+        })
+    
+    # Get state data
+    state_data = STATE_DATA.get(state_abbr, {})
+    state_name = state_data.get('name', state_abbr)
+    category = get_state_category(state_abbr)
+    
+    # FPL percentages
+    fpl_percentages = {'HI': 300, 'NJ': 225, 'ND': 225}
+    
+    # Category badge styling
+    if category == 'universal_meals':
+        badge_color = COLORS['universal_meals']
+        badge_text = '🟢 Universal School Meals'
+    elif category == 'universal_breakfast':
+        badge_color = COLORS['universal_breakfast']
+        badge_text = '🟡 Universal School Breakfast'
+    elif category == 'fpl_states':
+        badge_color = COLORS['fpl_states']
+        badge_text = '🔵 Federal Poverty Level'
+    else:
+        badge_color = COLORS['text_secondary']
+        badge_text = 'CEP Tracked'
+    
+    content = [
+        # State name
+        html.H3(state_name, style={
+            'fontSize': '22px',
+            'fontWeight': '600',
+            'margin': '0 0 12px 0',
+            'color': COLORS['text_primary']
+        }),
+        
+        # Category badge
+        html.Div(badge_text, style={
+            'display': 'inline-block',
+            'background': badge_color,
+            'color': 'white',
+            'padding': '6px 14px',
+            'borderRadius': '16px',
+            'fontSize': '13px',
+            'fontWeight': '500',
+            'marginBottom': '20px'
+        })
+    ]
+    
+    # FPL percentage (if applicable)
+    if category == 'fpl_states' and state_abbr in fpl_percentages:
+        content.append(
+            html.Div([
+                html.Div('FPL Threshold', style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '4px'
+                }),
+                html.Div(f"{fpl_percentages[state_abbr]}% of FPL", style={
+                    'fontSize': '16px',
+                    'fontWeight': '500',
+                    'color': COLORS['text_primary']
+                })
+            ], style={
+                'marginBottom': '16px',
+                'paddingBottom': '16px',
+                'borderBottom': f'0.5px solid {COLORS["border"]}'
+            })
+        )
+    
+    # CEP Coverage
+    if state_data:
+        content.append(
+            html.Div([
+                html.Div('CEP Coverage', style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '4px'
+                }),
+                html.Div(f"{state_data.get('coverage_pct', 0)}%", style={
+                    'fontSize': '24px',
+                    'fontWeight': '600',
+                    'color': COLORS['text_primary']
+                })
+            ], style={
+                'marginBottom': '16px',
+                'paddingBottom': '16px',
+                'borderBottom': f'0.5px solid {COLORS["border"]}'
+            })
+        )
+        
+        # Schools participating
+        content.append(
+            html.Div([
+                html.Div('Schools Participating', style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '4px'
+                }),
+                html.Div(f"{state_data.get('cep_schools', 0):,} of {state_data.get('eligible_schools', 0):,}", style={
+                    'fontSize': '16px',
+                    'fontWeight': '500',
+                    'color': COLORS['text_primary']
+                })
+            ], style={
+                'marginBottom': '16px',
+                'paddingBottom': '16px',
+                'borderBottom': f'0.5px solid {COLORS["border"]}'
+            })
+        )
+        
+        # Students served
+        content.append(
+            html.Div([
+                html.Div('Students Served', style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '4px'
+                }),
+                html.Div(f"{state_data.get('students_in_cep', 0):,}", style={
+                    'fontSize': '16px',
+                    'fontWeight': '500',
+                    'color': COLORS['text_primary']
+                })
+            ], style={'marginBottom': '20px'})
+        )
+        
+        # View Details button
+        content.append(
+            html.A('View County Details →', 
+                href=f'/state/{state_abbr}',
+                style={
+                    'display': 'block',
+                    'width': '100%',
+                    'padding': '12px',
+                    'background': 'transparent',
+                    'border': f'0.5px solid {COLORS["border"]}',
+                    'borderRadius': '8px',
+                    'fontSize': '14px',
+                    'fontWeight': '500',
+                    'color': COLORS['text_primary'],
+                    'textAlign': 'center',
+                    'textDecoration': 'none',
+                    'transition': 'all 0.2s'
+                }
+            )
+        )
+    
+    return html.Div(content, style={
+        'background': 'white',
+        'padding': '24px',
+        'borderRadius': '12px',
+        'border': f'1px solid {COLORS["border"]}',
+        'boxShadow': '0 2px 8px rgba(0,0,0,0.04)',
+        'minHeight': '400px'
+    })
 
 def create_explore_states_panel():
     """NEW: Redesigned right-side panel with state flags and category grouping
@@ -394,53 +527,180 @@ def create_explore_states_panel():
     ], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
 
 def create_map_section():
-    """NEW: Grid layout with map on left, Explore States on right"""
+    """Enhanced: Clean map with search, detail panel, and county map below"""
     
     # Legend for the map
     legend = html.Div([
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_meals'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("Universal school meals (9 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+            html.Span("Universal meals (9)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
         ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_breakfast'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("Universal school breakfast (3 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+            html.Span("Breakfast (3)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
         ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['fpl_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("FPL States (3 states)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+            html.Span("FPL States (3)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
         ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
         html.Div([
             html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['other_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
             html.Span("Other states", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
         ], style={'display': 'flex', 'alignItems': 'center'})
-    ], style={'display': 'flex', 'marginBottom': '24px', 'padding': '16px', 'background': COLORS['off_white'], 'borderRadius': '8px'})
+    ], style={'display': 'flex', 'flexWrap': 'wrap', 'marginBottom': '24px', 'padding': '16px', 'background': COLORS['off_white'], 'borderRadius': '8px'})
+    
+    # All state options for search dropdown
+    all_state_options = [
+        {'label': 'Alabama', 'value': 'AL'}, {'label': 'Alaska', 'value': 'AK'},
+        {'label': 'Arizona', 'value': 'AZ'}, {'label': 'Arkansas', 'value': 'AR'},
+        {'label': 'California', 'value': 'CA'}, {'label': 'Colorado', 'value': 'CO'},
+        {'label': 'Connecticut', 'value': 'CT'}, {'label': 'Delaware', 'value': 'DE'},
+        {'label': 'Florida', 'value': 'FL'}, {'label': 'Georgia', 'value': 'GA'},
+        {'label': 'Hawaii', 'value': 'HI'}, {'label': 'Idaho', 'value': 'ID'},
+        {'label': 'Illinois', 'value': 'IL'}, {'label': 'Indiana', 'value': 'IN'},
+        {'label': 'Iowa', 'value': 'IA'}, {'label': 'Kansas', 'value': 'KS'},
+        {'label': 'Kentucky', 'value': 'KY'}, {'label': 'Louisiana', 'value': 'LA'},
+        {'label': 'Maine', 'value': 'ME'}, {'label': 'Maryland', 'value': 'MD'},
+        {'label': 'Massachusetts', 'value': 'MA'}, {'label': 'Michigan', 'value': 'MI'},
+        {'label': 'Minnesota', 'value': 'MN'}, {'label': 'Mississippi', 'value': 'MS'},
+        {'label': 'Missouri', 'value': 'MO'}, {'label': 'Montana', 'value': 'MT'},
+        {'label': 'Nebraska', 'value': 'NE'}, {'label': 'Nevada', 'value': 'NV'},
+        {'label': 'New Hampshire', 'value': 'NH'}, {'label': 'New Jersey', 'value': 'NJ'},
+        {'label': 'New Mexico', 'value': 'NM'}, {'label': 'New York', 'value': 'NY'},
+        {'label': 'North Carolina', 'value': 'NC'}, {'label': 'North Dakota', 'value': 'ND'},
+        {'label': 'Ohio', 'value': 'OH'}, {'label': 'Oklahoma', 'value': 'OK'},
+        {'label': 'Oregon', 'value': 'OR'}, {'label': 'Pennsylvania', 'value': 'PA'},
+        {'label': 'Rhode Island', 'value': 'RI'}, {'label': 'South Carolina', 'value': 'SC'},
+        {'label': 'South Dakota', 'value': 'SD'}, {'label': 'Tennessee', 'value': 'TN'},
+        {'label': 'Texas', 'value': 'TX'}, {'label': 'Utah', 'value': 'UT'},
+        {'label': 'Vermont', 'value': 'VT'}, {'label': 'Virginia', 'value': 'VA'},
+        {'label': 'Washington', 'value': 'WA'}, {'label': 'West Virginia', 'value': 'WV'},
+        {'label': 'Wisconsin', 'value': 'WI'}, {'label': 'Wyoming', 'value': 'WY'}
+    ]
     
     return html.Div([
         html.Div([
-            # Left: Map
-            html.Div([
-                html.H2("National School Meal Coverage", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}),
-                legend,
-                dcc.Graph(id='us-map-graph', figure=create_us_map(), config={'displayModeBar': False}, style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '20px'})
-            ], style={'gridColumn': '1 / span 2'}),
+            html.H2("National School Meal Coverage", style={
+                'fontSize': '32px',
+                'fontWeight': '600',
+                'marginBottom': '20px',
+                'color': COLORS['text_primary']
+            }),
             
-            # Right: Explore States Panel
+            # Search box
             html.Div([
-                create_explore_states_panel()
-            ], style={'gridColumn': '3'})
+                dcc.Dropdown(
+                    id='state-search-dropdown',
+                    options=all_state_options,
+                    placeholder='🔍 Search states...',
+                    clearable=True,
+                    searchable=True,
+                    style={'maxWidth': '400px'}
+                )
+            ], style={'marginBottom': '20px'}),
             
-        ], style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr 400px', 'gap': '24px', 'maxWidth': '1400px', 'margin': '0 auto'})
-    ], style={'padding': '80px 40px', 'background': COLORS['off_white']})
+            legend,
+            
+            # Map + Detail Panel Grid
+            html.Div([
+                # Map
+                html.Div([
+                    dcc.Graph(
+                        id='us-map-graph',
+                        figure=create_us_map(),
+                        config={'displayModeBar': False},
+                        style={
+                            'background': 'white',
+                            'border': f'1px solid {COLORS["border"]}',
+                            'borderRadius': '12px',
+                            'padding': '20px'
+                        }
+                    )
+                ], style={'flex': '1.5'}),
+                
+                # Detail Panel
+                html.Div(id='state-detail-panel', children=create_state_detail_panel(), 
+                    style={'flex': '1'})
+                
+            ], style={
+                'display': 'grid',
+                'gridTemplateColumns': '1.5fr 1fr',
+                'gap': '20px',
+                'marginBottom': '24px'
+            }),
+            
+            # County Map Container (hidden by default)
+            html.Div(id='county-map-container', children=[], style={'marginTop': '24px'})
+            
+        ], style={'maxWidth': '1400px', 'margin': '0 auto'})
+    ], style={'padding': '80px 40px', 'background': 'white'})
 
 def create_comparison_section():
-    return html.Div([html.Div([html.H2("Compare States", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}), html.Div([html.Div([html.Label("State A", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '8px', 'display': 'block'}), dcc.Dropdown(id='compare-state-a', options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()], value='WI', clearable=False, style={'minWidth': '200px'})], style={'flex': '1'}), html.Div([html.Label("State B", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '8px', 'display': 'block'}), dcc.Dropdown(id='compare-state-b', options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()], value='NJ', clearable=False, style={'minWidth': '200px'})], style={'flex': '1'})], style={'display': 'flex', 'gap': '20px', 'marginBottom': '32px'}), html.Div(id='comparison-output')], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '80px 40px', 'background': 'white'})
+    """Enhanced: Comparison with side-by-side county maps"""
+    return html.Div([
+        html.Div([
+            html.H2("Compare States", style={
+                'fontSize': '32px',
+                'fontWeight': '600',
+                'marginBottom': '20px',
+                'color': COLORS['text_primary']
+            }),
+            
+            # Dropdowns
+            html.Div([
+                html.Div([
+                    html.Label("State A", style={
+                        'fontSize': '14px',
+                        'fontWeight': '500',
+                        'marginBottom': '8px',
+                        'display': 'block'
+                    }),
+                    dcc.Dropdown(
+                        id='compare-state-a',
+                        options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()],
+                        value='WI',
+                        clearable=False,
+                        style={'minWidth': '200px'}
+                    )
+                ], style={'flex': '1'}),
+                
+                html.Div([
+                    html.Label("State B", style={
+                        'fontSize': '14px',
+                        'fontWeight': '500',
+                        'marginBottom': '8px',
+                        'display': 'block'
+                    }),
+                    dcc.Dropdown(
+                        id='compare-state-b',
+                        options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()],
+                        value='NJ',
+                        clearable=False,
+                        style={'minWidth': '200px'}
+                    )
+                ], style={'flex': '1'})
+            ], style={'display': 'flex', 'gap': '20px', 'marginBottom': '32px'}),
+            
+            # Comparison cards
+            html.Div(id='comparison-output'),
+            
+            # County maps container (side-by-side)
+            html.Div(id='comparison-county-maps', style={'marginTop': '32px'})
+            
+        ], style={'maxWidth': '1400px', 'margin': '0 auto'})
+    ], style={'padding': '80px 40px', 'background': 'white'})
 
 def create_cta_section():
     return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    return html.Div([create_hero_section(), create_insights_section(), create_map_section(), create_comparison_section(), create_cta_section()])
+    """Enhanced landing page - CTA section removed"""
+    return html.Div([
+        create_hero_section(),
+        create_insights_section(),
+        create_map_section(),
+        create_comparison_section()
+    ])
 
 def create_comparison_cards(state_a, state_b):
     data_a = STATE_DATA[state_a]
@@ -625,6 +885,159 @@ def update_comparison(state_a, state_b):
     if state_a and state_b:
         return create_comparison_cards(state_a, state_b)
     return html.Div()
+
+# NEW CALLBACKS FOR ENHANCED LANDING PAGE
+
+@application.callback(
+    [Output('state-detail-panel', 'children'),
+     Output('county-map-container', 'children')],
+    [Input('us-map-graph', 'clickData'),
+     Input('state-search-dropdown', 'value')]
+)
+def update_state_selection(click_data, search_value):
+    """Update detail panel and county map when state is clicked or searched"""
+    ctx = dash.callback_context
+    
+    state_abbr = None
+    
+    # Check if triggered by search
+    if ctx.triggered and ctx.triggered[0]['prop_id'] == 'state-search-dropdown.value':
+        if search_value:
+            state_abbr = search_value
+    # Check if triggered by map click
+    elif click_data and 'points' in click_data and len(click_data['points']) > 0:
+        state_abbr = click_data['points'][0]['location']
+    
+    if not state_abbr:
+        # No selection - show default
+        return create_state_detail_panel(), []
+    
+    # Create detail panel
+    detail_panel = create_state_detail_panel(state_abbr)
+    
+    # Create county map if state has data
+    county_map_content = []
+    if state_abbr in ['WI', 'NJ']:
+        # Load county data
+        if state_abbr == 'WI':
+            df = load_wisconsin_data()
+            fips_dict = WI_FIPS
+        else:  # NJ
+            df = load_new_jersey_data()
+            fips_dict = NJ_FIPS
+        
+        state_name = STATE_DATA[state_abbr]['name']
+        
+        county_map_content = [
+            html.Div([
+                html.H3(f"{state_name} County Map", style={
+                    'fontSize': '18px',
+                    'fontWeight': '600',
+                    'marginBottom': '16px',
+                    'color': COLORS['text_primary']
+                }),
+                html.Div([
+                    dcc.Graph(
+                        figure=create_county_map(df, fips_dict, state_abbr),
+                        config={'displayModeBar': False}
+                    )
+                ], style={
+                    'background': 'white',
+                    'padding': '20px',
+                    'borderRadius': '12px',
+                    'border': f'1px solid {COLORS["border"]}'
+                })
+            ], style={
+                'padding': '20px',
+                'background': COLORS['off_white'],
+                'borderRadius': '12px',
+                'border': f'1px solid {COLORS["border"]}'
+            })
+        ]
+    
+    return detail_panel, county_map_content
+
+@application.callback(
+    Output('comparison-county-maps', 'children'),
+    [Input('compare-state-a', 'value'),
+     Input('compare-state-b', 'value')]
+)
+def update_comparison_county_maps(state_a, state_b):
+    """Show side-by-side county maps in comparison section"""
+    if not state_a or not state_b:
+        return []
+    
+    maps = []
+    
+    for state_abbr in [state_a, state_b]:
+        if state_abbr in ['WI', 'NJ']:
+            # Load county data
+            if state_abbr == 'WI':
+                df = load_wisconsin_data()
+                fips_dict = WI_FIPS
+            else:  # NJ
+                df = load_new_jersey_data()
+                fips_dict = NJ_FIPS
+            
+            state_name = STATE_DATA[state_abbr]['name']
+            
+            maps.append(
+                html.Div([
+                    html.H4(f"{state_name} Counties", style={
+                        'fontSize': '16px',
+                        'fontWeight': '600',
+                        'marginBottom': '12px',
+                        'color': COLORS['text_primary']
+                    }),
+                    html.Div([
+                        dcc.Graph(
+                            figure=create_county_map(df, fips_dict, state_abbr),
+                            config={'displayModeBar': False}
+                        )
+                    ], style={
+                        'background': 'white',
+                        'padding': '16px',
+                        'borderRadius': '12px',
+                        'border': f'1px solid {COLORS["border"]}'
+                    })
+                ])
+            )
+        else:
+            # State without county data
+            state_name = STATE_DATA[state_abbr]['name']
+            maps.append(
+                html.Div([
+                    html.H4(f"{state_name} Counties", style={
+                        'fontSize': '16px',
+                        'fontWeight': '600',
+                        'marginBottom': '12px',
+                        'color': COLORS['text_primary']
+                    }),
+                    html.Div([
+                        html.Div("County-level data not available", style={
+                            'padding': '40px',
+                            'textAlign': 'center',
+                            'color': COLORS['text_secondary'],
+                            'fontSize': '14px'
+                        })
+                    ], style={
+                        'background': 'white',
+                        'padding': '16px',
+                        'borderRadius': '12px',
+                        'border': f'1px solid {COLORS["border"]}',
+                        'minHeight': '200px',
+                        'display': 'flex',
+                        'alignItems': 'center',
+                        'justifyContent': 'center'
+                    })
+                ])
+            )
+    
+    return html.Div(maps, style={
+        'display': 'grid',
+        'gridTemplateColumns': '1fr 1fr',
+        'gap': '24px'
+    })
 
 if __name__ == '__main__':
     application.run(debug=False, host='0.0.0.0', port=8000)
