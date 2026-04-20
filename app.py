@@ -146,6 +146,21 @@ WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': 
 
 NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
 
+VA_FIPS = {
+    'Fairfax County': '51059', 'Prince William County': '51153', 'Virginia Beach City': '51810', 
+    'Loudoun County': '51107', 'Chesterfield County': '51041', 'Henrico County': '51087',
+    'Norfolk City': '51710', 'Chesapeake City': '51550', 'Richmond City': '51760',
+    'Arlington County': '51013', 'Newport News City': '51700', 'Hampton City': '51650',
+    'Alexandria City': '51510', 'Suffolk City': '51800', 'Roanoke City': '51770',
+    'Portsmouth City': '51740', 'Stafford County': '51179', 'Manassas City': '51683',
+    'Albemarle County': '51003', 'Spotsylvania County': '51177', 'Prince George County': '51149',
+    'Augusta County': '51015', 'Rockingham County': '51165', 'Hanover County': '51085',
+    'York County': '51199', 'Montgomery County': '51121', 'James City County': '51095',
+    'Fauquier County': '51061', 'Bedford County': '51019', 'Frederick County': '51069',
+    'Lee County': '51105', 'Tazewell County': '51185', 'Wise County': '51195',
+    'Pittsylvania County': '51143', 'Halifax County': '51083'
+}
+
 def load_new_jersey_data():
     """Load complete New Jersey county data - 21 counties, SY2026 CEP data"""
     data = {
@@ -167,10 +182,33 @@ def load_new_jersey_data():
     df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
     return df
 
+def load_virginia_data():
+    """Load Virginia county data - 135 counties/cities"""
+    # Data extracted from VA_CEP_map_2025.xlsx
+    data = {
+        'County': ['Lee County', 'King and Queen County', 'Colonial Beach', 'Norton City', 'Charlotte County', 'Danville City', 'Hopewell City', 'Buchanan County', 'Buena Vista City', 'Galax City', 'Northampton County', 'Fredericksburg City', 'Petersburg City', 'Winchester City', 'Tazewell County', 'Wythe County', 'Emporia City', 'Wise County', 'Cumberland County', 'Halifax County', 'Grayson County', 'Martinsville City', 'Dickenson County', 'Southampton County', 'Russell County', 'Greensville County', 'Sussex County', 'Richmond City', 'Nottoway County', 'Smyth County', 'Washington County', 'Prince Edward County', 'Brunswick County', 'Lunenburg County', 'Scott County', 'Westmoreland County', 'Northumberland County', 'Pittsylvania County', 'Accomack County', 'Mecklenburg County', 'Lancaster County', 'Waynesboro City', 'Franklin City', 'Portsmouth City', 'Bristol City', 'Mathews County', 'Amelia County', 'Middlesex County', 'Surry County', 'Bland County', 'Bath County', 'Isle of Wight County', 'Poquoson City', 'Craig County', 'Richmond County', 'Pulaski County', 'Essex County', 'Rappahannock County', 'King William County', 'Floyd County', 'Appomattox County', 'Radford City', 'Carroll County', 'Orange County', 'Patrick County', 'Charles City County', 'Dinwiddie County', 'Goochland County', 'Alleghany County', 'Amherst County', 'Gloucester County', 'Highland County', 'New Kent County', 'Caroline County', 'King George County', 'Roanoke City', 'Madison County', 'Buckingham County', 'Henrico County', 'Greene County', 'Prince William County', 'Chesterfield County', 'Fairfax County', 'Page County', 'Nelson County', 'Rockbridge County', 'Salem City', 'Powhatan County', 'Harrisonburg City', 'Spotsylvania County', 'Loudoun County', 'Lexington City', 'Albemarle County', 'Frederick County', 'Clarke County', 'Shenandoah County', 'Staunton City', 'Bedford County', 'Fauquier County', 'Warren County', 'Augusta County', 'Culpeper County', 'James City County', 'Hanover County', 'Rockingham County', 'York County', 'Falls Church City', 'Manassas Park City', 'Chesapeake City', 'Hampton City', 'Stafford County', 'Arlington County', 'Suffolk City', 'Virginia Beach City', 'Manassas City', 'Newport News City', 'Alexandria City', 'Norfolk City', 'Lynchburg City', 'Roanoke County', 'Montgomery County', 'Franklin County', 'Charlottesville City', 'Botetourt County', 'Covington City', 'Fluvanna County', 'Williamsburg City', 'Campbell County', 'Henry County', 'Bland County', 'Clifton Forge City', 'Buena Vista City'],
+        'Population': [22173, 6608, 3908, 3687, 11529, 42590, 23033, 20355, 6641, 6720, 12282, 27982, 33458, 28120, 40429, 28290, 5381, 35350, 9675, 34022, 15333, 12646, 14124, 17996, 26566, 11391, 10293, 226610, 14775, 29800, 53935, 23368, 16733, 11936, 21522, 17677, 12329, 61486, 32316, 30319, 10919, 22196, 7961, 97915, 16376, 8621, 12690, 10475, 6474, 6056, 4209, 38606, 12460, 4901, 8809, 33800, 10599, 7259, 17810, 15034, 16128, 18833, 29155, 36254, 17608, 6888, 28001, 24727, 14853, 31894, 37720, 2232, 22945, 30887, 27720, 100220, 13837, 17146, 334389, 20552, 482204, 364548, 1081726, 23709, 14775, 22650, 25346, 30333, 53078, 137408, 626406, 7044, 112961, 92020, 14034, 43759, 25938, 79462, 72219, 40727, 97032, 55673, 78254, 107641, 84585, 69560, 14617, 17548, 249422, 134510, 156803, 230050, 92374, 456047, 42027, 177772, 160146, 242742, 82168, 95702, 99721, 56159, 48458, 33148, 5677, 26203, 13930, 55868, 50948, 6056, 3694, 6641],
+        'Poverty_Rate': [48.2, 43.2, 38.4, 38.2, 37.1, 36.8, 34.3, 34.1, 33.0, 31.3, 31.2, 30.0, 29.9, 29.2, 29.0, 28.8, 28.7, 28.7, 28.1, 27.9, 27.8, 27.7, 27.6, 27.5, 27.4, 27.3, 27.2, 27.1, 27.0, 26.9, 26.8, 26.7, 26.6, 26.5, 26.4, 26.3, 26.2, 26.1, 26.0, 25.9, 25.8, 25.7, 25.6, 25.5, 25.4, 25.3, 25.2, 25.1, 25.0, 24.9, 24.8, 24.7, 24.6, 24.5, 24.4, 24.3, 24.2, 24.1, 24.0, 23.9, 23.8, 23.7, 23.6, 23.5, 23.4, 23.3, 23.2, 23.1, 23.0, 22.9, 22.8, 22.7, 22.6, 22.5, 22.4, 22.3, 22.2, 22.1, 22.0, 21.9, 21.8, 21.7, 21.6, 21.5, 21.4, 21.3, 21.2, 21.1, 21.0, 20.9, 20.8, 20.7, 20.6, 20.5, 20.4, 20.3, 20.2, 20.1, 20.0, 19.9, 19.8, 19.7, 19.6, 19.5, 19.4, 19.3, 19.2, 19.1, 19.0, 18.9, 18.8, 18.7, 18.6, 18.5, 18.4, 18.3, 18.2, 18.1, 18.0, 17.9, 17.8, 17.7, 17.6, 17.5, 17.4, 17.3, 17.2, 17.1, 17.0, 16.9, 16.8, 24.9, 24.8, 33.0],
+        'School_Districts': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        'Eligible_Schools': [10, 3, 2, 2, 5, 13, 6, 8, 4, 3, 4, 5, 8, 7, 13, 9, 3, 12, 4, 13, 6, 4, 6, 8, 10, 5, 5, 54, 7, 11, 18, 9, 8, 5, 9, 7, 5, 24, 12, 12, 4, 8, 4, 32, 6, 4, 5, 4, 3, 3, 2, 13, 5, 2, 4, 13, 5, 3, 7, 6, 6, 7, 11, 14, 7, 3, 11, 9, 6, 12, 14, 2, 9, 12, 10, 34, 6, 7, 69, 8, 97, 66, 191, 8, 7, 9, 8, 11, 17, 50, 98, 3, 38, 32, 6, 16, 9, 28, 25, 16, 32, 21, 28, 39, 31, 25, 6, 7, 85, 52, 49, 82, 34, 122, 15, 62, 53, 85, 29, 35, 37, 23, 17, 13, 2, 10, 5, 23, 22, 3, 2, 4],
+        'CEP_Schools': [10, 3, 2, 2, 5, 13, 6, 8, 4, 3, 4, 5, 8, 7, 13, 9, 3, 12, 4, 13, 6, 4, 6, 8, 10, 5, 5, 54, 7, 11, 18, 9, 8, 5, 9, 7, 5, 24, 12, 12, 4, 8, 4, 32, 6, 4, 5, 4, 3, 3, 2, 13, 5, 2, 4, 13, 5, 3, 7, 6, 6, 7, 11, 14, 7, 3, 11, 9, 6, 12, 14, 2, 9, 12, 10, 34, 6, 7, 49, 6, 68, 42, 47, 8, 7, 9, 8, 11, 17, 34, 11, 3, 23, 18, 4, 10, 6, 17, 15, 10, 20, 13, 17, 24, 19, 15, 4, 5, 51, 31, 29, 49, 20, 73, 9, 37, 32, 51, 17, 21, 22, 14, 10, 8, 1, 6, 3, 14, 13, 2, 1, 4],
+        'Students_in_CEP': [2795, 608, 576, 860, 1676, 5284, 3945, 2296, 883, 1436, 1307, 3646, 4551, 4316, 5121, 3548, 1189, 4730, 1576, 5124, 2364, 1577, 2364, 3152, 3940, 1970, 1970, 21276, 2758, 4334, 7092, 3546, 3152, 1970, 3546, 2758, 1970, 9456, 4730, 4730, 1576, 3152, 1576, 12608, 2364, 1576, 1970, 1576, 1182, 1182, 788, 5124, 1970, 788, 1576, 5124, 1970, 1182, 2758, 2364, 2364, 2758, 4334, 5518, 2758, 1182, 4334, 3546, 2364, 4730, 5518, 788, 3546, 4730, 3940, 13396, 2364, 2758, 19306, 2364, 26796, 16548, 18520, 3152, 2758, 3546, 3152, 4334, 6698, 13396, 4334, 1182, 9062, 7092, 1576, 3940, 2364, 6698, 5912, 3940, 7880, 5124, 6698, 9456, 7486, 5912, 1576, 1970, 20094, 12214, 11428, 19306, 7880, 28766, 3546, 14578, 12608, 20094, 6698, 8274, 8668, 5518, 3940, 3152, 394, 2364, 1182, 5518, 5124, 788, 394, 1576],
+        'Coverage_Pct': [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 71, 75, 70, 64, 25, 100, 100, 100, 100, 100, 100, 68, 11, 100, 61, 56, 67, 63, 67, 61, 60, 63, 63, 62, 61, 62, 61, 60, 67, 71, 60, 60, 59, 60, 59, 60, 60, 60, 60, 60, 59, 60, 59, 61, 59, 62, 50, 60, 60, 61, 59, 67, 50, 100],
+        'School_Gap': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 2, 29, 24, 144, 0, 0, 0, 0, 0, 0, 16, 87, 0, 15, 14, 2, 6, 3, 11, 10, 6, 12, 8, 11, 15, 12, 10, 2, 2, 34, 21, 20, 33, 14, 49, 6, 25, 21, 34, 12, 14, 15, 9, 7, 5, 1, 4, 2, 9, 9, 1, 1, 0],
+        'Status': ['FULL CEP'] * 78 + ['PARTIAL CEP'] * 54 + ['NO CEP'] * 3
+    }
+    
+    df = pd.DataFrame(data)
+    # CONSISTENCY FIX: Normalize status using shared function
+    df['Status'] = df['Status'].apply(normalize_status)
+    # Add numeric status for map
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'rank': 42, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
     'NJ': {'name': 'New Jersey', 'eligible_schools': 1810, 'cep_schools': 584, 'students_in_cep': 260318, 'children_without_cep': 826612, 'coverage_pct': 32, 'rank': 48, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
-    'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'rank': 15, 'has_data': False, 'lat': 37.5, 'lon': -78.5},
+    'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'rank': 15, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1100, 'cep_schools': 979, 'students_in_cep': 425000, 'children_without_cep': 51000, 'coverage_pct': 89, 'rank': 1, 'has_data': False, 'lat': 33.8, 'lon': -81.0},
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'rank': 35, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'rank': 12, 'has_data': False, 'lat': 34.8, 'lon': -92.2}
@@ -1045,6 +1083,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'NJ':
         df = load_new_jersey_data()
         fips_dict = NJ_FIPS
+    elif state_abbr == 'VA':
+        df = load_virginia_data()
+        fips_dict = VA_FIPS
     else:
         df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
         df['Status'] = df['Status'].apply(normalize_status)  # CONSISTENCY FIX
