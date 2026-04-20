@@ -199,6 +199,8 @@ def load_virginia_data():
     }
     
     df = pd.DataFrame(data)
+    # Calculate Children_in_Poverty from Poverty_Rate (assuming ~25% of population is under 18)
+    df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
     # CONSISTENCY FIX: Normalize status using shared function
     df['Status'] = df['Status'].apply(normalize_status)
     # Add numeric status for map
@@ -825,9 +827,9 @@ def create_map_section():
             
             legend,
             
-            # 3-SECTION LAYOUT: Map (top full width) + Detail Panel (bottom left) + Explore States (bottom right)
+            # 2-SECTION LAYOUT: Map (left) + Explore States (right)
             html.Div([
-                # Row 1: Map (spans full width)
+                # Left: Map (takes most of the space)
                 html.Div([
                     dcc.Graph(
                         id='us-map-graph',
@@ -840,19 +842,16 @@ def create_map_section():
                             'padding': '20px'
                         }
                     )
-                ], style={'gridColumn': '1 / -1', 'marginBottom': '20px'}),  # Span all columns
+                ]),
                 
-                # Row 2 Left: Detail Panel
-                html.Div(id='state-detail-panel', children=create_state_detail_panel()),
-                
-                # Row 2 Right: Explore States
+                # Right: Explore States Panel
                 html.Div([
                     create_explore_states_panel()
                 ])
                 
             ], style={
                 'display': 'grid',
-                'gridTemplateColumns': '1fr 400px',  # Left column (detail) + Right sidebar (explore)
+                'gridTemplateColumns': '1fr 400px',  # Main map + Explore States sidebar
                 'gap': '20px',
                 'marginBottom': '24px'
             }),
