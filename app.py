@@ -1170,8 +1170,18 @@ def create_county_map(df, fips_dict, state_abbr):
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
-    fig.update_geos(fitbounds="locations", visible=False, center=center, projection_scale=8)
-    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0}, height=500, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_geos(
+        fitbounds="locations",  # Auto-fit to data
+        visible=False,  # Hide background
+        projection_type="albers usa",  # Better projection for US states
+        center=center
+    )
+    fig.update_layout(
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        height=500,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
     
     print(f"✓ Map created with Status_Numeric range: {df['Status_Numeric'].min()} to {df['Status_Numeric'].max()}\n")
     
@@ -1215,16 +1225,16 @@ def create_sortable_county_table(df):
                 # Status pills (on top of row colors) - NEW COLORS: Sky Blue, Green, Pink
                 {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600', 
-                    'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
-                    'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
+                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
+                    'textAlign': 'center'}, 
                 {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#10b981', 'color': '#ffffff', 'fontWeight': '600', 
-                    'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
-                    'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
+                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
+                    'textAlign': 'center'}, 
                 {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
                     'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 
-                    'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
-                    'textAlign': 'left', 'display': 'block', 'width': '100%'}
+                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
+                    'textAlign': 'center'}
             ], 
             style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '14px'}
         )
