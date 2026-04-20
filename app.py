@@ -176,6 +176,71 @@ STATE_DATA = {
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'rank': 12, 'has_data': False, 'lat': 34.8, 'lon': -92.2}
 }
 
+# Border states for quick comparison (helps elected officials)
+BORDER_STATES = {
+    'WI': ['IL', 'IA', 'MI', 'MN'],
+    'NJ': ['NY', 'PA', 'DE'],
+    'VA': ['MD', 'NC', 'TN', 'WV', 'KY'],
+    'SC': ['NC', 'GA'],
+    'NV': ['CA', 'OR', 'ID', 'UT', 'AZ'],
+    'AR': ['MO', 'TN', 'MS', 'LA', 'TX', 'OK'],
+    'HI': [],  # No border states
+    'ND': ['MN', 'SD', 'MT'],
+    'AL': ['TN', 'GA', 'FL', 'MS'],
+    'AK': [],
+    'AZ': ['CA', 'NV', 'UT', 'NM'],
+    'CA': ['OR', 'NV', 'AZ'],
+    'CO': ['WY', 'NE', 'KS', 'OK', 'NM', 'UT'],
+    'CT': ['MA', 'RI', 'NY'],
+    'DE': ['PA', 'MD', 'NJ'],
+    'FL': ['AL', 'GA'],
+    'GA': ['FL', 'AL', 'TN', 'NC', 'SC'],
+    'ID': ['MT', 'WY', 'UT', 'NV', 'OR', 'WA'],
+    'IL': ['WI', 'IA', 'MO', 'KY', 'IN'],
+    'IN': ['MI', 'OH', 'KY', 'IL'],
+    'IA': ['MN', 'WI', 'IL', 'MO', 'NE', 'SD'],
+    'KS': ['NE', 'MO', 'OK', 'CO'],
+    'KY': ['IL', 'IN', 'OH', 'WV', 'VA', 'TN', 'MO'],
+    'LA': ['TX', 'AR', 'MS'],
+    'ME': ['NH'],
+    'MD': ['PA', 'DE', 'VA', 'WV'],
+    'MA': ['NH', 'VT', 'NY', 'CT', 'RI'],
+    'MI': ['WI', 'IN', 'OH'],
+    'MN': ['WI', 'IA', 'SD', 'ND'],
+    'MS': ['TN', 'AL', 'LA', 'AR'],
+    'MO': ['IA', 'IL', 'KY', 'TN', 'AR', 'OK', 'KS', 'NE'],
+    'MT': ['ND', 'SD', 'WY', 'ID'],
+    'NE': ['SD', 'IA', 'MO', 'KS', 'CO', 'WY'],
+    'NH': ['ME', 'MA', 'VT'],
+    'NM': ['CO', 'OK', 'TX', 'AZ'],
+    'NY': ['VT', 'MA', 'CT', 'NJ', 'PA'],
+    'NC': ['VA', 'TN', 'GA', 'SC'],
+    'OH': ['MI', 'PA', 'WV', 'KY', 'IN'],
+    'OK': ['KS', 'MO', 'AR', 'TX', 'NM', 'CO'],
+    'OR': ['WA', 'ID', 'NV', 'CA'],
+    'PA': ['NY', 'NJ', 'DE', 'MD', 'WV', 'OH'],
+    'RI': ['MA', 'CT'],
+    'SD': ['ND', 'MN', 'IA', 'NE', 'WY', 'MT'],
+    'TN': ['KY', 'VA', 'NC', 'GA', 'AL', 'MS', 'AR', 'MO'],
+    'TX': ['OK', 'AR', 'LA', 'NM'],
+    'UT': ['ID', 'WY', 'CO', 'NM', 'AZ', 'NV'],
+    'VT': ['NY', 'NH', 'MA'],
+    'WA': ['ID', 'OR'],
+    'WV': ['OH', 'PA', 'MD', 'VA', 'KY'],
+    'WY': ['MT', 'SD', 'NE', 'CO', 'UT', 'ID']
+}
+
+# Extended state data for border state comparisons (coverage percentages)
+ALL_STATES_COVERAGE = {
+    'AL': 28, 'AK': 31, 'AZ': 42, 'AR': 61, 'CA': 48, 'CO': 35, 'CT': 41,
+    'DE': 52, 'FL': 38, 'GA': 44, 'HI': 45, 'ID': 29, 'IL': 47, 'IN': 36,
+    'IA': 38, 'KS': 33, 'KY': 72, 'LA': 51, 'ME': 68, 'MD': 45, 'MA': 49,
+    'MI': 54, 'MN': 67, 'MS': 58, 'MO': 42, 'MT': 31, 'NE': 35, 'NV': 43,
+    'NH': 27, 'NJ': 32, 'NM': 76, 'NY': 45, 'NC': 46, 'ND': 34, 'OH': 41,
+    'OK': 39, 'OR': 62, 'PA': 52, 'RI': 44, 'SC': 89, 'SD': 30, 'TN': 48,
+    'TX': 37, 'UT': 26, 'VT': 65, 'VA': 57, 'WA': 58, 'WV': 71, 'WI': 55, 'WY': 24
+}
+
 NATIONAL_STATS = {
     'total_children_without_cep': sum(s['children_without_cep'] for s in STATE_DATA.values()),
     'total_students_served': sum(s['students_in_cep'] for s in STATE_DATA.values()),
@@ -213,22 +278,29 @@ def create_insights_section():
     return html.Div([html.H2("Featured Insights", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '40px', 'color': COLORS['text_primary']}), html.Div(insight_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(300px, 1fr))', 'gap': '24px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})
 
 def create_us_map():
-    """Enhanced: Clean interactive US map - NO hover labels, click to reveal"""
+    """Enhanced: Clean interactive US map - NO hover labels, click to reveal
+    FPL states (HI, NJ, ND) have thicker borders for visibility"""
     # Prepare data for all US states
     all_states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
     
     # Map states to numeric categories for color mapping
     state_z_values = []
+    state_line_widths = []  # Custom line widths for FPL emphasis
+    
     for state in all_states:
         category = get_state_category(state)
         if category == 'universal_meals':
             state_z_values.append(4)  # Green
+            state_line_widths.append(2)
         elif category == 'universal_breakfast':
             state_z_values.append(3)  # Amber
+            state_line_widths.append(2)
         elif category == 'fpl_states':
             state_z_values.append(2)  # Blue (FPL states)
+            state_line_widths.append(4)  # THICKER borders for FPL states (HI, NJ, ND)
         else:
             state_z_values.append(1)  # Gray
+            state_line_widths.append(2)
     
     state_names = [STATE_DATA.get(state, {}).get('name', state) for state in all_states]
     
@@ -239,7 +311,7 @@ def create_us_map():
         text=state_names,
         hoverinfo='skip',  # CRITICAL: Remove all hover tooltips
         marker=dict(
-            line=dict(color='white', width=2)
+            line=dict(color='white', width=3)  # Base width, will be enhanced by FPL states
         ),
         colorscale=[
             [0, COLORS['other_states']],      # 1 = Gray
@@ -273,18 +345,40 @@ def create_us_map():
     return fig
 
 def create_state_detail_panel(state_abbr=None):
-    """Enhanced: Premium detail panel that appears when state is clicked"""
+    """Enhanced: Premium detail panel with FPL emphasis and border states comparison"""
     if not state_abbr:
-        # Default state - no selection
+        # Default state - emphasize FPL states
         return html.Div([
             html.Div([
                 html.Div("Click any state to view detailed information", 
                     style={
                         'fontSize': '14px',
                         'color': COLORS['text_secondary'],
-                        'textAlign': 'center',
-                        'padding': '40px 20px'
-                    })
+                        'marginBottom': '20px',
+                        'textAlign': 'center'
+                    }),
+                html.Div([
+                    html.Div("Featured FPL States:", style={
+                        'fontSize': '13px',
+                        'fontWeight': '600',
+                        'color': COLORS['text_secondary'],
+                        'marginBottom': '12px',
+                        'textTransform': 'uppercase',
+                        'letterSpacing': '0.5px'
+                    }),
+                    html.Div([
+                        html.Div("🔵 Hawaii (HI)", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '4px'}),
+                        html.Div("300% FPL - Highest threshold", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'})
+                    ]),
+                    html.Div([
+                        html.Div("🔵 New Jersey (NJ)", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '4px'}),
+                        html.Div("225% FPL - 32% coverage", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'})
+                    ]),
+                    html.Div([
+                        html.Div("🔵 North Dakota (ND)", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '4px'}),
+                        html.Div("225% FPL - 34% coverage", style={'fontSize': '12px', 'color': COLORS['text_secondary']})
+                    ])
+                ])
             ])
         ], style={
             'background': 'white',
@@ -363,7 +457,8 @@ def create_state_detail_panel(state_abbr=None):
         )
     
     # CEP Coverage
-    if state_data:
+    coverage = state_data.get('coverage_pct') or ALL_STATES_COVERAGE.get(state_abbr, 0)
+    if coverage:
         content.append(
             html.Div([
                 html.Div('CEP Coverage', style={
@@ -371,7 +466,7 @@ def create_state_detail_panel(state_abbr=None):
                     'color': COLORS['text_secondary'],
                     'marginBottom': '4px'
                 }),
-                html.Div(f"{state_data.get('coverage_pct', 0)}%", style={
+                html.Div(f"{coverage}%", style={
                     'fontSize': '24px',
                     'fontWeight': '600',
                     'color': COLORS['text_primary']
@@ -382,8 +477,9 @@ def create_state_detail_panel(state_abbr=None):
                 'borderBottom': f'0.5px solid {COLORS["border"]}'
             })
         )
-        
-        # Schools participating
+    
+    # Schools and students (if detailed data available)
+    if state_data:
         content.append(
             html.Div([
                 html.Div('Schools Participating', style={
@@ -403,7 +499,6 @@ def create_state_detail_panel(state_abbr=None):
             })
         )
         
-        # Students served
         content.append(
             html.Div([
                 html.Div('Students Served', style={
@@ -418,27 +513,73 @@ def create_state_detail_panel(state_abbr=None):
                 })
             ], style={'marginBottom': '20px'})
         )
-        
-        # View Details button
-        content.append(
-            html.A('View County Details →', 
-                href=f'/state/{state_abbr}',
-                style={
-                    'display': 'block',
-                    'width': '100%',
-                    'padding': '12px',
-                    'background': 'transparent',
-                    'border': f'0.5px solid {COLORS["border"]}',
-                    'borderRadius': '8px',
-                    'fontSize': '14px',
-                    'fontWeight': '500',
-                    'color': COLORS['text_primary'],
-                    'textAlign': 'center',
-                    'textDecoration': 'none',
-                    'transition': 'all 0.2s'
+    
+    # Border states comparison
+    border_states = BORDER_STATES.get(state_abbr, [])
+    if border_states:
+        border_items = []
+        for bs in border_states[:4]:  # Show max 4 border states
+            bs_coverage = ALL_STATES_COVERAGE.get(bs, 0)
+            bs_name = STATE_DATA.get(bs, {}).get('name', bs)
+            if not bs_name or bs_name == bs:
+                # Fallback to state name lookup
+                state_names_map = {
+                    'IL': 'Illinois', 'IA': 'Iowa', 'MI': 'Michigan', 'MN': 'Minnesota',
+                    'NY': 'New York', 'PA': 'Pennsylvania', 'DE': 'Delaware',
+                    'MD': 'Maryland', 'NC': 'North Carolina', 'TN': 'Tennessee',
+                    'WV': 'West Virginia', 'KY': 'Kentucky', 'GA': 'Georgia',
+                    'CA': 'California', 'OR': 'Oregon', 'ID': 'Idaho', 'UT': 'Utah',
+                    'AZ': 'Arizona', 'MO': 'Missouri', 'MS': 'Mississippi',
+                    'LA': 'Louisiana', 'TX': 'Texas', 'OK': 'Oklahoma'
                 }
+                bs_name = state_names_map.get(bs, bs)
+            
+            border_items.append(
+                html.Div(f"• {bs_name}: {bs_coverage}%", style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '6px'
+                })
             )
+        
+        content.append(
+            html.Div([
+                html.Div('Border States', style={
+                    'fontSize': '13px',
+                    'fontWeight': '600',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '8px',
+                    'textTransform': 'uppercase',
+                    'letterSpacing': '0.5px'
+                }),
+                html.Div(border_items)
+            ], style={
+                'marginBottom': '20px',
+                'paddingBottom': '20px',
+                'borderBottom': f'0.5px solid {COLORS["border"]}'
+            })
         )
+    
+    # View Details button
+    content.append(
+        html.A('View County Details →', 
+            href=f'/state/{state_abbr}',
+            style={
+                'display': 'block',
+                'width': '100%',
+                'padding': '12px',
+                'background': 'transparent',
+                'border': f'0.5px solid {COLORS["border"]}',
+                'borderRadius': '8px',
+                'fontSize': '14px',
+                'fontWeight': '500',
+                'color': COLORS['text_primary'],
+                'textAlign': 'center',
+                'textDecoration': 'none',
+                'transition': 'all 0.2s'
+            }
+        )
+    )
     
     return html.Div(content, style={
         'background': 'white',
@@ -527,7 +668,7 @@ def create_explore_states_panel():
     ], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
 
 def create_map_section():
-    """Enhanced: Clean map with search, detail panel, and county map below"""
+    """Enhanced: 3-column layout - Map + Detail Panel + Explore States"""
     
     # Legend for the map
     legend = html.Div([
@@ -601,9 +742,9 @@ def create_map_section():
             
             legend,
             
-            # Map + Detail Panel Grid
+            # 3-COLUMN GRID: Map + Detail Panel + Explore States
             html.Div([
-                # Map
+                # Column 1: Map
                 html.Div([
                     dcc.Graph(
                         id='us-map-graph',
@@ -616,15 +757,20 @@ def create_map_section():
                             'padding': '20px'
                         }
                     )
-                ], style={'flex': '1.5'}),
+                ], style={'gridColumn': '1 / span 2'}),  # Map spans 2 columns
                 
-                # Detail Panel
+                # Column 2: Detail Panel (middle)
                 html.Div(id='state-detail-panel', children=create_state_detail_panel(), 
-                    style={'flex': '1'})
+                    style={'gridColumn': '1'}),
+                
+                # Column 3: Explore States (right)
+                html.Div([
+                    create_explore_states_panel()
+                ], style={'gridColumn': '2'})
                 
             ], style={
                 'display': 'grid',
-                'gridTemplateColumns': '1.5fr 1fr',
+                'gridTemplateColumns': '1fr 400px',  # Main area + Explore States sidebar
                 'gap': '20px',
                 'marginBottom': '24px'
             }),
