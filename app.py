@@ -19,9 +19,9 @@ COLORS = {
     'white': '#ffffff', 'off_white': '#f8f9fa', 'light_gray': '#f1f3f5', 'border': '#dee2e6',
     'text_primary': '#1a1a1a', 'text_secondary': '#6c757d',
     # CEP Status - Shared across map and table
-    'full_cep': '#10b981',  # Green
-    'partial_cep': '#fbbf24',  # Yellow  
-    'no_cep': '#ef4444',  # Red
+    'full_cep': '#87CEEB',  # Sky Blue (FULL CEP - Participating)
+    'partial_cep': '#10b981',  # Green (PARTIAL CEP)
+    'no_cep': '#ec4899',  # Pink (NO CEP)
     # Political Party - For executive names
     'democrat_name': '#1d4ed8',  # Blue
     'republican_name': '#991b1b',  # Maroon
@@ -1012,20 +1012,20 @@ def create_sortable_county_table(df):
             ], 
             style_data_conditional=[
                 # Row highlighting based on status
-                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#f0fdf4'},  # Light green rows
-                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fefce8'},  # Light yellow rows
-                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fef2f2'},  # Light red rows
-                # Status pills (on top of row colors) - CORRECTED TO MATCH APPROVED COLORS
+                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#e0f2fe'},  # Light sky blue rows
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#f0fdf4'},  # Light green rows
+                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},  # Light pink rows
+                # Status pills (on top of row colors) - NEW COLORS: Sky Blue, Green, Pink
                 {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#10b981', 'color': '#ffffff', 'fontWeight': '600', 
+                    'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
                 {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#fbbf24', 'color': '#1a1a1a', 'fontWeight': '600', 
+                    'backgroundColor': '#10b981', 'color': '#ffffff', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}, 
                 {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#ef4444', 'color': '#ffffff', 'fontWeight': '600', 
+                    'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 
                     'fontSize': '15px', 'padding': '12px 20px', 'borderRadius': '24px',
                     'textAlign': 'left', 'display': 'block', 'width': '100%'}
             ], 
