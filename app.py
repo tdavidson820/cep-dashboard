@@ -742,9 +742,9 @@ def create_map_section():
             
             legend,
             
-            # 3-COLUMN GRID: Map + Detail Panel + Explore States
+            # 3-SECTION LAYOUT: Map (top full width) + Detail Panel (bottom left) + Explore States (bottom right)
             html.Div([
-                # Column 1: Map
+                # Row 1: Map (spans full width)
                 html.Div([
                     dcc.Graph(
                         id='us-map-graph',
@@ -757,20 +757,19 @@ def create_map_section():
                             'padding': '20px'
                         }
                     )
-                ], style={'gridColumn': '1 / span 2'}),  # Map spans 2 columns
+                ], style={'gridColumn': '1 / -1', 'marginBottom': '20px'}),  # Span all columns
                 
-                # Column 2: Detail Panel (middle)
-                html.Div(id='state-detail-panel', children=create_state_detail_panel(), 
-                    style={'gridColumn': '1'}),
+                # Row 2 Left: Detail Panel
+                html.Div(id='state-detail-panel', children=create_state_detail_panel()),
                 
-                # Column 3: Explore States (right)
+                # Row 2 Right: Explore States
                 html.Div([
                     create_explore_states_panel()
-                ], style={'gridColumn': '2'})
+                ])
                 
             ], style={
                 'display': 'grid',
-                'gridTemplateColumns': '1fr 400px',  # Main area + Explore States sidebar
+                'gridTemplateColumns': '1fr 400px',  # Left column (detail) + Right sidebar (explore)
                 'gap': '20px',
                 'marginBottom': '24px'
             }),
