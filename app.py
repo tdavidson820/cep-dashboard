@@ -1,8 +1,11 @@
 # CEP Policy Intelligence Platform - ENHANCED v2
+# VERSION: 2026-04-20-VIRGINIA-COMPLETE
+# Last Updated: April 20, 2026 - Complete Virginia data (131 counties), all FIPS codes
 # Phase 2 Enhancements:
 # 1. New interactive US map with full state names and bold color categories
 # 2. Redesigned Explore States panel with state flags and category grouping
 # 3. Consistency fix applied to ALL state pages (map/table status alignment)
+# 4. Complete Virginia county data with sky blue/green/pink color scheme
 
 import dash
 from dash import dcc, html, Input, Output, dash_table
@@ -461,6 +464,13 @@ STATE_EXECUTIVES = {
         'Senate Majority Leader': {'name': 'M. Teresa Ruiz', 'party': 'Democrat'},
         'Senate Education Chair': {'name': 'Vin Gopal', 'party': 'Democrat'},
         'Senate Appropriations Chair': {'name': 'Paul Sarlo', 'party': 'Democrat'}
+    },
+    'VA': {
+        'Governor': {'name': 'Glenn Youngkin', 'party': 'Republican'},
+        'Lieutenant Governor': {'name': 'Winsome Sears', 'party': 'Republican'},
+        'Senate Majority Leader': {'name': 'Scott Surovell', 'party': 'Democrat'},
+        'Senate Education Chair': {'name': 'Ghazala Hashmi', 'party': 'Democrat'},
+        'House Speaker': {'name': 'Don Scott', 'party': 'Democrat'}
     }
 }
 
@@ -1370,14 +1380,17 @@ def update_comparison_county_maps(state_a, state_b):
     maps = []
     
     for state_abbr in [state_a, state_b]:
-        if state_abbr in ['WI', 'NJ']:
+        if state_abbr in ['WI', 'NJ', 'VA']:
             # Load county data
             if state_abbr == 'WI':
                 df = load_wisconsin_data()
                 fips_dict = WI_FIPS
-            else:  # NJ
+            elif state_abbr == 'NJ':
                 df = load_new_jersey_data()
                 fips_dict = NJ_FIPS
+            elif state_abbr == 'VA':
+                df = load_virginia_data()
+                fips_dict = VA_FIPS
             
             state_name = STATE_DATA[state_abbr]['name']
             
