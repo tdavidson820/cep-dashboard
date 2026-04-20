@@ -205,35 +205,159 @@ def load_new_jersey_data():
     return df
 
 def load_virginia_data():
-    """Load Virginia county data - Complete 134 counties/cities from VA_CEP_map_2025.xlsx"""
+    """Load Virginia county data - Complete 131 counties/cities from VA_CEP_map_2025.xlsx"""
     import io
     
-    # Complete Virginia CEP data - 134 jurisdictions
-    csv_data = open('/home/claude/virginia_data.csv', 'r').read()
+    # Complete Virginia CEP data - 131 jurisdictions (embedded - no external file needed)
+    csv_data = """County,Population,Poverty_Rate,Eligible_Schools,CEP_Schools,Students_in_CEP,Coverage_Pct,School_Gap,Status
+Lee County,22173,48.2,10,10,2795,100,0,FULL CEP
+King and Queen County,6608,43.2,3,3,608,100,0,FULL CEP
+Colonial Beach,3908,38.4,2,2,576,100,0,FULL CEP
+Norton City,3687,38.2,2,2,860,100,0,FULL CEP
+Charlotte County,11529,37.1,5,5,1676,100,0,FULL CEP
+Danville City,42590,36.8,13,13,5284,100,0,FULL CEP
+Hopewell City,23033,34.3,6,6,3945,100,0,FULL CEP
+Buchanan County,20355,34.1,8,8,2296,100,0,FULL CEP
+Buena Vista City,6641,33.0,4,4,883,100,0,FULL CEP
+Galax City,6720,31.3,3,3,1436,100,0,FULL CEP
+Northampton County,12282,31.2,4,4,1307,100,0,FULL CEP
+Fredericksburg City,27982,30.0,5,5,3646,100,0,FULL CEP
+Petersburg City,33458,29.9,8,8,4551,100,0,FULL CEP
+Winchester City,28120,29.2,7,7,4316,100,0,FULL CEP
+Tazewell County,40429,29.0,13,13,5121,100,0,FULL CEP
+Halifax County,34022,28.7,10,10,4528,100,0,FULL CEP
+Dickenson County,14124,27.4,3,3,1762,100,0,FULL CEP
+Richmond City,226210,27.4,47,47,20797,100,0,FULL CEP
+Roanoke City,100011,27.2,26,26,13606,100,0,FULL CEP
+Essex County,10599,27.1,3,3,1113,100,0,FULL CEP
+Bath County,4209,26.6,3,3,516,100,0,FULL CEP
+Prince Edward County,21849,26.6,3,3,1843,100,0,FULL CEP
+Radford City,16070,26.6,4,4,1658,100,0,FULL CEP
+Charlottesville City,46553,26.3,9,9,4448,100,0,FULL CEP
+Norfolk City,283005,26.3,48,48,26406,100,0,FULL CEP
+Brunswick County,15849,25.6,5,5,1379,100,0,FULL CEP
+Martinsville City,13485,25.5,5,5,1771,100,0,FULL CEP
+Surry County,6561,24.9,3,3,681,100,0,FULL CEP
+Bristol City,17219,24.5,4,4,2063,100,0,FULL CEP
+Lynchburg City,79009,24.5,20,20,7564,100,0,FULL CEP
+Grayson County,15333,24.2,6,6,1574,100,0,FULL CEP
+Franklin City,8180,24.2,2,2,1124,100,0,FULL CEP
+Carroll County,29155,23.9,10,10,3418,100,0,FULL CEP
+Mecklenburg County,30319,23.8,6,6,3822,100,0,FULL CEP
+Pulaski County,33800,23.7,7,7,3709,100,0,FULL CEP
+Craig County,4892,23.4,2,2,516,100,0,FULL CEP
+Accomack County,33413,23.0,11,11,4593,100,0,FULL CEP
+Wythe County,28290,22.8,12,12,3691,100,0,FULL CEP
+Newport News City,186247,22.2,43,43,25693,100,0,FULL CEP
+Portsmouth City,97915,21.9,22,22,12788,100,0,FULL CEP
+Wise County,36130,21.5,11,11,5499,100,0,FULL CEP
+Lancaster County,10919,21.3,2,2,1045,100,0,FULL CEP
+Buckingham County,16824,21.2,5,5,1831,100,0,FULL CEP
+Henry County,50948,21.2,13,13,6859,100,0,FULL CEP
+Harrisonburg City,51814,21.1,10,10,6675,100,0,FULL CEP
+Sussex County,10829,20.4,3,3,1046,100,0,FULL CEP
+Shenandoah County,44186,20.0,9,9,5687,100,0,FULL CEP
+Lunenburg County,11963,19.7,4,4,1482,100,0,FULL CEP
+Scott County,27576,19.6,13,13,3320,100,0,FULL CEP
+Smyth County,29800,19.5,13,13,3822,100,0,FULL CEP
+Bland County,6270,19.4,2,2,650,100,0,FULL CEP
+Appomattox County,16119,19.3,4,4,2330,100,0,FULL CEP
+Nottoway County,15642,19.3,5,5,1770,100,0,FULL CEP
+Russell County,25781,19.1,9,9,3328,100,0,FULL CEP
+Franklin County,54477,18.7,12,12,6108,100,0,FULL CEP
+Mathews County,8533,18.7,3,3,790,100,0,FULL CEP
+Westmoreland County,18477,18.6,4,4,1605,100,0,FULL CEP
+Pittsylvania County,60501,18.4,18,18,7649,100,0,FULL CEP
+Amelia County,13265,17.6,3,3,1576,100,0,FULL CEP
+Salem City,25346,17.6,6,2,819,33,4,PARTIAL CEP
+Warren County,40727,17.5,9,9,5050,100,0,FULL CEP
+Suffolk City,94324,17.3,20,20,14507,100,0,FULL CEP
+Greene County,20552,17.2,5,5,2835,100,0,FULL CEP
+Caroline County,30887,17.1,5,5,4551,100,0,FULL CEP
+Bedford County,79462,17.0,20,13,5024,65,7,PARTIAL CEP
+Chesapeake City,249422,16.9,47,31,23299,66,16,PARTIAL CEP
+Rockingham County,83757,16.3,23,14,5516,61,9,PARTIAL CEP
+Montgomery County,99721,16.0,20,6,1913,30,14,PARTIAL CEP
+Hampton City,137148,15.6,32,32,19306,100,0,FULL CEP
+Orange County,36254,15.4,10,10,5015,100,0,FULL CEP
+Lexington City,7320,15.4,2,0,0,0,2,NO CEP
+Highland County,2232,14.8,2,0,0,0,2,NO CEP
+Waynesboro City,22196,14.8,7,7,3066,100,0,FULL CEP
+Staunton City,25750,14.3,6,6,2620,100,0,FULL CEP
+Northumberland County,11839,14.0,3,3,1202,100,0,FULL CEP
+Colonial Heights City,18170,13.9,5,5,3008,100,0,FULL CEP
+Charles City County,6773,13.7,2,2,519,100,0,FULL CEP
+Louisa County,37596,13.7,6,6,5273,100,0,FULL CEP
+Rappahannock County,7348,13.4,2,2,790,100,0,FULL CEP
+Henrico County,334389,13.1,69,49,32327,71,20,PARTIAL CEP
+Greensville County,11391,13.0,3,3,2023,100,0,FULL CEP
+Amherst County,31307,12.9,10,10,3909,100,0,FULL CEP
+Dinwiddie County,27947,12.8,7,7,4109,100,0,FULL CEP
+Washington County,53935,12.7,15,15,6531,100,0,FULL CEP
+Alleghany Highlands,15223,12.5,6,6,2738,100,0,FULL CEP
+Middlesex County,10625,12.1,3,3,1227,100,0,FULL CEP
+Campbell County,55656,12.0,14,14,7644,100,0,FULL CEP
+Virginia Beach City,459470,11.8,84,39,22699,46,45,PARTIAL CEP
+Albemarle County,112395,11.0,25,9,4385,36,16,PARTIAL CEP
+Giles County,16787,11.0,5,5,2218,100,0,FULL CEP
+Manassas Park City,17219,10.7,4,4,3398,100,0,FULL CEP
+Gloucester County,38711,10.4,8,8,4866,100,0,FULL CEP
+Manassas City,42772,10.4,9,9,7572,100,0,FULL CEP
+Prince George County,43010,10.3,8,0,0,0,8,NO CEP
+Culpeper County,52552,10.2,10,10,8366,100,0,FULL CEP
+Poquoson City,12460,10.2,4,0,0,0,4,NO CEP
+King William County,17810,9.9,4,0,0,0,4,NO CEP
+Rockbridge County,22650,9.9,6,6,2415,100,0,FULL CEP
+Isle of Wight County,38606,9.7,9,5,2391,56,4,PARTIAL CEP
+Patrick County,17608,9.5,7,7,2056,100,0,FULL CEP
+Alexandria City,159467,9.5,17,10,11519,59,7,PARTIAL CEP
+Fluvanna County,27249,9.4,4,4,3320,100,0,FULL CEP
+Augusta County,77487,9.0,19,19,10086,100,0,FULL CEP
+Nelson County,14775,8.9,4,4,1496,100,0,FULL CEP
+Clarke County,14783,8.8,4,0,0,0,4,NO CEP
+Floyd County,15476,8.8,5,5,1648,100,0,FULL CEP
+York County,70045,8.3,17,0,0,0,17,NO CEP
+Prince William County,482204,8.1,97,68,59226,70,29,PARTIAL CEP
+Spotsylvania County,140032,8.0,30,24,18529,80,6,PARTIAL CEP
+Chesterfield County,364548,7.6,66,42,38948,64,24,PARTIAL CEP
+Fairfax County,1150309,7.4,191,47,37501,25,144,PARTIAL CEP
+Page County,23709,7.4,8,8,2972,100,0,FULL CEP
+Williamsburg-James City County,78254,7.4,16,8,5161,50,8,PARTIAL CEP
+Southampton County,17996,7.3,6,6,2380,100,0,FULL CEP
+Madison County,13837,7.0,4,4,1592,100,0,FULL CEP
+Roanoke County,96929,6.6,27,10,4927,37,17,PARTIAL CEP
+Arlington County,283643,6.4,36,9,6772,25,27,PARTIAL CEP
+King George County,26723,6.4,5,1,682,20,4,PARTIAL CEP
+Frederick County,91419,6.0,21,9,4230,43,12,PARTIAL CEP
+Botetourt County,33596,5.2,11,2,405,18,9,PARTIAL CEP
+Hanover County,109979,4.6,22,3,1675,14,19,PARTIAL CEP
+Loudoun County,420959,4.6,98,11,6443,11,87,PARTIAL CEP
+Stafford County,156927,4.5,33,9,6195,27,24,PARTIAL CEP
+New Kent County,22945,4.3,5,0,0,0,5,NO CEP
+Fauquier County,72972,4.0,19,2,342,11,17,PARTIAL CEP
+Cumberland County,9675,3.6,3,3,1292,100,0,FULL CEP
+Goochland County,24727,3.3,5,0,0,0,5,NO CEP
+Richmond County,8923,2.3,2,2,1421,100,0,FULL CEP
+Powhatan County,30333,1.5,5,0,0,0,5,NO CEP
+Falls Church City,14658,0.9,0,0,0,0,0,NO CEP
+West Point Town,3414,0.0,2,2,859,100,0,FULL CEP"""
     
     df = pd.read_csv(io.StringIO(csv_data))
     
-    # Clean county names (remove trailing spaces and revision notes)
-    df['County'] = df['County'].str.strip().str.replace(r'\s*\*.*', '', regex=True)
-    
     # Convert numeric columns
-    df['Population'] = df['Population'].fillna(0).astype(int)
-    df['Poverty_Rate'] = df['Poverty_Rate'].fillna(0)
-    df['Eligible_Schools'] = df['Eligible_Schools'].fillna(0).astype(int)
-    df['CEP_Schools'] = df['CEP_Schools'].fillna(0).astype(int)
-    df['Students_in_CEP'] = df['Students_in_CEP'].fillna(0).astype(int)
-    df['Coverage_Pct'] = df['Coverage_Pct'].fillna(0).astype(int)
-    df['School_Gap'] = df['School_Gap'].fillna(0).astype(int)
+    df['Population'] = df['Population'].astype(int)
+    df['Poverty_Rate'] = df['Poverty_Rate'].astype(float)
+    df['Eligible_Schools'] = df['Eligible_Schools'].astype(int)
+    df['CEP_Schools'] = df['CEP_Schools'].astype(int)
+    df['Students_in_CEP'] = df['Students_in_CEP'].astype(int)
+    df['Coverage_Pct'] = df['Coverage_Pct'].astype(int)
+    df['School_Gap'] = df['School_Gap'].astype(int)
     
     # Add School_Districts column (all Virginia counties have 1 district)
     df['School_Districts'] = 1
     
     # Calculate Children_in_Poverty from Poverty_Rate
     df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
-    
-    # Remove summary rows
-    df = df[~df['County'].isin(['Grand Total', 'Specialty Schools reporting CEP participation', 
-                                  'Other private schools not reporting CEP participation'])]
     
     # CONSISTENCY FIX: Normalize status using shared function
     df['Status'] = df['Status'].apply(normalize_status)
