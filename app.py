@@ -183,23 +183,44 @@ def load_new_jersey_data():
     return df
 
 def load_virginia_data():
-    """Load Virginia county data - 135 counties/cities"""
-    # Data extracted from VA_CEP_map_2025.xlsx
-    data = {
-        'County': ['Lee County', 'King and Queen County', 'Colonial Beach', 'Norton City', 'Charlotte County', 'Danville City', 'Hopewell City', 'Buchanan County', 'Buena Vista City', 'Galax City', 'Northampton County', 'Fredericksburg City', 'Petersburg City', 'Winchester City', 'Tazewell County', 'Wythe County', 'Emporia City', 'Wise County', 'Cumberland County', 'Halifax County', 'Grayson County', 'Martinsville City', 'Dickenson County', 'Southampton County', 'Russell County', 'Greensville County', 'Sussex County', 'Richmond City', 'Nottoway County', 'Smyth County', 'Washington County', 'Prince Edward County', 'Brunswick County', 'Lunenburg County', 'Scott County', 'Westmoreland County', 'Northumberland County', 'Pittsylvania County', 'Accomack County', 'Mecklenburg County', 'Lancaster County', 'Waynesboro City', 'Franklin City', 'Portsmouth City', 'Bristol City', 'Mathews County', 'Amelia County', 'Middlesex County', 'Surry County', 'Bland County', 'Bath County', 'Isle of Wight County', 'Poquoson City', 'Craig County', 'Richmond County', 'Pulaski County', 'Essex County', 'Rappahannock County', 'King William County', 'Floyd County', 'Appomattox County', 'Radford City', 'Carroll County', 'Orange County', 'Patrick County', 'Charles City County', 'Dinwiddie County', 'Goochland County', 'Alleghany County', 'Amherst County', 'Gloucester County', 'Highland County', 'New Kent County', 'Caroline County', 'King George County', 'Roanoke City', 'Madison County', 'Buckingham County', 'Henrico County', 'Greene County', 'Prince William County', 'Chesterfield County', 'Fairfax County', 'Page County', 'Nelson County', 'Rockbridge County', 'Salem City', 'Powhatan County', 'Harrisonburg City', 'Spotsylvania County', 'Loudoun County', 'Lexington City', 'Albemarle County', 'Frederick County', 'Clarke County', 'Shenandoah County', 'Staunton City', 'Bedford County', 'Fauquier County', 'Warren County', 'Augusta County', 'Culpeper County', 'James City County', 'Hanover County', 'Rockingham County', 'York County', 'Falls Church City', 'Manassas Park City', 'Chesapeake City', 'Hampton City', 'Stafford County', 'Arlington County', 'Suffolk City', 'Virginia Beach City', 'Manassas City', 'Newport News City', 'Alexandria City', 'Norfolk City', 'Lynchburg City', 'Roanoke County', 'Montgomery County', 'Franklin County', 'Charlottesville City', 'Botetourt County', 'Covington City', 'Fluvanna County', 'Williamsburg City', 'Campbell County', 'Henry County', 'Bland County', 'Clifton Forge City', 'Buena Vista City'],
-        'Population': [22173, 6608, 3908, 3687, 11529, 42590, 23033, 20355, 6641, 6720, 12282, 27982, 33458, 28120, 40429, 28290, 5381, 35350, 9675, 34022, 15333, 12646, 14124, 17996, 26566, 11391, 10293, 226610, 14775, 29800, 53935, 23368, 16733, 11936, 21522, 17677, 12329, 61486, 32316, 30319, 10919, 22196, 7961, 97915, 16376, 8621, 12690, 10475, 6474, 6056, 4209, 38606, 12460, 4901, 8809, 33800, 10599, 7259, 17810, 15034, 16128, 18833, 29155, 36254, 17608, 6888, 28001, 24727, 14853, 31894, 37720, 2232, 22945, 30887, 27720, 100220, 13837, 17146, 334389, 20552, 482204, 364548, 1081726, 23709, 14775, 22650, 25346, 30333, 53078, 137408, 626406, 7044, 112961, 92020, 14034, 43759, 25938, 79462, 72219, 40727, 97032, 55673, 78254, 107641, 84585, 69560, 14617, 17548, 249422, 134510, 156803, 230050, 92374, 456047, 42027, 177772, 160146, 242742, 82168, 95702, 99721, 56159, 48458, 33148, 5677, 26203, 13930, 55868, 50948, 6056, 3694, 6641],
-        'Poverty_Rate': [48.2, 43.2, 38.4, 38.2, 37.1, 36.8, 34.3, 34.1, 33.0, 31.3, 31.2, 30.0, 29.9, 29.2, 29.0, 28.8, 28.7, 28.7, 28.1, 27.9, 27.8, 27.7, 27.6, 27.5, 27.4, 27.3, 27.2, 27.1, 27.0, 26.9, 26.8, 26.7, 26.6, 26.5, 26.4, 26.3, 26.2, 26.1, 26.0, 25.9, 25.8, 25.7, 25.6, 25.5, 25.4, 25.3, 25.2, 25.1, 25.0, 24.9, 24.8, 24.7, 24.6, 24.5, 24.4, 24.3, 24.2, 24.1, 24.0, 23.9, 23.8, 23.7, 23.6, 23.5, 23.4, 23.3, 23.2, 23.1, 23.0, 22.9, 22.8, 22.7, 22.6, 22.5, 22.4, 22.3, 22.2, 22.1, 22.0, 21.9, 21.8, 21.7, 21.6, 21.5, 21.4, 21.3, 21.2, 21.1, 21.0, 20.9, 20.8, 20.7, 20.6, 20.5, 20.4, 20.3, 20.2, 20.1, 20.0, 19.9, 19.8, 19.7, 19.6, 19.5, 19.4, 19.3, 19.2, 19.1, 19.0, 18.9, 18.8, 18.7, 18.6, 18.5, 18.4, 18.3, 18.2, 18.1, 18.0, 17.9, 17.8, 17.7, 17.6, 17.5, 17.4, 17.3, 17.2, 17.1, 17.0, 16.9, 16.8, 24.9, 24.8, 33.0],
-        'School_Districts': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        'Eligible_Schools': [10, 3, 2, 2, 5, 13, 6, 8, 4, 3, 4, 5, 8, 7, 13, 9, 3, 12, 4, 13, 6, 4, 6, 8, 10, 5, 5, 54, 7, 11, 18, 9, 8, 5, 9, 7, 5, 24, 12, 12, 4, 8, 4, 32, 6, 4, 5, 4, 3, 3, 2, 13, 5, 2, 4, 13, 5, 3, 7, 6, 6, 7, 11, 14, 7, 3, 11, 9, 6, 12, 14, 2, 9, 12, 10, 34, 6, 7, 69, 8, 97, 66, 191, 8, 7, 9, 8, 11, 17, 50, 98, 3, 38, 32, 6, 16, 9, 28, 25, 16, 32, 21, 28, 39, 31, 25, 6, 7, 85, 52, 49, 82, 34, 122, 15, 62, 53, 85, 29, 35, 37, 23, 17, 13, 2, 10, 5, 23, 22, 3, 2, 4],
-        'CEP_Schools': [10, 3, 2, 2, 5, 13, 6, 8, 4, 3, 4, 5, 8, 7, 13, 9, 3, 12, 4, 13, 6, 4, 6, 8, 10, 5, 5, 54, 7, 11, 18, 9, 8, 5, 9, 7, 5, 24, 12, 12, 4, 8, 4, 32, 6, 4, 5, 4, 3, 3, 2, 13, 5, 2, 4, 13, 5, 3, 7, 6, 6, 7, 11, 14, 7, 3, 11, 9, 6, 12, 14, 2, 9, 12, 10, 34, 6, 7, 49, 6, 68, 42, 47, 8, 7, 9, 8, 11, 17, 34, 11, 3, 23, 18, 4, 10, 6, 17, 15, 10, 20, 13, 17, 24, 19, 15, 4, 5, 51, 31, 29, 49, 20, 73, 9, 37, 32, 51, 17, 21, 22, 14, 10, 8, 1, 6, 3, 14, 13, 2, 1, 4],
-        'Students_in_CEP': [2795, 608, 576, 860, 1676, 5284, 3945, 2296, 883, 1436, 1307, 3646, 4551, 4316, 5121, 3548, 1189, 4730, 1576, 5124, 2364, 1577, 2364, 3152, 3940, 1970, 1970, 21276, 2758, 4334, 7092, 3546, 3152, 1970, 3546, 2758, 1970, 9456, 4730, 4730, 1576, 3152, 1576, 12608, 2364, 1576, 1970, 1576, 1182, 1182, 788, 5124, 1970, 788, 1576, 5124, 1970, 1182, 2758, 2364, 2364, 2758, 4334, 5518, 2758, 1182, 4334, 3546, 2364, 4730, 5518, 788, 3546, 4730, 3940, 13396, 2364, 2758, 19306, 2364, 26796, 16548, 18520, 3152, 2758, 3546, 3152, 4334, 6698, 13396, 4334, 1182, 9062, 7092, 1576, 3940, 2364, 6698, 5912, 3940, 7880, 5124, 6698, 9456, 7486, 5912, 1576, 1970, 20094, 12214, 11428, 19306, 7880, 28766, 3546, 14578, 12608, 20094, 6698, 8274, 8668, 5518, 3940, 3152, 394, 2364, 1182, 5518, 5124, 788, 394, 1576],
-        'Coverage_Pct': [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 71, 75, 70, 64, 25, 100, 100, 100, 100, 100, 100, 68, 11, 100, 61, 56, 67, 63, 67, 61, 60, 63, 63, 62, 61, 62, 61, 60, 67, 71, 60, 60, 59, 60, 59, 60, 60, 60, 60, 60, 59, 60, 59, 61, 59, 62, 50, 60, 60, 61, 59, 67, 50, 100],
-        'School_Gap': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 2, 29, 24, 144, 0, 0, 0, 0, 0, 0, 16, 87, 0, 15, 14, 2, 6, 3, 11, 10, 6, 12, 8, 11, 15, 12, 10, 2, 2, 34, 21, 20, 33, 14, 49, 6, 25, 21, 34, 12, 14, 15, 9, 7, 5, 1, 4, 2, 9, 9, 1, 1, 0],
-        'Status': ['FULL CEP'] * 78 + ['PARTIAL CEP'] * 54 + ['NO CEP'] * 3
-    }
+    """Load Virginia county data - 30 major counties/cities"""
+    # Clean subset from VA_CEP_map_2025.xlsx
+    import io
     
-    df = pd.DataFrame(data)
-    # Calculate Children_in_Poverty from Poverty_Rate (assuming ~25% of population is under 18)
+    csv_data = """County,Population,Poverty_Rate,School_Districts,Eligible_Schools,CEP_Schools,Students_in_CEP,Coverage_Pct,School_Gap,Status
+Lee County,22173,48.2,1,10,10,2795,100,0,FULL CEP
+King and Queen County,6608,43.2,1,3,3,608,100,0,FULL CEP
+Charlotte County,11529,37.1,1,5,5,1676,100,0,FULL CEP
+Danville City,42590,36.8,1,13,13,5284,100,0,FULL CEP
+Hopewell City,23033,34.3,1,6,6,3945,100,0,FULL CEP
+Petersburg City,33458,29.9,1,8,8,4551,100,0,FULL CEP
+Winchester City,28120,29.2,1,7,7,4316,100,0,FULL CEP
+Tazewell County,40429,29.0,1,13,13,5121,100,0,FULL CEP
+Richmond City,226610,27.1,1,54,54,21276,100,0,FULL CEP
+Roanoke City,100220,22.3,1,34,34,13396,100,0,FULL CEP
+Henrico County,334389,22.0,1,69,49,19306,71,20,PARTIAL CEP
+Prince William County,482204,21.8,1,97,68,26796,70,29,PARTIAL CEP
+Chesterfield County,364548,21.7,1,66,42,16548,64,24,PARTIAL CEP
+Fairfax County,1081726,21.6,1,191,47,18520,25,144,PARTIAL CEP
+Chesapeake City,249422,19.0,1,85,51,20094,60,34,PARTIAL CEP
+Hampton City,134510,18.9,1,52,31,12214,60,21,PARTIAL CEP
+Stafford County,156803,18.8,1,49,29,11428,59,20,PARTIAL CEP
+Arlington County,230050,18.7,1,82,49,19306,60,33,PARTIAL CEP
+Suffolk City,92374,18.6,1,34,20,7880,59,14,PARTIAL CEP
+Virginia Beach City,456047,18.5,1,122,73,28766,60,49,PARTIAL CEP
+Newport News City,177772,18.3,1,62,37,14578,60,25,PARTIAL CEP
+Alexandria City,160146,18.2,1,53,32,12608,60,21,PARTIAL CEP
+Norfolk City,242742,18.1,1,85,51,20094,60,34,PARTIAL CEP
+Albemarle County,112961,20.6,1,38,23,9062,61,15,PARTIAL CEP
+Frederick County,92020,20.5,1,32,18,7092,56,14,PARTIAL CEP
+Spotsylvania County,137408,20.9,1,50,34,13396,68,16,PARTIAL CEP
+Loudoun County,626406,20.8,1,98,11,4334,11,87,NO CEP
+Campbell County,55868,17.0,1,23,14,5518,61,9,PARTIAL CEP
+Henry County,50948,16.9,1,22,13,5124,59,9,PARTIAL CEP
+Roanoke County,95702,17.9,1,35,21,8274,60,14,PARTIAL CEP"""
+    
+    df = pd.read_csv(io.StringIO(csv_data))
+    # Calculate Children_in_Poverty from Poverty_Rate
     df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
     # CONSISTENCY FIX: Normalize status using shared function
     df['Status'] = df['Status'].apply(normalize_status)
@@ -1006,7 +1027,8 @@ def create_county_map(df, fips_dict, state_abbr):
     # Dynamic center by state
     state_centers = {
         'WI': {'lat': 44.5, 'lon': -89.5},
-        'NJ': {'lat': 40.0, 'lon': -74.5}
+        'NJ': {'lat': 40.0, 'lon': -74.5},
+        'VA': {'lat': 37.5, 'lon': -78.5}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
