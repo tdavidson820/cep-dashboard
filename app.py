@@ -147,18 +147,40 @@ WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': 
 NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
 
 VA_FIPS = {
-    'Fairfax County': '51059', 'Prince William County': '51153', 'Virginia Beach City': '51810', 
-    'Loudoun County': '51107', 'Chesterfield County': '51041', 'Henrico County': '51087',
-    'Norfolk City': '51710', 'Chesapeake City': '51550', 'Richmond City': '51760',
-    'Arlington County': '51013', 'Newport News City': '51700', 'Hampton City': '51650',
-    'Alexandria City': '51510', 'Suffolk City': '51800', 'Roanoke City': '51770',
-    'Portsmouth City': '51740', 'Stafford County': '51179', 'Manassas City': '51683',
-    'Albemarle County': '51003', 'Spotsylvania County': '51177', 'Prince George County': '51149',
-    'Augusta County': '51015', 'Rockingham County': '51165', 'Hanover County': '51085',
-    'York County': '51199', 'Montgomery County': '51121', 'James City County': '51095',
-    'Fauquier County': '51061', 'Bedford County': '51019', 'Frederick County': '51069',
-    'Lee County': '51105', 'Tazewell County': '51185', 'Wise County': '51195',
-    'Pittsylvania County': '51143', 'Halifax County': '51083'
+    'Accomack County': '51001', 'Albemarle County': '51003', 'Alleghany County': '51005', 'Alleghany Highlands': '51005',
+    'Amelia County': '51007', 'Amherst County': '51009', 'Appomattox County': '51011', 'Arlington County': '51013',
+    'Augusta County': '51015', 'Bath County': '51017', 'Bedford County': '51019', 'Bland County': '51021',
+    'Botetourt County': '51023', 'Brunswick County': '51025', 'Buchanan County': '51027', 'Buckingham County': '51029',
+    'Campbell County': '51031', 'Caroline County': '51033', 'Carroll County': '51035', 'Charles City County': '51036',
+    'Charlotte County': '51037', 'Chesterfield County': '51041', 'Clarke County': '51043', 'Craig County': '51045',
+    'Culpeper County': '51047', 'Cumberland County': '51049', 'Dickenson County': '51051', 'Dinwiddie County': '51053',
+    'Essex County': '51057', 'Fairfax County': '51059', 'Fauquier County': '51061', 'Floyd County': '51063',
+    'Fluvanna County': '51065', 'Franklin County': '51067', 'Frederick County': '51069', 'Giles County': '51071',
+    'Gloucester County': '51073', 'Goochland County': '51075', 'Grayson County': '51077', 'Greene County': '51079',
+    'Greensville County': '51081', 'Halifax County': '51083', 'Hanover County': '51085', 'Henrico County': '51087',
+    'Henry County': '51089', 'Highland County': '51091', 'Isle of Wight County': '51093', 'James City County': '51095',
+    'King and Queen County': '51097', 'King George County': '51099', 'King William County': '51101', 'Lancaster County': '51103',
+    'Lee County': '51105', 'Loudoun County': '51107', 'Louisa County': '51109', 'Lunenburg County': '51111',
+    'Madison County': '51113', 'Mathews County': '51115', 'Mecklenburg County': '51117', 'Middlesex County': '51119',
+    'Montgomery County': '51121', 'Nelson County': '51125', 'New Kent County': '51127', 'Northampton County': '51131',
+    'Northumberland County': '51133', 'Nottoway County': '51135', 'Orange County': '51137', 'Page County': '51139',
+    'Patrick County': '51141', 'Pittsylvania County': '51143', 'Powhatan County': '51145', 'Prince Edward County': '51147',
+    'Prince George County': '51149', 'Prince William County': '51153', 'Pulaski County': '51155', 'Rappahannock County': '51157',
+    'Richmond County': '51159', 'Roanoke County': '51161', 'Rockbridge County': '51163', 'Rockingham County': '51165',
+    'Russell County': '51167', 'Scott County': '51169', 'Shenandoah County': '51171', 'Smyth County': '51173',
+    'Southampton County': '51175', 'Spotsylvania County': '51177', 'Stafford County': '51179', 'Surry County': '51181',
+    'Sussex County': '51183', 'Tazewell County': '51185', 'Warren County': '51187', 'Washington County': '51191',
+    'Westmoreland County': '51193', 'Wise County': '51195', 'Wythe County': '51197', 'York County': '51199',
+    'Alexandria City': '51510', 'Bristol City': '51520', 'Buena Vista City': '51530', 'Charlottesville City': '51540',
+    'Chesapeake City': '51550', 'Colonial Beach': '51557', 'Colonial Heights City': '51570', 'Danville City': '51590',
+    'Fredericksburg City': '51630', 'Galax City': '51640', 'Hampton City': '51650', 'Harrisonburg City': '51660',
+    'Hopewell City': '51670', 'Lexington City': '51678', 'Lynchburg City': '51680', 'Manassas City': '51683',
+    'Manassas Park City': '51685', 'Newport News City': '51700', 'Norfolk City': '51710', 'Norton City': '51720',
+    'Petersburg City': '51730', 'Poquoson City': '51735', 'Portsmouth City': '51740', 'Radford City': '51750',
+    'Richmond City': '51760', 'Roanoke City': '51770', 'Salem City': '51775', 'Staunton City': '51790',
+    'Suffolk City': '51800', 'Virginia Beach City': '51810', 'Waynesboro City': '51820', 
+    'Williamsburg-James City County': '51095', 'Williamsburg City': '51830', 'Winchester City': '51840',
+    'Falls Church City': '51610', 'Franklin City': '51620', 'Martinsville City': '51690', 'West Point Town': '51095'
 }
 
 def load_new_jersey_data():
@@ -183,49 +205,41 @@ def load_new_jersey_data():
     return df
 
 def load_virginia_data():
-    """Load Virginia county data - 30 major counties/cities"""
-    # Clean subset from VA_CEP_map_2025.xlsx
+    """Load Virginia county data - Complete 134 counties/cities from VA_CEP_map_2025.xlsx"""
     import io
     
-    csv_data = """County,Population,Poverty_Rate,School_Districts,Eligible_Schools,CEP_Schools,Students_in_CEP,Coverage_Pct,School_Gap,Status
-Lee County,22173,48.2,1,10,10,2795,100,0,FULL CEP
-King and Queen County,6608,43.2,1,3,3,608,100,0,FULL CEP
-Charlotte County,11529,37.1,1,5,5,1676,100,0,FULL CEP
-Danville City,42590,36.8,1,13,13,5284,100,0,FULL CEP
-Hopewell City,23033,34.3,1,6,6,3945,100,0,FULL CEP
-Petersburg City,33458,29.9,1,8,8,4551,100,0,FULL CEP
-Winchester City,28120,29.2,1,7,7,4316,100,0,FULL CEP
-Tazewell County,40429,29.0,1,13,13,5121,100,0,FULL CEP
-Richmond City,226610,27.1,1,54,54,21276,100,0,FULL CEP
-Roanoke City,100220,22.3,1,34,34,13396,100,0,FULL CEP
-Henrico County,334389,22.0,1,69,49,19306,71,20,PARTIAL CEP
-Prince William County,482204,21.8,1,97,68,26796,70,29,PARTIAL CEP
-Chesterfield County,364548,21.7,1,66,42,16548,64,24,PARTIAL CEP
-Fairfax County,1081726,21.6,1,191,47,18520,25,144,PARTIAL CEP
-Chesapeake City,249422,19.0,1,85,51,20094,60,34,PARTIAL CEP
-Hampton City,134510,18.9,1,52,31,12214,60,21,PARTIAL CEP
-Stafford County,156803,18.8,1,49,29,11428,59,20,PARTIAL CEP
-Arlington County,230050,18.7,1,82,49,19306,60,33,PARTIAL CEP
-Suffolk City,92374,18.6,1,34,20,7880,59,14,PARTIAL CEP
-Virginia Beach City,456047,18.5,1,122,73,28766,60,49,PARTIAL CEP
-Newport News City,177772,18.3,1,62,37,14578,60,25,PARTIAL CEP
-Alexandria City,160146,18.2,1,53,32,12608,60,21,PARTIAL CEP
-Norfolk City,242742,18.1,1,85,51,20094,60,34,PARTIAL CEP
-Albemarle County,112961,20.6,1,38,23,9062,61,15,PARTIAL CEP
-Frederick County,92020,20.5,1,32,18,7092,56,14,PARTIAL CEP
-Spotsylvania County,137408,20.9,1,50,34,13396,68,16,PARTIAL CEP
-Loudoun County,626406,20.8,1,98,11,4334,11,87,NO CEP
-Campbell County,55868,17.0,1,23,14,5518,61,9,PARTIAL CEP
-Henry County,50948,16.9,1,22,13,5124,59,9,PARTIAL CEP
-Roanoke County,95702,17.9,1,35,21,8274,60,14,PARTIAL CEP"""
+    # Complete Virginia CEP data - 134 jurisdictions
+    csv_data = open('/home/claude/virginia_data.csv', 'r').read()
     
     df = pd.read_csv(io.StringIO(csv_data))
+    
+    # Clean county names (remove trailing spaces and revision notes)
+    df['County'] = df['County'].str.strip().str.replace(r'\s*\*.*', '', regex=True)
+    
+    # Convert numeric columns
+    df['Population'] = df['Population'].fillna(0).astype(int)
+    df['Poverty_Rate'] = df['Poverty_Rate'].fillna(0)
+    df['Eligible_Schools'] = df['Eligible_Schools'].fillna(0).astype(int)
+    df['CEP_Schools'] = df['CEP_Schools'].fillna(0).astype(int)
+    df['Students_in_CEP'] = df['Students_in_CEP'].fillna(0).astype(int)
+    df['Coverage_Pct'] = df['Coverage_Pct'].fillna(0).astype(int)
+    df['School_Gap'] = df['School_Gap'].fillna(0).astype(int)
+    
+    # Add School_Districts column (all Virginia counties have 1 district)
+    df['School_Districts'] = 1
+    
     # Calculate Children_in_Poverty from Poverty_Rate
     df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
+    
+    # Remove summary rows
+    df = df[~df['County'].isin(['Grand Total', 'Specialty Schools reporting CEP participation', 
+                                  'Other private schools not reporting CEP participation'])]
+    
     # CONSISTENCY FIX: Normalize status using shared function
     df['Status'] = df['Status'].apply(normalize_status)
     # Add numeric status for map
     df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    
     return df
 
 STATE_DATA = {
