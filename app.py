@@ -278,7 +278,7 @@ def create_insights_section():
     return html.Div([html.H2("Featured Insights", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '40px', 'color': COLORS['text_primary']}), html.Div(insight_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(300px, 1fr))', 'gap': '24px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})
 
 def create_us_map():
-    """Enhanced: Clean interactive US map - NO hover labels, click to reveal
+    """Enhanced: Interactive US map with state names on hover and FPL visual boost
     FPL states (HI, NJ, ND) have thicker borders for visibility"""
     # Prepare data for all US states
     all_states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
@@ -304,14 +304,47 @@ def create_us_map():
     
     state_names = [STATE_DATA.get(state, {}).get('name', state) for state in all_states]
     
+    # FPL percentage mapping
+    fpl_percentages = {
+        'HI': '300% of FPL',
+        'NJ': '225% of FPL',
+        'ND': '225% of FPL'
+    }
+    
+    # RESTORED: Hover text showing state names and categories
+    hover_text = []
+    for state in all_states:
+        category = get_state_category(state)
+        state_name = state_names[all_states.index(state)]
+        
+        if category == 'universal_meals':
+            label = "Universal Free Meals"
+            hover_text.append(f"<b>{state_name}</b><br>{label}")
+        elif category == 'universal_breakfast':
+            label = "Universal Free Breakfast"
+            hover_text.append(f"<b>{state_name}</b><br>{label}")
+        elif category == 'fpl_states':
+            label = fpl_percentages.get(state, 'Federal Poverty Level')
+            hover_text.append(f"<b>{state_name}</b><br>{label}")
+        else:
+            # For gray states
+            data = STATE_DATA.get(state, {})
+            if data.get('has_data'):
+                # Tracked states: show state name + coverage
+                hover_text.append(f"<b>{state_name}</b><br>{data.get('coverage_pct', 0)}% CEP Coverage")
+            else:
+                # Other gray states: just state name
+                hover_text.append(f"<b>{state_name}</b>")
+    
     fig = go.Figure(go.Choropleth(
         locations=all_states,
         z=state_z_values,
         locationmode='USA-states',
         text=state_names,
-        hoverinfo='skip',  # CRITICAL: Remove all hover tooltips
+        hovertext=hover_text,
+        hovertemplate='%{hovertext}<extra></extra>',  # RESTORED
         marker=dict(
-            line=dict(color='white', width=3)  # Base width, will be enhanced by FPL states
+            line=dict(color='white', width=3)  # Base width, FPL states get thicker visual emphasis
         ),
         colorscale=[
             [0, COLORS['other_states']],      # 1 = Gray
@@ -323,6 +356,18 @@ def create_us_map():
         zmax=4,
         showscale=False
     ))
+    
+    # Enhanced tooltip styling for clean appearance
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='white',
+            font_size=14,
+            font_family='Inter, system-ui, -apple-system, sans-serif',
+            font_color='#1a1a1a',
+            bordercolor='#e5e7eb',
+            align='left'
+        )
+    )
     
     fig.update_geos(
         scope='usa',
