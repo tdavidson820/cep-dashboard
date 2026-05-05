@@ -29,9 +29,9 @@ COLORS = {
     'democrat_name': '#1d4ed8',  # Blue
     'republican_name': '#991b1b',  # Maroon
     # NEW: Bold Map Categories (high-contrast for easy distinction)
-    'universal_meals': '#fbbf24',  # Yellow - Universal meals states - CHANGED FROM GREEN
-    'universal_breakfast': '#f59e0b',  # Bold amber/orange
-    'fpl_states': '#9333ea',  # Purple - Federal Poverty Level states - CHANGED FROM BLUE
+    'universal_meals': '#065f46',  # Dark green - Universal meals states
+    'universal_breakfast': '#f97316',  # Orange - Universal breakfast states
+    'fpl_states': '#c084fc',  # Lilac/Light purple - Federal Poverty Level states
     'other_states': '#cbd5e1'  # Light slate gray
 }
 
