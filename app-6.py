@@ -23,15 +23,15 @@ COLORS = {
     'text_primary': '#1a1a1a', 'text_secondary': '#6c757d',
     # CEP Status - Shared across map and table
     'full_cep': '#87CEEB',  # Sky Blue (FULL CEP - Participating)
-    'partial_cep': '#10b981',  # Green (PARTIAL CEP)
+    'partial_cep': '#fbbf24',  # Yellow (PARTIAL CEP) - CHANGED FROM GREEN
     'no_cep': '#ec4899',  # Pink (NO CEP)
     # Political Party - For executive names
     'democrat_name': '#1d4ed8',  # Blue
     'republican_name': '#991b1b',  # Maroon
     # NEW: Bold Map Categories (high-contrast for easy distinction)
-    'universal_meals': '#059669',  # Bold emerald green
+    'universal_meals': '#fbbf24',  # Yellow - Universal meals states - CHANGED FROM GREEN
     'universal_breakfast': '#f59e0b',  # Bold amber/orange
-    'fpl_states': '#3b82f6',  # Bold blue - Federal Poverty Level states
+    'fpl_states': '#9333ea',  # Purple - Federal Poverty Level states - CHANGED FROM BLUE
     'other_states': '#cbd5e1'  # Light slate gray
 }
 
@@ -1230,7 +1230,7 @@ def create_sortable_county_table(df):
             style_data_conditional=[
                 # Row highlighting based on status
                 {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#e0f2fe'},  # Light sky blue rows
-                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#f0fdf4'},  # Light green rows
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fef3c7'},  # Light yellow rows
                 {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},  # Light pink rows
                 # Status pills (on top of row colors) - NEW COLORS: Sky Blue, Green, Pink
                 {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
@@ -1238,7 +1238,7 @@ def create_sortable_county_table(df):
                     'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
                     'textAlign': 'center'}, 
                 {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#10b981', 'color': '#ffffff', 'fontWeight': '600', 
+                    'backgroundColor': '#fbbf24', 'color': '#ffffff', 'fontWeight': '600', 
                     'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
                     'textAlign': 'center'}, 
                 {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
