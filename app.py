@@ -1454,3 +1454,4 @@ def update_comparison_county_maps(state_a, state_b):
 
 if __name__ == '__main__':
     application.run(debug=False, host='0.0.0.0', port=8000)
+Update colors
