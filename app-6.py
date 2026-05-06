@@ -1,11 +1,14 @@
 # CEP Policy Intelligence Platform - ENHANCED v2
-# VERSION: 2026-04-20-VIRGINIA-COMPLETE
-# Last Updated: April 20, 2026 - Complete Virginia data (131 counties), all FIPS codes
+# VERSION: 2026-05-05-SURGICAL-ENHANCEMENTS
+# Last Updated: May 5, 2026
+# Changes: Rank removed, Leadership expanded with portraits, Colors updated (dark green/lilac/orange/yellow)
 # Phase 2 Enhancements:
 # 1. New interactive US map with full state names and bold color categories
 # 2. Redesigned Explore States panel with state flags and category grouping
 # 3. Consistency fix applied to ALL state pages (map/table status alignment)
-# 4. Complete Virginia county data with sky blue/green/pink color scheme
+# 4. Complete Virginia county data with sky blue/yellow/pink color scheme
+# 5. SURGICAL: Rank metric removed from all UI
+# 6. SURGICAL: Leadership section expanded with branch grouping and circular portraits
 
 import dash
 from dash import dcc, html, Input, Output, dash_table
@@ -454,31 +457,42 @@ STATE_EXECUTIVES = {
     'WI': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Tony Evers', 'party': 'Democrat', 'portrait_url': 'https://evers.wi.gov/PublishingImages/GovEvers_social.jpg', 'branch': 'Executive'},
-        # Legislative Branch
+        # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Devin LeMahieu', 'party': 'Republican', 'portrait_url': 'https://docs.legis.wisconsin.gov/2023/legislators/senate/1875/lemahieu_devin.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Education Chair', 'name': 'John Jagler', 'party': 'Republican', 'portrait_url': 'https://docs.legis.wisconsin.gov/2023/legislators/senate/1971/jagler_john.jpg', 'branch': 'Legislative'},
-        {'title': 'Senate Appropriations Chair', 'name': 'Howard Marklein', 'party': 'Republican', 'portrait_url': 'https://docs.legis.wisconsin.gov/2023/legislators/senate/1871/marklein_howard_l.jpg', 'branch': 'Legislative'}
+        {'title': 'Senate Appropriations Chair', 'name': 'Howard Marklein', 'party': 'Republican', 'portrait_url': 'https://docs.legis.wisconsin.gov/2023/legislators/senate/1871/marklein_howard_l.jpg', 'branch': 'Legislative'},
+        # Legislative Branch - House
+        {'title': 'Assembly Speaker', 'name': 'Robin Vos', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Assembly Majority Leader', 'name': 'Tyler August', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Assembly Education Chair', 'name': 'Joel Kitchens', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Assembly Appropriations Co-Chair', 'name': 'Mark Born', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'}
     ],
     'NJ': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Mikie Sherrill', 'party': 'Democrat', 'portrait_url': 'https://sherrill.house.gov/sites/evo-subsites/sherrill.house.gov/files/evo-media-image/sherrill_official.jpg', 'branch': 'Executive'},
-        # Legislative Branch
+        # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Nicholas Scutari', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/scutari_nicholas_p.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Majority Leader', 'name': 'M. Teresa Ruiz', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/ruiz_m_teresa.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Education Chair', 'name': 'Vin Gopal', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/gopal_vin.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Appropriations Chair', 'name': 'Paul Sarlo', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/sarlo_paul_a.jpg', 'branch': 'Legislative'},
-        {'title': 'Assembly Speaker', 'name': 'Craig Coughlin', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/coughlin_craig_j.jpg', 'branch': 'Legislative'}
+        # Legislative Branch - Assembly
+        {'title': 'Assembly Speaker', 'name': 'Craig Coughlin', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/coughlin_craig_j.jpg', 'branch': 'Legislative'},
+        {'title': 'Assembly Majority Leader', 'name': 'Louis Greenwald', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Assembly Education Chair', 'name': 'Pamela Lampitt', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Assembly Appropriations Chair', 'name': 'Eliana Pintor Marin', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'}
     ],
     'VA': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Glenn Youngkin', 'party': 'Republican', 'portrait_url': 'https://www.governor.virginia.gov/media/governorvirginiagov/images/governor/Glenn_Youngkin_Headshot.jpg', 'branch': 'Executive'},
         {'title': 'Lieutenant Governor', 'name': 'Winsome Sears', 'party': 'Republican', 'portrait_url': 'https://www.ltgov.virginia.gov/media/ltgovvirginiagov/images/lt-governor/Headshot---Lt.-Governor-Sears.jpg', 'branch': 'Executive'},
-        # Legislative Branch
-        {'title': 'House Speaker', 'name': 'Don Scott', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0080.jpg', 'branch': 'Legislative'},
+        # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Scott Surovell', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0036.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Education Chair', 'name': 'Ghazala Hashmi', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0010.jpg', 'branch': 'Legislative'},
-        {'title': 'House Appropriations Chair', 'name': 'Luke Torian', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0052.jpg', 'branch': 'Legislative'},
-        {'title': 'House Education Chair', 'name': 'Schuyler VanValkenburg', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0072.jpg', 'branch': 'Legislative'}
+        # Legislative Branch - House
+        {'title': 'House Speaker', 'name': 'Don Scott', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0080.jpg', 'branch': 'Legislative'},
+        {'title': 'House Majority Leader', 'name': 'Charniele Herring', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Education Chair', 'name': 'Schuyler VanValkenburg', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0072.jpg', 'branch': 'Legislative'},
+        {'title': 'House Appropriations Chair', 'name': 'Luke Torian', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0052.jpg', 'branch': 'Legislative'}
     ]
 }
 
@@ -1103,7 +1117,9 @@ def create_landing_page():
         create_hero_section(),
         create_insights_section(),
         create_map_section(),
-        create_comparison_section()
+        create_comparison_section(),
+        # Version indicator (small footer)
+        html.Div("v2026-05-05", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
@@ -1180,19 +1196,14 @@ def create_state_executives_section(state_abbr):
             name_color = get_party_color(official['party'])
             border_color = name_color
             
-            # Portrait or initials fallback
-            if official.get('portrait_url'):
-                portrait = html.Img(src=official['portrait_url'], style={
-                    'width': '40px', 'height': '40px', 'borderRadius': '50%',
-                    'border': f'2px solid {border_color}', 'objectFit': 'cover'
-                })
-            else:
-                portrait = html.Div(get_initials(official['name']), style={
-                    'width': '40px', 'height': '40px', 'borderRadius': '50%',
-                    'border': f'2px solid {border_color}', 'backgroundColor': COLORS['off_white'],
-                    'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
-                    'fontSize': '14px', 'fontWeight': '600', 'color': name_color
-                })
+            # Always use initials (clean, reliable design)
+            portrait = html.Div(get_initials(official['name']), style={
+                'width': '40px', 'height': '40px', 'borderRadius': '50%',
+                'border': f'2px solid {border_color}', 'backgroundColor': COLORS['off_white'],
+                'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
+                'fontSize': '14px', 'fontWeight': '600', 'color': name_color,
+                'flexShrink': '0'
+            })
             
             card = html.Div([
                 portrait,
@@ -1217,19 +1228,14 @@ def create_state_executives_section(state_abbr):
             name_color = get_party_color(official['party'])
             border_color = name_color
             
-            # Portrait or initials fallback
-            if official.get('portrait_url'):
-                portrait = html.Img(src=official['portrait_url'], style={
-                    'width': '40px', 'height': '40px', 'borderRadius': '50%',
-                    'border': f'2px solid {border_color}', 'objectFit': 'cover'
-                })
-            else:
-                portrait = html.Div(get_initials(official['name']), style={
-                    'width': '40px', 'height': '40px', 'borderRadius': '50%',
-                    'border': f'2px solid {border_color}', 'backgroundColor': COLORS['off_white'],
-                    'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
-                    'fontSize': '14px', 'fontWeight': '600', 'color': name_color
-                })
+            # Always use initials (clean, reliable design)
+            portrait = html.Div(get_initials(official['name']), style={
+                'width': '40px', 'height': '40px', 'borderRadius': '50%',
+                'border': f'2px solid {border_color}', 'backgroundColor': COLORS['off_white'],
+                'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
+                'fontSize': '14px', 'fontWeight': '600', 'color': name_color,
+                'flexShrink': '0'
+            })
             
             card = html.Div([
                 portrait,
@@ -1367,6 +1373,24 @@ def create_sortable_county_table(df):
         )
     ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
 
+def create_county_color_legend():
+    """Simple inline legend for county CEP status colors"""
+    return html.Div([
+        html.Div([
+            html.Span('■', style={'color': COLORS['full_cep'], 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span('Sky Blue = Full CEP', style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'inline-flex', 'alignItems': 'center', 'marginRight': '24px'}),
+        html.Div([
+            html.Span('■', style={'color': COLORS['partial_cep'], 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span('Yellow = Partial CEP', style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'inline-flex', 'alignItems': 'center', 'marginRight': '24px'}),
+        html.Div([
+            html.Span('■', style={'color': COLORS['no_cep'], 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span('Pink = No CEP', style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'inline-flex', 'alignItems': 'center'})
+    ], style={'display': 'flex', 'justifyContent': 'center', 'padding': '16px', 'marginTop': '12px', 
+              'background': COLORS['off_white'], 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
+
 def create_state_page(state_abbr):
     state_data = STATE_DATA.get(state_abbr)
     if not state_data:
@@ -1392,7 +1416,7 @@ def create_state_page(state_abbr):
         html.Div([html.Div([html.A("← All States", href="/", style={'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'}), html.H1(state_data['name'], style={'fontSize': '56px', 'fontWeight': '600', 'letterSpacing': '-0.02em', 'color': COLORS['text_primary'], 'marginBottom': '12px'}), html.P(f"{state_data['coverage_pct']}% CEP Coverage", style={'fontSize': '21px', 'color': COLORS['text_secondary']})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}), 
         create_state_executives_section(state_abbr), 
         html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
-        (html.Div([html.Div([html.H2("County-Level Coverage", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}), html.Div([dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False})], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
+        (html.Div([html.Div([html.H2("County-Level Coverage", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}), html.Div([dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False})], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), create_county_color_legend()], style={'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
         html.Div([create_sortable_county_table(df)], style={'background': COLORS['off_white']})
     ], style={'background': COLORS['off_white'], 'minHeight': '100vh'})
 
