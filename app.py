@@ -394,42 +394,74 @@ West Point Town,3414,0.0,2,2,859,100,0,FULL CEP"""
     return df
 
 def load_kentucky_data():
-    """Load Kentucky county data - 120 counties: 110 Full CEP, 10 Partial CEP"""
-    # 10 counties with PARTIAL CEP (students not guaranteed meals)
-    partial_counties = ['Bullitt', 'Boone', 'Campbell', 'Daviess', 'Fayette', 'Oldham', 'Russell', 'Scott', 'Spencer', 'Woodford']
+    """Load Kentucky county data - REAL data for 10 counties, blank for 110 others"""
+    
+    # REAL DATA from screenshot - 10 counties without full CEP
+    real_data_counties = {
+        'Bullitt': {'kids_guaranteed': 5295, 'kids_not_guaranteed': 7605, 'total_students': 12900, 'median_income': 79099},
+        'Boone': {'kids_guaranteed': 8617, 'kids_not_guaranteed': 12340, 'total_students': 20957, 'median_income': 97083},
+        'Campbell': {'kids_guaranteed': 2814, 'kids_not_guaranteed': 2375, 'total_students': 5189, 'median_income': 78194},
+        'Daviess': {'kids_guaranteed': 7871, 'kids_not_guaranteed': 3029, 'total_students': 10900, 'median_income': 65323},
+        'Fayette': {'kids_guaranteed': 15136, 'kids_not_guaranteed': 27314, 'total_students': 42450, 'median_income': 68555},
+        'Oldham': {'kids_guaranteed': 2203, 'kids_not_guaranteed': 9912, 'total_students': 12115, 'median_income': 121994},
+        'Russell': {'kids_guaranteed': 3036, 'kids_not_guaranteed': 1999, 'total_students': 5035, 'median_income': 76389},
+        'Scott': {'kids_guaranteed': 5735, 'kids_not_guaranteed': 4263, 'total_students': 9998, 'median_income': 84409},
+        'Spencer': {'kids_guaranteed': 226, 'kids_not_guaranteed': 3124, 'total_students': 3350, 'median_income': 98333},
+        'Woodford': {'kids_guaranteed': 471, 'kids_not_guaranteed': 3614, 'total_students': 4085, 'median_income': 85000}
+    }
     
     # All 120 Kentucky counties (alphabetical)
     all_counties = ['Adair', 'Allen', 'Anderson', 'Ballard', 'Barren', 'Bath', 'Bell', 'Boone', 'Bourbon', 'Boyd', 'Boyle', 'Bracken', 'Breathitt', 'Breckinridge', 'Bullitt', 'Butler', 'Caldwell', 'Calloway', 'Campbell', 'Carlisle', 'Carroll', 'Carter', 'Casey', 'Christian', 'Clark', 'Clay', 'Clinton', 'Crittenden', 'Cumberland', 'Daviess', 'Edmonson', 'Elliott', 'Estill', 'Fayette', 'Fleming', 'Floyd', 'Franklin', 'Fulton', 'Gallatin', 'Garrard', 'Grant', 'Graves', 'Grayson', 'Green', 'Greenup', 'Hancock', 'Hardin', 'Harlan', 'Harrison', 'Hart', 'Henderson', 'Henry', 'Hickman', 'Hopkins', 'Jackson', 'Jefferson', 'Jessamine', 'Johnson', 'Kenton', 'Knott', 'Knox', 'Larue', 'Laurel', 'Lawrence', 'Lee', 'Leslie', 'Letcher', 'Lewis', 'Lincoln', 'Livingston', 'Logan', 'Lyon', 'McCracken', 'McCreary', 'McLean', 'Madison', 'Magoffin', 'Marion', 'Marshall', 'Martin', 'Mason', 'Meade', 'Menifee', 'Mercer', 'Metcalfe', 'Monroe', 'Montgomery', 'Morgan', 'Muhlenberg', 'Nelson', 'Nicholas', 'Ohio', 'Oldham', 'Owen', 'Owsley', 'Pendleton', 'Perry', 'Pike', 'Powell', 'Pulaski', 'Robertson', 'Rockcastle', 'Rowan', 'Russell', 'Scott', 'Shelby', 'Simpson', 'Spencer', 'Taylor', 'Todd', 'Trigg', 'Trimble', 'Union', 'Warren', 'Washington', 'Wayne', 'Webster', 'Whitley', 'Wolfe', 'Woodford']
     
     # Build data structure
     data = {
-        'County': all_counties,
-        'Population': [19000] * 120,  # Estimated average
-        'Poverty_Rate': [20.0] * 120,  # Estimated average
-        'School_Districts': [2] * 120,  # Estimated average
-        'Eligible_Schools': [8] * 120,  # Estimated average
+        'County': [],
+        'Population': [],
+        'Poverty_Rate': [],
+        'School_Districts': [],
+        'Eligible_Schools': [],
         'CEP_Schools': [],
         'Students_in_CEP': [],
         'Coverage_Pct': [],
-        'Status': []
+        'Status': [],
+        'Children_in_Poverty': [],
+        'School_Gap': []
     }
     
-    # Assign status and derived metrics
     for county in all_counties:
-        if county in partial_counties:
-            data['Status'].append('PARTIAL CEP')
-            data['CEP_Schools'].append(4)  # Partial participation
-            data['Students_in_CEP'].append(2000)
-            data['Coverage_Pct'].append(50)
+        data['County'].append(county)
+        
+        if county in real_data_counties:
+            # USE REAL DATA from screenshot
+            county_data = real_data_counties[county]
+            total_students = county_data['total_students']
+            kids_guaranteed = county_data['kids_guaranteed']
+            coverage_pct = int((kids_guaranteed / total_students) * 100) if total_students > 0 else 0
+            
+            data['Population'].append(None)  # Not in screenshot
+            data['Poverty_Rate'].append(None)  # Not in screenshot
+            data['School_Districts'].append(None)  # Not in screenshot
+            data['Eligible_Schools'].append(None)  # Not in screenshot
+            data['CEP_Schools'].append(None)  # Not in screenshot
+            data['Students_in_CEP'].append(kids_guaranteed)  # REAL DATA
+            data['Coverage_Pct'].append(coverage_pct)  # CALCULATED from real data
+            data['Status'].append('PARTIAL CEP')  # These 10 counties don't have full CEP
+            data['Children_in_Poverty'].append(None)  # Not in screenshot
+            data['School_Gap'].append(None)  # Not in screenshot
         else:
-            data['Status'].append('FULL CEP')
-            data['CEP_Schools'].append(8)  # Full participation
-            data['Students_in_CEP'].append(4000)
-            data['Coverage_Pct'].append(100)
+            # NO DATA - these 110 counties have FULL CEP (all kids guaranteed)
+            data['Population'].append(None)
+            data['Poverty_Rate'].append(None)
+            data['School_Districts'].append(None)
+            data['Eligible_Schools'].append(None)
+            data['CEP_Schools'].append(None)
+            data['Students_in_CEP'].append(None)
+            data['Coverage_Pct'].append(None)
+            data['Status'].append('FULL CEP')  # Confirmed: all other counties have full CEP
+            data['Children_in_Poverty'].append(None)
+            data['School_Gap'].append(None)
     
     df = pd.DataFrame(data)
-    df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
-    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
     
     # Normalize status and add numeric
     df['Status'] = df['Status'].apply(normalize_status)
