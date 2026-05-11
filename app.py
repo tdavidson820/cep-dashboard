@@ -483,11 +483,10 @@ STATE_EXECUTIVES = {
     ],
     'VA': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Glenn Youngkin', 'party': 'Republican', 'portrait_url': 'https://www.governor.virginia.gov/media/governorvirginiagov/images/governor/Glenn_Youngkin_Headshot.jpg', 'branch': 'Executive'},
-        {'title': 'Lieutenant Governor', 'name': 'Winsome Sears', 'party': 'Republican', 'portrait_url': 'https://www.ltgov.virginia.gov/media/ltgovvirginiagov/images/lt-governor/Headshot---Lt.-Governor-Sears.jpg', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Abigail Spanberger', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Lieutenant Governor', 'name': 'Ghazala Hashmi', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0010.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Scott Surovell', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0036.jpg', 'branch': 'Legislative'},
-        {'title': 'Senate Education Chair', 'name': 'Ghazala Hashmi', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0010.jpg', 'branch': 'Legislative'},
         # Legislative Branch - House
         {'title': 'House Speaker', 'name': 'Don Scott', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/H0080.jpg', 'branch': 'Legislative'},
         {'title': 'House Majority Leader', 'name': 'Charniele Herring', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
