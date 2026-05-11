@@ -1398,8 +1398,8 @@ def create_state_executives_section(state_abbr):
         name_color = get_party_color(official['party'])
         border_color = name_color
         
-        # Base circle with initials (always visible as fallback)
-        base_style = {
+        # Clean initials design (reliable, no broken images)
+        return html.Div(get_initials(official['name']), style={
             'width': '40px', 
             'height': '40px', 
             'borderRadius': '50%',
@@ -1411,44 +1411,8 @@ def create_state_executives_section(state_abbr):
             'fontSize': '14px', 
             'fontWeight': '600', 
             'color': name_color,
-            'flexShrink': '0',
-            'position': 'relative',
-            'overflow': 'hidden'
-        }
-        
-        # If portrait URL exists, layer image on top
-        if official.get('portrait_url') and official['portrait_url']:
-            return html.Div([
-                # Initials (background layer)
-                html.Div(get_initials(official['name']), style={
-                    'position': 'absolute',
-                    'width': '100%',
-                    'height': '100%',
-                    'display': 'flex',
-                    'alignItems': 'center',
-                    'justifyContent': 'center',
-                    'fontSize': '14px',
-                    'fontWeight': '600',
-                    'color': name_color
-                }),
-                # Photo (top layer - will hide initials if it loads)
-                html.Img(
-                    src=official['portrait_url'],
-                    style={
-                        'position': 'absolute',
-                        'top': '0',
-                        'left': '0',
-                        'width': '100%',
-                        'height': '100%',
-                        'objectFit': 'cover',
-                        'borderRadius': '50%',
-                        'backgroundColor': COLORS['off_white']
-                    }
-                )
-            ], style=base_style)
-        else:
-            # No URL, just show initials
-            return html.Div(get_initials(official['name']), style=base_style)
+            'flexShrink': '0'
+        })
     
     # Party legend with symbols
     legend = html.Div([
