@@ -501,12 +501,178 @@ STATE_EXECUTIVES = {
 # ====================
 
 def create_hero_section():
-    return html.Div([html.Div([html.H1("CEP Expansion Is the Fastest Way to Eliminate School Hunger", style={'fontSize': '56px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'lineHeight': '1.1', 'maxWidth': '1000px', 'marginLeft': 'auto', 'marginRight': 'auto', 'letterSpacing': '-0.02em'}), html.P("Across America, millions of children in poverty attend schools that are eligible for the Community Eligibility Provision but haven't adopted it. States have an immediate opportunity to close this gap.", style={'fontSize': '21px', 'color': COLORS['text_secondary'], 'maxWidth': '800px', 'margin': '0 auto 40px auto', 'lineHeight': '1.5'}), html.Div([html.Div([html.Div(f"{NATIONAL_STATS['total_children_without_cep']:,.0f}", style={'fontSize': '64px', 'fontWeight': '700', 'color': COLORS['teal'], 'lineHeight': '1'}), html.Div("CHILDREN WITHOUT CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '1px', 'marginTop': '8px'})], style={'textAlign': 'center'}), html.Div([html.Div(f"{NATIONAL_STATS['avg_coverage']}%", style={'fontSize': '64px', 'fontWeight': '700', 'color': COLORS['teal'], 'lineHeight': '1'}), html.Div("AVERAGE COVERAGE", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '1px', 'marginTop': '8px'})], style={'textAlign': 'center'})], style={'display': 'flex', 'justifyContent': 'center', 'gap': '60px', 'marginTop': '50px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '100px 40px 80px 40px', 'textAlign': 'center'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)', 'borderBottom': f'1px solid {COLORS["border"]}'})
+    return html.Div([
+        html.Div([
+            html.H1("CEP Expansion Is the Fastest Way to Eliminate School Hunger", 
+                style={
+                    'fontSize': '60px', 
+                    'fontWeight': '700', 
+                    'color': COLORS['text_primary'], 
+                    'marginBottom': '24px', 
+                    'lineHeight': '1.08', 
+                    'maxWidth': '1100px', 
+                    'marginLeft': 'auto', 
+                    'marginRight': 'auto', 
+                    'letterSpacing': '-0.025em'
+                }
+            ), 
+            html.P("Across America, millions of children in poverty attend schools that are eligible for the Community Eligibility Provision but haven't adopted it. States have an immediate opportunity to close this gap.", 
+                style={
+                    'fontSize': '22px', 
+                    'color': COLORS['text_secondary'], 
+                    'maxWidth': '820px', 
+                    'margin': '0 auto 16px auto', 
+                    'lineHeight': '1.6',
+                    'fontWeight': '400'
+                }
+            ),
+            # Credibility marker
+            html.Div("Last Updated: May 6, 2026 | CEP Policy Intelligence Platform",
+                style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'opacity': '0.7',
+                    'marginBottom': '48px',
+                    'letterSpacing': '0.3px'
+                }
+            ),
+            html.Div([
+                html.Div([
+                    html.Div(f"{NATIONAL_STATS['total_children_without_cep']:,.0f}", 
+                        style={
+                            'fontSize': '68px', 
+                            'fontWeight': '700', 
+                            'color': COLORS['teal'], 
+                            'lineHeight': '1',
+                            'letterSpacing': '-0.02em'
+                        }
+                    ), 
+                    html.Div("CHILDREN WITHOUT CEP", 
+                        style={
+                            'fontSize': '13px', 
+                            'color': COLORS['text_secondary'], 
+                            'textTransform': 'uppercase', 
+                            'letterSpacing': '1.2px', 
+                            'marginTop': '12px',
+                            'fontWeight': '600'
+                        }
+                    )
+                ], style={'textAlign': 'center'}), 
+                html.Div([
+                    html.Div(f"{NATIONAL_STATS['avg_coverage']}%", 
+                        style={
+                            'fontSize': '68px', 
+                            'fontWeight': '700', 
+                            'color': COLORS['teal'], 
+                            'lineHeight': '1',
+                            'letterSpacing': '-0.02em'
+                        }
+                    ), 
+                    html.Div("AVERAGE COVERAGE", 
+                        style={
+                            'fontSize': '13px', 
+                            'color': COLORS['text_secondary'], 
+                            'textTransform': 'uppercase', 
+                            'letterSpacing': '1.2px', 
+                            'marginTop': '12px',
+                            'fontWeight': '600'
+                        }
+                    )
+                ], style={'textAlign': 'center'})
+            ], style={
+                'display': 'flex', 
+                'justifyContent': 'center', 
+                'gap': '80px', 
+                'marginTop': '56px'
+            })
+        ], style={
+            'maxWidth': '1400px', 
+            'margin': '0 auto', 
+            'padding': '120px 40px 100px 40px', 
+            'textAlign': 'center'
+        })
+    ], style={
+        'background': f'linear-gradient(135deg, #fafafa 0%, #f3f4f6 100%)', 
+        'borderBottom': f'1px solid {COLORS["border"]}'
+    })
 
 def create_insights_section():
-    insights = [{'title': 'Largest Participation Gap', 'metric': '826K', 'text': 'children in New Jersey could be served through expanded CEP implementation'}, {'title': 'Top Performing State', 'metric': '89%', 'text': 'of eligible schools in South Carolina participate in CEP'}, {'title': 'High-Need Counties', 'metric': '24', 'text': 'counties in Wisconsin have zero CEP participation despite eligibility'}, {'title': 'Immediate Opportunity', 'metric': f"{NATIONAL_STATS['eligible_schools_not_participating']:,}", 'text': 'eligible schools not yet participating in CEP across tracked states'}]
-    insight_cards = [html.Div([html.H3(i['title'], style={'fontSize': '18px', 'fontWeight': '600', 'marginBottom': '12px', 'color': COLORS['text_primary']}), html.Div(i['metric'], style={'fontSize': '42px', 'fontWeight': '700', 'color': COLORS['teal'], 'marginBottom': '8px'}), html.P(i['text'], style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'lineHeight': '1.5', 'margin': '0'})], style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '32px', 'transition': 'all 0.3s ease', 'cursor': 'pointer'}) for i in insights]
-    return html.Div([html.H2("Featured Insights", style={'fontSize': '32px', 'fontWeight': '600', 'marginBottom': '40px', 'color': COLORS['text_primary']}), html.Div(insight_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(300px, 1fr))', 'gap': '24px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})
+    insights = [
+        {
+            'title': 'Largest Coverage Gap', 
+            'metric': '826K', 
+            'text': 'children in New Jersey could gain access through expanded CEP adoption'
+        }, 
+        {
+            'title': 'Leading Implementation', 
+            'metric': '89%', 
+            'text': 'of eligible schools in South Carolina currently participate in CEP'
+        }, 
+        {
+            'title': 'Unserved Communities', 
+            'metric': '24', 
+            'text': 'counties in Wisconsin have zero CEP participation despite clear eligibility'
+        }, 
+        {
+            'title': 'National Opportunity', 
+            'metric': f"{NATIONAL_STATS['eligible_schools_not_participating']:,}", 
+            'text': 'eligible schools not yet participating across all tracked states'
+        }
+    ]
+    
+    insight_cards = [
+        html.Div([
+            html.H3(i['title'], style={
+                'fontSize': '16px', 
+                'fontWeight': '600', 
+                'marginBottom': '16px', 
+                'color': COLORS['text_secondary'],
+                'textTransform': 'uppercase',
+                'letterSpacing': '0.5px'
+            }), 
+            html.Div(i['metric'], style={
+                'fontSize': '48px', 
+                'fontWeight': '700', 
+                'color': COLORS['teal'], 
+                'marginBottom': '12px',
+                'lineHeight': '1',
+                'letterSpacing': '-0.02em'
+            }), 
+            html.P(i['text'], style={
+                'fontSize': '15px', 
+                'color': COLORS['text_secondary'], 
+                'lineHeight': '1.6', 
+                'margin': '0'
+            })
+        ], style={
+            'background': 'white', 
+            'border': f'1px solid {COLORS["border"]}', 
+            'borderRadius': '12px', 
+            'padding': '36px 32px', 
+            'boxShadow': '0 1px 3px rgba(0,0,0,0.05)',
+            'transition': 'all 0.2s ease'
+        }) 
+        for i in insights
+    ]
+    
+    return html.Div([
+        html.H2("Policy Impact Snapshot", style={
+            'fontSize': '36px', 
+            'fontWeight': '600', 
+            'marginBottom': '48px', 
+            'color': COLORS['text_primary'],
+            'letterSpacing': '-0.015em'
+        }), 
+        html.Div(insight_cards, style={
+            'display': 'grid', 
+            'gridTemplateColumns': 'repeat(auto-fit, minmax(300px, 1fr))', 
+            'gap': '24px'
+        })
+    ], style={
+        'maxWidth': '1400px', 
+        'margin': '0 auto', 
+        'padding': '96px 40px'
+    })
 
 def create_us_map():
     """Enhanced: Interactive US map with state names on hover and FPL visual boost
@@ -946,25 +1112,78 @@ def create_explore_states_panel():
 def create_map_section():
     """Enhanced: 3-column layout - Map + Detail Panel + Explore States"""
     
-    # Legend for the map
+    # Legend for the map - polished pills
     legend = html.Div([
         html.Div([
-            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_meals'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("Universal meals (9)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+            html.Div(style={
+                'width': '20px', 
+                'height': '20px', 
+                'background': COLORS['universal_meals'], 
+                'borderRadius': '6px', 
+                'marginRight': '10px',
+                'boxShadow': '0 1px 2px rgba(0,0,0,0.1)'
+            }),
+            html.Span("Universal Meals (9)", style={
+                'fontSize': '14px', 
+                'color': COLORS['text_secondary'],
+                'fontWeight': '500'
+            })
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '28px'}),
         html.Div([
-            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['universal_breakfast'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("Breakfast (3)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+            html.Div(style={
+                'width': '20px', 
+                'height': '20px', 
+                'background': COLORS['universal_breakfast'], 
+                'borderRadius': '6px', 
+                'marginRight': '10px',
+                'boxShadow': '0 1px 2px rgba(0,0,0,0.1)'
+            }),
+            html.Span("Universal Breakfast (3)", style={
+                'fontSize': '14px', 
+                'color': COLORS['text_secondary'],
+                'fontWeight': '500'
+            })
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '28px'}),
         html.Div([
-            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['fpl_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("FPL States (3)", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+            html.Div(style={
+                'width': '20px', 
+                'height': '20px', 
+                'background': COLORS['fpl_states'], 
+                'borderRadius': '6px', 
+                'marginRight': '10px',
+                'boxShadow': '0 1px 2px rgba(0,0,0,0.1)'
+            }),
+            html.Span("FPL States (3)", style={
+                'fontSize': '14px', 
+                'color': COLORS['text_secondary'],
+                'fontWeight': '500'
+            })
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '28px'}),
         html.Div([
-            html.Div(style={'width': '18px', 'height': '18px', 'background': COLORS['other_states'], 'borderRadius': '4px', 'marginRight': '8px'}),
-            html.Span("Other states", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+            html.Div(style={
+                'width': '20px', 
+                'height': '20px', 
+                'background': COLORS['other_states'], 
+                'borderRadius': '6px', 
+                'marginRight': '10px',
+                'border': f'1px solid {COLORS["border"]}'
+            }),
+            html.Span("Other States", style={
+                'fontSize': '14px', 
+                'color': COLORS['text_secondary'],
+                'fontWeight': '500'
+            })
         ], style={'display': 'flex', 'alignItems': 'center'})
-    ], style={'display': 'flex', 'flexWrap': 'wrap', 'marginBottom': '24px', 'padding': '16px', 'background': COLORS['off_white'], 'borderRadius': '8px'})
+    ], style={
+        'display': 'flex', 
+        'flexWrap': 'wrap', 
+        'gap': '8px',
+        'marginBottom': '28px', 
+        'padding': '20px 24px', 
+        'background': COLORS['off_white'], 
+        'borderRadius': '10px',
+        'border': f'1px solid {COLORS["border"]}'
+    })
     
     # All state options for search dropdown
     all_state_options = [
@@ -998,10 +1217,11 @@ def create_map_section():
     return html.Div([
         html.Div([
             html.H2("National School Meal Coverage", style={
-                'fontSize': '32px',
+                'fontSize': '36px',
                 'fontWeight': '600',
-                'marginBottom': '20px',
-                'color': COLORS['text_primary']
+                'marginBottom': '24px',
+                'color': COLORS['text_primary'],
+                'letterSpacing': '-0.015em'
             }),
             
             # Search box
@@ -1014,7 +1234,7 @@ def create_map_section():
                     searchable=True,
                     style={'maxWidth': '400px'}
                 )
-            ], style={'marginBottom': '20px'}),
+            ], style={'marginBottom': '24px'}),
             
             legend,
             
@@ -1030,7 +1250,8 @@ def create_map_section():
                             'background': 'white',
                             'border': f'1px solid {COLORS["border"]}',
                             'borderRadius': '12px',
-                            'padding': '20px'
+                            'padding': '20px',
+                            'boxShadow': '0 1px 3px rgba(0,0,0,0.05)'
                         }
                     )
                 ]),
@@ -1043,7 +1264,7 @@ def create_map_section():
             ], style={
                 'display': 'grid',
                 'gridTemplateColumns': '1fr 400px',  # Main map + Explore States sidebar
-                'gap': '20px',
+                'gap': '24px',
                 'marginBottom': '24px'
             }),
             
@@ -1051,17 +1272,18 @@ def create_map_section():
             html.Div(id='county-map-container', children=[], style={'marginTop': '24px'})
             
         ], style={'maxWidth': '1400px', 'margin': '0 auto'})
-    ], style={'padding': '80px 40px', 'background': 'white'})
+    ], style={'padding': '96px 40px', 'background': 'white'})
 
 def create_comparison_section():
     """Enhanced: Comparison with side-by-side county maps"""
     return html.Div([
         html.Div([
             html.H2("Compare States", style={
-                'fontSize': '32px',
+                'fontSize': '36px',
                 'fontWeight': '600',
-                'marginBottom': '20px',
-                'color': COLORS['text_primary']
+                'marginBottom': '28px',
+                'color': COLORS['text_primary'],
+                'letterSpacing': '-0.015em'
             }),
             
             # Dropdowns
@@ -1171,6 +1393,21 @@ def create_state_executives_section(state_abbr):
             return f"{parts[0][0]}{parts[-1][0]}"
         return name[0] if name else "?"
     
+    # Helper to create portrait circle with initials
+    def create_portrait(official):
+        name_color = get_party_color(official['party'])
+        border_color = name_color
+        return html.Div(get_initials(official['name']), style={
+            'width': '40px', 'height': '40px', 'borderRadius': '50%',
+            'border': f'2px solid {border_color}', 
+            'backgroundColor': COLORS['off_white'],
+            'display': 'flex', 'alignItems': 'center', 
+            'justifyContent': 'center',
+            'fontSize': '14px', 'fontWeight': '600', 
+            'color': name_color,
+            'flexShrink': '0'
+        })
+    
     # Party legend with symbols
     legend = html.Div([
         html.Div([
@@ -1183,9 +1420,15 @@ def create_state_executives_section(state_abbr):
         ], style={'display': 'inline-flex', 'alignItems': 'center'})
     ], style={'display': 'flex', 'gap': '16px', 'marginBottom': '20px', 'paddingBottom': '12px', 'borderBottom': f'1px solid {COLORS["border"]}'})
     
-    # Group by branch
+    # Group by branch AND chamber
     executive_branch = [e for e in executives if e['branch'] == 'Executive']
+    
+    # Separate Senate and House based on title keywords
+    senate_titles = ['Senate', 'Lt. Governor', 'Lieutenant Governor']
     legislative_branch = [e for e in executives if e['branch'] == 'Legislative']
+    
+    state_senate = [e for e in legislative_branch if any(keyword in e['title'] for keyword in senate_titles)]
+    state_house = [e for e in legislative_branch if not any(keyword in e['title'] for keyword in senate_titles)]
     
     sections = []
     
@@ -1194,19 +1437,8 @@ def create_state_executives_section(state_abbr):
         exec_cards = []
         for official in executive_branch:
             name_color = get_party_color(official['party'])
-            border_color = name_color
-            
-            # Always use initials (clean, reliable design)
-            portrait = html.Div(get_initials(official['name']), style={
-                'width': '40px', 'height': '40px', 'borderRadius': '50%',
-                'border': f'2px solid {border_color}', 'backgroundColor': COLORS['off_white'],
-                'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
-                'fontSize': '14px', 'fontWeight': '600', 'color': name_color,
-                'flexShrink': '0'
-            })
-            
             card = html.Div([
-                portrait,
+                create_portrait(official),
                 html.Div([
                     html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
                     html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
@@ -1221,36 +1453,46 @@ def create_state_executives_section(state_abbr):
             html.Div(exec_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(280px, 1fr))', 'gap': '12px'})
         ], style={'marginBottom': '24px'}))
     
-    # Legislative Branch Section
-    if legislative_branch:
-        leg_cards = []
-        for official in legislative_branch:
+    # State Senate Section
+    if state_senate:
+        senate_cards = []
+        for official in state_senate:
             name_color = get_party_color(official['party'])
-            border_color = name_color
-            
-            # Always use initials (clean, reliable design)
-            portrait = html.Div(get_initials(official['name']), style={
-                'width': '40px', 'height': '40px', 'borderRadius': '50%',
-                'border': f'2px solid {border_color}', 'backgroundColor': COLORS['off_white'],
-                'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center',
-                'fontSize': '14px', 'fontWeight': '600', 'color': name_color,
-                'flexShrink': '0'
-            })
-            
             card = html.Div([
-                portrait,
+                create_portrait(official),
                 html.Div([
                     html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
                     html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
                 ], style={'marginLeft': '12px', 'flex': '1'})
             ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
                       'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
-            leg_cards.append(card)
+            senate_cards.append(card)
         
         sections.append(html.Div([
-            html.H3("Legislative Branch", style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 
-                                                  'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px'}),
-            html.Div(leg_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(280px, 1fr))', 'gap': '12px'})
+            html.H3("State Senate", style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 
+                                           'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px'}),
+            html.Div(senate_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(280px, 1fr))', 'gap': '12px'})
+        ], style={'marginBottom': '24px'}))
+    
+    # State House/Assembly Section
+    if state_house:
+        house_cards = []
+        for official in state_house:
+            name_color = get_party_color(official['party'])
+            card = html.Div([
+                create_portrait(official),
+                html.Div([
+                    html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
+                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
+                ], style={'marginLeft': '12px', 'flex': '1'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
+                      'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
+            house_cards.append(card)
+        
+        sections.append(html.Div([
+            html.H3("State House/Assembly", style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 
+                                                    'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px'}),
+            html.Div(house_cards, style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(280px, 1fr))', 'gap': '12px'})
         ]))
     
     return html.Div([
