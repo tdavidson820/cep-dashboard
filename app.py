@@ -519,7 +519,6 @@ STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
     'NJ': {'name': 'New Jersey', 'eligible_schools': 1810, 'cep_schools': 584, 'students_in_cep': 260318, 'children_without_cep': 826612, 'coverage_pct': 32, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
-    'SC': {'name': 'South Carolina', 'eligible_schools': 1100, 'cep_schools': 979, 'students_in_cep': 425000, 'children_without_cep': 51000, 'coverage_pct': 89, 'has_data': False, 'lat': 33.8, 'lon': -81.0},
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
     'KY': {'name': 'Kentucky', 'eligible_schools': 960, 'cep_schools': 870, 'students_in_cep': 586480, 'children_without_cep': 75575, 'coverage_pct': 90, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
@@ -593,10 +592,10 @@ ALL_STATES_COVERAGE = {
 }
 
 NATIONAL_STATS = {
-    'total_children_without_cep': sum(s['children_without_cep'] for s in STATE_DATA.values()),
-    'total_students_served': sum(s['students_in_cep'] for s in STATE_DATA.values()),
-    'eligible_schools_not_participating': sum(s['eligible_schools'] - s['cep_schools'] for s in STATE_DATA.values()),
-    'avg_coverage': int(sum(s['coverage_pct'] for s in STATE_DATA.values()) / len(STATE_DATA))
+    'total_children_without_cep': sum(s['children_without_cep'] for s in STATE_DATA.values() if s.get('has_data', False)),
+    'total_students_served': sum(s['students_in_cep'] for s in STATE_DATA.values() if s.get('has_data', False)),
+    'eligible_schools_not_participating': sum(s['eligible_schools'] - s['cep_schools'] for s in STATE_DATA.values() if s.get('has_data', False)),
+    'avg_coverage': int(sum(s['coverage_pct'] for s in STATE_DATA.values() if s.get('has_data', False)) / len([s for s in STATE_DATA.values() if s.get('has_data', False)]))
 }
 
 STATE_EXECUTIVES = {
