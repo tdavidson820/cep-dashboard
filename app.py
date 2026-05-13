@@ -399,13 +399,14 @@ West Point Town,3414,0.0,2,2,859,100,0,FULL CEP"""
     return df
 
 def load_kentucky_data():
-    """Load Kentucky county data - 25 counties with Census-sourced data (62% of KY population)
-    Includes 10 Partial CEP counties (screenshot verified) + 15 largest Full CEP counties (Census 2024)"""
+    """Load Kentucky county data - All 120 counties shown on map
+    - 25 counties with complete Census data (10 Partial CEP + 15 Full CEP)
+    - 95 counties with CEP status only (all Full CEP)"""
     
     import io
     
-    # 25-county sample with verified Census and school district data
-    csv_data = """County,Population,Poverty_Rate,Eligible_Schools,Students_in_CEP,Status
+    # 25 counties with complete Census-sourced data
+    csv_data_complete = """County,Population,Poverty_Rate,Eligible_Schools,Students_in_CEP,Status
 Bullitt,89500,8.5,18,5295,PARTIAL CEP
 Boone,139841,5.8,30,8617,PARTIAL CEP
 Campbell,93000,12.1,22,2814,PARTIAL CEP
@@ -432,28 +433,69 @@ Henderson,46000,15.4,14,6300,FULL CEP
 Graves,36000,17.6,12,5000,FULL CEP
 Jessamine,55000,13.2,16,7500,FULL CEP"""
     
-    df = pd.read_csv(io.StringIO(csv_data))
+    # 95 counties with status only (all Full CEP)
+    remaining_counties = [
+        'Adair', 'Allen', 'Anderson', 'Ballard', 'Barren', 'Bath', 'Bell', 'Bourbon', 
+        'Boyle', 'Bracken', 'Breathitt', 'Breckinridge', 'Butler', 'Caldwell', 'Calloway', 
+        'Carlisle', 'Carroll', 'Carter', 'Casey', 'Clark', 'Clay', 'Clinton', 'Crittenden', 
+        'Cumberland', 'Edmonson', 'Elliott', 'Estill', 'Fleming', 'Floyd', 'Franklin', 
+        'Fulton', 'Gallatin', 'Garrard', 'Grant', 'Grayson', 'Green', 'Greenup', 'Hancock', 
+        'Harlan', 'Harrison', 'Hart', 'Henry', 'Hickman', 'Jackson', 'Johnson', 'Knott', 
+        'Knox', 'Larue', 'Lawrence', 'Lee', 'Leslie', 'Letcher', 'Lewis', 'Lincoln', 
+        'Livingston', 'Logan', 'Lyon', 'McCreary', 'McLean', 'Magoffin', 'Marion', 
+        'Marshall', 'Martin', 'Mason', 'Meade', 'Menifee', 'Mercer', 'Metcalfe', 'Monroe', 
+        'Montgomery', 'Morgan', 'Muhlenberg', 'Nelson', 'Nicholas', 'Ohio', 'Owen', 'Owsley', 
+        'Pendleton', 'Perry', 'Powell', 'Robertson', 'Rockcastle', 'Rowan', 'Shelby', 
+        'Simpson', 'Taylor', 'Todd', 'Trigg', 'Trimble', 'Union', 'Washington', 'Wayne', 
+        'Webster', 'Whitley', 'Wolfe'
+    ]
     
-    # Convert columns
-    df['Population'] = df['Population'].astype(int)
-    df['Poverty_Rate'] = df['Poverty_Rate'].astype(float)
-    df['Eligible_Schools'] = df['Eligible_Schools'].astype(int)
-    df['Students_in_CEP'] = df['Students_in_CEP'].astype(int)
+    # Load the 25 counties with complete data
+    df_complete = pd.read_csv(io.StringIO(csv_data_complete))
     
-    # Calculate derived metrics
-    df['School_Districts'] = 1  # Most KY counties have 1 district
+    # Create dataframe for remaining 95 counties (status only)
+    df_remaining = pd.DataFrame({
+        'County': remaining_counties,
+        'Population': [None] * len(remaining_counties),
+        'Poverty_Rate': [None] * len(remaining_counties),
+        'Eligible_Schools': [None] * len(remaining_counties),
+        'Students_in_CEP': [None] * len(remaining_counties),
+        'Status': ['FULL CEP'] * len(remaining_counties)
+    })
+    
+    # Combine both datasets
+    df = pd.concat([df_complete, df_remaining], ignore_index=True)
+    
+    # Convert columns for complete data
+    df['Population'] = pd.to_numeric(df['Population'], errors='coerce')
+    df['Poverty_Rate'] = pd.to_numeric(df['Poverty_Rate'], errors='coerce')
+    df['Eligible_Schools'] = pd.to_numeric(df['Eligible_Schools'], errors='coerce')
+    df['Students_in_CEP'] = pd.to_numeric(df['Students_in_CEP'], errors='coerce')
+    
+    # Calculate derived metrics (only for counties with data)
+    df['School_Districts'] = 1
     df['CEP_Schools'] = df.apply(
-        lambda row: row['Eligible_Schools'] if row['Status'] == 'FULL CEP' 
-        else int(row['Eligible_Schools'] * 0.5),  # Partial CEP = ~50% schools participating
+        lambda row: row['Eligible_Schools'] if row['Status'] == 'FULL CEP' and pd.notna(row['Eligible_Schools'])
+        else (int(row['Eligible_Schools'] * 0.5) if row['Status'] == 'PARTIAL CEP' and pd.notna(row['Eligible_Schools'])
+        else None),
         axis=1
     )
     df['Coverage_Pct'] = df.apply(
         lambda row: 100 if row['Status'] == 'FULL CEP'
-        else int((row['Students_in_CEP'] / (row['Students_in_CEP'] * 2)) * 100),  # Estimate for Partial
+        else (int((row['Students_in_CEP'] / (row['Students_in_CEP'] * 2)) * 100) if pd.notna(row['Students_in_CEP'])
+        else None),
         axis=1
     )
-    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
-    df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
+    df['School_Gap'] = df.apply(
+        lambda row: row['Eligible_Schools'] - row['CEP_Schools'] if pd.notna(row['Eligible_Schools']) and pd.notna(row['CEP_Schools'])
+        else None,
+        axis=1
+    )
+    df['Children_in_Poverty'] = df.apply(
+        lambda row: int(row['Population'] * (row['Poverty_Rate'] / 100) * 0.25) if pd.notna(row['Population']) and pd.notna(row['Poverty_Rate'])
+        else None,
+        axis=1
+    )
     
     # Normalize status
     df['Status'] = df['Status'].apply(normalize_status)
