@@ -2062,7 +2062,7 @@ def update_comparison_county_maps(state_a, state_b):
     maps = []
     
     for state_abbr in [state_a, state_b]:
-        if state_abbr in ['WI', 'NJ', 'VA']:
+        if state_abbr in ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC']:
             # Load county data
             if state_abbr == 'WI':
                 df = load_wisconsin_data()
@@ -2073,6 +2073,15 @@ def update_comparison_county_maps(state_a, state_b):
             elif state_abbr == 'VA':
                 df = load_virginia_data()
                 fips_dict = VA_FIPS
+            elif state_abbr == 'MD':
+                df = load_maryland_data()
+                fips_dict = MD_FIPS
+            elif state_abbr == 'KY':
+                df = load_kentucky_data()
+                fips_dict = KY_FIPS
+            elif state_abbr == 'SC':
+                df = load_south_carolina_data()
+                fips_dict = SC_FIPS
             
             state_name = STATE_DATA[state_abbr]['name']
             
