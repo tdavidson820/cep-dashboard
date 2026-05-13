@@ -69,6 +69,7 @@ STATE_FLAGS = {
     'WI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+V0k8L3RleHQ+PC9zdmc+',
     'NJ': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNWE1MzMiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDVhNTMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+Tko8L3RleHQ+PC9zdmc+',
     'VA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+VkE8L3RleHQ+PC9zdmc+',
+    'MD': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNDAwMDAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDQwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+TUQ8L3RleHQ+PC9zdmc+',
     'KY': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+S1k8L3RleHQ+PC9zdmc+',
     'SC': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+U0M8L3RleHQ+PC9zdmc+',
     'NV': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+TlY8L3RleHQ+PC9zdmc+',
@@ -208,6 +209,10 @@ KY_FIPS = {
 
 SC_FIPS = {
     'Abbeville': '45001', 'Aiken': '45003', 'Allendale': '45005', 'Anderson': '45007', 'Bamberg': '45009', 'Barnwell': '45011', 'Beaufort': '45013', 'Berkeley': '45015', 'Calhoun': '45017', 'Charleston': '45019', 'Cherokee': '45021', 'Chester': '45023', 'Chesterfield': '45025', 'Clarendon': '45027', 'Colleton': '45029', 'Darlington': '45031', 'Dillon': '45033', 'Dorchester': '45035', 'Edgefield': '45037', 'Fairfield': '45039', 'Florence': '45041', 'Georgetown': '45043', 'Greenville': '45045', 'Greenwood': '45047', 'Hampton': '45049', 'Horry': '45051', 'Jasper': '45053', 'Kershaw': '45055', 'Lancaster': '45057', 'Laurens': '45059', 'Lee': '45061', 'Lexington': '45063', 'McCormick': '45065', 'Marion': '45067', 'Marlboro': '45069', 'Newberry': '45071', 'Oconee': '45073', 'Orangeburg': '45075', 'Pickens': '45077', 'Richland': '45079', 'Saluda': '45081', 'Spartanburg': '45083', 'Sumter': '45085', 'Union': '45087', 'Williamsburg': '45089', 'York': '45091'
+}
+
+MD_FIPS = {
+    'Allegany': '24001', 'Anne Arundel': '24003', 'Baltimore': '24005', 'Baltimore City': '24510', 'Calvert': '24009', 'Caroline': '24011', 'Carroll': '24013', 'Cecil': '24015', 'Charles': '24017', 'Dorchester': '24019', 'Frederick': '24021', 'Garrett': '24023', 'Harford': '24025', 'Howard': '24027', 'Kent': '24029', 'Montgomery': '24031', "Prince George's": '24033', "Queen Anne's": '24035', "St. Mary's": '24037', 'Somerset': '24039', 'Talbot': '24041', 'Washington': '24043', 'Wicomico': '24045', 'Worcester': '24047'
 }
 
 def load_new_jersey_data():
@@ -547,13 +552,79 @@ York,306558,9.4,62,47923,32,20539,Partial CEP"""
     
     return df
 
+def load_maryland_data():
+    """Load Maryland county data - 24 jurisdictions (23 counties + Baltimore City)
+    Data source: MD CEP map, February 2026"""
+    import io
+    
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP
+Allegany,67225,28.0,24,8124,24,8124
+Baltimore City,565239,27.2,157,77056,157,77056
+Somerset,24583,25.7,7,2897,7,2897
+Wicomico,104789,24.9,26,15648,26,15648
+Dorchester,32540,22.8,11,4592,11,4592
+Washington,155793,16.0,44,22291,15,5484
+Prince George's,955368,13.9,200,133580,132,85683
+Garrett,28731,13.8,13,3505,13,3505
+Talbot,37823,13.7,9,4485,0,0
+Kent,19303,13.6,5,1702,5,1702
+Cecil,105672,12.8,31,14958,14,6025
+St. Mary's,115221,12.0,26,16967,3,1419
+Worcester,54030,11.0,13,7015,9,3678
+Baltimore,849345,9.5,174,110032,174,110032
+Frederick,293733,8.5,71,48247,1,58
+Queen Anne's,50836,8.5,14,7502,0,0
+Charles,171063,7.9,42,28276,12,7516
+Montgomery,1068690,6.3,214,159938,61,35580
+Howard,336654,5.9,77,57298,11,4985
+Caroline,33593,5.8,9,5659,9,5659
+Harford,265333,5.6,55,37553,17,10908
+Carroll,176586,5.3,41,26101,0,0
+Anne Arundel,594582,4.8,125,85069,0,0
+Calvert,94623,0.8,23,14996,0,0"""
+    
+    df = pd.read_csv(io.StringIO(csv_data))
+    
+    # Convert columns
+    df['Population'] = df['Population'].astype(int)
+    df['Poverty_Rate'] = df['Poverty_Rate'].astype(float)
+    df['Total_Schools'] = df['Total_Schools'].astype(int)
+    df['Student_Population'] = df['Student_Population'].astype(int)
+    df['CEP_Schools'] = df['CEP_Schools'].astype(int)
+    df['Students_in_CEP'] = df['Students_in_CEP'].astype(int)
+    
+    # Add derived columns
+    df['School_Districts'] = 1  # MD jurisdictions typically have 1 district each
+    df['Eligible_Schools'] = df['Total_Schools']  # All schools eligible
+    df['Coverage_Pct'] = ((df['Students_in_CEP'] / df['Student_Population']) * 100).round(0).astype(int)
+    df['School_Gap'] = df['Total_Schools'] - df['CEP_Schools']
+    df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
+    
+    # Classify CEP status
+    def classify_md_status(row):
+        if row['CEP_Schools'] == 0:
+            return 'NO CEP'
+        elif row['CEP_Schools'] == row['Total_Schools']:
+            return 'FULL CEP'
+        else:
+            return 'PARTIAL CEP'
+    
+    df['Status'] = df.apply(classify_md_status, axis=1)
+    
+    # Normalize status
+    df['Status'] = df['Status'].apply(normalize_status)
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    
+    return df
+
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
     'NJ': {'name': 'New Jersey', 'eligible_schools': 1810, 'cep_schools': 584, 'students_in_cep': 260318, 'children_without_cep': 826612, 'coverage_pct': 32, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
+    'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
-    'KY': {'name': 'Kentucky', 'eligible_schools': 960, 'cep_schools': 870, 'students_in_cep': 586480, 'children_without_cep': 75575, 'coverage_pct': 90, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
+    'KY': {'name': 'Kentucky', 'eligible_schools': 960, 'cep_schools': 870, 'students_in_cep': 586480, 'children_without_cep': 75575, 'coverage_pct': 90, 'has_data': False, 'lat': 37.8, 'lon': -84.3},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
 }
 
@@ -562,6 +633,7 @@ BORDER_STATES = {
     'WI': ['IL', 'IA', 'MI', 'MN'],
     'NJ': ['NY', 'PA', 'DE'],
     'VA': ['MD', 'NC', 'TN', 'WV', 'KY'],
+    'MD': ['PA', 'DE', 'WV', 'VA'],
     'KY': ['IL', 'IN', 'OH', 'WV', 'VA', 'TN', 'MO'],
     'SC': ['NC', 'GA'],
     'NV': ['CA', 'OR', 'ID', 'UT', 'AZ'],
@@ -693,6 +765,18 @@ STATE_EXECUTIVES = {
         {'title': 'House Speaker', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Education Chair', 'name': 'Shannon Erickson', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Ways and Means Chair', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'}
+    ],
+    'MD': [
+        # Executive Branch
+        {'title': 'Governor', 'name': 'Wes Moore', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Lieutenant Governor', 'name': 'Aruna Miller', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        # Legislative Branch - Senate
+        {'title': 'Senate President', 'name': 'Bill Ferguson', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Budget Chair', 'name': 'Guy Guzzone', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        # Legislative Branch - House
+        {'title': 'House Speaker', 'name': 'Joseline Peña-Melnyk', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Ways & Means Chair', 'name': 'Vanessa Atterbeary', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Appropriations Chair', 'name': 'Ben Barnes', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'}
     ]
 }
 
@@ -1239,7 +1323,7 @@ def create_explore_states_panel():
     """
     
     # Get the tracked states grouped by category
-    tracked_states = ['WI', 'NJ', 'VA', 'KY', 'SC', 'NV', 'AR']
+    tracked_states = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'AR']
     
     # Group by category
     universal_meals_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_meals']
@@ -1854,6 +1938,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'VA':
         df = load_virginia_data()
         fips_dict = VA_FIPS
+    elif state_abbr == 'MD':
+        df = load_maryland_data()
+        fips_dict = MD_FIPS
     elif state_abbr == 'KY':
         df = load_kentucky_data()
         fips_dict = KY_FIPS
