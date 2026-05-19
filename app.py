@@ -399,109 +399,161 @@ West Point Town,3414,0.0,2,2,859,100,0,FULL CEP"""
     return df
 
 def load_kentucky_data():
-    """Load Kentucky county data - All 120 counties shown on map
-    - 25 counties with complete Census data (10 Partial CEP + 15 Full CEP)
-    - 95 counties with CEP status only (all Full CEP)"""
+    """Load Kentucky county data - All 120 counties with complete data from Excel
+    Source: FINAL_KY_CEP_MAP_--_LQ_09_12_25.xlsx (September 2025)
+    - 118 Full CEP counties
+    - 1 Partial CEP county (Clay)
+    - 1 NO CEP county (Fulton)"""
     
     import io
     
-    # 25 counties with complete Census-sourced data
-    csv_data_complete = """County,Population,Poverty_Rate,Eligible_Schools,Students_in_CEP,Status
-Bullitt,89500,8.5,18,5295,PARTIAL CEP
-Boone,139841,5.8,30,8617,PARTIAL CEP
-Campbell,93000,12.1,22,2814,PARTIAL CEP
-Daviess,103000,13.2,28,7871,PARTIAL CEP
-Fayette,323725,16.8,70,15136,PARTIAL CEP
-Oldham,67000,4.0,16,2203,PARTIAL CEP
-Russell,17500,18.5,8,3036,PARTIAL CEP
-Scott,60000,8.9,20,5735,PARTIAL CEP
-Spencer,20000,9.2,6,226,PARTIAL CEP
-Woodford,27000,7.3,10,471,PARTIAL CEP
-Jefferson,783022,14.5,173,97000,FULL CEP
-Warren,140918,16.2,35,18000,FULL CEP
-Hardin,110000,14.8,28,15000,FULL CEP
-Kenton,171288,11.5,32,22000,FULL CEP
-Madison,92000,22.1,25,12000,FULL CEP
-Pike,58000,28.3,15,7500,FULL CEP
-McCracken,65000,18.7,18,8500,FULL CEP
-Christian,70000,16.9,20,9500,FULL CEP
-Laurel,62000,21.4,18,8800,FULL CEP
-Boyd,46000,20.8,12,6200,FULL CEP
-Hopkins,44000,19.3,14,6000,FULL CEP
-Pulaski,65000,19.7,20,9000,FULL CEP
-Henderson,46000,15.4,14,6300,FULL CEP
-Graves,36000,17.6,12,5000,FULL CEP
-Jessamine,55000,13.2,16,7500,FULL CEP"""
+    # Complete 120-county data from official Kentucky Excel file
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
+Knox,30193,50.2,10,3512,10,3512,FULL CEP
+Clay,20345,47.4,9,2954,9,2954,Partial CEP
+Fulton,6515,45.7,4,928,4,928,NO CEP schools
+Elliott,7354,45.3,4,898,4,898,FULL CEP
+Menifee,6113,45.2,2,939,2,939,FULL CEP
+Wolfe,6562,45.2,6,1071,6,1071,FULL CEP
+Hickman,4521,43.7,2,763,2,763,FULL CEP
+Magoffin,11637,41.8,5,1902,5,1902,FULL CEP
+Martin,11287,41.2,5,1741,5,1741,FULL CEP
+Lee,7395,40.5,3,882,3,882,FULL CEP
+Leslie,10513,39.9,5,1441,5,1441,FULL CEP
+Floyd,35942,39.9,18,5226,18,5226,FULL CEP
+Metcalfe,10286,39.2,6,1515,6,1515,FULL CEP
+McCreary,16888,38.1,7,2669,7,2669,FULL CEP
+Breathitt,13718,38.1,7,1668,7,1668,FULL CEP
+Livingston,8888,37.9,4,1454,4,1454,FULL CEP
+Cumberland,5888,37.8,4,820,4,820,FULL CEP
+Knott,14251,37.1,8,2147,8,2147,FULL CEP
+Wayne,20087,36.9,10,3100,10,3100,FULL CEP
+Letcher,21861,36.6,11,3222,11,3222,FULL CEP
+Crittenden,9008,35.9,4,1293,4,1293,FULL CEP
+Harlan,26831,35.8,12,3614,12,3614,FULL CEP
+Todd,12460,35.0,5,2040,5,2040,FULL CEP
+Pike,58000,34.6,31,8268,31,8268,FULL CEP
+Bracken,8203,34.5,3,1116,3,1116,FULL CEP
+Rowan,25030,34.4,6,3270,6,3270,FULL CEP
+Trigg,14621,34.2,4,2178,4,2178,FULL CEP
+Rockcastle,16885,33.0,9,2660,9,2660,FULL CEP
+Bath,11825,32.9,4,1562,4,1562,FULL CEP
+Perry,27223,31.8,9,3688,9,3688,FULL CEP
+Larue,14753,31.6,7,2214,7,2214,FULL CEP
+Daviess,103000,31.4,44,17130,44,17130,FULL CEP
+Casey,15771,31.3,6,2212,6,2212,FULL CEP
+Barren,44485,30.7,14,6752,14,6752,FULL CEP
+Fleming,15082,30.7,5,2077,5,2077,FULL CEP
+Johnson,22680,30.5,9,3259,9,3259,FULL CEP
+Hopkins,44000,30.3,18,6851,18,6851,FULL CEP
+Powell,12455,30.3,5,1794,5,1794,FULL CEP
+Lewis,13034,30.1,5,1816,5,1816,FULL CEP
+Bell,24097,29.9,11,3268,11,3268,FULL CEP
+Grayson,26420,29.8,9,3952,9,3952,FULL CEP
+Breckinridge,20528,29.7,7,2881,7,2881,FULL CEP
+Whitley,36712,29.6,12,5554,12,5554,FULL CEP
+Monroe,10962,29.6,4,1469,4,1469,FULL CEP
+Hart,19437,29.2,7,2732,7,2732,FULL CEP
+Russell,17500,28.9,9,2659,9,2659,FULL CEP
+Laurel,62000,28.9,25,9825,25,9825,FULL CEP
+Muhlenberg,30928,28.8,11,4272,11,4272,FULL CEP
+Lawrence,16293,28.4,7,2167,7,2167,FULL CEP
+Carlisle,4826,28.4,2,646,2,646,FULL CEP
+Carroll,11025,28.3,4,1357,4,1357,FULL CEP
+Green,10925,28.3,4,1502,4,1502,FULL CEP
+Marion,19581,28.1,7,2774,7,2774,FULL CEP
+Graves,36000,28.1,12,5328,12,5328,FULL CEP
+Estill,14163,27.8,6,1970,6,1970,FULL CEP
+Carter,26627,27.7,9,3566,9,3566,FULL CEP
+Robertson,2142,27.3,1,299,1,299,FULL CEP
+Garrard,18315,27.2,7,2607,7,2607,FULL CEP
+Boyd,46000,27.1,17,6469,17,6469,FULL CEP
+Christian,70000,27.0,18,10639,18,10639,FULL CEP
+Adair,19924,26.9,8,2862,8,2862,FULL CEP
+Butler,12888,26.2,5,1811,5,1811,FULL CEP
+Jefferson,783022,25.8,173,121062,173,121062,FULL CEP
+Clinton,10035,25.3,4,1430,4,1430,FULL CEP
+Edmonson,12183,25.0,4,1708,4,1708,FULL CEP
+Henry,16223,24.8,6,2204,6,2204,FULL CEP
+Henderson,46000,24.7,14,6908,14,6908,FULL CEP
+Mason,17341,24.7,5,2333,5,2333,FULL CEP
+Taylor,26023,24.1,8,3682,8,3682,FULL CEP
+McCracken,65000,24.1,21,10042,21,10042,FULL CEP
+Allen,20588,23.7,7,2921,7,2921,FULL CEP
+Union,14537,23.5,5,1988,5,1988,FULL CEP
+Franklin,52097,23.3,17,7554,17,7554,FULL CEP
+Morgan,12975,23.1,4,1744,4,1744,FULL CEP
+Fayette,323725,23.1,80,42450,80,42450,FULL CEP
+Gallatin,8909,22.9,3,1186,3,1186,FULL CEP
+Pulaski,65000,22.8,22,9625,22,9625,FULL CEP
+Meade,30003,22.5,10,4259,10,4259,FULL CEP
+Hancock,9095,22.2,3,1212,3,1212,FULL CEP
+Marshall,31659,21.8,8,4383,8,4383,FULL CEP
+Calloway,38250,21.3,8,5293,8,5293,FULL CEP
+Clark,36972,21.1,12,5299,12,5299,FULL CEP
+Owen,11027,20.9,3,1459,3,1459,FULL CEP
+Hardin,110000,20.4,37,15769,37,15769,FULL CEP
+Madison,92000,20.2,24,12932,24,12932,FULL CEP
+Lyon,8226,20.1,3,1076,3,1076,FULL CEP
+Logan,27432,19.8,8,3948,8,3948,FULL CEP
+Ohio,24720,19.7,8,3513,8,3513,FULL CEP
+Ballard,7728,19.4,3,989,3,989,FULL CEP
+Harrison,18692,19.2,5,2433,5,2433,FULL CEP
+Jackson,12955,19.2,6,1650,6,1650,FULL CEP
+Lincoln,24275,19.1,8,3438,8,3438,FULL CEP
+Owsley,4051,19.1,2,511,2,511,FULL CEP
+Nicholas,7537,18.7,3,954,3,954,FULL CEP
+Montgomery,28114,18.7,9,3938,9,3938,FULL CEP
+Boyle,30614,18.3,8,4236,8,4236,FULL CEP
+Mercer,22641,18.2,7,3045,7,3045,FULL CEP
+Anderson,23852,17.9,6,3248,6,3248,FULL CEP
+Woodford,27000,17.6,11,3614,11,3614,FULL CEP
+Kenton,171288,17.4,42,23882,42,23882,FULL CEP
+Grant,25245,17.2,8,3471,8,3471,FULL CEP
+Scott,60000,17.1,18,8309,18,8309,FULL CEP
+Jessamine,55000,16.6,13,7637,13,7637,FULL CEP
+Nelson,47153,16.5,13,6552,13,6552,FULL CEP
+Caldwell,12649,16.4,5,1721,5,1721,FULL CEP
+Webster,13017,16.1,5,1733,5,1733,FULL CEP
+Campbell,93000,15.8,29,12718,29,12718,FULL CEP
+Washington,12027,15.7,4,1584,4,1584,FULL CEP
+Simpson,19245,15.1,5,2685,5,2685,FULL CEP
+Shelby,50329,14.7,12,7035,12,7035,FULL CEP
+Bourbon,21629,14.4,6,2897,6,2897,FULL CEP
+Greenup,35962,14.3,11,4795,11,4795,FULL CEP
+Warren,140918,13.9,34,19702,34,19702,FULL CEP
+Pendleton,14644,13.8,4,2000,4,2000,FULL CEP
+Spencer,20000,13.1,5,2796,5,2796,FULL CEP
+Bullitt,89500,12.6,21,12340,21,12340,FULL CEP
+Boone,139841,11.5,37,19279,37,19279,FULL CEP
+Trimble,8474,10.8,2,1113,2,1113,FULL CEP
+McLean,9152,10.7,3,1183,3,1183,FULL CEP
+Oldham,67000,10.0,19,9157,19,9157,FULL CEP"""
     
-    # 95 counties with status only (all Full CEP)
-    remaining_counties = [
-        'Adair', 'Allen', 'Anderson', 'Ballard', 'Barren', 'Bath', 'Bell', 'Bourbon', 
-        'Boyle', 'Bracken', 'Breathitt', 'Breckinridge', 'Butler', 'Caldwell', 'Calloway', 
-        'Carlisle', 'Carroll', 'Carter', 'Casey', 'Clark', 'Clay', 'Clinton', 'Crittenden', 
-        'Cumberland', 'Edmonson', 'Elliott', 'Estill', 'Fleming', 'Floyd', 'Franklin', 
-        'Fulton', 'Gallatin', 'Garrard', 'Grant', 'Grayson', 'Green', 'Greenup', 'Hancock', 
-        'Harlan', 'Harrison', 'Hart', 'Henry', 'Hickman', 'Jackson', 'Johnson', 'Knott', 
-        'Knox', 'Larue', 'Lawrence', 'Lee', 'Leslie', 'Letcher', 'Lewis', 'Lincoln', 
-        'Livingston', 'Logan', 'Lyon', 'McCreary', 'McLean', 'Magoffin', 'Marion', 
-        'Marshall', 'Martin', 'Mason', 'Meade', 'Menifee', 'Mercer', 'Metcalfe', 'Monroe', 
-        'Montgomery', 'Morgan', 'Muhlenberg', 'Nelson', 'Nicholas', 'Ohio', 'Owen', 'Owsley', 
-        'Pendleton', 'Perry', 'Powell', 'Robertson', 'Rockcastle', 'Rowan', 'Shelby', 
-        'Simpson', 'Taylor', 'Todd', 'Trigg', 'Trimble', 'Union', 'Washington', 'Wayne', 
-        'Webster', 'Whitley', 'Wolfe'
-    ]
+    df = pd.read_csv(io.StringIO(csv_data))
     
-    # Load the 25 counties with complete data
-    df_complete = pd.read_csv(io.StringIO(csv_data_complete))
-    
-    # Create dataframe for remaining 95 counties (status only)
-    df_remaining = pd.DataFrame({
-        'County': remaining_counties,
-        'Population': [None] * len(remaining_counties),
-        'Poverty_Rate': [None] * len(remaining_counties),
-        'Eligible_Schools': [None] * len(remaining_counties),
-        'Students_in_CEP': [None] * len(remaining_counties),
-        'Status': ['FULL CEP'] * len(remaining_counties)
-    })
-    
-    # Combine both datasets
-    df = pd.concat([df_complete, df_remaining], ignore_index=True)
-    
-    # Convert columns for complete data
+    # Convert columns to proper types
     df['Population'] = pd.to_numeric(df['Population'], errors='coerce')
     df['Poverty_Rate'] = pd.to_numeric(df['Poverty_Rate'], errors='coerce')
-    df['Eligible_Schools'] = pd.to_numeric(df['Eligible_Schools'], errors='coerce')
+    df['Total_Schools'] = pd.to_numeric(df['Total_Schools'], errors='coerce')
+    df['Student_Population'] = pd.to_numeric(df['Student_Population'], errors='coerce')
+    df['CEP_Schools'] = pd.to_numeric(df['CEP_Schools'], errors='coerce')
     df['Students_in_CEP'] = pd.to_numeric(df['Students_in_CEP'], errors='coerce')
     
-    # Calculate derived metrics (only for counties with data)
-    df['School_Districts'] = 1
-    df['CEP_Schools'] = df.apply(
-        lambda row: row['Eligible_Schools'] if row['Status'] == 'FULL CEP' and pd.notna(row['Eligible_Schools'])
-        else (int(row['Eligible_Schools'] * 0.5) if row['Status'] == 'PARTIAL CEP' and pd.notna(row['Eligible_Schools'])
-        else None),
-        axis=1
-    )
-    df['Coverage_Pct'] = df.apply(
-        lambda row: 100 if row['Status'] == 'FULL CEP'
-        else (int((row['Students_in_CEP'] / (row['Students_in_CEP'] * 2)) * 100) if pd.notna(row['Students_in_CEP'])
-        else None),
-        axis=1
-    )
-    df['School_Gap'] = df.apply(
-        lambda row: row['Eligible_Schools'] - row['CEP_Schools'] if pd.notna(row['Eligible_Schools']) and pd.notna(row['CEP_Schools'])
-        else None,
-        axis=1
-    )
-    df['Children_in_Poverty'] = df.apply(
-        lambda row: int(row['Population'] * (row['Poverty_Rate'] / 100) * 0.25) if pd.notna(row['Population']) and pd.notna(row['Poverty_Rate'])
-        else None,
-        axis=1
-    )
+    # Add derived columns
+    df['School_Districts'] = 1  # Most KY counties have 1 district
+    df['Eligible_Schools'] = df['Total_Schools']  # All schools are eligible
+    df['Coverage_Pct'] = ((df['Students_in_CEP'] / df['Student_Population']) * 100).round(0).astype(int)
+    df['School_Gap'] = df['Total_Schools'] - df['CEP_Schools']
+    df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
     
     # Normalize status
     df['Status'] = df['Status'].apply(normalize_status)
     df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
     
     return df
+
+
 
 def load_south_carolina_data():
     """Load South Carolina county data - 46 counties: 35 Full CEP, 10 Partial CEP, 1 No CEP"""
@@ -653,7 +705,7 @@ STATE_DATA = {
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
-    'KY': {'name': 'Kentucky', 'eligible_schools': 960, 'cep_schools': 870, 'students_in_cep': 289704, 'children_without_cep': 75575, 'coverage_pct': 90, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
+    'KY': {'name': 'Kentucky', 'eligible_schools': 1079, 'cep_schools': 993, 'students_in_cep': 521962, 'children_without_cep': 63337, 'coverage_pct': 89, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
 }
 
@@ -1092,7 +1144,7 @@ def create_us_map():
     
     fig.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
-        height=650,  # Increased from 500 for better Hawaii visibility
+        height=700,  # Increased from 650 for optimal Hawaii visibility
         paper_bgcolor='rgba(0,0,0,0)',
         geo=dict(bgcolor='rgba(0,0,0,0)'),
         clickmode='event+select'
