@@ -1898,15 +1898,22 @@ def create_cta_section():
     return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    """Enhanced landing page with simplified timeline"""
+    """Minimal test version - verify page loads"""
     return html.Div([
+        html.H1("CEP Dashboard - Loading Test", style={'padding': '40px', 'textAlign': 'center'}),
+        html.P("If you see this, the app is working!", style={'textAlign': 'center', 'fontSize': '20px'}),
+        html.Hr(),
         create_hero_section(),
+        html.Hr(),
         create_insights_section(),
-        create_simple_timeline_section(),  # Simplified static timeline
+        html.Hr(),
+        html.Div("Timeline section disabled for testing", style={'padding': '40px', 'textAlign': 'center', 'background': '#f0f0f0'}),
+        html.Hr(),
         create_map_section(),
+        html.Hr(),
         create_comparison_section(),
-        # Version indicator (small footer)
-        html.Div("v2026-05-19-final", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
+        # Version indicator
+        html.Div("v2026-05-19-test-minimal", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
