@@ -1,9 +1,12 @@
 # CEP Policy Intelligence Platform - ENHANCED v3
 # VERSION: 2026-05-11-KY-SC-EXPANSION
 # Last Updated: May 11, 2026
+# Changes: Added Kentucky (120 counties) and South Carolina (46 counties) state pages
 # Kentucky: 110 Full CEP counties, 10 Partial CEP counties, 90% coverage (586,480 students)
+# South Carolina: 35 Full CEP, 10 Partial CEP, 1 No CEP counties, 83% coverage (604,701 students)
 # Phase 3 Enhancements:
 # 1. Kentucky state page with complete county-level data and leadership
+# 2. South Carolina state page with complete county-level data and leadership  
 # 3. KY_FIPS and SC_FIPS mappings added (120 + 46 counties)
 # 4. STATE_DATA expanded with KY and SC metrics
 # 5. BORDER_STATES updated to include KY borders
@@ -553,6 +556,7 @@ Oldham,67000,10.0,19,9157,19,9157,FULL CEP"""
 
 
 def load_south_carolina_data():
+    """Load South Carolina county data - 46 counties: 35 Full CEP, 10 Partial CEP, 1 No CEP"""
     import io
     
     csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
@@ -702,6 +706,7 @@ STATE_DATA = {
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
     'KY': {'name': 'Kentucky', 'eligible_schools': 1079, 'cep_schools': 993, 'students_in_cep': 521962, 'children_without_cep': 63337, 'coverage_pct': 89, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
+    'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
 }
 
 # Border states for quick comparison (helps elected officials)
@@ -890,7 +895,7 @@ def create_hero_section():
             # Credibility marker
             html.Div("Last Updated: May 6, 2026 | CEP Policy Intelligence Platform",
                 style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'color': COLORS['text_secondary'],
                     'opacity': '0.7',
                     'marginBottom': '48px',
@@ -910,7 +915,7 @@ def create_hero_section():
                     ), 
                     html.Div("CHILDREN WITHOUT CEP", 
                         style={
-                            'fontSize': '15px', 
+                            'fontSize': '13px', 
                             'color': COLORS['text_secondary'], 
                             'textTransform': 'uppercase', 
                             'letterSpacing': '1.2px', 
@@ -931,7 +936,7 @@ def create_hero_section():
                     ), 
                     html.Div("AVERAGE COVERAGE", 
                         style={
-                            'fontSize': '15px', 
+                            'fontSize': '13px', 
                             'color': COLORS['text_secondary'], 
                             'textTransform': 'uppercase', 
                             'letterSpacing': '1.2px', 
@@ -967,6 +972,7 @@ def create_insights_section():
         {
             'title': 'Leading Implementation', 
             'metric': '89%', 
+            'text': 'of eligible schools in South Carolina currently participate in CEP'
         }, 
         {
             'title': 'Unserved Communities', 
@@ -1161,7 +1167,7 @@ def create_state_detail_panel(state_abbr=None):
                     }),
                 html.Div([
                     html.Div("Featured FPL States:", style={
-                        'fontSize': '15px',
+                        'fontSize': '13px',
                         'fontWeight': '600',
                         'color': COLORS['text_secondary'],
                         'marginBottom': '12px',
@@ -1170,15 +1176,15 @@ def create_state_detail_panel(state_abbr=None):
                     }),
                     html.Div([
                         html.Div("🔵 Hawaii (HI)", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '4px'}),
-                        html.Div("300% FPL - Highest threshold", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'})
+                        html.Div("300% FPL - Highest threshold", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'})
                     ]),
                     html.Div([
                         html.Div("🔵 New Jersey (NJ)", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '4px'}),
-                        html.Div("225% FPL - 32% coverage", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'})
+                        html.Div("225% FPL - 32% coverage", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'})
                     ]),
                     html.Div([
                         html.Div("🔵 North Dakota (ND)", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '4px'}),
-                        html.Div("225% FPL - 34% coverage", style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+                        html.Div("225% FPL - 34% coverage", style={'fontSize': '12px', 'color': COLORS['text_secondary']})
                     ])
                 ])
             ])
@@ -1231,7 +1237,7 @@ def create_state_detail_panel(state_abbr=None):
             'color': 'white',
             'padding': '6px 14px',
             'borderRadius': '16px',
-            'fontSize': '15px',
+            'fontSize': '13px',
             'fontWeight': '500',
             'marginBottom': '20px'
         })
@@ -1242,7 +1248,7 @@ def create_state_detail_panel(state_abbr=None):
         content.append(
             html.Div([
                 html.Div('FPL Threshold', style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'color': COLORS['text_secondary'],
                     'marginBottom': '4px'
                 }),
@@ -1264,7 +1270,7 @@ def create_state_detail_panel(state_abbr=None):
         content.append(
             html.Div([
                 html.Div('CEP Coverage', style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'color': COLORS['text_secondary'],
                     'marginBottom': '4px'
                 }),
@@ -1285,7 +1291,7 @@ def create_state_detail_panel(state_abbr=None):
         content.append(
             html.Div([
                 html.Div('Schools Participating', style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'color': COLORS['text_secondary'],
                     'marginBottom': '4px'
                 }),
@@ -1304,7 +1310,7 @@ def create_state_detail_panel(state_abbr=None):
         content.append(
             html.Div([
                 html.Div('Students Served', style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'color': COLORS['text_secondary'],
                     'marginBottom': '4px'
                 }),
@@ -1338,7 +1344,7 @@ def create_state_detail_panel(state_abbr=None):
             
             border_items.append(
                 html.Div(f"• {bs_name}: {bs_coverage}%", style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'color': COLORS['text_secondary'],
                     'marginBottom': '6px'
                 })
@@ -1347,7 +1353,7 @@ def create_state_detail_panel(state_abbr=None):
         content.append(
             html.Div([
                 html.Div('Border States', style={
-                    'fontSize': '15px',
+                    'fontSize': '13px',
                     'fontWeight': '600',
                     'color': COLORS['text_secondary'],
                     'marginBottom': '8px',
@@ -1435,7 +1441,7 @@ def create_explore_states_panel():
                         html.Img(src=flag_url, style={'width': '32px', 'height': '21px', 'marginRight': '12px', 'border': '0.5px solid #e5e7eb', 'borderRadius': '2px', 'objectFit': 'cover'}),
                         html.Div([
                             html.Div(state_data.get('name', state_abbr), style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '2px'}),
-                            html.Div(subtitle, style={'fontSize': '15px', 'color': COLORS['text_secondary']})
+                            html.Div(subtitle, style={'fontSize': '13px', 'color': COLORS['text_secondary']})
                         ], style={'flex': '1'})
                     ], style={'display': 'flex', 'alignItems': 'center', 'padding': '14px 16px', 'borderLeft': f'4px solid {border_color}', 'background': 'white', 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}', 'transition': 'all 0.2s ease'})
                 ], style={'marginBottom': '10px'})
@@ -1495,7 +1501,7 @@ def create_simple_timeline_section():
 
         html.Div([
             html.Div([
-                html.Span("13", style={'fontSize': '48px', 'fontWeight': '900', 'color': COLORS['text_primary'], 'lineHeight': '1'}),
+                html.Span("14", style={'fontSize': '48px', 'fontWeight': '900', 'color': COLORS['text_primary'], 'lineHeight': '1'}),
                 html.Span("States Adopted", style={'fontSize': '16px', 'fontWeight': '900', 'color': COLORS['text_primary'], 'textTransform': 'uppercase', 'marginLeft': '16px'})
             ], style={'background': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '18px', 'padding': '22px 28px', 'boxShadow': '0 12px 26px rgba(15,23,42,0.10)', 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'center'}),
             html.Div([
@@ -1596,6 +1602,7 @@ def create_simple_timeline_section():
                     html.Div([
                         html.Div([html.Span("●", style={'color': COLORS['universal_breakfast'], 'fontSize': '18px', 'marginRight': '9px'}), html.Span("Connecticut", style={'fontWeight': '900', 'color': COLORS['text_primary']}), html.Span("May 5th", style={'color': COLORS['text_secondary'], 'marginLeft': '10px'})], style={'marginBottom': '6px', 'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap'}),
                         html.Div(html.Span("Universal Breakfast", style={'background': 'rgba(249,115,22,0.10)', 'border': f'1px solid {COLORS["universal_breakfast"]}', 'color': COLORS['universal_breakfast'], 'padding': '4px 9px', 'borderRadius': '999px', 'fontSize': '10px', 'fontWeight': '900', 'textTransform': 'uppercase', 'display': 'inline-block'}), style={'marginBottom': '14px'}),
+                        html.Div([html.Span("●", style={'color': COLORS['universal_breakfast'], 'fontSize': '18px', 'marginRight': '9px'}), html.Span("South Carolina", style={'fontWeight': '900', 'color': COLORS['text_primary']}), html.Span("TBD", style={'color': COLORS['text_secondary'], 'marginLeft': '10px'})], style={'marginBottom': '6px', 'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap'}),
                         html.Div(html.Span("Universal Breakfast", style={'background': 'rgba(249,115,22,0.10)', 'border': f'1px solid {COLORS["universal_breakfast"]}', 'color': COLORS['universal_breakfast'], 'padding': '4px 9px', 'borderRadius': '999px', 'fontSize': '10px', 'fontWeight': '900', 'textTransform': 'uppercase', 'display': 'inline-block'}))
                     ], style={'background': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '16px', 'padding': '20px', 'boxShadow': '0 12px 26px rgba(15,23,42,0.10)', 'fontSize': '15px', 'lineHeight': '1.45', 'minHeight': '190px', 'overflow': 'visible'})
                 ], style={'position': 'relative', 'zIndex': '2'})
@@ -1740,6 +1747,7 @@ def create_map_section():
         {'label': 'North Carolina', 'value': 'NC'}, {'label': 'North Dakota', 'value': 'ND'},
         {'label': 'Ohio', 'value': 'OH'}, {'label': 'Oklahoma', 'value': 'OK'},
         {'label': 'Oregon', 'value': 'OR'}, {'label': 'Pennsylvania', 'value': 'PA'},
+        {'label': 'Rhode Island', 'value': 'RI'}, {'label': 'South Carolina', 'value': 'SC'},
         {'label': 'South Dakota', 'value': 'SD'}, {'label': 'Tennessee', 'value': 'TN'},
         {'label': 'Texas', 'value': 'TX'}, {'label': 'Utah', 'value': 'UT'},
         {'label': 'Vermont', 'value': 'VT'}, {'label': 'Virginia', 'value': 'VA'},
@@ -1885,11 +1893,11 @@ def create_comparison_cards(state_a, state_b):
             html.H3(data_a['name'], style={'fontSize': '24px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}),
             html.Div([
                 html.Div([
-                    html.Div("Coverage", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
+                    html.Div("Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
                     html.Div(f"{data_a['coverage_pct']}%", style={'fontSize': '32px', 'fontWeight': '700', 'color': COLORS['teal']})
                 ], style={'marginBottom': '16px'}),
                 html.Div([
-                    html.Div("Students Served", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
+                    html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
                     html.Div(f"{data_a['students_in_cep']:,}", style={'fontSize': '24px', 'fontWeight': '600', 'color': COLORS['text_primary']})
                 ])
             ])
@@ -1898,11 +1906,11 @@ def create_comparison_cards(state_a, state_b):
             html.H3(data_b['name'], style={'fontSize': '24px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary']}),
             html.Div([
                 html.Div([
-                    html.Div("Coverage", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
+                    html.Div("Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
                     html.Div(f"{data_b['coverage_pct']}%", style={'fontSize': '32px', 'fontWeight': '700', 'color': COLORS['teal']})
                 ], style={'marginBottom': '16px'}),
                 html.Div([
-                    html.Div("Students Served", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
+                    html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '8px'}),
                     html.Div(f"{data_b['students_in_cep']:,}", style={'fontSize': '24px', 'fontWeight': '600', 'color': COLORS['text_primary']})
                 ])
             ])
@@ -1951,11 +1959,11 @@ def create_state_executives_section(state_abbr):
     legend = html.Div([
         html.Div([
             html.Span('●', style={'color': COLORS['democrat_name'], 'fontSize': '20px', 'marginRight': '6px'}),
-            html.Span('Democratic', style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'marginRight': '20px'})
+            html.Span('Democratic', style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginRight': '20px'})
         ], style={'display': 'inline-flex', 'alignItems': 'center'}),
         html.Div([
             html.Span('●', style={'color': COLORS['republican_name'], 'fontSize': '20px', 'marginRight': '6px'}),
-            html.Span('Republican', style={'fontSize': '15px', 'color': COLORS['text_secondary']})
+            html.Span('Republican', style={'fontSize': '13px', 'color': COLORS['text_secondary']})
         ], style={'display': 'inline-flex', 'alignItems': 'center'})
     ], style={'display': 'flex', 'gap': '16px', 'marginBottom': '20px', 'paddingBottom': '12px', 'borderBottom': f'1px solid {COLORS["border"]}'})
     
@@ -1980,7 +1988,7 @@ def create_state_executives_section(state_abbr):
                 create_portrait(official),
                 html.Div([
                     html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
-                    html.Div(official['title'], style={'fontSize': '15px', 'color': COLORS['text_secondary']})
+                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
                 ], style={'marginLeft': '12px', 'flex': '1'})
             ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
                       'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
@@ -2001,7 +2009,7 @@ def create_state_executives_section(state_abbr):
                 create_portrait(official),
                 html.Div([
                     html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
-                    html.Div(official['title'], style={'fontSize': '15px', 'color': COLORS['text_secondary']})
+                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
                 ], style={'marginLeft': '12px', 'flex': '1'})
             ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
                       'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
@@ -2022,7 +2030,7 @@ def create_state_executives_section(state_abbr):
                 create_portrait(official),
                 html.Div([
                     html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
-                    html.Div(official['title'], style={'fontSize': '15px', 'color': COLORS['text_secondary']})
+                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
                 ], style={'marginLeft': '12px', 'flex': '1'})
             ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
                       'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
@@ -2123,7 +2131,7 @@ def create_sortable_county_table(df):
             filter_action='native',
             page_action='none',  # Show all counties
             style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'}, 
-            style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '15px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'}, 
+            style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'}, 
             style_cell={'padding': '16px 20px', 'fontSize': '15px', 'fontFamily': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'}, 
             style_cell_conditional=[
                 {'if': {'column_id': ['Population', 'Children_in_Poverty', 'Students_in_CEP']}, 'textAlign': 'right'}, 
@@ -2205,7 +2213,7 @@ def create_state_page(state_abbr):
     return html.Div([
         html.Div([html.Div([html.A("← All States", href="/", style={'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'}), html.H1(state_data['name'], style={'fontSize': '56px', 'fontWeight': '600', 'letterSpacing': '-0.02em', 'color': COLORS['text_primary'], 'marginBottom': '12px'}), html.P(f"{state_data['coverage_pct']}% CEP Coverage", style={'fontSize': '21px', 'color': COLORS['text_secondary']})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}), 
         create_state_executives_section(state_abbr), 
-        html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '15px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
+        html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
         (html.Div([html.Div([html.H2("County-Level Coverage", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}), html.Div([dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False})], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), create_county_color_legend()], style={'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
         html.Div([create_sortable_county_table(df)], style={'background': COLORS['off_white']})
     ], style={'background': COLORS['off_white'], 'minHeight': '100vh'})
