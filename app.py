@@ -23,7 +23,7 @@
 
 
 import dash
-from dash import dcc, html, Input, Output, dash_table
+from dash import dcc, html, Input, Output, State, dash_table
 import plotly.graph_objs as go
 import pandas as pd
 
