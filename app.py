@@ -1477,19 +1477,77 @@ def create_explore_states_panel():
 
 
 def create_simple_timeline_section():
-    """Ultra-minimal timeline - plain text only"""
+    """Static professional timeline - no callbacks, no dcc components, no helper functions."""
     return html.Div([
-        html.H2("Universal School Meals Timeline: 2021-2026"),
-        html.P("16 states adopted universal school meal programs:"),
-        html.Ul([
-            html.Li("2021: Maine (Jul 1), California (Jul 9)"),
-            html.Li("2022: Colorado (Nov 8)"),
-            html.Li("2023: Minnesota (Mar 17), New Mexico (Mar 27), Vermont (Jun 14), Michigan (Jul 20), Pennsylvania (Aug 3), Massachusetts (Aug 9)"),
-            html.Li("2025: Arkansas (Feb 20), New York (May 9), Delaware (Sep 2)"),
-            html.Li("2026: Connecticut (May 5), South Carolina (TBD)")
+        html.H2("Universal School Meals Adoption Timeline", style={
+            'fontSize': '34px',
+            'fontWeight': '800',
+            'color': COLORS['text_primary'],
+            'marginBottom': '10px',
+            'textAlign': 'center'
+        }),
+        html.P("State adoption milestones from 2021 through 2026, grouped by year and program type.", style={
+            'fontSize': '16px',
+            'color': COLORS['text_secondary'],
+            'textAlign': 'center',
+            'marginBottom': '28px'
+        }),
+        html.Div([
+            html.Div([
+                html.Span("14", style={'fontSize': '32px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block'}),
+                html.Span("States Listed", style={'fontSize': '13px', 'fontWeight': '700', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px'})
+            ], style={'background': COLORS['white'], 'padding': '20px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'textAlign': 'center'}),
+            html.Div([
+                html.Span("9", style={'fontSize': '32px', 'fontWeight': '800', 'color': COLORS['universal_meals'], 'display': 'block'}),
+                html.Span("Universal Meals", style={'fontSize': '13px', 'fontWeight': '700', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px'})
+            ], style={'background': COLORS['white'], 'padding': '20px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'textAlign': 'center'}),
+            html.Div([
+                html.Span("5", style={'fontSize': '32px', 'fontWeight': '800', 'color': COLORS['universal_breakfast'], 'display': 'block'}),
+                html.Span("Universal Breakfast", style={'fontSize': '13px', 'fontWeight': '700', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px'})
+            ], style={'background': COLORS['white'], 'padding': '20px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'textAlign': 'center'})
+        ], style={'display': 'grid', 'gridTemplateColumns': 'repeat(auto-fit, minmax(180px, 1fr))', 'gap': '16px', 'marginBottom': '28px'}),
+        html.Div([
+            html.Div([
+                html.Span("2021", style={'fontSize': '22px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block', 'marginBottom': '14px'}),
+                html.Div([html.Span("Maine", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Jul 1", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("California", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Jul 9", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})])
+            ], style={'background': COLORS['white'], 'padding': '22px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'marginBottom': '16px'}),
+            html.Div([
+                html.Span("2022", style={'fontSize': '22px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block', 'marginBottom': '14px'}),
+                html.Div([html.Span("Colorado", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Nov 8", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})])
+            ], style={'background': COLORS['white'], 'padding': '22px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'marginBottom': '16px'}),
+            html.Div([
+                html.Span("2023", style={'fontSize': '22px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block', 'marginBottom': '14px'}),
+                html.Div([html.Span("Minnesota", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Mar 17", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("New Mexico", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Mar 27", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("Vermont", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Jun 14", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("Michigan", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Jul 20", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("Pennsylvania", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Aug 3", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Breakfast", style={'background': COLORS['universal_breakfast'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("Massachusetts", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Aug 9", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})])
+            ], style={'background': COLORS['white'], 'padding': '22px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'marginBottom': '16px'}),
+            html.Div([
+                html.Span("2024", style={'fontSize': '22px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block', 'marginBottom': '8px'}),
+                html.P("No new statewide universal school meal adoptions recorded.", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'margin': '0'})
+            ], style={'background': COLORS['white'], 'padding': '22px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'marginBottom': '16px'}),
+            html.Div([
+                html.Span("2025", style={'fontSize': '22px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block', 'marginBottom': '14px'}),
+                html.Div([html.Span("Arkansas", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Feb 20", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Breakfast", style={'background': COLORS['universal_breakfast'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("New York", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("May 9", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Meals", style={'background': COLORS['universal_meals'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("Delaware", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("Sep 2", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Breakfast", style={'background': COLORS['universal_breakfast'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})])
+            ], style={'background': COLORS['white'], 'padding': '22px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}', 'marginBottom': '16px'}),
+            html.Div([
+                html.Span("2026", style={'fontSize': '22px', 'fontWeight': '800', 'color': COLORS['text_primary'], 'display': 'block', 'marginBottom': '14px'}),
+                html.Div([html.Span("Connecticut", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("May 5", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Breakfast", style={'background': COLORS['universal_breakfast'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})], style={'marginBottom': '10px'}),
+                html.Div([html.Span("South Carolina", style={'fontWeight': '700', 'color': COLORS['text_primary'], 'marginRight': '10px'}), html.Span("TBD", style={'color': COLORS['text_secondary'], 'marginRight': '10px'}), html.Span("Universal Breakfast", style={'background': COLORS['universal_breakfast'], 'color': COLORS['white'], 'padding': '5px 10px', 'borderRadius': '999px', 'fontSize': '12px', 'fontWeight': '700'})])
+            ], style={'background': COLORS['white'], 'padding': '22px', 'borderRadius': '14px', 'border': f'1px solid {COLORS["border"]}'})
         ])
-    ], style={'padding': '40px', 'maxWidth': '800px', 'margin': '0 auto'})
-
+    ], style={
+        'background': COLORS.get('bg_secondary', COLORS['off_white']),
+        'padding': '56px 32px',
+        'maxWidth': '980px',
+        'margin': '0 auto',
+        'borderRadius': '18px'
+    })
 
 def create_map_section():
     """Enhanced: 3-column layout - Map + Detail Panel + Explore States"""
