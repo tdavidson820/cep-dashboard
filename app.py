@@ -748,6 +748,7 @@ STATE_EXECUTIVES = {
     'NJ': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Mikie Sherrill', 'party': 'Democrat', 'portrait_url': 'https://sherrill.house.gov/sites/evo-subsites/sherrill.house.gov/files/evo-media-image/sherrill_official.jpg', 'branch': 'Executive'},
+        {'title': 'Secretary of Agriculture', 'name': 'Edward D. Wengryn', 'party': 'Nonpartisan', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Nicholas Scutari', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/scutari_nicholas_p.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Majority Leader', 'name': 'M. Teresa Ruiz', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/ruiz_m_teresa.jpg', 'branch': 'Legislative'},
@@ -798,7 +799,7 @@ STATE_EXECUTIVES = {
     'MD': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Wes Moore', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
-        {'title': 'Lieutenant Governor', 'name': 'Aruna Miller', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'State Superintendent of Schools', 'name': 'Dr. Carey M. Wright', 'party': 'Nonpartisan', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Bill Ferguson', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'Senate Budget Chair', 'name': 'Guy Guzzone', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
@@ -1091,7 +1092,7 @@ def create_us_map():
     
     fig.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
-        height=500,
+        height=650,  # Increased from 500 for better Hawaii visibility
         paper_bgcolor='rgba(0,0,0,0)',
         geo=dict(bgcolor='rgba(0,0,0,0)'),
         clickmode='event+select'
