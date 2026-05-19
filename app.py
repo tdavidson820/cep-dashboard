@@ -1947,7 +1947,7 @@ def create_landing_page():
     return html.Div([
         create_hero_section(),
         create_insights_section(),
-        create_timeline_section(),  # NEW: Timeline above map
+        create_timeline_section(),  # Timeline re-enabled
         create_map_section(),
         create_comparison_section(),
         # Version indicator (small footer)
@@ -2547,29 +2547,6 @@ def update_timeline_progress(n_intervals, selected_year, current_index):
     }
     
     return progress_style, new_index
-
-# Callback 3: Tooltip hover effects (using clientside for performance)
-application.clientside_callback(
-    '''
-    function() {
-        // Add hover listeners to timeline dots
-        const dots = document.querySelectorAll('.timeline-dot-container');
-        dots.forEach(dot => {
-            const tooltip = dot.querySelector('.timeline-tooltip');
-            dot.addEventListener('mouseenter', () => {
-                if (tooltip) tooltip.style.opacity = '1';
-            });
-            dot.addEventListener('mouseleave', () => {
-                if (tooltip) tooltip.style.opacity = '0';
-            });
-        });
-        return window.dash_clientside.no_update;
-    }
-    ''',
-    Output('timeline-current-index', 'data', allow_duplicate=True),
-    Input('timeline-interval', 'n_intervals'),
-    prevent_initial_call=True
-)
 
 
 if __name__ == '__main__':
