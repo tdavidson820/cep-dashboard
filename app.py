@@ -2477,7 +2477,7 @@ def update_comparison_county_maps(state_a, state_b):
 # Timeline Callbacks
 
 # Callback 1: Handle play/pause button
-@app.callback(
+@application.callback(
     [Output('timeline-interval', 'disabled'),
      Output('timeline-play-pause', 'children'),
      Output('timeline-is-playing', 'data')],
@@ -2497,7 +2497,7 @@ def toggle_timeline_playback(n_clicks, is_playing):
         return True, '▶ Play', False
 
 # Callback 2: Update progress based on interval or year selector
-@app.callback(
+@application.callback(
     [Output('timeline-progress', 'style'),
      Output('timeline-current-index', 'data')],
     [Input('timeline-interval', 'n_intervals'),
@@ -2549,7 +2549,7 @@ def update_timeline_progress(n_intervals, selected_year, current_index):
     return progress_style, new_index
 
 # Callback 3: Tooltip hover effects (using clientside for performance)
-app.clientside_callback(
+application.clientside_callback(
     '''
     function() {
         // Add hover listeners to timeline dots
