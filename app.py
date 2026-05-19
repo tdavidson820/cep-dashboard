@@ -1477,200 +1477,18 @@ def create_explore_states_panel():
 
 
 def create_simple_timeline_section():
-    """Simplified static timeline - no callbacks, no animations, render-safe"""
-    
-    # Timeline events data
-    events_2021 = [
-        ('Maine', 'July 1', 'Universal School Meals', COLORS['universal_meals']),
-        ('California', 'July 9', 'Universal School Meals', COLORS['universal_meals'])
-    ]
-    
-    events_2022 = [
-        ('Colorado', 'November 8', 'Universal School Meals', COLORS['universal_meals'])
-    ]
-    
-    events_2023 = [
-        ('Minnesota', 'March 17', 'Universal School Meals', COLORS['universal_meals']),
-        ('New Mexico', 'March 27', 'Universal School Meals', COLORS['universal_meals']),
-        ('Vermont', 'June 14', 'Universal School Meals', COLORS['universal_meals']),
-        ('Michigan', 'July 20', 'Universal School Meals', COLORS['universal_meals']),
-        ('Pennsylvania', 'August 3', 'Universal Breakfast', COLORS['universal_breakfast']),
-        ('Massachusetts', 'August 9', 'Universal School Meals', COLORS['universal_meals'])
-    ]
-    
-    events_2025 = [
-        ('Arkansas', 'February 20', 'Universal Breakfast', COLORS['universal_breakfast']),
-        ('New York', 'May 9', 'Universal School Meals', COLORS['universal_meals']),
-        ('Delaware', 'September 2', 'Universal Breakfast', COLORS['universal_breakfast'])
-    ]
-    
-    events_2026 = [
-        ('Connecticut', 'May 5', 'Universal Breakfast', COLORS['universal_breakfast']),
-        ('South Carolina', 'TBD 2026', 'Universal Breakfast', COLORS['universal_breakfast'])
-    ]
-    
-    # Helper function to create year section
-    def create_year_section(year, events):
-        if not events:
-            return html.Div([
-                html.Div(str(year), style={
-                    'fontSize': '20px',
-                    'fontWeight': '700',
-                    'color': COLORS['text_secondary'],
-                    'marginBottom': '12px'
-                }),
-                html.Div('No adoptions this year', style={
-                    'fontSize': '14px',
-                    'color': COLORS['text_secondary'],
-                    'fontStyle': 'italic',
-                    'padding': '16px',
-                    'background': COLORS['off_white'],
-                    'borderRadius': '8px'
-                })
-            ], style={'marginBottom': '32px'})
-        
-        event_cards = []
-        for state, date, program, color in events:
-            event_cards.append(
-                html.Div([
-                    html.Div(style={
-                        'width': '4px',
-                        'height': '100%',
-                        'background': color,
-                        'position': 'absolute',
-                        'left': 0,
-                        'top': 0,
-                        'borderRadius': '4px 0 0 4px'
-                    }),
-                    html.Div([
-                        html.Div(state, style={
-                            'fontSize': '16px',
-                            'fontWeight': '600',
-                            'color': COLORS['text_primary'],
-                            'marginBottom': '4px'
-                        }),
-                        html.Div([
-                            html.Span(date, style={
-                                'fontSize': '13px',
-                                'color': COLORS['text_secondary'],
-                                'marginRight': '12px'
-                            }),
-                            html.Span('•', style={
-                                'color': COLORS['text_secondary'],
-                                'marginRight': '12px'
-                            }),
-                            html.Span(program, style={
-                                'fontSize': '13px',
-                                'color': color,
-                                'fontWeight': '500'
-                            })
-                        ])
-                    ], style={'paddingLeft': '16px'})
-                ], style={
-                    'position': 'relative',
-                    'background': 'white',
-                    'padding': '16px',
-                    'paddingLeft': '20px',
-                    'borderRadius': '8px',
-                    'border': f'1px solid {COLORS["border"]}',
-                    'marginBottom': '12px',
-                    'transition': 'transform 0.2s ease, box-shadow 0.2s ease'
-                })
-            )
-        
-        return html.Div([
-            html.Div(str(year), style={
-                'fontSize': '20px',
-                'fontWeight': '700',
-                'color': COLORS['text_primary'],
-                'marginBottom': '16px'
-            }),
-            html.Div(event_cards)
-        ], style={'marginBottom': '40px'})
-    
+    """Ultra-minimal timeline - plain text only"""
     return html.Div([
-        # Header
-        html.Div([
-            html.H2("Universal School Meals Timeline: 2021-2026", style={
-                'fontSize': '28px',
-                'fontWeight': '700',
-                'color': COLORS['text_primary'],
-                'marginBottom': '12px'
-            }),
-            html.P("Track the adoption of universal school meal programs across the United States", style={
-                'fontSize': '16px',
-                'color': COLORS['text_secondary'],
-                'marginBottom': '32px'
-            })
-        ]),
-        
-        # Summary stats
-        html.Div([
-            html.Div([
-                html.Div("16", style={
-                    'fontSize': '36px',
-                    'fontWeight': '700',
-                    'color': COLORS['universal_meals']
-                }),
-                html.Div("States Adopted", style={
-                    'fontSize': '14px',
-                    'color': COLORS['text_secondary'],
-                    'marginTop': '4px'
-                })
-            ], style={'textAlign': 'center', 'padding': '20px'}),
-            html.Div([
-                html.Div("10", style={
-                    'fontSize': '36px',
-                    'fontWeight': '700',
-                    'color': COLORS['universal_meals']
-                }),
-                html.Div("Universal Meals", style={
-                    'fontSize': '14px',
-                    'color': COLORS['text_secondary'],
-                    'marginTop': '4px'
-                })
-            ], style={'textAlign': 'center', 'padding': '20px'}),
-            html.Div([
-                html.Div("6", style={
-                    'fontSize': '36px',
-                    'fontWeight': '700',
-                    'color': COLORS['universal_breakfast']
-                }),
-                html.Div("Universal Breakfast", style={
-                    'fontSize': '14px',
-                    'color': COLORS['text_secondary'],
-                    'marginTop': '4px'
-                })
-            ], style={'textAlign': 'center', 'padding': '20px'})
-        ], style={
-            'display': 'grid',
-            'gridTemplateColumns': 'repeat(3, 1fr)',
-            'gap': '16px',
-            'background': 'white',
-            'borderRadius': '12px',
-            'border': f'1px solid {COLORS["border"]}',
-            'marginBottom': '48px'
-        }),
-        
-        # Timeline events by year
-        html.Div([
-            create_year_section(2021, events_2021),
-            create_year_section(2022, events_2022),
-            create_year_section(2023, events_2023),
-            create_year_section(2024, []),  # No events in 2024
-            create_year_section(2025, events_2025),
-            create_year_section(2026, events_2026)
-        ], style={
-            'maxWidth': '800px',
-            'margin': '0 auto'
-        })
-        
-    ], style={
-        'maxWidth': '1400px',
-        'margin': '0 auto',
-        'padding': '64px 32px',
-        'background': COLORS['bg_secondary']
-    })
+        html.H2("Universal School Meals Timeline: 2021-2026"),
+        html.P("16 states adopted universal school meal programs:"),
+        html.Ul([
+            html.Li("2021: Maine (Jul 1), California (Jul 9)"),
+            html.Li("2022: Colorado (Nov 8)"),
+            html.Li("2023: Minnesota (Mar 17), New Mexico (Mar 27), Vermont (Jun 14), Michigan (Jul 20), Pennsylvania (Aug 3), Massachusetts (Aug 9)"),
+            html.Li("2025: Arkansas (Feb 20), New York (May 9), Delaware (Sep 2)"),
+            html.Li("2026: Connecticut (May 5), South Carolina (TBD)")
+        ])
+    ], style={'padding': '40px', 'maxWidth': '800px', 'margin': '0 auto'})
 
 
 def create_map_section():
@@ -1898,13 +1716,14 @@ def create_cta_section():
     return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    """Working version - no timeline"""
+    """With ultra-minimal timeline"""
     return html.Div([
         create_hero_section(),
         create_insights_section(),
+        create_simple_timeline_section(),
         create_map_section(),
         create_comparison_section(),
-        html.Div("v2026-05-19-working", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
+        html.Div("v2026-05-19-ultra-minimal", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
