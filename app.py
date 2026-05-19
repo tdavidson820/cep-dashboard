@@ -1476,102 +1476,120 @@ def create_explore_states_panel():
     ], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
 
 
-def create_timeline_section():
-    """Interactive timeline showing universal school meals adoption (2021-2026)
-    Lightweight CSS animations for render.com compatibility"""
+def create_simple_timeline_section():
+    """Simplified static timeline - no callbacks, no animations, render-safe"""
     
-    # Timeline data: state, date, program type
-    timeline_events = [
-        # 2021
-        {'state': 'ME', 'date': '2021-07-01', 'display_date': 'July 1, 2021', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        {'state': 'CA', 'date': '2021-07-09', 'display_date': 'July 9, 2021', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        # 2022
-        {'state': 'CO', 'date': '2022-11-08', 'display_date': 'November 8, 2022', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        # 2023
-        {'state': 'MN', 'date': '2023-03-17', 'display_date': 'March 17, 2023', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        {'state': 'NM', 'date': '2023-03-27', 'display_date': 'March 27, 2023', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        {'state': 'VT', 'date': '2023-06-14', 'display_date': 'June 14, 2023', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        {'state': 'MI', 'date': '2023-07-20', 'display_date': 'July 20, 2023', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        {'state': 'PA', 'date': '2023-08-03', 'display_date': 'August 3, 2023', 'program': 'Universal Breakfast', 'color': COLORS['universal_breakfast']},
-        {'state': 'MA', 'date': '2023-08-09', 'display_date': 'August 9, 2023', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        # 2025
-        {'state': 'AR', 'date': '2025-02-20', 'display_date': 'February 20, 2025', 'program': 'Universal Breakfast', 'color': COLORS['universal_breakfast']},
-        {'state': 'NY', 'date': '2025-05-09', 'display_date': 'May 9, 2025', 'program': 'Universal School Meals', 'color': COLORS['universal_meals']},
-        {'state': 'DE', 'date': '2025-09-02', 'display_date': 'September 2, 2025', 'program': 'Universal Breakfast', 'color': COLORS['universal_breakfast']},
-        # 2026
-        {'state': 'CT', 'date': '2026-05-05', 'display_date': 'May 5, 2026', 'program': 'Universal Breakfast', 'color': COLORS['universal_breakfast']},
-        {'state': 'SC', 'date': '2026-TBD', 'display_date': 'TBD 2026', 'program': 'Universal Breakfast', 'color': COLORS['universal_breakfast']},
+    # Timeline events data
+    events_2021 = [
+        ('Maine', 'July 1', 'Universal School Meals', COLORS['universal_meals']),
+        ('California', 'July 9', 'Universal School Meals', COLORS['universal_meals'])
     ]
     
-    # Create timeline events as dots
-    timeline_dots = []
-    for i, event in enumerate(timeline_events):
-        timeline_dots.append(
-            html.Div([
-                # Dot
-                html.Div(
-                    id={'type': 'timeline-dot', 'index': i},
-                    style={
-                        'width': '14px',
-                        'height': '14px',
-                        'background': event['color'],
-                        'borderRadius': '50%',
-                        'border': '2px solid white',
-                        'boxShadow': '0 2px 4px rgba(0,0,0,0.2)',
-                        'cursor': 'pointer',
-                        'transition': 'transform 0.2s ease',
-                        'position': 'relative',
-                        'zIndex': 10
-                    }
-                ),
-                # Hover tooltip
-                html.Div([
-                    html.Div(event['display_date'], style={'fontWeight': '600', 'marginBottom': '4px'}),
-                    html.Div(event['program'], style={'fontSize': '13px', 'color': '#666'})
-                ], style={
-                    'position': 'absolute',
-                    'bottom': '30px',
-                    'left': '50%',
-                    'transform': 'translateX(-50%)',
-                    'background': 'white',
-                    'padding': '12px 16px',
-                    'borderRadius': '8px',
-                    'boxShadow': '0 4px 12px rgba(0,0,0,0.15)',
-                    'whiteSpace': 'nowrap',
-                    'opacity': 0,
-                    'pointerEvents': 'none',
-                    'transition': 'opacity 0.2s ease',
-                    'fontSize': '14px',
-                    'zIndex': 100
-                }, className='timeline-tooltip')
-            ], style={
-                'position': 'absolute',
-                'left': f'{(i / (len(timeline_events) - 1)) * 100}%',
-                'transform': 'translateX(-50%)',
-                'display': 'flex',
-                'flexDirection': 'column',
-                'alignItems': 'center'
-            }, className='timeline-dot-container')
-        )
+    events_2022 = [
+        ('Colorado', 'November 8', 'Universal School Meals', COLORS['universal_meals'])
+    ]
     
-    # Year markers
-    years = [2021, 2022, 2023, 2024, 2025, 2026]
-    year_markers = []
-    for i, year in enumerate(years):
-        year_markers.append(
+    events_2023 = [
+        ('Minnesota', 'March 17', 'Universal School Meals', COLORS['universal_meals']),
+        ('New Mexico', 'March 27', 'Universal School Meals', COLORS['universal_meals']),
+        ('Vermont', 'June 14', 'Universal School Meals', COLORS['universal_meals']),
+        ('Michigan', 'July 20', 'Universal School Meals', COLORS['universal_meals']),
+        ('Pennsylvania', 'August 3', 'Universal Breakfast', COLORS['universal_breakfast']),
+        ('Massachusetts', 'August 9', 'Universal School Meals', COLORS['universal_meals'])
+    ]
+    
+    events_2025 = [
+        ('Arkansas', 'February 20', 'Universal Breakfast', COLORS['universal_breakfast']),
+        ('New York', 'May 9', 'Universal School Meals', COLORS['universal_meals']),
+        ('Delaware', 'September 2', 'Universal Breakfast', COLORS['universal_breakfast'])
+    ]
+    
+    events_2026 = [
+        ('Connecticut', 'May 5', 'Universal Breakfast', COLORS['universal_breakfast']),
+        ('South Carolina', 'TBD 2026', 'Universal Breakfast', COLORS['universal_breakfast'])
+    ]
+    
+    # Helper function to create year section
+    def create_year_section(year, events):
+        if not events:
+            return html.Div([
+                html.Div(str(year), style={
+                    'fontSize': '20px',
+                    'fontWeight': '700',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '12px'
+                }),
+                html.Div('No adoptions this year', style={
+                    'fontSize': '14px',
+                    'color': COLORS['text_secondary'],
+                    'fontStyle': 'italic',
+                    'padding': '16px',
+                    'background': COLORS['off_white'],
+                    'borderRadius': '8px'
+                })
+            ], style={'marginBottom': '32px'})
+        
+        event_cards = []
+        for state, date, program, color in events:
+            event_cards.append(
+                html.Div([
+                    html.Div(style={
+                        'width': '4px',
+                        'height': '100%',
+                        'background': color,
+                        'position': 'absolute',
+                        'left': 0,
+                        'top': 0,
+                        'borderRadius': '4px 0 0 4px'
+                    }),
+                    html.Div([
+                        html.Div(state, style={
+                            'fontSize': '16px',
+                            'fontWeight': '600',
+                            'color': COLORS['text_primary'],
+                            'marginBottom': '4px'
+                        }),
+                        html.Div([
+                            html.Span(date, style={
+                                'fontSize': '13px',
+                                'color': COLORS['text_secondary'],
+                                'marginRight': '12px'
+                            }),
+                            html.Span('•', style={
+                                'color': COLORS['text_secondary'],
+                                'marginRight': '12px'
+                            }),
+                            html.Span(program, style={
+                                'fontSize': '13px',
+                                'color': color,
+                                'fontWeight': '500'
+                            })
+                        ])
+                    ], style={'paddingLeft': '16px'})
+                ], style={
+                    'position': 'relative',
+                    'background': 'white',
+                    'padding': '16px',
+                    'paddingLeft': '20px',
+                    'borderRadius': '8px',
+                    'border': f'1px solid {COLORS["border"]}',
+                    'marginBottom': '12px',
+                    'transition': 'transform 0.2s ease, box-shadow 0.2s ease'
+                })
+            )
+        
+        return html.Div([
             html.Div(str(year), style={
-                'position': 'absolute',
-                'left': f'{(i / (len(years) - 1)) * 100}%',
-                'transform': 'translateX(-50%)',
-                'fontSize': '13px',
-                'fontWeight': '600',
-                'color': COLORS['text_secondary'],
-                'marginTop': '12px'
-            })
-        )
+                'fontSize': '20px',
+                'fontWeight': '700',
+                'color': COLORS['text_primary'],
+                'marginBottom': '16px'
+            }),
+            html.Div(event_cards)
+        ], style={'marginBottom': '40px'})
     
     return html.Div([
-        # Section header
+        # Header
         html.Div([
             html.H2("Universal School Meals Timeline: 2021-2026", style={
                 'fontSize': '28px',
@@ -1586,107 +1604,43 @@ def create_timeline_section():
             })
         ]),
         
-        # Timeline visualization
+        # Summary stats
         html.Div([
-            # Timeline line
-            html.Div(style={
-                'position': 'absolute',
-                'top': '50%',
-                'left': 0,
-                'right': 0,
-                'height': '2px',
-                'background': COLORS['border'],
-                'transform': 'translateY(-50%)'
-            }),
-            
-            # Progress line (animated)
-            html.Div(
-                id='timeline-progress',
-                style={
-                    'position': 'absolute',
-                    'top': '50%',
-                    'left': 0,
-                    'height': '3px',
-                    'background': f'linear-gradient(90deg, {COLORS["universal_meals"]} 0%, {COLORS["universal_breakfast"]} 100%)',
-                    'transform': 'translateY(-50%)',
-                    'width': '0%',
-                    'transition': 'width 0.5s ease',
-                    'boxShadow': '0 0 8px rgba(52, 211, 153, 0.4)'
-                }
-            ),
-            
-            # Timeline dots
-            *timeline_dots,
-            
-            # Year markers
-            *year_markers
-            
-        ], style={
-            'position': 'relative',
-            'height': '80px',
-            'marginBottom': '48px',
-            'paddingTop': '40px'
-        }),
-        
-        # Controls
-        html.Div([
-            # Play/Pause button
-            html.Button(
-                id='timeline-play-pause',
-                children='⏸ Pause',
-                n_clicks=0,
-                style={
-                    'padding': '10px 24px',
-                    'background': COLORS['teal'],
-                    'color': 'white',
-                    'border': 'none',
-                    'borderRadius': '8px',
+            html.Div([
+                html.Div("16", style={
+                    'fontSize': '36px',
+                    'fontWeight': '700',
+                    'color': COLORS['universal_meals']
+                }),
+                html.Div("States Adopted", style={
                     'fontSize': '14px',
-                    'fontWeight': '600',
-                    'cursor': 'pointer',
-                    'marginRight': '16px',
-                    'boxShadow': '0 2px 4px rgba(0,0,0,0.1)',
-                    'transition': 'all 0.2s ease'
-                }
-            ),
-            
-            # Year scrubber
-            html.Div([
-                html.Span("Jump to: ", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'marginRight': '12px'}),
-                dcc.Dropdown(
-                    id='timeline-year-selector',
-                    options=[
-                        {'label': '2021', 'value': 2021},
-                        {'label': '2022', 'value': 2022},
-                        {'label': '2023', 'value': 2023},
-                        {'label': '2024', 'value': 2024},
-                        {'label': '2025', 'value': 2025},
-                        {'label': '2026', 'value': 2026}
-                    ],
-                    value=2021,
-                    clearable=False,
-                    style={'width': '120px'}
-                )
-            ], style={'display': 'flex', 'alignItems': 'center'})
-        ], style={
-            'display': 'flex',
-            'alignItems': 'center',
-            'marginBottom': '32px'
-        }),
-        
-        # Stats summary
-        html.Div([
-            html.Div([
-                html.Div("16", style={'fontSize': '36px', 'fontWeight': '700', 'color': COLORS['universal_meals']}),
-                html.Div("States Adopted", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'marginTop': '4px'})
+                    'color': COLORS['text_secondary'],
+                    'marginTop': '4px'
+                })
             ], style={'textAlign': 'center', 'padding': '20px'}),
             html.Div([
-                html.Div("10", style={'fontSize': '36px', 'fontWeight': '700', 'color': COLORS['universal_meals']}),
-                html.Div("Universal Meals", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'marginTop': '4px'})
+                html.Div("10", style={
+                    'fontSize': '36px',
+                    'fontWeight': '700',
+                    'color': COLORS['universal_meals']
+                }),
+                html.Div("Universal Meals", style={
+                    'fontSize': '14px',
+                    'color': COLORS['text_secondary'],
+                    'marginTop': '4px'
+                })
             ], style={'textAlign': 'center', 'padding': '20px'}),
             html.Div([
-                html.Div("6", style={'fontSize': '36px', 'fontWeight': '700', 'color': COLORS['universal_breakfast']}),
-                html.Div("Universal Breakfast", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'marginTop': '4px'})
+                html.Div("6", style={
+                    'fontSize': '36px',
+                    'fontWeight': '700',
+                    'color': COLORS['universal_breakfast']
+                }),
+                html.Div("Universal Breakfast", style={
+                    'fontSize': '14px',
+                    'color': COLORS['text_secondary'],
+                    'marginTop': '4px'
+                })
             ], style={'textAlign': 'center', 'padding': '20px'})
         ], style={
             'display': 'grid',
@@ -1698,17 +1652,18 @@ def create_timeline_section():
             'marginBottom': '48px'
         }),
         
-        # Hidden interval for auto-play
-        dcc.Interval(
-            id='timeline-interval',
-            interval=3000,  # 3 seconds per event
-            n_intervals=0,
-            max_intervals=len(timeline_events)
-        ),
-        
-        # Store current progress
-        dcc.Store(id='timeline-current-index', data=0),
-        dcc.Store(id='timeline-is-playing', data=True)
+        # Timeline events by year
+        html.Div([
+            create_year_section(2021, events_2021),
+            create_year_section(2022, events_2022),
+            create_year_section(2023, events_2023),
+            create_year_section(2024, []),  # No events in 2024
+            create_year_section(2025, events_2025),
+            create_year_section(2026, events_2026)
+        ], style={
+            'maxWidth': '800px',
+            'margin': '0 auto'
+        })
         
     ], style={
         'maxWidth': '1400px',
@@ -1943,15 +1898,15 @@ def create_cta_section():
     return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    """Enhanced landing page with timeline - CTA section removed"""
+    """Enhanced landing page with simplified timeline"""
     return html.Div([
         create_hero_section(),
         create_insights_section(),
-        create_timeline_section(),  # Timeline re-enabled
+        create_simple_timeline_section(),  # Simplified static timeline
         create_map_section(),
         create_comparison_section(),
         # Version indicator (small footer)
-        html.Div("v2026-05-19", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
+        html.Div("v2026-05-19-final", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
@@ -2468,85 +2423,6 @@ def update_comparison_county_maps(state_a, state_b):
         'gridTemplateColumns': '1fr 1fr',
         'gap': '24px'
     })
-
-
-# ====================
-# TIMELINE CALLBACKS
-# ====================
-
-# Timeline Callbacks
-
-# Callback 1: Handle play/pause button
-@application.callback(
-    [Output('timeline-interval', 'disabled'),
-     Output('timeline-play-pause', 'children'),
-     Output('timeline-is-playing', 'data')],
-    [Input('timeline-play-pause', 'n_clicks')],
-    [State('timeline-is-playing', 'data')]
-)
-def toggle_timeline_playback(n_clicks, is_playing):
-    if n_clicks == 0:
-        # Initial state: playing
-        return False, '⏸ Pause', True
-    
-    # Toggle state
-    new_state = not is_playing
-    if new_state:
-        return False, '⏸ Pause', True
-    else:
-        return True, '▶ Play', False
-
-# Callback 2: Update progress based on interval or year selector
-@application.callback(
-    [Output('timeline-progress', 'style'),
-     Output('timeline-current-index', 'data')],
-    [Input('timeline-interval', 'n_intervals'),
-     Input('timeline-year-selector', 'value')],
-    [State('timeline-current-index', 'data')]
-)
-def update_timeline_progress(n_intervals, selected_year, current_index):
-    ctx = dash.callback_context
-    
-    # Total events
-    total_events = 16
-    
-    # Determine trigger
-    if not ctx.triggered:
-        trigger_id = 'timeline-interval'
-    else:
-        trigger_id = ctx.triggered[0]['prop_id'].split('.')[0]
-    
-    if trigger_id == 'timeline-year-selector':
-        # Jump to year
-        year_event_mapping = {
-            2021: 0,   # First event of 2021
-            2022: 2,   # First event of 2022
-            2023: 3,   # First event of 2023
-            2024: 9,   # No events, but position timeline
-            2025: 9,   # First event of 2025
-            2026: 12   # First event of 2026
-        }
-        new_index = year_event_mapping.get(selected_year, 0)
-    else:
-        # Auto-advance from interval
-        new_index = (current_index + 1) % (total_events + 1)  # Loop back to start
-    
-    # Calculate progress percentage
-    progress_pct = (new_index / total_events) * 100
-    
-    progress_style = {
-        'position': 'absolute',
-        'top': '50%',
-        'left': 0,
-        'height': '3px',
-        'background': f'linear-gradient(90deg, #34D399 0%, #FCD34D 100%)',
-        'transform': 'translateY(-50%)',
-        'width': f'{progress_pct}%',
-        'transition': 'width 0.5s ease',
-        'boxShadow': '0 0 8px rgba(52, 211, 153, 0.4)'
-    }
-    
-    return progress_style, new_index
 
 
 if __name__ == '__main__':
