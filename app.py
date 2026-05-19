@@ -1898,15 +1898,13 @@ def create_cta_section():
     return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    """Enhanced landing page with simplified static timeline"""
+    """Working version - no timeline"""
     return html.Div([
         create_hero_section(),
         create_insights_section(),
-        create_simple_timeline_section(),
         create_map_section(),
         create_comparison_section(),
-        # Version indicator (small footer)
-        html.Div("v2026-05-19-final", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
+        html.Div("v2026-05-19-working", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
