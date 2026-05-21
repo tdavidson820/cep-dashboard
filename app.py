@@ -1766,37 +1766,29 @@ def create_map_section():
                 )
             ], style={'marginBottom': '24px'}),
             
+            # USA Map
+            html.Div([
+                dcc.Graph(
+                    id='us-map-graph',
+                    figure=create_us_map(),
+                    config={'displayModeBar': False},
+                    style={
+                        'background': 'white',
+                        'border': f'1px solid {COLORS["border"]}',
+                        'borderRadius': '12px',
+                        'padding': '20px',
+                        'boxShadow': '0 1px 3px rgba(0,0,0,0.05)'
+                    }
+                )
+            ], style={'marginBottom': '24px'}),
+            
+            # Legend (below map)
             legend,
             
-            # 2-SECTION LAYOUT: Map (left) + Explore States (right)
+            # Explore States (below legend)
             html.Div([
-                # Left: Map (takes most of the space)
-                html.Div([
-                    dcc.Graph(
-                        id='us-map-graph',
-                        figure=create_us_map(),
-                        config={'displayModeBar': False},
-                        style={
-                            'background': 'white',
-                            'border': f'1px solid {COLORS["border"]}',
-                            'borderRadius': '12px',
-                            'padding': '20px',
-                            'boxShadow': '0 1px 3px rgba(0,0,0,0.05)'
-                        }
-                    )
-                ]),
-                
-                # Right: Explore States Panel
-                html.Div([
-                    create_explore_states_panel()
-                ])
-                
-            ], style={
-                'display': 'grid',
-                'gridTemplateColumns': '1fr 400px',  # Main map + Explore States sidebar
-                'gap': '24px',
-                'marginBottom': '24px'
-            }),
+                create_explore_states_panel()
+            ], style={'marginTop': '32px'}),
             
             # County Map Container (hidden by default)
             html.Div(id='county-map-container', children=[], style={'marginTop': '24px'})
@@ -1823,10 +1815,22 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
     
     df['Poverty_Tier'] = df['Poverty_Rate'].apply(get_poverty_tier)
     
-    # Calculate children in poverty for each tier (for legend)
-    low_children = df[df['Poverty_Tier'] == 1]['Children_in_Poverty'].sum()
-    mod_children = df[df['Poverty_Tier'] == 2]['Children_in_Poverty'].sum()
-    high_children = df[df['Poverty_Tier'] == 3]['Children_in_Poverty'].sum()
+    # Calculate children in poverty for each tier (for legend) - with error handling
+    try:
+        if 'Children_in_Poverty' in df.columns:
+            low_children = int(df[df['Poverty_Tier'] == 1]['Children_in_Poverty'].sum())
+            mod_children = int(df[df['Poverty_Tier'] == 2]['Children_in_Poverty'].sum())
+            high_children = int(df[df['Poverty_Tier'] == 3]['Children_in_Poverty'].sum())
+        else:
+            # Fallback if column doesn't exist
+            low_children = 0
+            mod_children = 0
+            high_children = 0
+    except:
+        # Fallback on any error
+        low_children = 0
+        mod_children = 0
+        high_children = 0
     
     # Create map
     fig = go.Figure(go.Choropleth(
@@ -1962,14 +1966,12 @@ def create_cta_section():
     return html.Div([html.Div([html.H2("Take Action for Universal School Meals", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '20px', 'textAlign': 'center'}), html.P("Contact your state representatives to advocate for CEP expansion in your community", style={'fontSize': '18px', 'color': COLORS['text_secondary'], 'textAlign': 'center', 'marginBottom': '40px'}), html.Div([html.A("Find Your Representatives", href="#", style={'background': COLORS['teal'], 'color': 'white', 'padding': '16px 40px', 'borderRadius': '8px', 'textDecoration': 'none', 'fontSize': '16px', 'fontWeight': '600', 'display': 'inline-block'})], style={'textAlign': 'center'})], style={'maxWidth': '800px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'background': f'linear-gradient(135deg, {COLORS["off_white"]} 0%, {COLORS["light_gray"]} 100%)'})
 
 def create_landing_page():
-    """Enhanced landing page with professional timeline from ChatGPT"""
+    """Enhanced landing page - Timeline first, no hero/insights"""
     return html.Div([
-        create_hero_section(),
-        create_insights_section(),
         create_simple_timeline_section(),
         create_map_section(),
         create_comparison_section(),
-        html.Div("v2026-05-19-FINAL", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
+        html.Div("v2026-05-21-final", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
@@ -2345,7 +2347,14 @@ def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
                         'color': COLORS['text_secondary']
                     })
                 ], style={'display': 'flex', 'alignItems': 'center'})
-            ])
+            ]),
+            # Data source disclaimer
+            html.Div("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
+                'fontSize': '11px',
+                'color': COLORS['text_secondary'],
+                'marginTop': '12px',
+                'fontStyle': 'italic'
+            })
         ], style={
             'background': COLORS['off_white'],
             'padding': '16px',
@@ -2528,6 +2537,53 @@ def update_state_selection(click_data, search_value):
     
     return detail_panel, county_map_content
 
+def create_cep_legend_compact():
+    """Compact CEP legend for comparison section"""
+    return html.Div([
+        html.Div("CEP Coverage", style={'fontSize': '12px', 'fontWeight': '600', 'marginBottom': '8px'}),
+        html.Div([
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['full_cep'], 'borderRadius': '3px', 'marginRight': '8px'}),
+                html.Span("Full CEP", style={'fontSize': '11px'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['partial_cep'], 'borderRadius': '3px', 'marginRight': '8px'}),
+                html.Span("Partial CEP", style={'fontSize': '11px'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['no_cep'], 'borderRadius': '3px', 'marginRight': '8px'}),
+                html.Span("No CEP", style={'fontSize': '11px'})
+            ], style={'display': 'flex', 'alignItems': 'center'})
+        ])
+    ], style={'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+
+def create_poverty_legend_compact():
+    """Compact poverty legend for comparison section"""
+    return html.Div([
+        html.Div("Poverty Distribution", style={'fontSize': '12px', 'fontWeight': '600', 'marginBottom': '8px'}),
+        html.Div([
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': '#FEF3C7', 'borderRadius': '3px', 'marginRight': '8px', 'border': '1px solid #ddd'}),
+                html.Span("0-15% Low", style={'fontSize': '11px'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': '#FB923C', 'borderRadius': '3px', 'marginRight': '8px'}),
+                html.Span("15-25% Moderate", style={'fontSize': '11px'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': '#DC2626', 'borderRadius': '3px', 'marginRight': '8px'}),
+                html.Span("25%+ High", style={'fontSize': '11px'})
+            ], style={'display': 'flex', 'alignItems': 'center'})
+        ]),
+        html.Div("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
+            'fontSize': '9px',
+            'color': COLORS['text_secondary'],
+            'marginTop': '8px',
+            'fontStyle': 'italic'
+        })
+    ], style={'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+
+
 @application.callback(
     Output('comparison-county-maps', 'children'),
     [Input('compare-state-a', 'value'),
@@ -2587,7 +2643,9 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         'color': COLORS['text_primary']
                     }),
                     html.Div([
-                        dcc.Graph(figure=fig, config={'displayModeBar': False})
+                        dcc.Graph(figure=fig, config={'displayModeBar': False}),
+                        # Add appropriate legend
+                        create_cep_legend_compact() if map_type == 'cep' else create_poverty_legend_compact()
                     ], style={
                         'background': 'white',
                         'padding': '16px',
@@ -2637,7 +2695,8 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         'fontWeight': '600',
                         'marginBottom': '16px'
                     }),
-                    dcc.Graph(figure=maps_data[state_abbr]['cep_fig'], config={'displayModeBar': False})
+                    dcc.Graph(figure=maps_data[state_abbr]['cep_fig'], config={'displayModeBar': False}),
+                    create_cep_legend_compact()
                 ], style={
                     'background': 'white',
                     'padding': '16px',
@@ -2663,7 +2722,8 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         'fontWeight': '600',
                         'marginBottom': '16px'
                     }),
-                    dcc.Graph(figure=maps_data[state_abbr]['pov_fig'], config={'displayModeBar': False})
+                    dcc.Graph(figure=maps_data[state_abbr]['pov_fig'], config={'displayModeBar': False}),
+                    create_poverty_legend_compact()
                 ], style={
                     'background': 'white',
                     'padding': '16px',
