@@ -1399,12 +1399,12 @@ def create_state_detail_panel(state_abbr=None):
     })
 
 def create_explore_states_panel():
-    """Compact horizontal grid with state cards - 4 per row
-    Shows only states with full county data
+    """Compact horizontal grid with state cards - 3x3 layout
+    Shows only states with full county data in alphabetical order
     """
     
-    # Only states with full county data
-    tracked_states = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC']
+    # Only states with full county data - ALPHABETICAL ORDER + Nevada
+    tracked_states = ['KY', 'MD', 'NJ', 'NV', 'SC', 'VA', 'WI']
     
     def create_compact_state_card(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
@@ -1476,7 +1476,7 @@ def create_explore_states_panel():
         }),
         html.Div(cards, style={
             'display': 'grid',
-            'gridTemplateColumns': 'repeat(4, 1fr)',
+            'gridTemplateColumns': 'repeat(3, 1fr)',  # 3 columns instead of 4
             'gap': '20px'
         })
     ], style={
