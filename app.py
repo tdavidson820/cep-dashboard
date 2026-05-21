@@ -1399,37 +1399,26 @@ def create_state_detail_panel(state_abbr=None):
     })
 
 def create_explore_states_panel():
-    """NEW: Redesigned right-side panel with state flags and category grouping
-    UPDATED: Includes FPL states support - New Jersey should appear with blue border
-    Version: 2026-04-10-FPL-FIX
+    """Compact horizontal grid with state cards - 4 per row
+    Shows only states with full county data
     """
     
-    # Get the tracked states grouped by category
-    tracked_states = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'AR']
+    # Only states with full county data
+    tracked_states = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC']
     
-    # Group by category
-    universal_meals_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_meals']
-    universal_breakfast_tracked = [s for s in tracked_states if get_state_category(s) == 'universal_breakfast']
-    fpl_tracked = [s for s in tracked_states if get_state_category(s) == 'fpl_states']
-    other_tracked = [s for s in tracked_states if get_state_category(s) == 'other']
-    
-    def create_state_button(state_abbr):
+    def create_compact_state_card(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
         category = get_state_category(state_abbr)
         
-        # Category color for left border
+        # Category color for border
         if category == 'universal_meals':
             border_color = COLORS['universal_meals']
-            subtitle = "Universal meals"
         elif category == 'universal_breakfast':
             border_color = COLORS['universal_breakfast']
-            subtitle = "Universal breakfast"
         elif category == 'fpl_states':
             border_color = COLORS['fpl_states']
-            subtitle = "FPL State"
         else:
-            border_color = 'transparent'
-            subtitle = f"{state_data.get('coverage_pct', 0)}% coverage"
+            border_color = COLORS['border']
         
         flag_url = STATE_FLAGS.get(state_abbr, '')
         
@@ -1437,43 +1426,63 @@ def create_explore_states_panel():
             href=f"/state/{state_abbr}",
             children=[
                 html.Div([
-                    html.Div([
-                        html.Img(src=flag_url, style={'width': '32px', 'height': '21px', 'marginRight': '12px', 'border': '0.5px solid #e5e7eb', 'borderRadius': '2px', 'objectFit': 'cover'}),
-                        html.Div([
-                            html.Div(state_data.get('name', state_abbr), style={'fontSize': '15px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '2px'}),
-                            html.Div(subtitle, style={'fontSize': '13px', 'color': COLORS['text_secondary']})
-                        ], style={'flex': '1'})
-                    ], style={'display': 'flex', 'alignItems': 'center', 'padding': '14px 16px', 'borderLeft': f'4px solid {border_color}', 'background': 'white', 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}', 'transition': 'all 0.2s ease'})
-                ], style={'marginBottom': '10px'})
+                    # Flag at top
+                    html.Img(src=flag_url, style={
+                        'width': '48px',
+                        'height': '32px',
+                        'marginBottom': '12px',
+                        'border': '1px solid #e5e7eb',
+                        'borderRadius': '4px',
+                        'objectFit': 'cover'
+                    }),
+                    # State abbreviation
+                    html.Div(state_abbr, style={
+                        'fontSize': '20px',
+                        'fontWeight': '700',
+                        'color': COLORS['text_primary'],
+                        'marginBottom': '4px'
+                    }),
+                    # State name
+                    html.Div(state_data.get('name', state_abbr), style={
+                        'fontSize': '13px',
+                        'fontWeight': '500',
+                        'color': COLORS['text_secondary']
+                    })
+                ], style={
+                    'display': 'flex',
+                    'flexDirection': 'column',
+                    'alignItems': 'center',
+                    'padding': '20px 16px',
+                    'background': 'white',
+                    'borderRadius': '12px',
+                    'border': f'2px solid {border_color}',
+                    'transition': 'all 0.2s ease',
+                    'cursor': 'pointer',
+                    'textAlign': 'center'
+                })
             ],
             style={'textDecoration': 'none', 'display': 'block'}
         )
     
-    buttons = []
-    
-    # Universal Meals section
-    if universal_meals_tracked:
-        for state in universal_meals_tracked:
-            buttons.append(create_state_button(state))
-    
-    # Universal Breakfast section
-    if universal_breakfast_tracked:
-        for state in universal_breakfast_tracked:
-            buttons.append(create_state_button(state))
-    
-    # FPL States section
-    if fpl_tracked:
-        for state in fpl_tracked:
-            buttons.append(create_state_button(state))
-    
-    # Other states section  
-    for state in other_tracked:
-        buttons.append(create_state_button(state))
+    # Create cards for all tracked states
+    cards = [create_compact_state_card(state) for state in tracked_states]
     
     return html.Div([
-        html.H3("Explore States", style={'fontSize': '14px', 'fontWeight': '600', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '1px', 'marginBottom': '20px'}),
-        html.Div(buttons)
-    ], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
+        html.H3("Explore States", style={
+            'fontSize': '24px',
+            'fontWeight': '600',
+            'color': COLORS['text_primary'],
+            'marginBottom': '24px'
+        }),
+        html.Div(cards, style={
+            'display': 'grid',
+            'gridTemplateColumns': 'repeat(4, 1fr)',
+            'gap': '20px'
+        })
+    ], style={
+        'padding': '40px 0'
+    })
+
 
 
 def create_simple_timeline_section():
@@ -2272,8 +2281,14 @@ def create_county_color_legend():
 def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
     """Create tabbed view with CEP Coverage and Poverty Distribution maps"""
     
-    # Generate poverty map
-    poverty_map_fig, low_children, mod_children, high_children = create_poverty_heat_map(df, fips_dict, state_abbr)
+    # Generate poverty map with error handling
+    try:
+        poverty_map_fig, low_children, mod_children, high_children = create_poverty_heat_map(df, fips_dict, state_abbr)
+    except Exception as e:
+        print(f"Error creating poverty map for {state_abbr}: {e}")
+        # Create empty poverty map as fallback
+        poverty_map_fig = go.Figure()
+        low_children, mod_children, high_children = 0, 0, 0
     
     # CEP Coverage Tab Content
     cep_tab_content = html.Div([
