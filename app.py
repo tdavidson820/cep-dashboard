@@ -1850,6 +1850,9 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
         mod_children = 0
         high_children = 0
     
+    # Create hover text: County Name + CEP Status
+    df['hover_text'] = df['County'].astype(str) + ' | ' + df['Status'].astype(str)
+    
     # Create map
     fig = go.Figure(go.Choropleth(
         geojson="https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json",
@@ -1866,7 +1869,8 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
         marker_line_color='white',
         marker_line_width=1.5,
         showscale=False,
-        hoverinfo='skip'  # No hover tooltips
+        text=df['hover_text'],
+        hovertemplate='%{text}<extra></extra>'  # Show county name + CEP status
     ))
     
     # Dynamic center by state
@@ -1876,7 +1880,8 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
         'VA': {'lat': 37.5, 'lon': -78.5},
         'MD': {'lat': 39.0, 'lon': -76.8},
         'KY': {'lat': 37.8, 'lon': -84.3},
-        'SC': {'lat': 33.8, 'lon': -80.9}
+        'SC': {'lat': 33.8, 'lon': -80.9},
+        'NV': {'lat': 39.0, 'lon': -117.0}  # Nevada added
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
@@ -2370,63 +2375,49 @@ def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
             'borderRadius': '12px',
             'border': f'1px solid {COLORS["border"]}'
         }),
-        # Poverty legend
+        # Poverty legend - horizontal with explanation
         html.Div([
-            html.Div("Poverty Distribution", style={
-                'fontSize': '14px',
-                'fontWeight': '600',
-                'color': COLORS['text_primary'],
-                'marginBottom': '12px'
-            }),
+            # Explanation text
             html.Div([
-                html.Div([
-                    html.Div(style={
-                        'width': '20px',
-                        'height': '20px',
-                        'background': '#FEF3C7',
-                        'borderRadius': '4px',
-                        'marginRight': '12px',
-                        'border': f'1px solid {COLORS["border"]}'
-                    }),
-                    html.Span(f"0-15% Low Poverty (~{low_children:,} children)", style={
-                        'fontSize': '13px',
-                        'color': COLORS['text_secondary']
-                    })
-                ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '8px'}),
-                html.Div([
-                    html.Div(style={
-                        'width': '20px',
-                        'height': '20px',
-                        'background': '#FB923C',
-                        'borderRadius': '4px',
-                        'marginRight': '12px'
-                    }),
-                    html.Span(f"15-25% Moderate Poverty (~{mod_children:,} children)", style={
-                        'fontSize': '13px',
-                        'color': COLORS['text_secondary']
-                    })
-                ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '8px'}),
-                html.Div([
-                    html.Div(style={
-                        'width': '20px',
-                        'height': '20px',
-                        'background': '#DC2626',
-                        'borderRadius': '4px',
-                        'marginRight': '12px'
-                    }),
-                    html.Span(f"25%+ High Poverty (~{high_children:,} children)", style={
-                        'fontSize': '13px',
-                        'color': COLORS['text_secondary']
-                    })
-                ], style={'display': 'flex', 'alignItems': 'center'})
+                html.Div("Understanding the Poverty Distribution Map:", style={
+                    'fontSize': '14px',
+                    'fontWeight': '600',
+                    'color': COLORS['text_primary'],
+                    'marginBottom': '8px'
+                }),
+                html.P("This map shows child poverty rates across counties. High-poverty counties without Full CEP represent the greatest opportunity for policy impact. Compare this with the CEP Coverage map to identify gaps where children in need are not yet served.", style={
+                    'fontSize': '13px',
+                    'color': COLORS['text_secondary'],
+                    'marginBottom': '16px',
+                    'lineHeight': '1.6'
+                })
             ]),
-            # Data source disclaimer
-            html.Div("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
-                'fontSize': '11px',
-                'color': COLORS['text_secondary'],
-                'marginTop': '12px',
-                'fontStyle': 'italic'
-            })
+            # Horizontal legend
+            html.Div([
+                html.Span("Poverty Distribution: ", style={
+                    'fontSize': '13px',
+                    'fontWeight': '600',
+                    'color': COLORS['text_primary'],
+                    'marginRight': '16px'
+                }),
+                html.Span([
+                    html.Span('■', style={'color': '#FEF3C7', 'fontSize': '18px', 'marginRight': '6px', 'textShadow': '0 0 1px #999'}),
+                    html.Span(f"0-15% Low (~{low_children:,} children)", style={'marginRight': '20px'})
+                ], style={'fontSize': '13px', 'color': COLORS['text_secondary']}),
+                html.Span([
+                    html.Span('■', style={'color': '#FB923C', 'fontSize': '18px', 'marginRight': '6px'}),
+                    html.Span(f"15-25% Moderate (~{mod_children:,} children)", style={'marginRight': '20px'})
+                ], style={'fontSize': '13px', 'color': COLORS['text_secondary']}),
+                html.Span([
+                    html.Span('■', style={'color': '#DC2626', 'fontSize': '18px', 'marginRight': '6px'}),
+                    html.Span(f"25%+ High (~{high_children:,} children)", style={'marginRight': '20px'})
+                ], style={'fontSize': '13px', 'color': COLORS['text_secondary']}),
+                html.Span("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
+                    'fontSize': '11px',
+                    'color': COLORS['text_secondary'],
+                    'fontStyle': 'italic'
+                })
+            ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '8px'})
         ], style={
             'background': COLORS['off_white'],
             'padding': '16px',
@@ -2613,50 +2604,45 @@ def update_state_selection(click_data, search_value):
     return detail_panel, county_map_content
 
 def create_cep_legend_compact():
-    """Compact CEP legend for comparison section"""
+    """Compact horizontal CEP legend for comparison section"""
     return html.Div([
-        html.Div("CEP Coverage", style={'fontSize': '12px', 'fontWeight': '600', 'marginBottom': '8px'}),
-        html.Div([
-            html.Div([
-                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['full_cep'], 'borderRadius': '3px', 'marginRight': '8px'}),
-                html.Span("Full CEP", style={'fontSize': '11px'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
-            html.Div([
-                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['partial_cep'], 'borderRadius': '3px', 'marginRight': '8px'}),
-                html.Span("Partial CEP", style={'fontSize': '11px'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
-            html.Div([
-                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['no_cep'], 'borderRadius': '3px', 'marginRight': '8px'}),
-                html.Span("No CEP", style={'fontSize': '11px'})
-            ], style={'display': 'flex', 'alignItems': 'center'})
+        html.Span([
+            html.Span('■', style={'color': COLORS['full_cep'], 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span("Full CEP", style={'fontSize': '12px', 'marginRight': '16px'})
+        ]),
+        html.Span([
+            html.Span('■', style={'color': COLORS['partial_cep'], 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span("Partial CEP", style={'fontSize': '12px', 'marginRight': '16px'})
+        ]),
+        html.Span([
+            html.Span('■', style={'color': COLORS['no_cep'], 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span("No CEP", style={'fontSize': '12px'})
         ])
-    ], style={'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+    ], style={'display': 'flex', 'alignItems': 'center', 'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+
 
 def create_poverty_legend_compact():
-    """Compact poverty legend for comparison section"""
+    """Compact horizontal poverty legend for comparison section"""
     return html.Div([
-        html.Div("Poverty Distribution", style={'fontSize': '12px', 'fontWeight': '600', 'marginBottom': '8px'}),
-        html.Div([
-            html.Div([
-                html.Div(style={'width': '16px', 'height': '16px', 'background': '#FEF3C7', 'borderRadius': '3px', 'marginRight': '8px', 'border': '1px solid #ddd'}),
-                html.Span("0-15% Low", style={'fontSize': '11px'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
-            html.Div([
-                html.Div(style={'width': '16px', 'height': '16px', 'background': '#FB923C', 'borderRadius': '3px', 'marginRight': '8px'}),
-                html.Span("15-25% Moderate", style={'fontSize': '11px'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}),
-            html.Div([
-                html.Div(style={'width': '16px', 'height': '16px', 'background': '#DC2626', 'borderRadius': '3px', 'marginRight': '8px'}),
-                html.Span("25%+ High", style={'fontSize': '11px'})
-            ], style={'display': 'flex', 'alignItems': 'center'})
+        html.Span([
+            html.Span('■', style={'color': '#FEF3C7', 'fontSize': '18px', 'marginRight': '6px', 'textShadow': '0 0 1px #999'}),
+            html.Span("0-15% Low", style={'fontSize': '12px', 'marginRight': '16px'})
         ]),
-        html.Div("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
-            'fontSize': '9px',
+        html.Span([
+            html.Span('■', style={'color': '#FB923C', 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span("15-25% Moderate", style={'fontSize': '12px', 'marginRight': '16px'})
+        ]),
+        html.Span([
+            html.Span('■', style={'color': '#DC2626', 'fontSize': '18px', 'marginRight': '6px'}),
+            html.Span("25%+ High", style={'fontSize': '12px', 'marginRight': '16px'})
+        ]),
+        html.Span("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
+            'fontSize': '10px',
             'color': COLORS['text_secondary'],
-            'marginTop': '8px',
             'fontStyle': 'italic'
         })
-    ], style={'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+    ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '8px', 'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+
 
 
 @application.callback(
