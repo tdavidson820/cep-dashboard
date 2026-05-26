@@ -869,6 +869,20 @@ STATE_EXECUTIVES = {
         {'title': 'House Speaker', 'name': 'Joseline Peña-Melnyk', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Ways & Means Chair', 'name': 'Vanessa Atterbeary', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Appropriations Chair', 'name': 'Ben Barnes', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'}
+    ],
+    'NV': [
+        # Executive Branch
+        {'title': 'Governor', 'name': 'Joe Lombardo', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/Lombardo_Joe.jpg', 'branch': 'Executive'},
+        {'title': 'Lieutenant Governor', 'name': 'Stavros Anthony', 'party': 'Republican', 'portrait_url': 'https://ltgov.nv.gov/uploadedImages/ltgovnvgov/content/About/Anthony_Official_Portrait.jpg', 'branch': 'Executive'},
+        {'title': 'Superintendent of Public Instruction', 'name': 'Dr. Victor Wakefield', 'party': 'Nonpartisan', 'portrait_url': 'https://doe.nv.gov/uploadedImages/ndedoenvgov/content/About/Executive_Team/Wakefield_Victor.jpg', 'branch': 'Executive'},
+        # Legislative Branch - Senate
+        {'title': 'Senate Majority Leader', 'name': 'Nicole Cannizzaro', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/senate/cannizzaro_nicole.jpg', 'branch': 'Legislative'},
+        {'title': 'Senate President Pro Tempore', 'name': 'Marilyn Dondero Loop', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/senate/dondero_loop_marilyn.jpg', 'branch': 'Legislative'},
+        # Legislative Branch - Assembly
+        {'title': 'Assembly Speaker', 'name': 'Steve Yeager', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/assembly/yeager_steve.jpg', 'branch': 'Legislative'},
+        {'title': 'Assembly Majority Leader', 'name': 'Sandra Jauregui', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/assembly/jauregui_sandra.jpg', 'branch': 'Legislative'},
+        {'title': 'Assembly Education Chair', 'name': 'Selena Torres', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/assembly/torres_selena.jpg', 'branch': 'Legislative'},
+        {'title': 'Assembly Ways & Means Chair', 'name': 'Daniele Monroe-Moreno', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/assembly/monroe_moreno_daniele.jpg', 'branch': 'Legislative'}
     ]
 }
 
