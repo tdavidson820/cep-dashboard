@@ -232,24 +232,51 @@ MD_FIPS = {
 }
 
 def load_new_jersey_data():
-    """Load complete New Jersey county data - 21 counties, 2026 CEP data (updated)"""
+    """Load complete New Jersey county data - 21 counties + KIPP, 2026 CEP data
+    Source: 2026 New Jersey CEP Summary Sheet (exact match)
+    Overall CEP participation: 20% (575 schools, 275,703 children)
+    """
     data = {
-        'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden', 'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union', 'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May', 'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
-        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461860, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
-        'Poverty_Rate': [28.8, 23.6, 23.5, 20.7, 18.6, 18.0, 14.9, 14.5, 13.2, 12.7, 12.0, 10.6, 10.4, 8.6, 7.9, 6.9, 6.4, 6.1, 5.2, 5.1, 3.6],
-        'Children_in_Poverty': [4108, 37634, 7969, 23868, 35343, 20730, 20888, 8757, 11248, 3063, 7980, 13417, 19749, 8738, 11186, 14508, 1341, 4634, 1649, 5714, 1021],
-        'School_Districts': [4, 12, 8, 15, 22, 18, 18, 11, 13, 9, 14, 21, 25, 18, 19, 70, 6, 15, 8, 39, 18],
-        'Eligible_Schools': [34, 135, 51, 154, 248, 157, 117, 79, 113, 40, 79, 186, 210, 137, 188, 291, 32, 75, 47, 151, 48],
-        'CEP_Schools': [13, 74, 23, 90, 162, 32, 16, 20, 36, 4, 15, 2, 16, 10, 25, 11, 5, 4, 0, 0, 0],
-        'Students_in_CEP': [3559, 43237, 12179, 44037, 77790, 12728, 13052, 10891, 16721, 2130, 6879, 618, 8628, 4734, 9016, 2574, 1021, 887, 0, 0, 0],
-        'Coverage_Pct': [32, 51, 43, 55, 53, 16, 20, 26, 28, 14, 15, 1, 7, 7, 9, 2, 9, 2, 0, 0, 0],
-        'Status': ['FULL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+        'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden',
+                   'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union',
+                   'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May',
+                   'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
+        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229,
+                       274534, 387340, 109632, 302294, 575345, 863162, 461860,
+                       643615, 955732, 95263, 345361, 144221, 509285, 128947],
+        'Poverty_Rate': [28.8, 23.6, 23.5, 20.7, 18.6, 18.0, 14.9, 14.5, 13.2,
+                         12.7, 12.0, 10.6, 10.4, 8.6, 7.9, 6.9, 6.4, 6.1, 5.2, 5.1, 3.6],
+        'Children_in_Poverty': [18673, 171186, 36226, 108492, 160613, 94227, 94967,
+                                  39807, 51129, 13924, 36275, 60987, 89769, 39720,
+                                  50845, 65946, 6097, 21067, 7499, 25973, 4642],
+        'Eligible_Schools': [34, 135, 51, 154, 248, 157, 117, 79, 113, 40, 79,
+                              186, 210, 137, 188, 291, 32, 75, 47, 151, 48],
+        'CEP_Schools': [13, 74, 23, 90, 162, 32, 16, 20, 36, 4, 15, 2, 16, 10,
+                        25, 11, 5, 4, 0, 0, 0],
+        'Student_Population': [11024, 85473, 28185, 80468, 145744, 81500, 65938,
+                                42088, 59177, 15349, 44966, 102682, 128115, 68676,
+                                95886, 138359, 11630, 47160, 19696, 70390, 16567],
+        'Students_in_CEP': [3559, 43237, 12179, 44037, 77790, 12728, 13052, 10891,
+                             16721, 2130, 6879, 618, 8628, 4734, 9016, 2574, 1021,
+                             887, 0, 0, 0],
+        'Change_This_Year': [
+            '10 more schools', '42 more schools', '8 more schools', '2 more schools',
+            '15 more schools', '12 fewer schools', '10 more schools', '19 more schools',
+            '9 more schools', 'First year (4 schools)', '12 more schools',
+            'First year (2 schools)', '—', 'First year (10 schools)',
+            '14 more schools', '8 more schools', '—', 'First year (4 schools)',
+            '—', '—', '—'
+        ],
+        'Status': ['FULL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP',
+                   'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP',
+                   'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP',
+                   'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP',
+                   'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP']
     }
     df = pd.DataFrame(data)
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
-    # CONSISTENCY FIX: Normalize status using shared function
+    df['Coverage_Pct'] = ((df['Students_in_CEP'] / df['Student_Population']) * 100).round(1)
     df['Status'] = df['Status'].apply(normalize_status)
-    # Add numeric status for map
     df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
     return df
 
@@ -717,7 +744,7 @@ Calvert,94623,0.8,23,14996,0,0"""
 
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
-    'NJ': {'name': 'New Jersey', 'eligible_schools': 1810, 'cep_schools': 584, 'students_in_cep': 260318, 'children_without_cep': 826612, 'coverage_pct': 32, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
+    'NJ': {'name': 'New Jersey', 'eligible_schools': 2591, 'cep_schools': 575, 'students_in_cep': 275703, 'children_without_cep': 1092370, 'coverage_pct': 20, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
     'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
@@ -2512,6 +2539,86 @@ def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
 
 
 
+def create_nj_county_table(df):
+    """NJ-specific county table matching the 2026 CEP Summary Sheet exactly.
+    Includes: correct column headers, Change This Year column, Essex disclaimer banner.
+    """
+    return html.Div([
+        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '16px'}),
+
+        # Essex County disclaimer banner
+        html.Div([
+            html.Span("⚠️  ", style={'fontSize': '16px'}),
+            html.Span("Essex County Note: ", style={'fontWeight': '700', 'fontSize': '14px', 'color': '#92400e'}),
+            html.Span(
+                "Essex County includes Newark, where students are served through the Newark Coalition — "
+                "a community-based initiative that provides meals independently of the federal CEP program. "
+                "The children served column reflects both CEP and Newark Coalition participation where applicable.",
+                style={'fontSize': '14px', 'color': '#92400e'}
+            )
+        ], style={
+            'background': '#fef3c7',
+            'border': '1px solid #f59e0b',
+            'borderRadius': '8px',
+            'padding': '14px 18px',
+            'marginBottom': '24px'
+        }),
+
+        dash_table.DataTable(
+            data=df.to_dict('records'),
+            columns=[
+                {'name': 'County', 'id': 'County'},
+                {'name': 'Total Population (2020 Census)', 'id': 'Population', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': 'Children Under 18 in Poverty (%)', 'id': 'Poverty_Rate', 'type': 'numeric'},
+                {'name': '# of Schools', 'id': 'Eligible_Schools', 'type': 'numeric'},
+                {'name': 'Student Population', 'id': 'Student_Population', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': '# of Schools Participating in CEP', 'id': 'CEP_Schools', 'type': 'numeric'},
+                {'name': '# of Children Served in CEP Schools (or Newark Coalition*)', 'id': 'Students_in_CEP', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': 'Change This Year', 'id': 'Change_This_Year'},
+                {'name': 'Status', 'id': 'Status'}
+            ],
+            sort_action='native',
+            filter_action='native',
+            page_action='none',
+            style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'},
+            style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '12px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '14px 16px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left', 'whiteSpace': 'normal'},
+            style_cell={'padding': '14px 16px', 'fontSize': '14px', 'fontFamily': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'},
+            style_cell_conditional=[
+                {'if': {'column_id': ['Population', 'Student_Population', 'Students_in_CEP']}, 'textAlign': 'right'},
+                {'if': {'column_id': ['Poverty_Rate', 'Eligible_Schools', 'CEP_Schools']}, 'textAlign': 'center'},
+                {'if': {'column_id': 'County'}, 'fontWeight': '500', 'minWidth': '120px'},
+                {'if': {'column_id': 'Status'}, 'minWidth': '160px', 'textAlign': 'center'},
+                {'if': {'column_id': 'Change_This_Year'}, 'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'}
+            ],
+            style_data_conditional=[
+                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#e0f2fe'},
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fef3c7'},
+                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},
+                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600', 'fontSize': '13px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#fbbf24', 'color': '#ffffff', 'fontWeight': '600', 'fontSize': '13px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 'fontSize': '13px', 'textAlign': 'center'},
+                # Highlight Change This Year - fewer schools in red
+                {'if': {'filter_query': '{Change_This_Year} contains "fewer"', 'column_id': 'Change_This_Year'}, 'color': '#dc2626', 'fontWeight': '600'},
+                # First year entries in green
+                {'if': {'filter_query': '{Change_This_Year} contains "First year"', 'column_id': 'Change_This_Year'}, 'color': '#059669', 'fontWeight': '600'}
+            ],
+            style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '13px'}
+        ),
+
+        # Footer note
+        html.Div([
+            html.Span("* ", style={'fontWeight': '700', 'color': COLORS['text_secondary']}),
+            html.Span(
+                "Children served in Newark (Essex County) are provided meals through the Newark Coalition, "
+                "a community-based program separate from the federal CEP program. "
+                "Data source: 2026 New Jersey CEP Summary Sheet.",
+                style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'}
+            )
+        ], style={'marginTop': '12px', 'padding': '0 4px'})
+
+    ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
+
+
 def create_state_page(state_abbr):
     state_data = STATE_DATA.get(state_abbr)
     if not state_data:
@@ -2550,7 +2657,9 @@ def create_state_page(state_abbr):
         create_state_executives_section(state_abbr), 
         html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
         (html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
-        html.Div([create_sortable_county_table(df)], style={'background': COLORS['off_white']})
+        html.Div([
+            create_nj_county_table(df) if state_abbr == 'NJ' else create_sortable_county_table(df)
+        ], style={'background': COLORS['off_white']})
     ], style={'background': COLORS['off_white'], 'minHeight': '100vh'})
 
 application.layout = html.Div([dcc.Location(id='url', refresh=False), html.Div(id='page-content')])
