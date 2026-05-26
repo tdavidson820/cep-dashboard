@@ -1570,7 +1570,7 @@ def create_simple_timeline_section():
             html.Div([
                 html.Div([
                     html.Div("2021", style={'fontSize': '27px', 'fontWeight': '900', 'color': COLORS['universal_meals'], 'textAlign': 'center', 'marginBottom': '8px'}),
-                    html.Div([], style={'width': '8px', 'height': '8px', 'background': COLORS['universal_meals'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
+                    html.Div([], style={'width': '6px', 'height': '6px', 'background': COLORS['universal_meals'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
                     html.Div([], style={'width': '3px', 'height': '44px', 'background': COLORS['universal_meals'], 'margin': '0 auto'}),
                     html.Div([], style={'width': '20px', 'height': '20px', 'background': COLORS['white'], 'border': f'5px solid {COLORS["universal_meals"]}', 'borderRadius': '999px', 'margin': '-1px auto 24px auto', 'boxShadow': '0 4px 12px rgba(15,23,42,0.28)'}),
                     html.Div([
@@ -1589,7 +1589,7 @@ def create_simple_timeline_section():
 
                 html.Div([
                     html.Div("2022", style={'fontSize': '27px', 'fontWeight': '900', 'color': COLORS['universal_meals'], 'textAlign': 'center', 'marginBottom': '8px'}),
-                    html.Div([], style={'width': '8px', 'height': '8px', 'background': COLORS['universal_meals'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
+                    html.Div([], style={'width': '6px', 'height': '6px', 'background': COLORS['universal_meals'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
                     html.Div([], style={'width': '3px', 'height': '44px', 'background': COLORS['universal_meals'], 'margin': '0 auto'}),
                     html.Div([], style={'width': '20px', 'height': '20px', 'background': COLORS['white'], 'border': f'5px solid {COLORS["universal_meals"]}', 'borderRadius': '999px', 'margin': '-1px auto 24px auto', 'boxShadow': '0 4px 12px rgba(15,23,42,0.28)'}),
                     html.Div([
@@ -1603,7 +1603,7 @@ def create_simple_timeline_section():
 
                 html.Div([
                     html.Div("2023", style={'fontSize': '27px', 'fontWeight': '900', 'color': COLORS['universal_meals'], 'textAlign': 'center', 'marginBottom': '8px'}),
-                    html.Div([], style={'width': '8px', 'height': '8px', 'background': COLORS['universal_meals'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
+                    html.Div([], style={'width': '6px', 'height': '6px', 'background': COLORS['universal_meals'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
                     html.Div([], style={'width': '3px', 'height': '44px', 'background': COLORS['universal_meals'], 'margin': '0 auto'}),
                     html.Div([], style={'width': '20px', 'height': '20px', 'background': COLORS['white'], 'border': f'5px solid {COLORS["universal_meals"]}', 'borderRadius': '999px', 'margin': '-1px auto 24px auto', 'boxShadow': '0 4px 12px rgba(15,23,42,0.28)'}),
                     html.Div([
@@ -1618,7 +1618,7 @@ def create_simple_timeline_section():
 
                 html.Div([
                     html.Div("2025", style={'fontSize': '27px', 'fontWeight': '900', 'color': COLORS['universal_breakfast'], 'textAlign': 'center', 'marginBottom': '8px'}),
-                    html.Div([], style={'width': '8px', 'height': '8px', 'background': COLORS['universal_breakfast'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
+                    html.Div([], style={'width': '6px', 'height': '6px', 'background': COLORS['universal_breakfast'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
                     html.Div([], style={'width': '3px', 'height': '44px', 'background': COLORS['universal_breakfast'], 'margin': '0 auto'}),
                     html.Div([], style={'width': '20px', 'height': '20px', 'background': COLORS['white'], 'border': f'5px solid {COLORS["universal_breakfast"]}', 'borderRadius': '999px', 'margin': '-1px auto 24px auto', 'boxShadow': '0 4px 12px rgba(15,23,42,0.28)'}),
                     html.Div([
@@ -1630,7 +1630,7 @@ def create_simple_timeline_section():
 
                 html.Div([
                     html.Div("2026", style={'fontSize': '27px', 'fontWeight': '900', 'color': COLORS['universal_breakfast'], 'textAlign': 'center', 'marginBottom': '8px'}),
-                    html.Div([], style={'width': '8px', 'height': '8px', 'background': COLORS['universal_breakfast'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
+                    html.Div([], style={'width': '6px', 'height': '6px', 'background': COLORS['universal_breakfast'], 'borderRadius': '999px', 'margin': '0 auto 0 auto'}),
                     html.Div([], style={'width': '3px', 'height': '44px', 'background': COLORS['universal_breakfast'], 'margin': '0 auto'}),
                     html.Div([], style={'width': '20px', 'height': '20px', 'background': COLORS['white'], 'border': f'5px solid {COLORS["universal_breakfast"]}', 'borderRadius': '999px', 'margin': '-1px auto 24px auto', 'boxShadow': '0 4px 12px rgba(15,23,42,0.28)'}),
                     html.Div([
