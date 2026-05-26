@@ -27,7 +27,14 @@ from dash import dcc, html, Input, Output, State, dash_table
 import plotly.graph_objs as go
 import pandas as pd
 
-application = dash.Dash(__name__, suppress_callback_exceptions=True)
+application = dash.Dash(
+    __name__,
+    suppress_callback_exceptions=True,
+    meta_tags=[
+        {"name": "viewport", "content": "width=device-width, initial-scale=1"},
+        {"http-equiv": "X-UA-Compatible", "content": "IE=edge"}
+    ]
+)
 server = application.server
 
 # Enhanced Color System with NEW bold, high-contrast map categories
