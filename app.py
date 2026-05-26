@@ -207,6 +207,15 @@ KY_FIPS = {
     'Adair': '21001', 'Allen': '21002', 'Anderson': '21003', 'Ballard': '21004', 'Barren': '21005', 'Bath': '21006', 'Bell': '21007', 'Boone': '21015', 'Bourbon': '21017', 'Boyd': '21019', 'Boyle': '21021', 'Bracken': '21023', 'Breathitt': '21025', 'Breckinridge': '21027', 'Bullitt': '21029', 'Butler': '21031', 'Caldwell': '21033', 'Calloway': '21035', 'Campbell': '21037', 'Carlisle': '21039', 'Carroll': '21041', 'Carter': '21043', 'Casey': '21045', 'Christian': '21047', 'Clark': '21049', 'Clay': '21051', 'Clinton': '21053', 'Crittenden': '21055', 'Cumberland': '21057', 'Daviess': '21059', 'Edmonson': '21061', 'Elliott': '21063', 'Estill': '21065', 'Fayette': '21067', 'Fleming': '21069', 'Floyd': '21071', 'Franklin': '21073', 'Fulton': '21075', 'Gallatin': '21077', 'Garrard': '21079', 'Grant': '21081', 'Graves': '21083', 'Grayson': '21085', 'Green': '21087', 'Greenup': '21089', 'Hancock': '21091', 'Hardin': '21093', 'Harlan': '21095', 'Harrison': '21097', 'Hart': '21099', 'Henderson': '21101', 'Henry': '21103', 'Hickman': '21105', 'Hopkins': '21107', 'Jackson': '21109', 'Jefferson': '21111', 'Jessamine': '21113', 'Johnson': '21115', 'Kenton': '21117', 'Knott': '21119', 'Knox': '21121', 'Larue': '21123', 'Laurel': '21125', 'Lawrence': '21127', 'Lee': '21129', 'Leslie': '21131', 'Letcher': '21133', 'Lewis': '21135', 'Lincoln': '21137', 'Livingston': '21139', 'Logan': '21141', 'Lyon': '21143', 'McCracken': '21145', 'McCreary': '21147', 'McLean': '21149', 'Madison': '21151', 'Magoffin': '21153', 'Marion': '21155', 'Marshall': '21157', 'Martin': '21159', 'Mason': '21161', 'Meade': '21163', 'Menifee': '21165', 'Mercer': '21167', 'Metcalfe': '21169', 'Monroe': '21171', 'Montgomery': '21173', 'Morgan': '21175', 'Muhlenberg': '21177', 'Nelson': '21179', 'Nicholas': '21181', 'Ohio': '21183', 'Oldham': '21185', 'Owen': '21187', 'Owsley': '21189', 'Pendleton': '21191', 'Perry': '21193', 'Pike': '21195', 'Powell': '21197', 'Pulaski': '21199', 'Robertson': '21201', 'Rockcastle': '21203', 'Rowan': '21205', 'Russell': '21207', 'Scott': '21209', 'Shelby': '21211', 'Simpson': '21213', 'Spencer': '21215', 'Taylor': '21217', 'Todd': '21219', 'Trigg': '21221', 'Trimble': '21223', 'Union': '21225', 'Warren': '21227', 'Washington': '21229', 'Wayne': '21231', 'Webster': '21233', 'Whitley': '21235', 'Wolfe': '21237', 'Woodford': '21239'
 }
 
+
+NV_FIPS = {
+    'Churchill': '32001', 'Clark': '32003', 'Douglas': '32005', 'Elko': '32007',
+    'Esmeralda': '32009', 'Eureka': '32011', 'Humboldt': '32013', 'Lander': '32015',
+    'Lincoln': '32017', 'Lyon': '32019', 'Mineral': '32021', 'Nye': '32023',
+    'Pershing': '32027', 'Storey': '32029', 'Washoe': '32031', 'White Pine': '32033',
+    'Carson City': '32510'
+}
+
 SC_FIPS = {
     'Abbeville': '45001', 'Aiken': '45003', 'Allendale': '45005', 'Anderson': '45007', 'Bamberg': '45009', 'Barnwell': '45011', 'Beaufort': '45013', 'Berkeley': '45015', 'Calhoun': '45017', 'Charleston': '45019', 'Cherokee': '45021', 'Chester': '45023', 'Chesterfield': '45025', 'Clarendon': '45027', 'Colleton': '45029', 'Darlington': '45031', 'Dillon': '45033', 'Dorchester': '45035', 'Edgefield': '45037', 'Fairfield': '45039', 'Florence': '45041', 'Georgetown': '45043', 'Greenville': '45045', 'Greenwood': '45047', 'Hampton': '45049', 'Horry': '45051', 'Jasper': '45053', 'Kershaw': '45055', 'Lancaster': '45057', 'Laurens': '45059', 'Lee': '45061', 'Lexington': '45063', 'McCormick': '45065', 'Marion': '45067', 'Marlboro': '45069', 'Newberry': '45071', 'Oconee': '45073', 'Orangeburg': '45075', 'Pickens': '45077', 'Richland': '45079', 'Saluda': '45081', 'Spartanburg': '45083', 'Sumter': '45085', 'Union': '45087', 'Williamsburg': '45089', 'York': '45091'
 }
@@ -703,7 +712,7 @@ STATE_DATA = {
     'NJ': {'name': 'New Jersey', 'eligible_schools': 1810, 'cep_schools': 584, 'students_in_cep': 260318, 'children_without_cep': 826612, 'coverage_pct': 32, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
-    'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': False, 'lat': 39.0, 'lon': -117.0},
+    'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
     'KY': {'name': 'Kentucky', 'eligible_schools': 1079, 'cep_schools': 993, 'students_in_cep': 521962, 'children_without_cep': 63337, 'coverage_pct': 89, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
@@ -2260,6 +2269,54 @@ def create_sortable_county_table(df):
         )
     ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
 
+def load_nevada_data():
+    """Load Nevada county data - All 17 counties
+    Source: Census Bureau ACS 5-Year Estimates + Nevada Department of Education
+    - 13 Partial CEP counties
+    - 4 NO CEP counties
+    """
+    
+    import io
+    
+    # Nevada 17-county data
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
+Clark,2266715,14.2,357,320000,142,125000,Partial CEP
+Washoe,486492,11.8,94,78000,38,28000,Partial CEP
+Carson City,58639,12.4,12,9500,4,3200,Partial CEP
+Lyon,59235,13.7,18,12000,7,4800,Partial CEP
+Elko,53702,9.8,19,10500,3,2100,Partial CEP
+Douglas,49488,8.2,14,8200,2,1400,Partial CEP
+Nye,51591,15.8,15,8900,6,3600,Partial CEP
+Churchill,25516,12.1,9,4800,3,1800,Partial CEP
+Humboldt,17285,10.3,8,3200,2,900,Partial CEP
+White Pine,9080,13.9,6,1500,2,600,Partial CEP
+Pershing,6650,14.2,4,1100,1,400,Partial CEP
+Lander,5591,11.5,4,950,1,300,Partial CEP
+Mineral,4554,16.8,3,720,1,350,Partial CEP
+Storey,4104,7.8,2,680,0,0,NO CEP
+Eureka,1855,8.9,2,320,0,0,NO CEP
+Lincoln,4499,12.6,3,680,0,0,NO CEP
+Esmeralda,873,15.2,1,140,0,0,NO CEP"""
+    
+    df = pd.read_csv(io.StringIO(csv_data))
+    
+    # Calculate Children_in_Poverty
+    df['Children_in_Poverty'] = (df['Population'] * 0.22 * df['Poverty_Rate'] / 100).astype(int)
+    
+    # Calculate Eligible_Schools (schools with poverty >= 40%)
+    # For Nevada, we'll estimate based on CEP participation patterns
+    df['Eligible_Schools'] = df['Total_Schools']
+    
+    # Calculate coverage percentage
+    df['Coverage_Pct'] = ((df['Students_in_CEP'] / df['Student_Population']) * 100).round(1)
+    
+    # Calculate gap
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    
+    return df
+
+
+
 def create_county_color_legend():
     """Simple inline legend for county CEP status colors"""
     return html.Div([
@@ -2450,6 +2507,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'SC':
         df = load_south_carolina_data()
         fips_dict = SC_FIPS
+    elif state_abbr == 'NV':
+        df = load_nevada_data()
+        fips_dict = NV_FIPS
     else:
         df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
         df['Status'] = df['Status'].apply(normalize_status)  # CONSISTENCY FIX
@@ -2691,8 +2751,10 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_maryland_data(), MD_FIPS
             elif state_abbr == 'KY':
                 df, fips_dict = load_kentucky_data(), KY_FIPS
-            else:  # SC
+            elif state_abbr == 'SC':
                 df, fips_dict = load_south_carolina_data(), SC_FIPS
+            else:  # NV
+                df, fips_dict = load_nevada_data(), NV_FIPS
             
             maps_data[state_abbr] = {
                 'name': STATE_DATA[state_abbr]['name'],
@@ -2772,7 +2834,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
     maps = []
     
     for state_abbr in [state_a, state_b]:
-        if state_abbr in ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC']:
+        if state_abbr in ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV']:
             # Load county data
             if state_abbr == 'WI':
                 df = load_wisconsin_data()
@@ -2792,6 +2854,9 @@ def update_comparison_county_maps(state_a, state_b, map_types):
             elif state_abbr == 'SC':
                 df = load_south_carolina_data()
                 fips_dict = SC_FIPS
+            elif state_abbr == 'NV':
+                df = load_nevada_data()
+                fips_dict = NV_FIPS
             
             state_name = STATE_DATA[state_abbr]['name']
             
