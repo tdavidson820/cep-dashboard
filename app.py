@@ -225,17 +225,18 @@ MD_FIPS = {
 }
 
 def load_new_jersey_data():
-    """Load complete New Jersey county data - 21 counties, SY2026 CEP data"""
+    """Load complete New Jersey county data - 21 counties, 2026 CEP data (updated)"""
     data = {
         'County': ['Salem', 'Hudson', 'Cumberland', 'Passaic', 'Essex', 'Camden', 'Ocean', 'Atlantic', 'Mercer', 'Warren', 'Gloucester', 'Union', 'Middlesex', 'Burlington', 'Monmouth', 'Bergen', 'Cape May', 'Somerset', 'Sussex', 'Morris', 'Hunterdon'],
-        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461850, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
-        'Children_in_Poverty': [18673, 171186, 36226, 108492, 160613, 94227, 94967, 39807, 51129, 13924, 36275, 60987, 89769, 44338, 50805, 65946, 6097, 21067, 7499, 25973, 4642],
+        'Population': [64837, 724854, 154152, 524118, 863728, 523485, 637229, 274534, 387340, 109632, 302294, 575345, 863162, 461860, 643615, 955732, 95263, 345361, 144221, 509285, 128947],
+        'Poverty_Rate': [28.8, 23.6, 23.5, 20.7, 18.6, 18.0, 14.9, 14.5, 13.2, 12.7, 12.0, 10.6, 10.4, 8.6, 7.9, 6.9, 6.4, 6.1, 5.2, 5.1, 3.6],
+        'Children_in_Poverty': [4108, 37634, 7969, 23868, 35343, 20730, 20888, 8757, 11248, 3063, 7980, 13417, 19749, 8738, 11186, 14508, 1341, 4634, 1649, 5714, 1021],
         'School_Districts': [4, 12, 8, 15, 22, 18, 18, 11, 13, 9, 14, 21, 25, 18, 19, 70, 6, 15, 8, 39, 18],
-        'Eligible_Schools': [23, 140, 51, 134, 225, 147, 96, 61, 87, 18, 52, 124, 157, 74, 104, 114, 24, 59, 12, 90, 18],
-        'CEP_Schools': [11, 78, 49, 90, 78, 61, 18, 29, 42, 4, 15, 2, 16, 21, 31, 11, 5, 23, 0, 0, 0],
-        'Students_in_CEP': [3881, 44309, 18795, 44037, 30758, 17964, 13863, 15566, 17786, 2130, 6879, 618, 8628, 9561, 11366, 2574, 1021, 10582, 0, 0, 0],
-        'Coverage_Pct': [48, 56, 96, 67, 35, 41, 19, 48, 48, 22, 29, 2, 10, 28, 30, 10, 21, 39, 0, 0, 0],
-        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+        'Eligible_Schools': [34, 135, 51, 154, 248, 157, 117, 79, 113, 40, 79, 186, 210, 137, 188, 291, 32, 75, 47, 151, 48],
+        'CEP_Schools': [13, 74, 23, 90, 162, 32, 16, 20, 36, 4, 15, 2, 16, 10, 25, 11, 5, 4, 0, 0, 0],
+        'Students_in_CEP': [3559, 43237, 12179, 44037, 77790, 12728, 13052, 10891, 16721, 2130, 6879, 618, 8628, 4734, 9016, 2574, 1021, 887, 0, 0, 0],
+        'Coverage_Pct': [32, 51, 43, 55, 53, 16, 20, 26, 28, 14, 15, 1, 7, 7, 9, 2, 9, 2, 0, 0, 0],
+        'Status': ['FULL CEP', 'PARTIAL CEP', 'NO CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP']
     }
     df = pd.DataFrame(data)
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
@@ -2388,6 +2389,11 @@ Esmeralda,873,15.2,1,140,0,0,NO CEP"""
     
     # Calculate gap
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    
+    # CONSISTENCY FIX: Normalize status using shared function
+    df['Status'] = df['Status'].apply(normalize_status)
+    # Add numeric status for map
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
     
     return df
 
