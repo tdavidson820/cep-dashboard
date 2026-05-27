@@ -37,6 +37,40 @@ application = dash.Dash(
 )
 server = application.server
 
+# Prevent Plotly maps from capturing page scroll
+application.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>CEP Dashboard</title>
+        {%favicon%}
+        {%css%}
+        <style>
+            /* Prevent map from capturing scroll - user must click map to zoom */
+            .js-plotly-plot .plotly .main-svg {
+                pointer-events: none;
+            }
+            .js-plotly-plot .plotly .main-svg.draglayer {
+                pointer-events: all;
+            }
+            /* Allow interaction only when user explicitly clicks on map */
+            .js-plotly-plot:focus-within .plotly .main-svg {
+                pointer-events: all;
+            }
+        </style>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
 # Enhanced Color System with NEW bold, high-contrast map categories
 COLORS = {
     'navy': '#1e40af', 'indigo': '#4f46e5', 'teal': '#047857', 'teal_light': '#0891b2',
@@ -1849,7 +1883,7 @@ def create_map_section():
                 dcc.Graph(
                     id='us-map-graph',
                     figure=create_us_map(),
-                    config={'displayModeBar': False},
+                    config={'displayModeBar': False, 'scrollZoom': False},
                     style={
                         'background': 'white',
                         'border': f'1px solid {COLORS["border"]}',
@@ -2420,7 +2454,7 @@ def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
     # CEP Coverage Tab Content
     cep_tab_content = html.Div([
         html.Div([
-            dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False})
+            dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False, 'scrollZoom': False})
         ], style={
             'background': 'white',
             'padding': '24px',
@@ -2433,7 +2467,7 @@ def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
     # Poverty Distribution Tab Content  
     poverty_tab_content = html.Div([
         html.Div([
-            dcc.Graph(figure=poverty_map_fig, config={'displayModeBar': False})
+            dcc.Graph(figure=poverty_map_fig, config={'displayModeBar': False, 'scrollZoom': False})
         ], style={
             'background': 'white',
             'padding': '24px',
@@ -2732,7 +2766,7 @@ def update_state_selection(click_data, search_value):
                 html.Div([
                     dcc.Graph(
                         figure=create_county_map(df, fips_dict, state_abbr),
-                        config={'displayModeBar': False}
+                        config={'displayModeBar': False, 'scrollZoom': False}
                     )
                 ], style={
                     'background': 'white',
@@ -2851,7 +2885,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         'color': COLORS['text_primary']
                     }),
                     html.Div([
-                        dcc.Graph(figure=fig, config={'displayModeBar': False}),
+                        dcc.Graph(figure=fig, config={'displayModeBar': False, 'scrollZoom': False}),
                         # Add appropriate legend
                         create_cep_legend_compact() if map_type == 'cep' else create_poverty_legend_compact()
                     ], style={
@@ -2905,7 +2939,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         'fontWeight': '600',
                         'marginBottom': '16px'
                     }),
-                    dcc.Graph(figure=maps_data[state_abbr]['cep_fig'], config={'displayModeBar': False}),
+                    dcc.Graph(figure=maps_data[state_abbr]['cep_fig'], config={'displayModeBar': False, 'scrollZoom': False}),
                     create_cep_legend_compact()
                 ], style={
                     'background': 'white',
@@ -2932,7 +2966,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         'fontWeight': '600',
                         'marginBottom': '16px'
                     }),
-                    dcc.Graph(figure=maps_data[state_abbr]['pov_fig'], config={'displayModeBar': False}),
+                    dcc.Graph(figure=maps_data[state_abbr]['pov_fig'], config={'displayModeBar': False, 'scrollZoom': False}),
                     create_poverty_legend_compact()
                 ], style={
                     'background': 'white',
@@ -3014,7 +3048,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         }),
                         dcc.Graph(
                             figure=create_county_map(df, fips_dict, state_abbr),
-                            config={'displayModeBar': False}
+                            config={'displayModeBar': False, 'scrollZoom': False}
                         )
                     ], style={
                         'background': 'white',
@@ -3033,7 +3067,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                         }),
                         dcc.Graph(
                             figure=poverty_fig,
-                            config={'displayModeBar': False}
+                            config={'displayModeBar': False, 'scrollZoom': False}
                         )
                     ], style={
                         'background': 'white',
