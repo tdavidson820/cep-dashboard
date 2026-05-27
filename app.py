@@ -2067,14 +2067,14 @@ def create_comparison_section():
                 'padding': '16px',
                 'background': COLORS['off_white'],
                 'borderRadius': '8px',
-                'marginBottom': '32px'
+                'marginBottom': '16px'
             }),
             
             # Comparison cards
             html.Div(id='comparison-output'),
             
             # County maps container (will show tabs if both selected)
-            html.Div(id='comparison-county-maps', style={'marginTop': '32px'})
+            html.Div(id='comparison-county-maps', style={'marginTop': '16px'})
             
         ], style={'maxWidth': '1400px', 'margin': '0 auto'})
     ], style={'padding': '80px 40px', 'background': 'white'})
@@ -2850,7 +2850,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
         return []
     
     # Check if both states have county data
-    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC']
+    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV']
     
     if state_a not in states_with_data or state_b not in states_with_data:
         return html.Div("County-level data not available for selected states", style={
@@ -3006,127 +3006,9 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                    selected_style={'padding': '12px 28px', 'fontWeight': '600',
                                  'borderBottom': f'3px solid {COLORS["teal"]}', 'color': COLORS['teal']})
         ])
-    """Show side-by-side county maps (CEP + Poverty) in comparison section"""
-    if not state_a or not state_b:
-        return []
-    
-    maps = []
-    
-    for state_abbr in [state_a, state_b]:
-        if state_abbr in ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV']:
-            # Load county data
-            if state_abbr == 'WI':
-                df = load_wisconsin_data()
-                fips_dict = WI_FIPS
-            elif state_abbr == 'NJ':
-                df = load_new_jersey_data()
-                fips_dict = NJ_FIPS
-            elif state_abbr == 'VA':
-                df = load_virginia_data()
-                fips_dict = VA_FIPS
-            elif state_abbr == 'MD':
-                df = load_maryland_data()
-                fips_dict = MD_FIPS
-            elif state_abbr == 'KY':
-                df = load_kentucky_data()
-                fips_dict = KY_FIPS
-            elif state_abbr == 'SC':
-                df = load_south_carolina_data()
-                fips_dict = SC_FIPS
-            elif state_abbr == 'NV':
-                df = load_nevada_data()
-                fips_dict = NV_FIPS
-            
-            state_name = STATE_DATA[state_abbr]['name']
-            
-            # Generate poverty map
-            poverty_fig, low_ch, mod_ch, high_ch = create_poverty_heat_map(df, fips_dict, state_abbr)
-            
-            maps.append(
-                html.Div([
-                    html.H4(f"{state_name} Counties", style={
-                        'fontSize': '16px',
-                        'fontWeight': '600',
-                        'marginBottom': '12px',
-                        'color': COLORS['text_primary']
-                    }),
-                    # CEP Coverage Map
-                    html.Div([
-                        html.Div("CEP Coverage", style={
-                            'fontSize': '13px',
-                            'fontWeight': '600',
-                            'color': COLORS['text_secondary'],
-                            'marginBottom': '8px'
-                        }),
-                        dcc.Graph(
-                            figure=create_county_map(df, fips_dict, state_abbr),
-                            config={'displayModeBar': False, 'scrollZoom': False}
-                        )
-                    ], style={
-                        'background': 'white',
-                        'padding': '16px',
-                        'borderRadius': '12px',
-                        'border': f'1px solid {COLORS["border"]}',
-                        'marginBottom': '16px'
-                    }),
-                    # Poverty Distribution Map
-                    html.Div([
-                        html.Div("Poverty Distribution", style={
-                            'fontSize': '13px',
-                            'fontWeight': '600',
-                            'color': COLORS['text_secondary'],
-                            'marginBottom': '8px'
-                        }),
-                        dcc.Graph(
-                            figure=poverty_fig,
-                            config={'displayModeBar': False, 'scrollZoom': False}
-                        )
-                    ], style={
-                        'background': 'white',
-                        'padding': '16px',
-                        'borderRadius': '12px',
-                        'border': f'1px solid {COLORS["border"]}'
-                    })
-                ])
-            )
-        else:
-            # State without county data
-            state_name = STATE_DATA[state_abbr]['name']
-            maps.append(
-                html.Div([
-                    html.H4(f"{state_name} Counties", style={
-                        'fontSize': '16px',
-                        'fontWeight': '600',
-                        'marginBottom': '12px',
-                        'color': COLORS['text_primary']
-                    }),
-                    html.Div([
-                        html.Div("County-level data not available", style={
-                            'padding': '40px',
-                            'textAlign': 'center',
-                            'color': COLORS['text_secondary'],
-                            'fontSize': '14px'
-                        })
-                    ], style={
-                        'background': 'white',
-                        'padding': '16px',
-                        'borderRadius': '12px',
-                        'border': f'1px solid {COLORS["border"]}',
-                        'minHeight': '200px',
-                        'display': 'flex',
-                        'alignItems': 'center',
-                        'justifyContent': 'center'
-                    })
-                ])
-            )
-    
-    return html.Div(maps, style={
-        'display': 'grid',
-        'gridTemplateColumns': '1fr 1fr',
-        'gap': '24px'
-    })
 
 
 
 if __name__ == '__main__':
     application.run(debug=False, host='0.0.0.0', port=8000)
+
