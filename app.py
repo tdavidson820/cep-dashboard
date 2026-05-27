@@ -94,7 +94,7 @@ COLORS = {
 # STATE MEAL PROGRAM CATEGORIES (Updated March 2026)
 STATE_CATEGORIES = {
     'universal_meals': ['CA', 'ME', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY'],  # 9 states with free breakfast + lunch
-    'universal_breakfast': ['AR', 'DE', 'PA'],  # 3 states with free breakfast only (added DE - Delaware)
+    'universal_breakfast': ['DE', 'PA'],  # 3 states with free breakfast only (added DE - Delaware)
     'fpl_states': ['HI', 'NJ', 'ND']  # 3 states with Federal Poverty Level eligibility
 }
 
@@ -782,7 +782,6 @@ STATE_DATA = {
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
     'NV': {'name': 'Nevada', 'eligible_schools': 603, 'cep_schools': 553, 'students_in_cep': 222162, 'children_without_cep': 161552, 'coverage_pct': 92, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
-    'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
     'KY': {'name': 'Kentucky', 'eligible_schools': 1079, 'cep_schools': 993, 'students_in_cep': 521962, 'children_without_cep': 63337, 'coverage_pct': 89, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
 }
@@ -1830,7 +1829,7 @@ def create_map_section():
     # All state options for search dropdown
     all_state_options = [
         {'label': 'Alabama', 'value': 'AL'}, {'label': 'Alaska', 'value': 'AK'},
-        {'label': 'Arizona', 'value': 'AZ'}, {'label': 'Arkansas', 'value': 'AR'},
+        {'label': 'Arizona', 'value': 'AZ'},
         {'label': 'California', 'value': 'CA'}, {'label': 'Colorado', 'value': 'CO'},
         {'label': 'Connecticut', 'value': 'CT'}, {'label': 'Delaware', 'value': 'DE'},
         {'label': 'Florida', 'value': 'FL'}, {'label': 'Georgia', 'value': 'GA'},
