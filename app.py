@@ -781,7 +781,7 @@ STATE_DATA = {
     'NJ': {'name': 'New Jersey', 'eligible_schools': 2591, 'cep_schools': 575, 'students_in_cep': 275703, 'children_without_cep': 1092370, 'coverage_pct': 20, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
-    'NV': {'name': 'Nevada', 'eligible_schools': 550, 'cep_schools': 234, 'students_in_cep': 98000, 'children_without_cep': 87000, 'coverage_pct': 43, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
+    'NV': {'name': 'Nevada', 'eligible_schools': 562, 'cep_schools': 553, 'students_in_cep': 222162, 'children_without_cep': 161552, 'coverage_pct': 98, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
     'AR': {'name': 'Arkansas', 'eligible_schools': 850, 'cep_schools': 521, 'students_in_cep': 187000, 'children_without_cep': 96000, 'coverage_pct': 61, 'has_data': False, 'lat': 34.8, 'lon': -92.2},
     'KY': {'name': 'Kentucky', 'eligible_schools': 1079, 'cep_schools': 993, 'students_in_cep': 521962, 'children_without_cep': 63337, 'coverage_pct': 89, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
     'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
@@ -2370,53 +2370,45 @@ def create_sortable_county_table(df):
 
 def load_nevada_data():
     """Load Nevada county data - All 17 counties
-    Source: Census Bureau ACS 5-Year Estimates + Nevada Department of Education
-    - 13 Partial CEP counties
-    - 4 NO CEP counties
+    CEP Source: FRAC Community Eligibility Provision Database 2024-2025
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_NV29.pdf
+    Poverty Source: U.S. Census Bureau SAIPE (Small Area Income & Poverty Estimates)
+      https://www.indexmundi.com/facts/united-states/quick-facts/nevada/percent-of-people-of-all-ages-in-poverty
+    Population Source: U.S. Census Bureau ACS 5-Year Estimates
     """
-    
     import io
-    
-    # Nevada 17-county data
+
     csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
-Clark,2266715,14.2,357,320000,142,125000,Partial CEP
-Washoe,486492,11.8,94,78000,38,28000,Partial CEP
-Carson City,58639,12.4,12,9500,4,3200,Partial CEP
-Lyon,59235,13.7,18,12000,7,4800,Partial CEP
-Elko,53702,9.8,19,10500,3,2100,Partial CEP
-Douglas,49488,8.2,14,8200,2,1400,Partial CEP
-Nye,51591,15.8,15,8900,6,3600,Partial CEP
-Churchill,25516,12.1,9,4800,3,1800,Partial CEP
-Humboldt,17285,10.3,8,3200,2,900,Partial CEP
-White Pine,9080,13.9,6,1500,2,600,Partial CEP
-Pershing,6650,14.2,4,1100,1,400,Partial CEP
-Lander,5591,11.5,4,950,1,300,Partial CEP
-Mineral,4554,16.8,3,720,1,350,Partial CEP
-Storey,4104,7.8,2,680,0,0,NO CEP
-Eureka,1855,8.9,2,320,0,0,NO CEP
-Lincoln,4499,12.6,3,680,0,0,NO CEP
-Esmeralda,873,15.2,1,140,0,0,NO CEP"""
-    
+Clark,2265461,14.0,354,352000,354,293267,Full CEP
+Washoe,507280,10.4,79,78000,68,32466,Partial CEP
+Carson City,58148,13.7,9,9500,6,3377,Partial CEP
+Churchill,24909,11.4,6,4800,6,3208,Full CEP
+Douglas,48905,7.2,7,8200,1,83,Partial CEP
+Elko,54239,8.3,20,10500,12,2753,Partial CEP
+Esmeralda,763,14.4,3,140,3,68,Full CEP
+Eureka,2029,9.5,2,320,0,0,NO CEP
+Humboldt,16399,11.9,13,3200,13,3232,Full CEP
+Lander,5532,11.1,3,950,0,0,NO CEP
+Lincoln,5183,13.4,8,680,0,0,NO CEP
+Lyon,63718,10.5,18,12000,18,9141,Full CEP
+Mineral,4369,21.1,4,720,4,532,Full CEP
+Nye,48671,15.2,24,8900,24,5647,Full CEP
+Pershing,6725,18.3,4,1100,4,672,Full CEP
+Storey,4123,7.6,1,680,1,39,Full CEP
+White Pine,9096,13.3,7,1500,7,1232,Full CEP"""
+
     df = pd.read_csv(io.StringIO(csv_data))
-    
-    # Calculate Children_in_Poverty
+
+    # Children_in_Poverty from Census SAIPE poverty rate * population
     df['Children_in_Poverty'] = (df['Population'] * 0.22 * df['Poverty_Rate'] / 100).astype(int)
-    
-    # Calculate Eligible_Schools (schools with poverty >= 40%)
-    # For Nevada, we'll estimate based on CEP participation patterns
     df['Eligible_Schools'] = df['Total_Schools']
-    
-    # Calculate coverage percentage
-    df['Coverage_Pct'] = ((df['Students_in_CEP'] / df['Student_Population']) * 100).round(1)
-    
-    # Calculate gap
+    df['Coverage_Pct'] = df.apply(
+        lambda r: round((r['Students_in_CEP'] / r['Student_Population']) * 100, 1)
+        if r['Student_Population'] > 0 else 0, axis=1
+    )
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
-    
-    # CONSISTENCY FIX: Normalize status using shared function
     df['Status'] = df['Status'].apply(normalize_status)
-    # Add numeric status for map
     df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
-    
     return df
 
 
