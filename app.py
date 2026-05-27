@@ -108,6 +108,7 @@ FPL_PERCENTAGES = {
 # State flag icons as inline SVG (simple, reliable, no external dependencies)
 STATE_FLAGS = {
     'WI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+V0k8L3RleHQ+PC9zdmc+',
+    'RI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iNDMiIGhlaWdodD0iMjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZDcwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHRleHQgeD0iMjIuNSIgeT0iMTkiIGZvbnQtc2l6ZT0iOCIgZmlsbD0iIzAwMjg2OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPlJJPC90ZXh0Pjwvc3ZnPg==',
     'NJ': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNWE1MzMiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDVhNTMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+Tko8L3RleHQ+PC9zdmc+',
     'VA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+VkE8L3RleHQ+PC9zdmc+',
     'MD': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNDAwMDAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDQwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+TUQ8L3RleHQ+PC9zdmc+',
@@ -205,6 +206,14 @@ def load_wisconsin_data():
 
 WI_FIPS = {'Milwaukee': '55079', 'Dane': '55025', 'Waukesha': '55133', 'Brown': '55009', 'Racine': '55101', 'Outagamie': '55087', 'Kenosha': '55059', 'Rock': '55105', 'Winnebago': '55139', 'Marathon': '55073', 'Washington': '55131', 'Ozaukee': '55089', 'Sheboygan': '55117', 'La Crosse': '55063', 'Fond du Lac': '55039', 'Eau Claire': '55035', 'Walworth': '55127', 'Wood': '55141', 'St. Croix': '55109', 'Dodge': '55027', 'Jefferson': '55055', 'Portage': '55097', 'Barron': '55005', 'Chippewa': '55017', 'Grant': '55043', 'Columbia': '55021', 'Manitowoc': '55071', 'Sauk': '55111', 'Shawano': '55115', 'Clark': '55019', 'Pierce': '55093', 'Polk': '55095', 'Waupaca': '55135', 'Waushara': '55137', 'Adams': '55001', 'Green': '55045', 'Marinette': '55075', 'Dunn': '55033', 'Douglas': '55031', 'Juneau': '55057', 'Trempealeau': '55121', 'Monroe': '55081', 'Vernon': '55123', 'Calumet': '55015', 'Sawyer': '55113', 'Crawford': '55023', 'Richland': '55103', 'Jackson': '55053', 'Iowa': '55049', 'Green Lake': '55047', 'Burnett': '55013', 'Rusk': '55107', 'Ashland': '55003', 'Marquette': '55077', 'Lafayette': '55065', 'Bayfield': '55007', 'Oneida': '55085', 'Taylor': '55119', 'Vilas': '55125', 'Price': '55099', 'Lincoln': '55069', 'Door': '55029', 'Langlade': '55067', 'Washburn': '55129', 'Iron': '55051', 'Buffalo': '55011', 'Pepin': '55091', 'Forest': '55041', 'Florence': '55037', 'Menominee': '55078', 'Kewaunee': '55061', 'Oconto': '55083'}
 
+RI_FIPS = {
+    'Bristol': '44001',
+    'Kent': '44003',
+    'Newport': '44005',
+    'Providence': '44007',
+    'Washington': '44009'
+}
+
 NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
 
 VA_FIPS = {
@@ -264,6 +273,37 @@ SC_FIPS = {
 MD_FIPS = {
     'Allegany': '24001', 'Anne Arundel': '24003', 'Baltimore': '24005', 'Baltimore City': '24510', 'Calvert': '24009', 'Caroline': '24011', 'Carroll': '24013', 'Cecil': '24015', 'Charles': '24017', 'Dorchester': '24019', 'Frederick': '24021', 'Garrett': '24023', 'Harford': '24025', 'Howard': '24027', 'Kent': '24029', 'Montgomery': '24031', "Prince George's": '24033', "Queen Anne's": '24035', "St. Mary's": '24037', 'Somerset': '24039', 'Talbot': '24041', 'Washington': '24043', 'Wicomico': '24045', 'Worcester': '24047'
 }
+
+def load_rhode_island_data():
+    """Load Rhode Island county data - 5 counties
+    CEP Source: FRAC Community Eligibility Provision Database 2024-2025
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_RI40.pdf
+    Population Source: U.S. Census Bureau Population Estimates 2024
+      https://dlt.ri.gov/sites/g/files/xkgbur571/files/2025-03/statepop.pdf
+    Poverty Source: U.S. Census Bureau ACS 5-Year Estimates (CensusReporter, 2024)
+    Note: Rhode Island counties have no governmental functions (since 1846).
+      CEP data is aggregated from school districts to county level for mapping.
+    """
+    import io
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
+Providence,658969,13.0,104,95000,95,47130,Partial CEP
+Kent,169512,4.2,7,18000,6,3430,Partial CEP
+Newport,85798,6.6,3,8000,3,1758,Full CEP
+Washington,129594,5.8,2,5000,2,283,Full CEP
+Bristol,50145,6.8,0,4500,0,0,NO CEP"""
+
+    df = pd.read_csv(io.StringIO(csv_data))
+    df['Children_in_Poverty'] = (df['Population'] * 0.22 * df['Poverty_Rate'] / 100).astype(int)
+    df['Eligible_Schools'] = df['Total_Schools']
+    df['Coverage_Pct'] = df.apply(
+        lambda r: round((r['Students_in_CEP'] / r['Student_Population']) * 100, 1)
+        if r['Student_Population'] > 0 else 0, axis=1
+    )
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    df['Status'] = df['Status'].apply(normalize_status)
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
 
 def load_new_jersey_data():
     """Load complete New Jersey county data - 21 counties + KIPP, 2026 CEP data
@@ -778,6 +818,7 @@ Calvert,94623,0.8,23,14996,0,0"""
 
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
+    'RI': {'name': 'Rhode Island', 'eligible_schools': 143, 'cep_schools': 120, 'students_in_cep': 56457, 'children_without_cep': 19526, 'coverage_pct': 84, 'has_data': True, 'lat': 41.7, 'lon': -71.5},
     'NJ': {'name': 'New Jersey', 'eligible_schools': 2591, 'cep_schools': 575, 'students_in_cep': 275703, 'children_without_cep': 1092370, 'coverage_pct': 20, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
@@ -924,6 +965,19 @@ STATE_EXECUTIVES = {
         {'title': 'House Speaker', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Education Chair', 'name': 'Shannon Erickson', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Ways and Means Chair', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'}
+    ],
+    'RI': [
+        # Executive Branch
+        {'title': 'Governor', 'name': 'Dan McKee', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2022/01/McKee_Dan.jpg', 'branch': 'Executive'},
+        {'title': 'Commissioner of Elementary and Secondary Education', 'name': 'Angélica Infante-Green', 'party': 'Nonpartisan', 'portrait_url': 'https://ride.ri.gov/sites/g/files/xkgbur406/files/styles/panopoly_image_original/public/2019-04/Infante-Green_Angelica.jpg', 'branch': 'Executive'},
+        # Legislative Branch - Senate (Rhode Island General Assembly)
+        {'title': 'Senate President', 'name': 'Valarie Lawson', 'party': 'Democrat', 'portrait_url': 'https://www.rilegislature.gov/senators/lawson/PublishingImages/LawsonValarie.jpg', 'branch': 'Legislative'},
+        {'title': 'Senate Majority Leader', 'name': 'Frank Ciccone', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate President Pro Tempore', 'name': 'Hanna Gallo', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        # Legislative Branch - House of Representatives
+        {'title': 'House Speaker', 'name': 'Joe Shekarchi', 'party': 'Democrat', 'portrait_url': 'https://www.rilegislature.gov/representatives/shekarchi/PublishingImages/ShekarchiJoseph.jpg', 'branch': 'Legislative'},
+        {'title': 'House Majority Leader', 'name': 'Chris Blazejewski', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Speaker Pro Tempore', 'name': 'Brian Kennedy', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
     ],
     'MD': [
         # Executive Branch
@@ -1495,7 +1549,7 @@ def create_explore_states_panel():
     """
     
     # Only states with full county data - ALPHABETICAL ORDER + Nevada
-    tracked_states = ['KY', 'MD', 'NJ', 'NV', 'SC', 'VA', 'WI']
+    tracked_states = ['KY', 'MD', 'NJ', 'NV', 'RI', 'SC', 'VA', 'WI']
     
     def create_compact_state_card(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
@@ -1846,7 +1900,7 @@ def create_map_section():
         {'label': 'New Mexico', 'value': 'NM'}, {'label': 'New York', 'value': 'NY'},
         {'label': 'North Carolina', 'value': 'NC'}, {'label': 'North Dakota', 'value': 'ND'},
         {'label': 'Ohio', 'value': 'OH'}, {'label': 'Oklahoma', 'value': 'OK'},
-        {'label': 'Oregon', 'value': 'OR'}, {'label': 'Pennsylvania', 'value': 'PA'},
+        {'label': 'Oregon', 'value': 'OR'}, {'label': 'Pennsylvania', 'value': 'PA'}, {'label': 'Rhode Island', 'value': 'RI'},
         {'label': 'Rhode Island', 'value': 'RI'}, {'label': 'South Carolina', 'value': 'SC'},
         {'label': 'South Dakota', 'value': 'SD'}, {'label': 'Tennessee', 'value': 'TN'},
         {'label': 'Texas', 'value': 'TX'}, {'label': 'Utah', 'value': 'UT'},
@@ -1974,7 +2028,8 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
         'MD': {'lat': 39.0, 'lon': -76.8},
         'KY': {'lat': 37.8, 'lon': -84.3},
         'SC': {'lat': 33.8, 'lon': -80.9},
-        'NV': {'lat': 39.0, 'lon': -117.0}  # Nevada added
+        'NV': {'lat': 39.0, 'lon': -117.0},
+        'RI': {'lat': 41.7, 'lon': -71.5}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
@@ -2139,26 +2194,60 @@ def create_state_executives_section(state_abbr):
             return f"{parts[0][0]}{parts[-1][0]}"
         return name[0] if name else "?"
     
-    # Helper to create portrait circle with initials
+    # Helper to create portrait circle - photo if URL exists, initials fallback
     def create_portrait(official):
         name_color = get_party_color(official['party'])
-        border_color = name_color
-        
-        # Clean initials design (reliable, no broken images)
-        return html.Div(get_initials(official['name']), style={
-            'width': '40px', 
-            'height': '40px', 
-            'borderRadius': '50%',
-            'border': f'2px solid {border_color}', 
-            'backgroundColor': COLORS['off_white'],
-            'display': 'flex', 
-            'alignItems': 'center', 
-            'justifyContent': 'center',
-            'fontSize': '14px', 
-            'fontWeight': '600', 
-            'color': name_color,
-            'flexShrink': '0'
-        })
+        initials = get_initials(official['name'])
+        portrait_url = official.get('portrait_url', '')
+
+        if portrait_url:
+            # Circular photo with initials fallback via onerror
+            return html.Div([
+                html.Img(
+                    src=portrait_url,
+                    style={
+                        'width': '40px',
+                        'height': '40px',
+                        'borderRadius': '50%',
+                        'objectFit': 'cover',
+                        'border': f'2px solid {name_color}',
+                        'display': 'block'
+                    },
+                    **{
+                        'onError': f"this.style.display='none';this.nextSibling.style.display='flex';"
+                    }
+                ),
+                html.Div(initials, style={
+                    'width': '40px',
+                    'height': '40px',
+                    'borderRadius': '50%',
+                    'border': f'2px solid {name_color}',
+                    'backgroundColor': COLORS['off_white'],
+                    'display': 'none',
+                    'alignItems': 'center',
+                    'justifyContent': 'center',
+                    'fontSize': '14px',
+                    'fontWeight': '600',
+                    'color': name_color,
+                    'flexShrink': '0'
+                })
+            ], style={'position': 'relative', 'flexShrink': '0'})
+        else:
+            # Initials only (no URL available)
+            return html.Div(initials, style={
+                'width': '40px',
+                'height': '40px',
+                'borderRadius': '50%',
+                'border': f'2px solid {name_color}',
+                'backgroundColor': COLORS['off_white'],
+                'display': 'flex',
+                'alignItems': 'center',
+                'justifyContent': 'center',
+                'fontSize': '14px',
+                'fontWeight': '600',
+                'color': name_color,
+                'flexShrink': '0'
+            })
     
     # Party legend with symbols
     legend = html.Div([
@@ -2671,6 +2760,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'NV':
         df = load_nevada_data()
         fips_dict = NV_FIPS
+    elif state_abbr == 'RI':
+        df = load_rhode_island_data()
+        fips_dict = RI_FIPS
     else:
         df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
         df['Status'] = df['Status'].apply(normalize_status)  # CONSISTENCY FIX
@@ -2849,7 +2941,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
         return []
     
     # Check if both states have county data
-    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV']
+    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'RI']
     
     if state_a not in states_with_data or state_b not in states_with_data:
         return html.Div("County-level data not available for selected states", style={
@@ -2875,8 +2967,12 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_maryland_data(), MD_FIPS
             elif state_abbr == 'KY':
                 df, fips_dict = load_kentucky_data(), KY_FIPS
-            else:  # SC
+            elif state_abbr == 'SC':
                 df, fips_dict = load_south_carolina_data(), SC_FIPS
+            elif state_abbr == 'NV':
+                df, fips_dict = load_nevada_data(), NV_FIPS
+            else:  # RI
+                df, fips_dict = load_rhode_island_data(), RI_FIPS
             
             state_name = STATE_DATA[state_abbr]['name']
             
@@ -2931,8 +3027,10 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_kentucky_data(), KY_FIPS
             elif state_abbr == 'SC':
                 df, fips_dict = load_south_carolina_data(), SC_FIPS
-            else:  # NV
+            elif state_abbr == 'NV':
                 df, fips_dict = load_nevada_data(), NV_FIPS
+            else:  # RI
+                df, fips_dict = load_rhode_island_data(), RI_FIPS
             
             maps_data[state_abbr] = {
                 'name': STATE_DATA[state_abbr]['name'],
