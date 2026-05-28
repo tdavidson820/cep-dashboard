@@ -47,18 +47,21 @@ application.index_string = '''
         {%favicon%}
         {%css%}
         <style>
-            /* Prevent map from capturing scroll - user must click map to zoom */
-            .js-plotly-plot .plotly .main-svg {
-                pointer-events: none;
-            }
-            .js-plotly-plot .plotly .main-svg.draglayer {
-                pointer-events: all;
-            }
-            /* Allow interaction only when user explicitly clicks on map */
-            .js-plotly-plot:focus-within .plotly .main-svg {
-                pointer-events: all;
-            }
+            /* Prevent map from capturing scroll */
+            .js-plotly-plot .plotly .main-svg { pointer-events: none; }
+            .js-plotly-plot .plotly .main-svg.draglayer { pointer-events: all; }
+            .js-plotly-plot:focus-within .plotly .main-svg { pointer-events: all; }
         </style>
+        <script>
+            // Replace broken portrait images with initials circle
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG' && e.target.className === 'portrait-img') {
+                    e.target.style.display = 'none';
+                    var fallback = e.target.parentNode.querySelector('.portrait-initials');
+                    if (fallback) { fallback.style.display = 'flex'; }
+                }
+            }, true);
+        </script>
     </head>
     <body>
         {%app_entry%}
@@ -1901,7 +1904,7 @@ def create_map_section():
         {'label': 'North Carolina', 'value': 'NC'}, {'label': 'North Dakota', 'value': 'ND'},
         {'label': 'Ohio', 'value': 'OH'}, {'label': 'Oklahoma', 'value': 'OK'},
         {'label': 'Oregon', 'value': 'OR'}, {'label': 'Pennsylvania', 'value': 'PA'}, {'label': 'Rhode Island', 'value': 'RI'},
-        {'label': 'Rhode Island', 'value': 'RI'}, {'label': 'South Carolina', 'value': 'SC'},
+        {'label': 'South Carolina', 'value': 'SC'},
         {'label': 'South Dakota', 'value': 'SD'}, {'label': 'Tennessee', 'value': 'TN'},
         {'label': 'Texas', 'value': 'TX'}, {'label': 'Utah', 'value': 'UT'},
         {'label': 'Vermont', 'value': 'VT'}, {'label': 'Virginia', 'value': 'VA'},
@@ -2194,7 +2197,7 @@ def create_state_executives_section(state_abbr):
             return f"{parts[0][0]}{parts[-1][0]}"
         return name[0] if name else "?"
     
-    # Helper to create portrait circle - photo if URL exists, initials fallback
+    # Helper to create portrait circle - 80px photo or initials fallback
     def create_portrait(official):
         name_color = get_party_color(official['party'])
         initials = get_initials(official['name'])
@@ -2204,27 +2207,42 @@ def create_state_executives_section(state_abbr):
             return html.Div([
                 html.Img(
                     src=portrait_url,
+                    className='portrait-img',
                     style={
-                        'width': '40px',
-                        'height': '40px',
+                        'width': '80px',
+                        'height': '80px',
                         'borderRadius': '50%',
                         'objectFit': 'cover',
-                        'border': f'2px solid {name_color}',
+                        'border': f'3px solid {name_color}',
                         'display': 'block'
                     }
-                )
-            ], style={'flexShrink': '0', 'width': '40px', 'height': '40px'})
+                ),
+                html.Div(initials, className='portrait-initials', style={
+                    'width': '80px',
+                    'height': '80px',
+                    'borderRadius': '50%',
+                    'border': f'3px solid {name_color}',
+                    'backgroundColor': COLORS['off_white'],
+                    'display': 'none',
+                    'alignItems': 'center',
+                    'justifyContent': 'center',
+                    'fontSize': '24px',
+                    'fontWeight': '600',
+                    'color': name_color,
+                    'flexShrink': '0'
+                })
+            ], style={'flexShrink': '0', 'width': '80px', 'height': '80px'})
         else:
             return html.Div(initials, style={
-                'width': '40px',
-                'height': '40px',
+                'width': '80px',
+                'height': '80px',
                 'borderRadius': '50%',
-                'border': f'2px solid {name_color}',
+                'border': f'3px solid {name_color}',
                 'backgroundColor': COLORS['off_white'],
                 'display': 'flex',
                 'alignItems': 'center',
                 'justifyContent': 'center',
-                'fontSize': '14px',
+                'fontSize': '24px',
                 'fontWeight': '600',
                 'color': name_color,
                 'flexShrink': '0'
@@ -2262,11 +2280,11 @@ def create_state_executives_section(state_abbr):
             card = html.Div([
                 create_portrait(official),
                 html.Div([
-                    html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
-                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
-                ], style={'marginLeft': '12px', 'flex': '1'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
-                      'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
+                    html.Div(official['name'], style={'fontSize': '18px', 'fontWeight': '700', 'color': name_color, 'marginBottom': '4px'}),
+                    html.Div(official['title'], style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+                ], style={'marginLeft': '16px', 'flex': '1'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '20px', 'background': 'white', 
+                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
             exec_cards.append(card)
         
         sections.append(html.Div([
@@ -2283,11 +2301,11 @@ def create_state_executives_section(state_abbr):
             card = html.Div([
                 create_portrait(official),
                 html.Div([
-                    html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
-                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
-                ], style={'marginLeft': '12px', 'flex': '1'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
-                      'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
+                    html.Div(official['name'], style={'fontSize': '18px', 'fontWeight': '700', 'color': name_color, 'marginBottom': '4px'}),
+                    html.Div(official['title'], style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+                ], style={'marginLeft': '16px', 'flex': '1'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '20px', 'background': 'white', 
+                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
             senate_cards.append(card)
         
         sections.append(html.Div([
@@ -2304,11 +2322,11 @@ def create_state_executives_section(state_abbr):
             card = html.Div([
                 create_portrait(official),
                 html.Div([
-                    html.Div(official['name'], style={'fontSize': '16px', 'fontWeight': '600', 'color': name_color, 'marginBottom': '2px'}),
-                    html.Div(official['title'], style={'fontSize': '13px', 'color': COLORS['text_secondary']})
-                ], style={'marginLeft': '12px', 'flex': '1'})
-            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': 'white', 
-                      'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
+                    html.Div(official['name'], style={'fontSize': '18px', 'fontWeight': '700', 'color': name_color, 'marginBottom': '4px'}),
+                    html.Div(official['title'], style={'fontSize': '14px', 'color': COLORS['text_secondary']})
+                ], style={'marginLeft': '16px', 'flex': '1'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'padding': '20px', 'background': 'white', 
+                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
             house_cards.append(card)
         
         sections.append(html.Div([
