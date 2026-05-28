@@ -96,7 +96,7 @@ COLORS = {
 
 # STATE MEAL PROGRAM CATEGORIES (Updated March 2026)
 STATE_CATEGORIES = {
-    'universal_meals': ['CA', 'ME', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY'],  # 9 states with free breakfast + lunch
+    'universal_meals': ['CA', 'ME', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY', 'RI'],  # 10 states with free breakfast + lunch
     'universal_breakfast': ['DE', 'PA'],  # 3 states with free breakfast only (added DE - Delaware)
     'fpl_states': ['HI', 'NJ', 'ND']  # 3 states with Federal Poverty Level eligibility
 }
