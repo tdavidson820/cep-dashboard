@@ -1696,35 +1696,22 @@ def create_state_detail_panel(state_abbr=None):
         'minHeight': '400px'
     })
 
+
 def create_explore_states_panel():
-    """Compact horizontal grid with state cards - 3x3 layout
-    Shows only states with full county data in alphabetical order
-    """
-    
+    """Compact horizontal grid with neutral state cards - consistent landing page styling."""
+
     # Only states with full county data - ALPHABETICAL ORDER + Nevada
     tracked_states = ['KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
-    
+
     def create_compact_state_card(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
-        category = get_state_category(state_abbr)
-        
-        # Category color for border
-        if category == 'universal_meals':
-            border_color = COLORS['universal_meals']
-        elif category == 'universal_breakfast':
-            border_color = COLORS['universal_breakfast']
-        elif category == 'fpl_states':
-            border_color = COLORS['fpl_states']
-        else:
-            border_color = COLORS['border']
-        
         flag_url = STATE_FLAGS.get(state_abbr, '')
-        
+
         return html.A(
             href=f"/state/{state_abbr}",
             children=[
                 html.Div([
-                    # Flag at top
+                    # Flag at top - keep individual flag colors
                     html.Img(src=flag_url, style={
                         'width': '48px',
                         'height': '32px',
@@ -1753,18 +1740,19 @@ def create_explore_states_panel():
                     'padding': '20px 16px',
                     'background': 'white',
                     'borderRadius': '12px',
-                    'border': f'2px solid {border_color}',
-                    'transition': 'all 0.2s ease',
+                    'border': f'2px solid {COLORS["border"]}',
+                    'boxShadow': '0 2px 8px rgba(15,23,42,0.04)',
+                    'transition': 'box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease',
                     'cursor': 'pointer',
                     'textAlign': 'center'
                 })
             ],
             style={'textDecoration': 'none', 'display': 'block'}
         )
-    
+
     # Create cards for all tracked states
     cards = [create_compact_state_card(state) for state in tracked_states]
-    
+
     return html.Div([
         html.H3("Explore States", style={
             'fontSize': '24px',
@@ -1774,13 +1762,12 @@ def create_explore_states_panel():
         }),
         html.Div(cards, style={
             'display': 'grid',
-            'gridTemplateColumns': 'repeat(3, 1fr)',  # 3 columns instead of 4
+            'gridTemplateColumns': 'repeat(3, 1fr)',
             'gap': '20px'
         })
     ], style={
         'padding': '40px 0'
     })
-
 
 def create_simple_timeline_section():
     """Static infographic-style timeline with horizontal event rows and full program names."""
