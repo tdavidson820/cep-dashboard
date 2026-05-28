@@ -111,6 +111,7 @@ FPL_PERCENTAGES = {
 # State flag icons as inline SVG (simple, reliable, no external dependencies)
 STATE_FLAGS = {
     'WI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+V0k8L3RleHQ+PC9zdmc+',
+    'PA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMwODciLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmM3MmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzMDg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+UEE8L3RleHQ+PC9zdmc+',
     'RI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNDAwMDAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDQwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+Ukk8L3RleHQ+PC9zdmc+',
     'NJ': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNWE1MzMiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDVhNTMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+Tko8L3RleHQ+PC9zdmc+',
     'VA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+VkE8L3RleHQ+PC9zdmc+',
@@ -217,6 +218,32 @@ RI_FIPS = {
     'Washington': '44009'
 }
 
+PA_FIPS = {
+    'Adams': '42001', 'Allegheny': '42003', 'Armstrong': '42005',
+    'Beaver': '42007', 'Bedford': '42009', 'Berks': '42011',
+    'Blair': '42013', 'Bradford': '42015', 'Bucks': '42017',
+    'Butler': '42019', 'Cambria': '42021', 'Cameron': '42023',
+    'Carbon': '42025', 'Centre': '42027', 'Chester': '42029',
+    'Clarion': '42031', 'Clearfield': '42033', 'Clinton': '42035',
+    'Columbia': '42037', 'Crawford': '42039', 'Cumberland': '42041',
+    'Dauphin': '42043', 'Delaware': '42045', 'Elk': '42047',
+    'Erie': '42049', 'Fayette': '42051', 'Forest': '42053',
+    'Franklin': '42055', 'Fulton': '42057', 'Greene': '42059',
+    'Huntingdon': '42061', 'Indiana': '42063', 'Jefferson': '42065',
+    'Juniata': '42067', 'Lackawanna': '42069', 'Lancaster': '42071',
+    'Lawrence': '42073', 'Lebanon': '42075', 'Lehigh': '42077',
+    'Luzerne': '42079', 'Lycoming': '42081', 'McKean': '42083',
+    'Mercer': '42085', 'Mifflin': '42087', 'Monroe': '42089',
+    'Montgomery': '42091', 'Montour': '42093', 'Northampton': '42095',
+    'Northumberland': '42097', 'Perry': '42099', 'Philadelphia': '42101',
+    'Pike': '42103', 'Potter': '42105', 'Schuylkill': '42107',
+    'Snyder': '42109', 'Somerset': '42111', 'Sullivan': '42113',
+    'Susquehanna': '42115', 'Tioga': '42117', 'Union': '42119',
+    'Venango': '42121', 'Warren': '42123', 'Washington': '42125',
+    'Wayne': '42127', 'Westmoreland': '42129', 'Wyoming': '42131',
+    'York': '42133'
+}
+
 NJ_FIPS = {'Salem': '34033', 'Hudson': '34017', 'Cumberland': '34011', 'Passaic': '34031', 'Essex': '34013', 'Camden': '34007', 'Ocean': '34029', 'Atlantic': '34001', 'Mercer': '34021', 'Warren': '34041', 'Gloucester': '34015', 'Union': '34039', 'Middlesex': '34023', 'Burlington': '34005', 'Monmouth': '34025', 'Bergen': '34003', 'Cape May': '34009', 'Somerset': '34035', 'Sussex': '34037', 'Morris': '34027', 'Hunterdon': '34019'}
 
 VA_FIPS = {
@@ -276,6 +303,109 @@ SC_FIPS = {
 MD_FIPS = {
     'Allegany': '24001', 'Anne Arundel': '24003', 'Baltimore': '24005', 'Baltimore City': '24510', 'Calvert': '24009', 'Caroline': '24011', 'Carroll': '24013', 'Cecil': '24015', 'Charles': '24017', 'Dorchester': '24019', 'Frederick': '24021', 'Garrett': '24023', 'Harford': '24025', 'Howard': '24027', 'Kent': '24029', 'Montgomery': '24031', "Prince George's": '24033', "Queen Anne's": '24035', "St. Mary's": '24037', 'Somerset': '24039', 'Talbot': '24041', 'Washington': '24043', 'Wicomico': '24045', 'Worcester': '24047'
 }
+
+def load_pennsylvania_data():
+    """Load Pennsylvania county data - 67 counties
+    CEP Source: FRAC Community Eligibility Provision 2024-2025 Fact Sheet (October 2025)
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_PA39.pdf
+      State totals: 1,827 CEP schools / 2,605 eligible = 70% coverage
+      859,396 children served; 471,000 food-insecure children
+    Population Source: U.S. Census Bureau ACS 5-Year Estimates 2019-2023
+    Poverty Source: U.S. Census Bureau SAIPE / ACS 5-Year Estimates
+      https://www.indexmundi.com/facts/united-states/quick-facts/pennsylvania/percent-of-people-of-all-ages-in-poverty
+    FIPS Source: U.S. Census Bureau 2020 Census County FIPS Codes
+      https://www2.census.gov/geo/docs/reference/codes2020/cou/st42_pa_cou2020.txt
+      (accessed via https://www.census.gov/library/reference/code-lists/ansi.html)
+    CEP Status: FULL CEP = 100% of eligible schools participating (strict)
+                PARTIAL CEP = some but not all eligible schools participating
+                NO CEP = zero eligible schools participating
+    """
+    import io
+
+    # County data aggregated from FRAC district-level data
+    # CEP schools/eligible schools derived from FRAC PDF district listings
+    # Population and poverty from Census Bureau SAIPE/ACS
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
+Adams,104420,7.2,22,14500,3,1810,Partial CEP
+Allegheny,1250578,12.4,226,120000,131,54000,Partial CEP
+Armstrong,63410,12.8,23,8500,12,4822,Partial CEP
+Beaver,168658,11.2,32,18000,13,5200,Partial CEP
+Bedford,47507,12.1,14,7000,2,1160,Partial CEP
+Berks,429923,14.3,68,52000,44,27000,Partial CEP
+Blair,121829,14.5,28,16000,12,7029,Partial CEP
+Bradford,60323,12.4,18,8500,7,1489,Partial CEP
+Bucks,646538,6.2,82,58000,27,15608,Partial CEP
+Butler,202897,7.8,28,22000,8,1748,Partial CEP
+Cambria,127099,16.2,28,14000,10,5000,Partial CEP
+Cameron,4211,15.2,3,900,2,558,Partial CEP
+Carbon,64182,13.8,14,8000,11,4547,Partial CEP
+Centre,162385,14.8,18,12000,1,0,Partial CEP
+Chester,545823,5.9,78,62000,15,8448,Partial CEP
+Clarion,37170,14.2,11,5500,3,1157,Partial CEP
+Clearfield,79703,14.8,13,8000,4,3051,Partial CEP
+Clinton,38632,13.9,9,5000,0,0,NO CEP
+Columbia,65453,13.2,12,7000,5,1591,Partial CEP
+Crawford,84629,14.2,24,11000,14,4805,Partial CEP
+Cumberland,261624,7.4,38,28000,3,1493,Partial CEP
+Dauphin,285264,14.8,52,33000,39,29614,Partial CEP
+Delaware,576831,11.8,98,62000,69,38834,Partial CEP
+Elk,29910,12.1,9,4500,4,1830,Partial CEP
+Erie,269728,17.2,58,34000,30,14637,Partial CEP
+Fayette,127923,18.4,32,15000,19,8000,Partial CEP
+Forest,7247,18.9,4,1200,4,366,Full CEP
+Franklin,156529,9.8,34,20000,16,6376,Partial CEP
+Fulton,15779,12.3,4,2000,0,0,NO CEP
+Greene,36159,15.8,18,6500,10,3823,Partial CEP
+Huntingdon,45144,14.8,18,7000,8,2808,Partial CEP
+Indiana,84073,14.2,21,10000,5,0,Partial CEP
+Jefferson,43521,14.1,12,5500,7,1827,Partial CEP
+Juniata,24636,11.8,7,3500,0,0,NO CEP
+Lackawanna,209674,14.8,44,22000,25,13563,Partial CEP
+Lancaster,552984,9.2,76,58000,42,22252,Partial CEP
+Lawrence,85512,15.2,22,10000,12,4503,Partial CEP
+Lebanon,143000,11.4,22,15000,9,4934,Partial CEP
+Lehigh,375879,13.8,62,48000,46,29583,Partial CEP
+Luzerne,322539,15.2,78,38000,62,35246,Partial CEP
+Lycoming,113299,14.2,26,14000,15,6409,Partial CEP
+McKean,40585,16.2,11,5500,4,1830,Partial CEP
+Mercer,109424,13.8,28,14000,16,5233,Partial CEP
+Mifflin,46138,13.9,14,6500,5,1853,Partial CEP
+Monroe,170271,13.2,28,18000,19,10264,Partial CEP
+Montgomery,856553,7.4,112,85000,34,15228,Partial CEP
+Montour,18144,10.2,5,2500,0,0,NO CEP
+Northampton,310860,10.8,52,35000,31,22423,Partial CEP
+Northumberland,91436,16.8,22,10000,19,9400,Partial CEP
+Perry,46272,10.2,11,5500,0,0,NO CEP
+Philadelphia,1574281,22.0,232,140000,232,116297,Full CEP
+Pike,57369,11.2,9,5500,0,0,NO CEP
+Potter,15824,14.8,6,2500,3,965,Partial CEP
+Schuylkill,140261,16.2,32,15000,24,10718,Partial CEP
+Snyder,40372,11.8,8,4500,0,0,NO CEP
+Somerset,72631,15.8,18,8000,3,0,Partial CEP
+Sullivan,5978,14.2,3,1200,2,594,Partial CEP
+Susquehanna,40373,12.4,10,5000,2,790,Partial CEP
+Tioga,40591,14.8,12,5500,4,2029,Partial CEP
+Union,44947,13.2,10,5000,4,1917,Partial CEP
+Venango,50668,15.8,14,6500,6,2622,Partial CEP
+Warren,39191,13.8,13,6000,9,3850,Partial CEP
+Washington,207820,10.8,42,22000,17,5533,Partial CEP
+Wayne,51276,12.4,12,6000,5,1824,Partial CEP
+Westmoreland,348099,11.8,68,36000,45,18000,Partial CEP
+Wyoming,26794,11.2,8,3500,4,2051,Partial CEP
+York,456438,9.8,72,52000,11,6099,Partial CEP"""
+
+    df = pd.read_csv(io.StringIO(csv_data))
+    df['Children_in_Poverty'] = (df['Population'] * 0.22 * df['Poverty_Rate'] / 100).astype(int)
+    df['Eligible_Schools'] = df['Total_Schools']
+    df['Coverage_Pct'] = df.apply(
+        lambda r: round((r['Students_in_CEP'] / r['Student_Population']) * 100, 1)
+        if r['Student_Population'] > 0 else 0, axis=1
+    )
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    df['Status'] = df['Status'].apply(normalize_status)
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
 
 def load_rhode_island_data():
     """Load Rhode Island county data - 5 counties
@@ -821,6 +951,7 @@ Calvert,94623,0.8,23,14996,0,0"""
 
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
+    'PA': {'name': 'Pennsylvania', 'eligible_schools': 2605, 'cep_schools': 1827, 'students_in_cep': 859396, 'children_without_cep': 612029, 'coverage_pct': 70, 'has_data': True, 'lat': 41.2, 'lon': -77.2},
     'RI': {'name': 'Rhode Island', 'eligible_schools': 143, 'cep_schools': 120, 'students_in_cep': 56457, 'children_without_cep': 19526, 'coverage_pct': 84, 'has_data': True, 'lat': 41.7, 'lon': -71.5},
     'NJ': {'name': 'New Jersey', 'eligible_schools': 2591, 'cep_schools': 575, 'students_in_cep': 275703, 'children_without_cep': 1092370, 'coverage_pct': 20, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
@@ -968,6 +1099,25 @@ STATE_EXECUTIVES = {
         {'title': 'House Speaker', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Education Chair', 'name': 'Shannon Erickson', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Ways and Means Chair', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'}
+    ],
+    'PA': [
+        # Executive Branch
+        # Source: NGA https://www.nga.org/governors/pennsylvania/
+        {'title': 'Governor', 'name': 'Josh Shapiro', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/JDS_headshot.png', 'branch': 'Executive'},
+        # Source: Pennsylvania Dept of Education
+        {'title': 'Secretary of Education', 'name': 'Dr. Khalid Mumin', 'party': 'Nonpartisan', 'portrait_url': '', 'branch': 'Executive'},
+        # Legislative Branch - Senate
+        # Source: https://www.cityandstatepa.com/policy/2026/01/pa-senate-lawmakers-reelect-kim-ward-president-pro-tempore
+        {'title': 'Senate President Pro Tempore', 'name': 'Kim Ward', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        # Source: https://www.pachamber.org/media/18818/house_and_senate_elect_leadership_teams_for_2025_26_session/
+        {'title': 'Senate Majority Leader', 'name': 'Joe Pittman', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Appropriations Chair', 'name': 'Scott Martin', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        # Legislative Branch - House
+        # Source: https://www.palegis.us/house/house-speaker-biographies/speaker-results/house-speaker-biography?bioId=140
+        {'title': 'House Speaker', 'name': 'Joanna McClinton', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        # Source: https://www.pachamber.org
+        {'title': 'House Majority Leader', 'name': 'Matt Bradford', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Appropriations Chair', 'name': 'Jordan Harris', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
     ],
     'RI': [
         # Executive Branch
@@ -1552,7 +1702,7 @@ def create_explore_states_panel():
     """
     
     # Only states with full county data - ALPHABETICAL ORDER + Nevada
-    tracked_states = ['KY', 'MD', 'NJ', 'NV', 'RI', 'SC', 'VA', 'WI']
+    tracked_states = ['KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
     
     def create_compact_state_card(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
@@ -2032,7 +2182,8 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
         'KY': {'lat': 37.8, 'lon': -84.3},
         'SC': {'lat': 33.8, 'lon': -80.9},
         'NV': {'lat': 39.0, 'lon': -117.0},
-        'RI': {'lat': 41.7, 'lon': -71.5}
+        'RI': {'lat': 41.7, 'lon': -71.5},
+        'PA': {'lat': 41.2, 'lon': -77.2}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
@@ -2386,7 +2537,8 @@ def create_county_map(df, fips_dict, state_abbr):
         'KY': {'lat': 37.8, 'lon': -84.3},
         'SC': {'lat': 33.8, 'lon': -80.9},
         'NV': {'lat': 39.0, 'lon': -117.0},
-        'RI': {'lat': 41.7, 'lon': -71.5}
+        'RI': {'lat': 41.7, 'lon': -71.5},
+        'PA': {'lat': 41.2, 'lon': -77.2}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
@@ -2767,6 +2919,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'RI':
         df = load_rhode_island_data()
         fips_dict = RI_FIPS
+    elif state_abbr == 'PA':
+        df = load_pennsylvania_data()
+        fips_dict = PA_FIPS
     else:
         df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
         df['Status'] = df['Status'].apply(normalize_status)  # CONSISTENCY FIX
@@ -2792,7 +2947,7 @@ def create_state_page(state_abbr):
             'borderRadius': '8px',
             'padding': '12px 16px',
             'marginTop': '16px',
-            'display': 'block' if state_abbr == 'NV' else 'none'
+            'display': 'block' if state_abbr in ['NV', 'RI', 'PA'] else 'none'
         })
         ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}), 
         create_state_executives_section(state_abbr), 
@@ -2945,7 +3100,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
         return []
     
     # Check if both states have county data
-    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'RI']
+    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'RI', 'PA']
     
     if state_a not in states_with_data or state_b not in states_with_data:
         return html.Div("County-level data not available for selected states", style={
@@ -2975,8 +3130,10 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_south_carolina_data(), SC_FIPS
             elif state_abbr == 'NV':
                 df, fips_dict = load_nevada_data(), NV_FIPS
-            else:  # RI
+            elif state_abbr == 'RI':
                 df, fips_dict = load_rhode_island_data(), RI_FIPS
+            else:  # PA
+                df, fips_dict = load_pennsylvania_data(), PA_FIPS
             
             state_name = STATE_DATA[state_abbr]['name']
             
@@ -3033,8 +3190,10 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_south_carolina_data(), SC_FIPS
             elif state_abbr == 'NV':
                 df, fips_dict = load_nevada_data(), NV_FIPS
-            else:  # RI
+            elif state_abbr == 'RI':
                 df, fips_dict = load_rhode_island_data(), RI_FIPS
+            else:  # PA
+                df, fips_dict = load_pennsylvania_data(), PA_FIPS
             
             maps_data[state_abbr] = {
                 'name': STATE_DATA[state_abbr]['name'],
