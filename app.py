@@ -2917,15 +2917,22 @@ def create_state_page(state_abbr):
     
     return html.Div([
         html.Div([html.Div([html.A("← All States", href="/", style={'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'}), html.H1(state_data['name'], style={'fontSize': '56px', 'fontWeight': '600', 'letterSpacing': '-0.02em', 'color': COLORS['text_primary'], 'marginBottom': '12px'}), html.P(f"{state_data['coverage_pct']}% CEP Coverage", style={'fontSize': '21px', 'color': COLORS['text_secondary']}),
-        # Data disclaimer for Nevada
+        # Data disclaimer for selected states
         html.Div([
             html.Span("ℹ️  ", style={'fontSize': '14px'}),
             html.Span("Data Notice: ", style={'fontWeight': '700', 'fontSize': '13px', 'color': '#1e40af'}),
             html.Span(
-                "Nevada CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
-                "Food Research & Action Center (FRAC). Poverty rates are from the U.S. Census Bureau SAIPE program. "
-                "This data may not reflect current school year participation. Contact the Nevada Department of Education "
-                "for the most up-to-date figures.",
+                (
+                    "Pennsylvania CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
+                    "Food Research & Action Center (FRAC). Poverty rates are from the U.S. Census Bureau SAIPE program. "
+                    "This data may not reflect current school year participation. Contact the Pennsylvania Department of Education "
+                    "for the most up-to-date figures."
+                ) if state_abbr == 'PA' else (
+                    "Nevada CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
+                    "Food Research & Action Center (FRAC). Poverty rates are from the U.S. Census Bureau SAIPE program. "
+                    "This data may not reflect current school year participation. Contact the Nevada Department of Education "
+                    "for the most up-to-date figures."
+                ),
                 style={'fontSize': '13px', 'color': '#1e40af'}
             )
         ], style={
