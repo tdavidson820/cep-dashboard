@@ -904,7 +904,7 @@ NATIONAL_STATS = {
 STATE_EXECUTIVES = {
     'WI': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Tony Evers', 'party': 'Democrat', 'portrait_url': 'https://evers.wi.gov/PublishingImages/GovEvers_social.jpg', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Tony Evers', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Wisconsin-Tony-Evers-January-2019.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Devin LeMahieu', 'party': 'Republican', 'portrait_url': 'https://docs.legis.wisconsin.gov/2023/legislators/senate/1875/lemahieu_devin.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Education Chair', 'name': 'John Jagler', 'party': 'Republican', 'portrait_url': 'https://docs.legis.wisconsin.gov/2023/legislators/senate/1971/jagler_john.jpg', 'branch': 'Legislative'},
@@ -917,7 +917,7 @@ STATE_EXECUTIVES = {
     ],
     'NJ': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Mikie Sherrill', 'party': 'Democrat', 'portrait_url': 'https://sherrill.house.gov/sites/evo-subsites/sherrill.house.gov/files/evo-media-image/sherrill_official.jpg', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Mikie Sherrill', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2026/01/home-gov_official_square.jpg', 'branch': 'Executive'},
         {'title': 'Secretary of Agriculture', 'name': 'Edward D. Wengryn', 'party': 'Nonpartisan', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Nicholas Scutari', 'party': 'Democrat', 'portrait_url': 'https://www.njleg.state.nj.us/members/memberphotos/scutari_nicholas_p.jpg', 'branch': 'Legislative'},
@@ -932,7 +932,7 @@ STATE_EXECUTIVES = {
     ],
     'VA': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Abigail Spanberger', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Abigail Spanberger', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2026/01/Abigail_Spanberger_2026.jpg', 'branch': 'Executive'},
         {'title': 'Lieutenant Governor', 'name': 'Ghazala Hashmi', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0010.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Scott Surovell', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0036.jpg', 'branch': 'Legislative'},
@@ -944,7 +944,7 @@ STATE_EXECUTIVES = {
     ],
     'KY': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Andy Beshear', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Andy Beshear', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/12/Governor-Beshear_Official-Picture_square-scaled.jpg', 'branch': 'Executive'},
         {'title': 'Lieutenant Governor', 'name': 'Jacqueline Coleman', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Robert Stivers', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
@@ -956,7 +956,7 @@ STATE_EXECUTIVES = {
     ],
     'SC': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Henry McMaster', 'party': 'Republican', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Henry McMaster', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/McMaster-Gov.-2025a-full-size_square-scaled.jpg', 'branch': 'Executive'},
         {'title': 'Lieutenant Governor', 'name': 'Pamela Evette', 'party': 'Republican', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Thomas Alexander', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
@@ -968,7 +968,7 @@ STATE_EXECUTIVES = {
     ],
     'RI': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Dan McKee', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2022/01/McKee_Dan.jpg', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Dan McKee', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2021/03/Gov-Dan-Mckee-400.png', 'branch': 'Executive'},
         {'title': 'Commissioner of Elementary and Secondary Education', 'name': 'Angélica Infante-Green', 'party': 'Nonpartisan', 'portrait_url': 'https://ride.ri.gov/sites/g/files/xkgbur406/files/styles/panopoly_image_original/public/2019-04/Infante-Green_Angelica.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate (Rhode Island General Assembly)
         {'title': 'Senate President', 'name': 'Valarie Lawson', 'party': 'Democrat', 'portrait_url': 'https://www.rilegislature.gov/senators/lawson/PublishingImages/LawsonValarie.jpg', 'branch': 'Legislative'},
@@ -981,7 +981,7 @@ STATE_EXECUTIVES = {
     ],
     'MD': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Wes Moore', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Wes Moore', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/governor-wes-moore-official-portrait_square.jpg', 'branch': 'Executive'},
         {'title': 'State Superintendent of Schools', 'name': 'Dr. Carey M. Wright', 'party': 'Nonpartisan', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Bill Ferguson', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Legislative'},
@@ -993,7 +993,7 @@ STATE_EXECUTIVES = {
     ],
     'NV': [
         # Executive Branch
-        {'title': 'Governor', 'name': 'Joe Lombardo', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/Lombardo_Joe.jpg', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Joe Lombardo', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/Governor-Joe-Lombardo_Official-Photo-scaled.jpg', 'branch': 'Executive'},
         {'title': 'Lieutenant Governor', 'name': 'Stavros Anthony', 'party': 'Republican', 'portrait_url': 'https://ltgov.nv.gov/uploadedImages/ltgovnvgov/content/About/Anthony_Official_Portrait.jpg', 'branch': 'Executive'},
         {'title': 'Superintendent of Public Instruction', 'name': 'Dr. Victor Wakefield', 'party': 'Nonpartisan', 'portrait_url': 'https://doe.nv.gov/uploadedImages/ndedoenvgov/content/About/Executive_Team/Wakefield_Victor.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate
@@ -2201,7 +2201,6 @@ def create_state_executives_section(state_abbr):
         portrait_url = official.get('portrait_url', '')
 
         if portrait_url:
-            # Circular photo with initials fallback via onerror
             return html.Div([
                 html.Img(
                     src=portrait_url,
@@ -2212,28 +2211,10 @@ def create_state_executives_section(state_abbr):
                         'objectFit': 'cover',
                         'border': f'2px solid {name_color}',
                         'display': 'block'
-                    },
-                    **{
-                        'onError': f"this.style.display='none';this.nextSibling.style.display='flex';"
                     }
-                ),
-                html.Div(initials, style={
-                    'width': '40px',
-                    'height': '40px',
-                    'borderRadius': '50%',
-                    'border': f'2px solid {name_color}',
-                    'backgroundColor': COLORS['off_white'],
-                    'display': 'none',
-                    'alignItems': 'center',
-                    'justifyContent': 'center',
-                    'fontSize': '14px',
-                    'fontWeight': '600',
-                    'color': name_color,
-                    'flexShrink': '0'
-                })
-            ], style={'position': 'relative', 'flexShrink': '0'})
+                )
+            ], style={'flexShrink': '0', 'width': '40px', 'height': '40px'})
         else:
-            # Initials only (no URL available)
             return html.Div(initials, style={
                 'width': '40px',
                 'height': '40px',
@@ -2382,7 +2363,12 @@ def create_county_map(df, fips_dict, state_abbr):
     state_centers = {
         'WI': {'lat': 44.5, 'lon': -89.5},
         'NJ': {'lat': 40.0, 'lon': -74.5},
-        'VA': {'lat': 37.5, 'lon': -78.5}
+        'VA': {'lat': 37.5, 'lon': -78.5},
+        'MD': {'lat': 39.0, 'lon': -76.8},
+        'KY': {'lat': 37.8, 'lon': -84.3},
+        'SC': {'lat': 33.8, 'lon': -80.9},
+        'NV': {'lat': 39.0, 'lon': -117.0},
+        'RI': {'lat': 41.7, 'lon': -71.5}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
