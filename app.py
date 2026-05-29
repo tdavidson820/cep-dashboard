@@ -1528,7 +1528,7 @@ STATE_EXECUTIVES = {
     'GA': [
         # Executive Branch
         # Source: NGA https://www.nga.org/governors/georgia/
-        {'title': 'Governor', 'name': 'Brian Kemp', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Georgia-Brian-Kemp-January-2019.jpg', 'branch': 'Executive'},
+        {'title': 'Governor', 'name': 'Brian Kemp', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/GovBrianKemp_2024WEB.jpg', 'branch': 'Executive'},
         # Source: Georgia Dept of Education https://gadoe.org
         {'title': 'State Superintendent of Schools', 'name': 'Richard Woods', 'party': 'Republican', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
@@ -3444,7 +3444,10 @@ def create_georgia_dual_map_section(df, fips_dict):
         html.Div([
             html.Div([
                 html.H3("County Coverage Rate", style={"fontSize": "16px", "fontWeight": "600",
-                        "color": COLORS["text_primary"], "marginBottom": "12px", "textAlign": "center"}),
+                        "color": COLORS["text_primary"], "marginBottom": "6px", "textAlign": "center"}),
+                html.P("Shows what % of eligible schools in each county participate in CEP. Darker blue = higher coverage. Use this to identify where gaps remain across Georgia.",
+                    style={"fontSize": "12px", "color": COLORS["text_secondary"], "textAlign": "center",
+                           "marginBottom": "12px", "lineHeight": "1.5"}),
                 dcc.Graph(figure=county_fig, config={"displayModeBar": False, "scrollZoom": False}),
                 tier_legend
             ], style={"flex": "1", "minWidth": "0", "background": "white",
@@ -3452,7 +3455,10 @@ def create_georgia_dual_map_section(df, fips_dict):
                       "padding": "20px"}),
             html.Div([
                 html.H3("District CEP Status", style={"fontSize": "16px", "fontWeight": "600",
-                        "color": COLORS["text_primary"], "marginBottom": "12px", "textAlign": "center"}),
+                        "color": COLORS["text_primary"], "marginBottom": "6px", "textAlign": "center"}),
+                html.P("Shows CEP adoption status per school district, aggregated by county. Blue = Full CEP districts present; Yellow = partial adoption; Pink = no participation. Use this to identify specific districts to target.",
+                    style={"fontSize": "12px", "color": COLORS["text_secondary"], "textAlign": "center",
+                           "marginBottom": "12px", "lineHeight": "1.5"}),
                 dcc.Graph(figure=dist_fig, config={"displayModeBar": False, "scrollZoom": False}),
                 status_legend
             ], style={"flex": "1", "minWidth": "0", "background": "white",
@@ -3516,6 +3522,16 @@ def create_state_page(state_abbr):
                     "This data may not reflect current school year participation. Contact the Pennsylvania Department of Education "
                     "for the most up-to-date figures."
                 ) if state_abbr == 'PA' else (
+                    "Georgia CEP participation data reflects the 2023–2024 school year, published by the "
+                    "Food Research & Action Center (FRAC). County-level data is aggregated from FRAC district-level records. "
+                    "This data may not reflect current school year participation. Contact the Georgia Department of Education "
+                    "for the most up-to-date figures."
+                ) if state_abbr == 'GA' else (
+                    "Rhode Island CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
+                    "Food Research & Action Center (FRAC). Poverty rates are from the U.S. Census Bureau ACS program. "
+                    "This data may not reflect current school year participation. Contact the Rhode Island Department of Education "
+                    "for the most up-to-date figures."
+                ) if state_abbr == 'RI' else (
                     "Nevada CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
                     "Food Research & Action Center (FRAC). Poverty rates are from the U.S. Census Bureau SAIPE program. "
                     "This data may not reflect current school year participation. Contact the Nevada Department of Education "
@@ -3781,60 +3797,72 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_pennsylvania_data(), PA_FIPS
             else:  # GA
                 df, fips_dict = load_georgia_data(), GA_FIPS
-            
-            maps_data[state_abbr] = {
-                'name': STATE_DATA[state_abbr]['name'],
-                'cep_fig': create_county_map(df, fips_dict, state_abbr),
-                'pov_fig': create_poverty_heat_map(df, fips_dict, state_abbr)[0]
-            }
-        
-        # CEP tab content
+
+            if state_abbr == 'GA':
+                # GA gets dual maps — coverage tier + district status
+                ga_dual = create_georgia_dual_map_section(df, fips_dict)
+                maps_data[state_abbr] = {
+                    'name': STATE_DATA[state_abbr]['name'],
+                    'cep_fig': create_county_map(df, fips_dict, state_abbr),
+                    'pov_fig': create_poverty_heat_map(df, fips_dict, state_abbr)[0],
+                    'dual_section': ga_dual
+                }
+            else:
+                maps_data[state_abbr] = {
+                    'name': STATE_DATA[state_abbr]['name'],
+                    'cep_fig': create_county_map(df, fips_dict, state_abbr),
+                    'pov_fig': create_poverty_heat_map(df, fips_dict, state_abbr)[0]
+                }
+
+        # CEP tab content — GA shows dual maps, others show standard CEP map
         cep_maps = []
         for state_abbr in [state_a, state_b]:
-            cep_maps.append(
-                html.Div([
-                    html.H4(maps_data[state_abbr]['name'], style={
-                        'fontSize': '18px',
-                        'fontWeight': '600',
-                        'marginBottom': '16px'
-                    }),
-                    dcc.Graph(figure=maps_data[state_abbr]['cep_fig'], config={'displayModeBar': False, 'scrollZoom': False}),
-                    create_cep_legend_compact()
-                ], style={
-                    'background': 'white',
-                    'padding': '16px',
-                    'borderRadius': '12px',
-                    'border': f'1px solid {COLORS["border"]}'
-                })
-            )
+            if state_abbr == 'GA' and 'dual_section' in maps_data[state_abbr]:
+                cep_maps.append(html.Div([
+                    html.H4("Georgia", style={'fontSize': '18px', 'fontWeight': '600', 'marginBottom': '8px'}),
+                    html.P("Georgia has two maps — county coverage rate and district CEP status. "
+                           "Both are shown below.",
+                           style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginBottom': '12px'}),
+                    maps_data[state_abbr]['dual_section']
+                ], style={'background': 'white', 'padding': '16px', 'borderRadius': '12px',
+                          'border': f'1px solid {COLORS["border"]}'}))
+            else:
+                cep_maps.append(
+                    html.Div([
+                        html.H4(maps_data[state_abbr]['name'], style={
+                            'fontSize': '18px', 'fontWeight': '600', 'marginBottom': '16px'
+                        }),
+                        dcc.Graph(figure=maps_data[state_abbr]['cep_fig'],
+                                  config={'displayModeBar': False, 'scrollZoom': False}),
+                        create_cep_legend_compact()
+                    ], style={'background': 'white', 'padding': '16px', 'borderRadius': '12px',
+                              'border': f'1px solid {COLORS["border"]}'})
+                )
         
+        # Use single column if either state is GA (dual map takes full width)
+        grid_cols = '1fr' if (state_a == 'GA' or state_b == 'GA') else '1fr 1fr'
         cep_tab_content = html.Div(cep_maps, style={
             'display': 'grid',
-            'gridTemplateColumns': '1fr 1fr',
+            'gridTemplateColumns': grid_cols,
             'gap': '24px',
             'marginTop': '24px'
         })
-        
-        # Poverty tab content
+
+        # Poverty tab content — GA uses standard county map for poverty
         pov_maps = []
         for state_abbr in [state_a, state_b]:
             pov_maps.append(
                 html.Div([
                     html.H4(maps_data[state_abbr]['name'], style={
-                        'fontSize': '18px',
-                        'fontWeight': '600',
-                        'marginBottom': '16px'
+                        'fontSize': '18px', 'fontWeight': '600', 'marginBottom': '16px'
                     }),
-                    dcc.Graph(figure=maps_data[state_abbr]['pov_fig'], config={'displayModeBar': False, 'scrollZoom': False}),
+                    dcc.Graph(figure=maps_data[state_abbr]['pov_fig'],
+                              config={'displayModeBar': False, 'scrollZoom': False}),
                     create_poverty_legend_compact()
-                ], style={
-                    'background': 'white',
-                    'padding': '16px',
-                    'borderRadius': '12px',
-                    'border': f'1px solid {COLORS["border"]}'
-                })
+                ], style={'background': 'white', 'padding': '16px', 'borderRadius': '12px',
+                          'border': f'1px solid {COLORS["border"]}'})
             )
-        
+
         pov_tab_content = html.Div(pov_maps, style={
             'display': 'grid',
             'gridTemplateColumns': '1fr 1fr',
