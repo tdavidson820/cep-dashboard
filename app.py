@@ -2846,7 +2846,7 @@ def create_state_executives_section(state_abbr):
     
     # Separate Senate and House based on title keywords
     legislative_branch = [e for e in executives if e['branch'] == 'Legislative']
-    
+    senate_titles = ['Senate', 'senate']
     state_senate = [e for e in legislative_branch if any(keyword in e['title'] for keyword in senate_titles)]
     state_house = [e for e in legislative_branch if not any(keyword in e['title'] for keyword in senate_titles)]
     
