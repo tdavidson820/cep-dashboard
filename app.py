@@ -3322,145 +3322,156 @@ def create_nj_county_table(df):
 def create_georgia_dual_map_section(df, fips_dict):
     """Georgia-specific dual map: county coverage tiers (left) + district CEP status (right)
     Source: FRAC 2024-2025 Fact Sheet (October 2025)
+    Uses Plotly built-in choropleth_mapbox approach with standard FIPS-based GeoJSON.
     """
-    # --- County coverage tier map (custom colorscale) ---
-    county_fig = go.Figure(go.Choropleth(
-        geojson='https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json',
-        locations=[fips_dict.get(c, '') for c in df['County']],
-        z=df['Status_Numeric'],
-        colorscale=[
-            [0.0, '#fce7f3'],   # No CEP - pink
-            [0.25, '#e0f2fe'],  # 1-24% - very light blue
-            [0.5, '#7dd3fc'],   # 25-49% - light blue
-            [0.75, '#2563eb'],  # 50-74% - medium blue
-            [1.0, '#1e3a8a'],   # 75%+ - dark blue
-        ],
-        zmin=0, zmax=4,
-        showscale=False,
-        marker_line_color='white',
-        marker_line_width=0.5,
-        customdata=df[['County', 'CEP_Schools', 'Total_Schools', 'Coverage_Pct', 'Coverage_Tier', 'Students_in_CEP']].values,
-        hovertemplate=(
-            '<b>%{customdata[0]} County</b><br>'
-            'Coverage: %{customdata[4]}<br>'
-            'CEP Schools: %{customdata[1]} / %{customdata[2]}<br>'
-            'School Coverage: %{customdata[3]}%<br>'
-            'Students Served: %{customdata[5]:,}<extra></extra>'
-        )
-    ))
-    county_fig.update_layout(
-        geo=dict(scope='usa', projection_type='albers usa', fitbounds='locations',
-                 visible=False, bgcolor='rgba(0,0,0,0)'),
-        margin=dict(l=0, r=0, t=0, b=0), height=400,
-        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
-    )
+    # Build valid location arrays
+    locations = [fips_dict.get(c, '') for c in df['County']]
+    valid_rows = [(loc, row) for loc, row in zip(locations, df.itertuples()) if loc != '']
+    locs = [v[0] for v in valid_rows]
+    rows = [v[1] for v in valid_rows]
 
-    # --- District CEP status map (dot scatter map by county centroid approximation) ---
-    # Use county choropleth for district map too since districts follow county lines
+    # County coverage tier choropleth
+    county_fig = px.choropleth(
+        df.assign(fips=[fips_dict.get(c, '') for c in df['County']]).query("fips != ''"),
+        geojson="https://cdn.plot.ly/counties-10m.json",
+        locations="fips",
+        color="Status_Numeric",
+        color_continuous_scale=[
+            [0.00, '#fce7f3'],
+            [0.25, '#e0f2fe'],
+            [0.50, '#7dd3fc'],
+            [0.75, '#2563eb'],
+            [1.00, '#1e3a8a'],
+        ],
+        range_color=[0, 4],
+        scope="usa",
+        hover_data={"County": True, "Coverage_Tier": True, "CEP_Schools": True,
+                    "Total_Schools": True, "Coverage_Pct": True, "Students_in_CEP": True,
+                    "Status_Numeric": False, "fips": False}
+    )
+    county_fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
+    county_fig.update_layout(
+        margin=dict(l=0, r=0, t=0, b=0), height=400,
+        coloraxis_showscale=False,
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)"
+    )
+    county_fig.update_traces(marker_line_color="white", marker_line_width=0.5)
+
+    # District status map — same counties, different colorscale based on Status
     dist_df = load_georgia_district_data()
-    status_colors = {'FULL CEP': '#3b82f6', 'PARTIAL CEP': '#f59e0b', 'NO CEP': '#ec4899'}
-    dist_fig = go.Figure(go.Choropleth(
-        geojson='https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json',
-        locations=[fips_dict.get(c, '') for c in df['County']],
-        z=df['Status_Numeric'],
-        colorscale=[
+    # Assign dominant status per county
+    status_vals = []
+    for county in df["County"]:
+        dists = dist_df[dist_df["County"] == county]
+        if len(dists) == 0 or all(dists["Status"] == "NO CEP"):
+            status_vals.append(0)
+        elif any(dists["Status"] == "FULL CEP"):
+            status_vals.append(2)
+        else:
+            status_vals.append(1)
+    df2 = df.copy()
+    df2["Dist_Status"] = status_vals
+    df2["fips"] = [fips_dict.get(c, "") for c in df2["County"]]
+    df2 = df2[df2["fips"] != ""]
+
+    dist_fig = px.choropleth(
+        df2,
+        geojson="https://cdn.plot.ly/counties-10m.json",
+        locations="fips",
+        color="Dist_Status",
+        color_continuous_scale=[
             [0.0, '#fce7f3'],
             [0.5, '#fef3c7'],
-            [1.0, '#e0f2fe'],
+            [1.0, '#3b82f6'],
         ],
-        zmin=0, zmax=4,
-        showscale=False,
-        marker_line_color='white',
-        marker_line_width=0.5,
-        customdata=df[['County', 'Status', 'CEP_Schools', 'Total_Schools']].values,
-        hovertemplate='<b>%{customdata[0]} County</b><br>Status: %{customdata[1]}<extra></extra>'
-    ))
-    dist_fig.update_layout(
-        geo=dict(scope='usa', projection_type='albers usa', fitbounds='locations',
-                 visible=False, bgcolor='rgba(0,0,0,0)'),
-        margin=dict(l=0, r=0, t=0, b=0), height=400,
-        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
+        range_color=[0, 2],
+        scope="usa",
+        hover_data={"County": True, "Status": True, "CEP_Schools": True,
+                    "Total_Schools": True, "Dist_Status": False, "fips": False}
     )
+    dist_fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
+    dist_fig.update_layout(
+        margin=dict(l=0, r=0, t=0, b=0), height=400,
+        coloraxis_showscale=False,
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)"
+    )
+    dist_fig.update_traces(marker_line_color="white", marker_line_width=0.5)
 
-    # Legend for county coverage tiers
     tier_legend = html.Div([
-        html.Div("Coverage Tiers", style={'fontWeight': '600', 'fontSize': '12px', 'marginBottom': '8px', 'color': COLORS['text_secondary']}),
+        html.Div("Coverage Tiers", style={"fontWeight": "600", "fontSize": "12px",
+                                           "marginBottom": "8px", "color": COLORS["text_secondary"]}),
         *[html.Div([
-            html.Div(style={'width': '12px', 'height': '12px', 'borderRadius': '2px',
-                           'backgroundColor': color, 'marginRight': '8px', 'flexShrink': '0'}),
-            html.Span(label, style={'fontSize': '12px', 'color': COLORS['text_secondary']})
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'})
+            html.Div(style={"width": "12px", "height": "12px", "borderRadius": "2px",
+                            "backgroundColor": color, "marginRight": "8px", "flexShrink": "0"}),
+            html.Span(label, style={"fontSize": "12px", "color": COLORS["text_secondary"]})
+        ], style={"display": "flex", "alignItems": "center", "marginBottom": "4px"})
         for label, color in [
-            ('75%+ schools in CEP', '#1e3a8a'),
-            ('50–74% schools in CEP', '#2563eb'),
-            ('25–49% schools in CEP', '#7dd3fc'),
-            ('1–24% schools in CEP', '#e0f2fe'),
-            ('No CEP schools', '#fce7f3'),
+            ("75%+ schools in CEP", "#1e3a8a"),
+            ("50-74% schools in CEP", "#2563eb"),
+            ("25-49% schools in CEP", "#7dd3fc"),
+            ("1-24% schools in CEP", "#e0f2fe"),
+            ("No CEP schools", "#fce7f3"),
         ]]
-    ], style={'marginTop': '12px'})
+    ], style={"marginTop": "12px"})
 
-    # Status legend for district map
     status_legend = html.Div([
-        html.Div("CEP Status", style={'fontWeight': '600', 'fontSize': '12px', 'marginBottom': '8px', 'color': COLORS['text_secondary']}),
+        html.Div("CEP Status", style={"fontWeight": "600", "fontSize": "12px",
+                                       "marginBottom": "8px", "color": COLORS["text_secondary"]}),
         *[html.Div([
-            html.Div(style={'width': '12px', 'height': '12px', 'borderRadius': '2px',
-                           'backgroundColor': color, 'marginRight': '8px', 'flexShrink': '0'}),
-            html.Span(label, style={'fontSize': '12px', 'color': COLORS['text_secondary']})
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'})
+            html.Div(style={"width": "12px", "height": "12px", "borderRadius": "2px",
+                            "backgroundColor": color, "marginRight": "8px", "flexShrink": "0"}),
+            html.Span(label, style={"fontSize": "12px", "color": COLORS["text_secondary"]})
+        ], style={"display": "flex", "alignItems": "center", "marginBottom": "4px"})
         for label, color in [
-            ('Full CEP (100%)', '#3b82f6'),
-            ('Partial CEP', '#f59e0b'),
-            ('No CEP', '#ec4899'),
+            ("Full CEP districts present", "#3b82f6"),
+            ("Partial CEP districts", "#fef3c7"),
+            ("No CEP", "#fce7f3"),
         ]]
-    ], style={'marginTop': '12px'})
+    ], style={"marginTop": "12px"})
 
     disclaimer = html.Div([
-        html.Span("ℹ️  ", style={'fontSize': '13px'}),
-        html.Span("District map note: ", style={'fontWeight': '600', 'fontSize': '12px', 'color': '#1e40af'}),
+        html.Span("ℹ️  ", style={"fontSize": "13px"}),
+        html.Span("District map note: ", style={"fontWeight": "700", "fontSize": "12px", "color": "#1e40af"}),
         html.Span(
-            "Georgia has 180+ school districts across 159 counties. The district map shows CEP status "
-            "by county, aggregated from all districts within each county. Counties with multiple districts "
-            "show the dominant status. Full CEP = all eligible schools participating; "
-            "Partial CEP = some participating; No CEP = no schools participating.",
-            style={'fontSize': '12px', 'color': '#1e40af'}
+            "Georgia has 180+ school districts across 159 counties. Some counties contain both city and "
+            "county school systems. The district map reflects the dominant CEP status across all districts "
+            "within each county. Source: FRAC 2024-2025 Fact Sheet (October 2025).",
+            style={"fontSize": "12px", "color": "#1e40af"}
         )
     ], style={
-        'background': '#eff6ff', 'border': '1px solid #bfdbfe',
-        'borderRadius': '8px', 'padding': '12px 16px', 'marginBottom': '20px'
+        "background": "#eff6ff", "border": "1px solid #bfdbfe",
+        "borderRadius": "8px", "padding": "12px 16px", "marginBottom": "20px"
     })
 
     return html.Div([
         html.H2("County & District Maps", style={
-            'fontSize': '28px', 'fontWeight': '600',
-            'color': COLORS['text_primary'], 'marginBottom': '16px'
+            "fontSize": "28px", "fontWeight": "600",
+            "color": COLORS["text_primary"], "marginBottom": "16px"
         }),
         disclaimer,
         html.Div([
-            # Left: County coverage tier map
             html.Div([
                 html.H3("County Coverage Rate", style={
-                    'fontSize': '16px', 'fontWeight': '600',
-                    'color': COLORS['text_primary'], 'marginBottom': '12px', 'textAlign': 'center'
+                    "fontSize": "16px", "fontWeight": "600",
+                    "color": COLORS["text_primary"], "marginBottom": "12px", "textAlign": "center"
                 }),
-                dcc.Graph(figure=county_fig, config={'displayModeBar': False, 'scrollZoom': False}),
+                dcc.Graph(figure=county_fig, config={"displayModeBar": False, "scrollZoom": False}),
                 tier_legend
-            ], style={'flex': '1', 'minWidth': '0', 'background': 'white',
-                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}',
-                      'padding': '20px'}),
-            # Right: District CEP status map
+            ], style={"flex": "1", "minWidth": "0", "background": "white",
+                      "borderRadius": "12px", "border": f"1px solid {COLORS['border']}",
+                      "padding": "20px"}),
             html.Div([
                 html.H3("District CEP Status", style={
-                    'fontSize': '16px', 'fontWeight': '600',
-                    'color': COLORS['text_primary'], 'marginBottom': '12px', 'textAlign': 'center'
+                    "fontSize": "16px", "fontWeight": "600",
+                    "color": COLORS["text_primary"], "marginBottom": "12px", "textAlign": "center"
                 }),
-                dcc.Graph(figure=dist_fig, config={'displayModeBar': False, 'scrollZoom': False}),
+                dcc.Graph(figure=dist_fig, config={"displayModeBar": False, "scrollZoom": False}),
                 status_legend
-            ], style={'flex': '1', 'minWidth': '0', 'background': 'white',
-                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}',
-                      'padding': '20px'}),
-        ], style={'display': 'flex', 'gap': '24px'})
-    ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 40px 40px'})
-
+            ], style={"flex": "1", "minWidth": "0", "background": "white",
+                      "borderRadius": "12px", "border": f"1px solid {COLORS['border']}",
+                      "padding": "20px"}),
+        ], style={"display": "flex", "gap": "24px"})
+    ], style={"maxWidth": "1400px", "margin": "0 auto", "padding": "0 40px 40px 40px"})
 
 def create_state_page(state_abbr):
     state_data = STATE_DATA.get(state_abbr)
