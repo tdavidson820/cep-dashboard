@@ -2548,6 +2548,12 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
     """Create poverty heat map with 3-tier warm gradient"""
     df = df.copy()
     df['FIPS'] = df['County'].map(fips_dict)
+
+    # Handle states where Poverty_Rate wasn't provided (e.g. WI, VA from manager data)
+    if 'Poverty_Rate' not in df.columns:
+        df['Poverty_Rate'] = 0
+    if 'Student_Population' not in df.columns:
+        df['Student_Population'] = 0
     
     # Create poverty tier (0-15%, 15-25%, 25%+)
     def get_poverty_tier(rate):
@@ -3382,9 +3388,9 @@ def create_georgia_dual_map_section(df, fips_dict):
         text=df_dist['County'] + '<br>' + df_dist['Dist_Label'],
         hovertemplate='<b>%{text}</b><extra></extra>',
         colorscale=[
-            [0.0, '#fce7f3'],
-            [0.5, '#fef3c7'],
-            [1.0, '#3b82f6'],
+            [0.0, COLORS['no_cep']],      # 0 = No CEP = Pink
+            [0.5, COLORS['partial_cep']], # 1 = Partial = Yellow
+            [1.0, COLORS['full_cep']],    # 2 = Full = Sky Blue
         ],
         zmin=0, zmax=2,
         marker_line_color='white',
@@ -3421,8 +3427,9 @@ def create_georgia_dual_map_section(df, fips_dict):
                     "backgroundColor": c, "marginRight": "8px", "flexShrink": "0"}),
             html.Span(l, style={"fontSize": "12px", "color": COLORS["text_secondary"]})
         ], style={"display": "flex", "alignItems": "center", "marginBottom": "4px"})
-        for l, c in [("Full CEP districts present", "#3b82f6"),
-                     ("Partial CEP districts", "#fef3c7"), ("No CEP", "#fce7f3")]]
+        for l, c in [("Full CEP districts present", COLORS["full_cep"]),
+                     ("Partial CEP districts", COLORS["partial_cep"]),
+                     ("No CEP", COLORS["no_cep"])]]
     ], style={"marginTop": "12px"})
 
     disclaimer = html.Div([
