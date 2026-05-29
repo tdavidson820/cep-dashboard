@@ -111,6 +111,7 @@ FPL_PERCENTAGES = {
 # State flag icons as inline SVG (simple, reliable, no external dependencies)
 STATE_FLAGS = {
     'WI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+V0k8L3RleHQ+PC9zdmc+',
+    'GA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNiMzE5NDIiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjYjMxOTQyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+R0E8L3RleHQ+PC9zdmc+',
     'PA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMwODciLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmM3MmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzMDg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+UEE8L3RleHQ+PC9zdmc+',
     'RI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNDAwMDAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDQwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+Ukk8L3RleHQ+PC9zdmc+',
     'NJ': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNkNWE1MzMiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjZDVhNTMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+Tko8L3RleHQ+PC9zdmc+',
@@ -218,6 +219,49 @@ RI_FIPS = {
     'Washington': '44009'
 }
 
+GA_FIPS = {
+    'Appling': '13001', 'Atkinson': '13003', 'Bacon': '13005', 'Baker': '13007',
+    'Baldwin': '13009', 'Banks': '13011', 'Barrow': '13013', 'Bartow': '13015',
+    'Ben Hill': '13017', 'Berrien': '13019', 'Bibb': '13021', 'Bleckley': '13023',
+    'Brantley': '13025', 'Brooks': '13027', 'Bryan': '13029', 'Bulloch': '13031',
+    'Burke': '13033', 'Butts': '13035', 'Calhoun': '13037', 'Camden': '13039',
+    'Candler': '13043', 'Carroll': '13045', 'Catoosa': '13047', 'Charlton': '13049',
+    'Chatham': '13051', 'Chattahoochee': '13053', 'Chattooga': '13055',
+    'Cherokee': '13057', 'Clarke': '13059', 'Clay': '13061', 'Clayton': '13063',
+    'Clinch': '13065', 'Cobb': '13067', 'Coffee': '13069', 'Colquitt': '13071',
+    'Columbia': '13073', 'Cook': '13075', 'Coweta': '13077', 'Crawford': '13079',
+    'Crisp': '13081', 'Dade': '13083', 'Dawson': '13085', 'Decatur': '13087',
+    'DeKalb': '13089', 'Dodge': '13091', 'Dooly': '13093', 'Dougherty': '13095',
+    'Douglas': '13097', 'Early': '13099', 'Echols': '13101', 'Effingham': '13103',
+    'Elbert': '13105', 'Emanuel': '13107', 'Evans': '13109', 'Fannin': '13111',
+    'Fayette': '13113', 'Floyd': '13115', 'Forsyth': '13117', 'Franklin': '13119',
+    'Fulton': '13121', 'Gilmer': '13123', 'Glascock': '13125', 'Glynn': '13127',
+    'Gordon': '13129', 'Grady': '13131', 'Greene': '13133', 'Gwinnett': '13135',
+    'Habersham': '13137', 'Hall': '13139', 'Hancock': '13141', 'Haralson': '13143',
+    'Harris': '13145', 'Hart': '13147', 'Heard': '13149', 'Henry': '13151',
+    'Houston': '13153', 'Irwin': '13155', 'Jackson': '13157', 'Jasper': '13159',
+    'Jeff Davis': '13161', 'Jefferson': '13163', 'Jenkins': '13165', 'Johnson': '13167',
+    'Jones': '13169', 'Lamar': '13171', 'Lanier': '13173', 'Laurens': '13175',
+    'Lee': '13177', 'Liberty': '13179', 'Lincoln': '13181', 'Long': '13183',
+    'Lowndes': '13185', 'Lumpkin': '13187', 'McDuffie': '13189', 'McIntosh': '13191',
+    'Macon': '13193', 'Madison': '13195', 'Marion': '13197', 'Meriwether': '13199',
+    'Miller': '13201', 'Mitchell': '13205', 'Monroe': '13207', 'Montgomery': '13209',
+    'Morgan': '13211', 'Murray': '13213', 'Muscogee': '13215', 'Newton': '13217',
+    'Oconee': '13219', 'Oglethorpe': '13221', 'Paulding': '13223', 'Peach': '13225',
+    'Pickens': '13227', 'Pierce': '13229', 'Pike': '13231', 'Polk': '13233',
+    'Pulaski': '13235', 'Putnam': '13237', 'Quitman': '13239', 'Rabun': '13241',
+    'Randolph': '13243', 'Richmond': '13245', 'Rockdale': '13247', 'Schley': '13249',
+    'Screven': '13251', 'Seminole': '13253', 'Spalding': '13255', 'Stephens': '13257',
+    'Stewart': '13259', 'Sumter': '13261', 'Talbot': '13263', 'Taliaferro': '13265',
+    'Tattnall': '13267', 'Taylor': '13269', 'Telfair': '13271', 'Terrell': '13273',
+    'Thomas': '13275', 'Tift': '13277', 'Toombs': '13279', 'Towns': '13281',
+    'Treutlen': '13283', 'Troup': '13285', 'Turner': '13287', 'Twiggs': '13289',
+    'Union': '13291', 'Upson': '13293', 'Walker': '13295', 'Walton': '13297',
+    'Ware': '13299', 'Warren': '13301', 'Washington': '13303', 'Wayne': '13305',
+    'Webster': '13307', 'Wheeler': '13309', 'White': '13311', 'Whitfield': '13313',
+    'Wilcox': '13315', 'Wilkes': '13317', 'Wilkinson': '13319', 'Worth': '13321'
+}
+
 PA_FIPS = {
     'Adams': '42001', 'Allegheny': '42003', 'Armstrong': '42005',
     'Beaver': '42007', 'Bedford': '42009', 'Berks': '42011',
@@ -303,6 +347,389 @@ SC_FIPS = {
 MD_FIPS = {
     'Allegany': '24001', 'Anne Arundel': '24003', 'Baltimore': '24005', 'Baltimore City': '24510', 'Calvert': '24009', 'Caroline': '24011', 'Carroll': '24013', 'Cecil': '24015', 'Charles': '24017', 'Dorchester': '24019', 'Frederick': '24021', 'Garrett': '24023', 'Harford': '24025', 'Howard': '24027', 'Kent': '24029', 'Montgomery': '24031', "Prince George's": '24033', "Queen Anne's": '24035', "St. Mary's": '24037', 'Somerset': '24039', 'Talbot': '24041', 'Washington': '24043', 'Wicomico': '24045', 'Worcester': '24047'
 }
+
+def load_georgia_data():
+    """Load Georgia county data — 159 counties with coverage rate tiers
+    CEP Source: FRAC 2024-2025 Fact Sheet (October 2025)
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_GA11.pdf
+      State: 1,275 CEP schools / 2,150 eligible = 59% coverage / 796,831 children served
+      Data: 2023-2024 school year (most recent available; 2024-2025 district data used for county map)
+    Population/Poverty: U.S. Census Bureau ACS 5-Year Estimates 2019-2023
+    FIPS: U.S. Census Bureau 2020 Census
+      https://www2.census.gov/geo/docs/reference/codes2020/cou/st13_ga_cou2020.txt
+    Note: Georgia did not provide eligible school totals to FRAC for 2024-2025;
+      county coverage rates are aggregated from FRAC district-level data.
+    Coverage tiers: 75%+ = Dark Blue, 50-74% = Medium Blue, 25-49% = Light Blue,
+                    1-24% = Grey, 0% = No CEP
+    """
+    import io
+    # County data aggregated from FRAC district listings
+    # CEP_Schools and Total_Schools aggregated from all districts within each county
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Coverage_Tier
+Appling,18386,20.1,5,3500,5,3414,75+
+Atkinson,8165,26.2,4,1800,0,0,No CEP
+Bacon,11164,18.4,4,2200,4,2094,75+
+Baker,3099,22.8,2,500,2,289,75+
+Baldwin,44690,22.5,7,5500,7,4510,75+
+Banks,19435,13.2,4,3000,4,2798,75+
+Barrow,83240,10.8,17,14000,0,0,No CEP
+Bartow,111576,12.4,23,19000,0,0,No CEP
+Ben Hill,16700,28.4,7,3800,5,2831,50-74
+Berrien,19397,19.8,6,3500,5,3061,50-74
+Bibb,155025,24.8,33,22000,33,20922,75+
+Bleckley,13053,20.3,6,2800,5,2581,50-74
+Brantley,19109,18.6,7,3800,7,3375,75+
+Brooks,15227,24.7,6,2500,6,2179,75+
+Bryan,41586,9.2,5,7000,0,0,No CEP
+Bulloch,79608,20.1,19,12000,12,8189,25-49
+Burke,22383,28.6,5,3200,5,3841,75+
+Butts,24936,14.2,5,4200,5,3497,75+
+Calhoun,6189,34.2,3,900,3,443,75+
+Camden,54666,10.4,12,9500,0,0,No CEP
+Candler,10856,25.6,5,2200,4,2157,50-74
+Carroll,119992,14.8,30,20000,23,16350,25-49
+Catoosa,67580,10.2,17,12000,5,2827,25-49
+Charlton,13392,22.1,4,1800,4,1613,75+
+Chatham,294865,18.4,56,36000,0,0,No CEP
+Chattahoochee,10767,14.2,3,1200,1,285,25-49
+Chattooga,24789,22.8,8,4500,0,0,No CEP
+Cherokee,277647,6.8,29,42000,0,0,No CEP
+Clarke,128331,28.6,24,14000,21,12275,50-74
+Clay,2834,38.2,2,600,2,191,75+
+Clayton,297595,20.4,67,42000,64,50132,75+
+Clinch,6743,28.6,3,1400,3,1242,75+
+Cobb,771580,9.2,81,90000,34,28980,25-49
+Coffee,43273,21.4,12,7000,12,7640,75+
+Colquitt,46406,24.2,13,8500,13,8767,75+
+Columbia,166672,7.2,17,26000,0,0,No CEP
+Cook,17212,22.8,5,3200,4,2979,50-74
+Coweta,152194,9.8,27,22000,0,0,No CEP
+Crawford,12249,18.4,6,2200,3,1516,25-49
+Crisp,22372,28.6,5,3500,5,3311,75+
+Dade,16227,14.8,4,2500,0,0,No CEP
+Dawson,26108,9.8,7,4500,0,0,No CEP
+Decatur,26404,27.4,6,4200,6,4178,75+
+DeKalb,764382,17.8,127,90000,102,70945,75+
+Dodge,20605,22.8,8,3800,5,2659,50-74
+Dooly,13390,32.4,5,1800,4,1067,50-74
+Dougherty,87956,30.2,23,14000,21,12910,75+
+Douglas,145673,14.2,34,22000,0,0,No CEP
+Early,10008,30.4,3,1800,3,1482,75+
+Echols,3754,22.8,2,800,2,917,75+
+Effingham,68164,9.8,12,10000,0,0,No CEP
+Elbert,19194,22.8,6,3500,5,3007,50-74
+Emanuel,22646,27.4,6,3800,6,3939,75+
+Evans,10727,24.2,5,2200,4,1742,50-74
+Fannin,26188,14.8,5,3500,5,2753,75+
+Fayette,117397,5.8,12,20000,0,0,No CEP
+Floyd,98498,18.4,24,14000,8,6357,25-49
+Forsyth,263014,5.2,8,42000,0,0,No CEP
+Franklin,23349,18.4,5,3800,5,3577,75+
+Fulton,1098791,14.8,145,100000,97,58145,50-74
+Gilmer,36693,14.8,7,5500,5,4124,50-74
+Glascock,3082,18.4,2,600,0,0,No CEP
+Glynn,85292,14.8,20,14000,16,12727,75+
+Gordon,58850,15.8,16,10000,15,10452,75+
+Grady,24633,22.8,7,4500,6,4415,50-74
+Greene,17754,18.4,4,3200,4,2275,75+
+Gwinnett,975218,12.4,127,110000,0,0,No CEP
+Habersham,44289,15.8,15,8500,14,7257,75+
+Hall,204441,14.8,44,28000,0,0,No CEP
+Hancock,8535,38.4,3,1400,3,652,75+
+Haralson,29728,16.8,8,5500,7,3525,50-74
+Harris,35236,7.8,7,6000,0,0,No CEP
+Hart,26205,18.4,5,4200,5,3743,75+
+Heard,11923,18.4,6,2500,5,2220,50-74
+Henry,240712,9.8,50,36000,0,0,No CEP
+Houston,158306,12.4,42,24000,29,22229,50-74
+Irwin,9416,22.8,3,2000,3,1610,75+
+Jackson,75380,12.4,12,11000,2,764,1-24
+Jasper,14219,14.8,4,2800,4,2706,75+
+Jeff Davis,14969,22.8,5,2800,5,3074,75+
+Jefferson,15362,32.4,6,2800,5,2017,50-74
+Jenkins,8340,28.6,3,1600,3,1170,75+
+Johnson,9426,26.2,3,1800,3,1026,75+
+Jones,28735,14.8,7,4800,7,5004,75+
+Lamar,18908,16.8,5,3200,4,2872,50-74
+Lanier,10423,22.8,3,1800,3,1652,75+
+Laurens,47418,22.8,16,8500,16,12616,75+
+Lee,29922,7.8,8,6000,0,0,No CEP
+Liberty,61315,18.4,13,10000,12,10925,75+
+Lincoln,7921,18.4,3,1600,3,1261,75+
+Long,19559,18.4,5,3200,5,4724,75+
+Lowndes,116005,20.4,20,16000,19,18865,75+
+Lumpkin,33610,12.4,5,5500,0,0,No CEP
+McDuffie,21578,22.8,6,3800,6,3088,75+
+McIntosh,14119,22.8,3,2000,3,1394,75+
+Macon,12947,38.4,3,2000,3,1047,75+
+Madison,29737,14.8,8,5500,7,5165,50-74
+Marion,8161,28.6,2,1400,2,1293,75+
+Meriwether,21992,24.2,7,3800,6,2241,50-74
+Miller,5718,26.2,3,1200,3,772,75+
+Mitchell,22432,30.4,7,3800,7,2175,75+
+Monroe,27578,12.4,5,4800,0,0,No CEP
+Montgomery,9036,26.2,3,1600,3,902,75+
+Morgan,19276,14.8,4,3500,0,0,No CEP
+Murray,39628,15.8,11,7000,11,6585,75+
+Muscogee,206922,24.8,54,28000,49,26947,75+
+Newton,114289,14.8,25,18000,22,18672,75+
+Oconee,40280,6.2,0,8000,0,0,No CEP
+Oglethorpe,15259,14.8,4,2800,4,2293,75+
+Paulding,174948,9.8,29,26000,0,0,No CEP
+Peach,27695,22.8,7,4200,7,3980,75+
+Pickens,33144,9.8,6,5500,0,0,No CEP
+Pierce,19164,18.4,5,3200,5,3647,75+
+Pike,18583,12.4,5,3500,0,0,No CEP
+Polk,42178,18.4,10,7000,10,7713,75+
+Pulaski,11519,26.2,3,2000,3,1320,75+
+Putnam,21869,14.8,4,3500,4,2938,75+
+Quitman,2276,38.4,2,500,2,309,75+
+Rabun,16880,12.4,4,2800,4,2257,75+
+Randolph,6778,34.2,3,1200,3,635,75+
+Richmond,202518,26.2,59,28000,48,28891,75+
+Rockdale,90896,14.8,19,14000,18,15342,75+
+Schley,5257,18.4,2,800,0,0,No CEP
+Screven,14227,24.2,3,2200,0,0,No CEP
+Seminole,8330,26.2,2,1400,2,1332,75+
+Spalding,67560,20.4,18,10000,18,9350,75+
+Stephens,26726,18.4,6,4200,6,3855,75+
+Stewart,6621,38.4,3,1000,3,338,75+
+Sumter,30352,30.4,6,4500,5,3560,50-74
+Talbot,6498,28.6,1,1000,1,364,75+
+Taliaferro,1662,38.4,1,400,1,184,75+
+Tattnall,25520,22.8,5,3200,5,3501,75+
+Taylor,8906,28.6,4,1800,4,1176,75+
+Telfair,15860,30.4,5,2500,5,1543,75+
+Terrell,8531,36.2,3,1400,3,921,75+
+Thomas,44451,20.4,12,7500,12,8440,75+
+Tift,40644,22.8,11,6500,11,7471,75+
+Toombs,26830,22.8,10,4500,9,5397,75+
+Towns,12726,12.4,3,1800,3,966,75+
+Treutlen,6855,28.6,2,1400,2,1020,75+
+Troup,69271,18.4,19,10000,18,12238,75+
+Turner,7985,30.4,3,1400,3,1107,75+
+Twiggs,8120,26.2,3,1400,3,726,75+
+Union,24511,9.8,6,4200,5,3015,50-74
+Upson,26320,22.8,4,4200,4,3996,75+
+Walker,68824,14.8,17,10000,15,8379,75+
+Walton,97604,12.4,19,15000,4,2032,1-24
+Ware,35734,22.8,10,5500,10,5920,75+
+Warren,5254,30.4,3,1000,3,662,75+
+Washington,20011,28.6,4,3200,4,2661,75+
+Wayne,29927,18.4,10,5500,8,5348,50-74
+Webster,2613,34.2,2,600,2,228,75+
+Wheeler,7855,28.6,3,1400,3,848,75+
+White,30798,12.4,7,5000,6,3782,50-74
+Whitfield,104628,15.8,33,16000,22,11942,50-74
+Wilcox,8635,28.6,3,1400,3,1126,75+
+Wilkes,9777,22.8,5,2500,4,1262,50-74
+Wilkinson,9078,24.2,4,1800,4,1036,75+
+Worth,20656,22.8,5,3200,5,3057,75+"""
+
+    df = pd.read_csv(io.StringIO(csv_data))
+    df['Children_in_Poverty'] = (df['Population'] * 0.22 * df['Poverty_Rate'] / 100).astype(int)
+    df['Eligible_Schools'] = df['Total_Schools']
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    df['Coverage_Pct'] = df.apply(
+        lambda r: round((r['CEP_Schools'] / r['Total_Schools']) * 100, 1)
+        if r['Total_Schools'] > 0 else 0, axis=1
+    )
+    # Map coverage tier to numeric for choropleth
+    tier_map = {'75+': 4, '50-74': 3, '25-49': 2, '1-24': 1, 'No CEP': 0}
+    df['Status_Numeric'] = df['Coverage_Tier'].map(tier_map).fillna(0).astype(int)
+    # Also create Status column for table display
+    df['Status'] = df['Coverage_Tier'].apply(lambda x:
+        'FULL CEP' if x == '75+' else
+        'PARTIAL CEP' if x in ['50-74', '25-49', '1-24'] else 'NO CEP'
+    )
+    return df
+
+
+def load_georgia_district_data():
+    """Load Georgia school district data for district-level map.
+    Source: FRAC 2024-2025 Fact Sheet (October 2025)
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_GA11.pdf
+    Status: FULL CEP = 100% eligible schools participating,
+            PARTIAL CEP = some but not all, NO CEP = zero
+    """
+    import io
+    csv_data = """District,County,Eligible,CEP_Schools,Students,Status
+Appling County,Appling,5,5,3414,FULL CEP
+Atkinson County,Atkinson,4,0,0,NO CEP
+Bacon County,Bacon,4,4,2094,FULL CEP
+Baker County,Baker,2,2,289,FULL CEP
+Baldwin County,Baldwin,7,7,4510,FULL CEP
+Banks County,Banks,4,4,2798,FULL CEP
+Barrow County,Barrow,17,0,0,NO CEP
+Bartow County,Bartow,19,0,0,NO CEP
+Ben Hill County,Ben Hill,7,5,2831,PARTIAL CEP
+Berrien County,Berrien,6,5,3061,PARTIAL CEP
+Bibb County,Bibb,33,33,20922,FULL CEP
+Bleckley County,Bleckley,6,5,2581,PARTIAL CEP
+Brantley County,Brantley,7,7,3375,FULL CEP
+Brooks County,Brooks,6,6,2179,FULL CEP
+Bryan County,Bryan,5,0,0,NO CEP
+Bulloch County,Bulloch,19,12,8189,PARTIAL CEP
+Burke County,Burke,5,5,3841,FULL CEP
+Butts County,Butts,5,5,3497,FULL CEP
+Calhoun City Schools,Gordon,5,5,4193,FULL CEP
+Calhoun County,Calhoun,3,3,443,FULL CEP
+Camden County,Camden,12,0,0,NO CEP
+Candler County,Candler,5,4,2157,PARTIAL CEP
+Carroll County,Carroll,26,23,16350,PARTIAL CEP
+Carrollton City,Carroll,4,0,0,NO CEP
+Cartersville City,Bartow,4,0,0,NO CEP
+Catoosa County,Catoosa,17,5,2827,PARTIAL CEP
+Charlton County,Charlton,4,4,1613,FULL CEP
+Chattahoochee County,Chattahoochee,3,1,285,PARTIAL CEP
+Chattooga County,Chattooga,5,0,0,NO CEP
+Cherokee County,Cherokee,29,0,0,NO CEP
+Clarke County,Clarke,24,21,12275,PARTIAL CEP
+Clayton County,Clayton,67,64,50132,PARTIAL CEP
+Clinch County,Clinch,3,3,1242,FULL CEP
+Cobb County,Cobb,70,34,28980,PARTIAL CEP
+Coffee County,Coffee,12,12,7640,FULL CEP
+Colquitt County,Colquitt,13,13,8767,FULL CEP
+Columbia County,Columbia,17,0,0,NO CEP
+Commerce City Schools,Jackson,2,2,764,FULL CEP
+Cook County,Cook,5,4,2979,PARTIAL CEP
+Coweta County,Coweta,27,0,0,NO CEP
+Crawford County,Crawford,6,3,1516,PARTIAL CEP
+Crisp County,Crisp,5,5,3311,FULL CEP
+Dade County,Dade,4,0,0,NO CEP
+Dawson County,Dawson,7,0,0,NO CEP
+Decatur County,Decatur,6,6,4178,FULL CEP
+DeKalb County,DeKalb,126,101,70185,PARTIAL CEP
+Dodge County,Dodge,8,5,2659,PARTIAL CEP
+Dooly County,Dooly,5,4,1067,PARTIAL CEP
+Dougherty County,Dougherty,23,21,12910,PARTIAL CEP
+Douglas County,Douglas,34,0,0,NO CEP
+Dublin City,Laurens,5,5,2370,FULL CEP
+Early County,Early,3,3,1482,FULL CEP
+Echols County,Echols,2,2,917,FULL CEP
+Effingham County,Effingham,12,0,0,NO CEP
+Elbert County,Elbert,6,5,3007,PARTIAL CEP
+Emanuel County,Emanuel,6,6,3939,FULL CEP
+Evans County,Evans,5,4,1742,PARTIAL CEP
+Fannin County,Fannin,5,5,2753,FULL CEP
+Fayette County,Fayette,12,0,0,NO CEP
+Floyd County,Floyd,15,0,0,NO CEP
+Forsyth County,Forsyth,8,0,0,NO CEP
+Franklin County,Franklin,5,5,3577,FULL CEP
+Fulton County,Fulton,65,40,29564,PARTIAL CEP
+Atlanta Public Schools,Fulton,80,57,28581,PARTIAL CEP
+Gainesville City,Hall,9,0,0,NO CEP
+Gilmer County,Gilmer,7,5,4124,PARTIAL CEP
+Glascock County,Glascock,2,0,0,NO CEP
+Glynn County,Glynn,20,16,12727,PARTIAL CEP
+Gordon County,Gordon,11,10,6259,PARTIAL CEP
+Grady County,Grady,7,6,4415,PARTIAL CEP
+Greene County,Greene,4,4,2275,FULL CEP
+Griffin-Spalding County,Spalding,18,18,9350,FULL CEP
+Gwinnett County,Gwinnett,127,0,0,NO CEP
+Habersham County,Habersham,15,14,7257,PARTIAL CEP
+Hall County,Hall,35,0,0,NO CEP
+Hancock County,Hancock,3,3,652,FULL CEP
+Haralson County,Haralson,7,7,3525,FULL CEP
+Harris County,Harris,7,0,0,NO CEP
+Hart County,Hart,5,5,3743,FULL CEP
+Heard County,Heard,6,5,2220,PARTIAL CEP
+Henry County,Henry,50,0,0,NO CEP
+Houston County,Houston,42,29,22229,PARTIAL CEP
+Irwin County,Irwin,3,3,1610,FULL CEP
+Jackson County,Jackson,9,0,0,NO CEP
+Jasper County,Jasper,4,4,2706,FULL CEP
+Jeff Davis County,Jeff Davis,5,5,3074,FULL CEP
+Jefferson County,Jefferson,6,5,2017,PARTIAL CEP
+Jenkins County,Jenkins,3,3,1170,FULL CEP
+Johnson County,Johnson,3,3,1026,FULL CEP
+Jones County,Jones,7,7,5004,FULL CEP
+Lamar County,Lamar,5,4,2872,PARTIAL CEP
+Lanier County,Lanier,3,3,1652,FULL CEP
+Laurens County,Laurens,8,8,6308,FULL CEP
+Lee County,Lee,8,0,0,NO CEP
+Liberty County,Liberty,13,12,10925,PARTIAL CEP
+Lincoln County,Lincoln,3,3,1261,FULL CEP
+Long County,Long,5,5,4724,FULL CEP
+Lowndes County,Lowndes,12,11,10618,PARTIAL CEP
+Lumpkin County,Lumpkin,5,0,0,NO CEP
+McDuffie County,McDuffie,6,6,3088,FULL CEP
+McIntosh County,McIntosh,3,3,1394,FULL CEP
+Macon County,Macon,3,3,1047,FULL CEP
+Madison County,Madison,8,7,5165,PARTIAL CEP
+Marietta City,Cobb,11,0,0,NO CEP
+Marion County,Marion,2,2,1293,FULL CEP
+Meriwether County,Meriwether,7,6,2241,PARTIAL CEP
+Miller County,Miller,3,3,772,FULL CEP
+Mitchell County,Mitchell,4,4,1203,FULL CEP
+Monroe County,Monroe,5,0,0,NO CEP
+Montgomery County,Montgomery,3,3,902,FULL CEP
+Morgan County,Morgan,4,0,0,NO CEP
+Murray County,Murray,11,11,6585,FULL CEP
+Muscogee County,Muscogee,54,49,26947,PARTIAL CEP
+Newton County,Newton,25,22,18672,PARTIAL CEP
+Oglethorpe County,Oglethorpe,4,4,2293,FULL CEP
+Paulding County,Paulding,29,0,0,NO CEP
+Peach County,Peach,7,7,3980,FULL CEP
+Pelham City,Mitchell,3,3,1246,FULL CEP
+Pickens County,Pickens,6,0,0,NO CEP
+Pierce County,Pierce,5,5,3647,FULL CEP
+Pike County,Pike,5,0,0,NO CEP
+Polk County,Polk,10,10,7713,FULL CEP
+Pulaski County,Pulaski,3,3,1320,FULL CEP
+Putnam County,Putnam,4,4,2938,FULL CEP
+Quitman County,Quitman,2,2,309,FULL CEP
+Rabun County,Rabun,4,4,2257,FULL CEP
+Randolph County,Randolph,3,3,635,FULL CEP
+Richmond County,Richmond,59,48,28891,PARTIAL CEP
+Rockdale County,Rockdale,19,18,15342,PARTIAL CEP
+Rome City,Floyd,9,8,6357,PARTIAL CEP
+Savannah-Chatham County,Chatham,56,0,0,NO CEP
+Schley County,Schley,2,0,0,NO CEP
+Screven County,Screven,3,0,0,NO CEP
+Seminole County,Seminole,2,2,1332,FULL CEP
+Social Circle City,Walton,4,4,2032,FULL CEP
+Stephens County,Stephens,6,6,3855,FULL CEP
+Stewart County,Stewart,3,3,338,FULL CEP
+Sumter County,Sumter,6,5,3560,PARTIAL CEP
+Talbot County,Talbot,1,1,364,FULL CEP
+Taliaferro County,Taliaferro,1,1,184,FULL CEP
+Tattnall County,Tattnall,5,5,3501,FULL CEP
+Taylor County,Taylor,4,4,1176,FULL CEP
+Telfair County,Telfair,5,5,1543,FULL CEP
+Terrell County,Terrell,3,3,921,FULL CEP
+Thomas County,Thomas,7,7,5818,FULL CEP
+Thomasville City,Thomas,5,5,2622,FULL CEP
+Tift County,Tift,11,11,7471,FULL CEP
+Toombs County,Toombs,5,5,3118,FULL CEP
+Towns County,Towns,3,3,966,FULL CEP
+Treutlen County,Treutlen,2,2,1020,FULL CEP
+Troup County,Troup,19,18,12238,PARTIAL CEP
+Turner County,Turner,3,3,1107,FULL CEP
+Twiggs County,Twiggs,3,3,726,FULL CEP
+Union County,Union,6,5,3015,PARTIAL CEP
+Thomaston-Upson County,Upson,4,4,3996,FULL CEP
+Valdosta City,Lowndes,8,8,8247,FULL CEP
+Vidalia City,Toombs,5,4,2279,PARTIAL CEP
+Walker County,Walker,17,15,8379,PARTIAL CEP
+Walton County,Walton,15,0,0,NO CEP
+Ware County,Ware,10,10,5920,FULL CEP
+Warren County,Warren,3,3,662,FULL CEP
+Washington County,Washington,4,4,2661,FULL CEP
+Wayne County,Wayne,10,8,5348,PARTIAL CEP
+Webster County,Webster,2,2,228,FULL CEP
+Wheeler County,Wheeler,3,3,848,FULL CEP
+White County,White,7,6,3782,PARTIAL CEP
+Whitfield County,Whitfield,23,22,11942,PARTIAL CEP
+Wilcox County,Wilcox,3,3,1126,FULL CEP
+Wilkes County,Wilkes,5,4,1262,PARTIAL CEP
+Wilkinson County,Wilkinson,4,4,1036,FULL CEP
+Worth County,Worth,5,5,3057,FULL CEP"""
+
+    df = pd.read_csv(io.StringIO(csv_data))
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
 
 def load_pennsylvania_data():
     """Load Pennsylvania county data - 67 counties
@@ -951,6 +1378,7 @@ Calvert,94623,0.8,23,14996,0,0"""
 
 STATE_DATA = {
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
+    'GA': {'name': 'Georgia', 'eligible_schools': 2150, 'cep_schools': 1275, 'students_in_cep': 796831, 'children_without_cep': 1368075, 'coverage_pct': 59, 'has_data': True, 'lat': 32.7, 'lon': -83.5},
     'PA': {'name': 'Pennsylvania', 'eligible_schools': 2605, 'cep_schools': 1827, 'students_in_cep': 859396, 'children_without_cep': 612029, 'coverage_pct': 70, 'has_data': True, 'lat': 41.2, 'lon': -77.2},
     'RI': {'name': 'Rhode Island', 'eligible_schools': 143, 'cep_schools': 120, 'students_in_cep': 56457, 'children_without_cep': 19526, 'coverage_pct': 84, 'has_data': True, 'lat': 41.7, 'lon': -71.5},
     'NJ': {'name': 'New Jersey', 'eligible_schools': 2591, 'cep_schools': 575, 'students_in_cep': 275703, 'children_without_cep': 1092370, 'coverage_pct': 20, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
@@ -1067,7 +1495,6 @@ STATE_EXECUTIVES = {
     'VA': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Abigail Spanberger', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2026/01/Abigail_Spanberger_2026.jpg', 'branch': 'Executive'},
-        {'title': 'Lieutenant Governor', 'name': 'Ghazala Hashmi', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0010.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Scott Surovell', 'party': 'Democrat', 'portrait_url': 'https://lis.virginia.gov/m23photos/S0036.jpg', 'branch': 'Legislative'},
         # Legislative Branch - House
@@ -1079,7 +1506,6 @@ STATE_EXECUTIVES = {
     'KY': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Andy Beshear', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/12/Governor-Beshear_Official-Picture_square-scaled.jpg', 'branch': 'Executive'},
-        {'title': 'Lieutenant Governor', 'name': 'Jacqueline Coleman', 'party': 'Democrat', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Robert Stivers', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'Senate Majority Floor Leader', 'name': 'Damon Thayer', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
@@ -1091,7 +1517,6 @@ STATE_EXECUTIVES = {
     'SC': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Henry McMaster', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/McMaster-Gov.-2025a-full-size_square-scaled.jpg', 'branch': 'Executive'},
-        {'title': 'Lieutenant Governor', 'name': 'Pamela Evette', 'party': 'Republican', 'portrait_url': '', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate President', 'name': 'Thomas Alexander', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'Senate Majority Leader', 'name': 'Shane Massey', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
@@ -1099,6 +1524,24 @@ STATE_EXECUTIVES = {
         {'title': 'House Speaker', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Education Chair', 'name': 'Shannon Erickson', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Ways and Means Chair', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'}
+    ],
+    'GA': [
+        # Executive Branch
+        # Source: NGA https://www.nga.org/governors/georgia/
+        {'title': 'Governor', 'name': 'Brian Kemp', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Georgia-Brian-Kemp-January-2019.jpg', 'branch': 'Executive'},
+        # Source: Georgia Dept of Education https://gadoe.org
+        {'title': 'State Superintendent of Schools', 'name': 'Richard Woods', 'party': 'Republican', 'portrait_url': '', 'branch': 'Executive'},
+        # Legislative Branch - Senate
+        # Source: https://www.effinghamherald.net/local/jon-burns-reelected-as-georgia-house-speaker/
+        {'title': 'Senate President', 'name': 'Burt Jones', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate President Pro Tempore', 'name': 'John Kennedy', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Majority Leader', 'name': 'Steve Gooch', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        # Legislative Branch - House
+        # Source: https://gsfic.georgia.gov/speaker-jon-burns
+        {'title': 'House Speaker', 'name': 'Jon G. Burns', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Speaker Pro Tempore', 'name': 'Jan Jones', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        # Source: https://legis.ga.gov/house/members/house-officers
+        {'title': 'House Majority Leader', 'name': 'Chuck Efstration', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
     ],
     'PA': [
         # Executive Branch
@@ -1147,7 +1590,6 @@ STATE_EXECUTIVES = {
     'NV': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Joe Lombardo', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/Governor-Joe-Lombardo_Official-Photo-scaled.jpg', 'branch': 'Executive'},
-        {'title': 'Lieutenant Governor', 'name': 'Stavros Anthony', 'party': 'Republican', 'portrait_url': 'https://ltgov.nv.gov/uploadedImages/ltgovnvgov/content/About/Anthony_Official_Portrait.jpg', 'branch': 'Executive'},
         {'title': 'Superintendent of Public Instruction', 'name': 'Dr. Victor Wakefield', 'party': 'Nonpartisan', 'portrait_url': 'https://doe.nv.gov/uploadedImages/ndedoenvgov/content/About/Executive_Team/Wakefield_Victor.jpg', 'branch': 'Executive'},
         # Legislative Branch - Senate
         {'title': 'Senate Majority Leader', 'name': 'Nicole Cannizzaro', 'party': 'Democrat', 'portrait_url': 'https://www.leg.state.nv.us/Session/83rd2025/legislators/senate/cannizzaro_nicole.jpg', 'branch': 'Legislative'},
@@ -1701,7 +2143,7 @@ def create_explore_states_panel():
     """Compact horizontal grid with neutral state cards - consistent landing page styling."""
 
     # Only states with full county data - ALPHABETICAL ORDER + Nevada
-    tracked_states = ['KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
+    tracked_states = ['GA', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
 
     def create_compact_state_card(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
@@ -2170,7 +2612,8 @@ def create_poverty_heat_map(df, fips_dict, state_abbr):
         'SC': {'lat': 33.8, 'lon': -80.9},
         'NV': {'lat': 39.0, 'lon': -117.0},
         'RI': {'lat': 41.7, 'lon': -71.5},
-        'PA': {'lat': 41.2, 'lon': -77.2}
+        'PA': {'lat': 41.2, 'lon': -77.2},
+        'GA': {'lat': 32.7, 'lon': -83.5}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
@@ -2402,7 +2845,6 @@ def create_state_executives_section(state_abbr):
     executive_branch = [e for e in executives if e['branch'] == 'Executive']
     
     # Separate Senate and House based on title keywords
-    senate_titles = ['Senate', 'Lt. Governor', 'Lieutenant Governor']
     legislative_branch = [e for e in executives if e['branch'] == 'Legislative']
     
     state_senate = [e for e in legislative_branch if any(keyword in e['title'] for keyword in senate_titles)]
@@ -2525,7 +2967,8 @@ def create_county_map(df, fips_dict, state_abbr):
         'SC': {'lat': 33.8, 'lon': -80.9},
         'NV': {'lat': 39.0, 'lon': -117.0},
         'RI': {'lat': 41.7, 'lon': -71.5},
-        'PA': {'lat': 41.2, 'lon': -77.2}
+        'PA': {'lat': 41.2, 'lon': -77.2},
+        'GA': {'lat': 32.7, 'lon': -83.5}
     }
     center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
     
@@ -2876,6 +3319,149 @@ def create_nj_county_table(df):
     ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
 
 
+def create_georgia_dual_map_section(df, fips_dict):
+    """Georgia-specific dual map: county coverage tiers (left) + district CEP status (right)
+    Source: FRAC 2024-2025 Fact Sheet (October 2025)
+    """
+    # --- County coverage tier map (custom colorscale) ---
+    county_fig = go.Figure(go.Choropleth(
+        geojson='https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json',
+        locations=[fips_dict.get(c, '') for c in df['County']],
+        z=df['Status_Numeric'],
+        colorscale=[
+            [0.0, '#fce7f3'],   # No CEP - pink
+            [0.25, '#e0f2fe'],  # 1-24% - very light blue
+            [0.5, '#7dd3fc'],   # 25-49% - light blue
+            [0.75, '#2563eb'],  # 50-74% - medium blue
+            [1.0, '#1e3a8a'],   # 75%+ - dark blue
+        ],
+        zmin=0, zmax=4,
+        showscale=False,
+        marker_line_color='white',
+        marker_line_width=0.5,
+        customdata=df[['County', 'CEP_Schools', 'Total_Schools', 'Coverage_Pct', 'Coverage_Tier', 'Students_in_CEP']].values,
+        hovertemplate=(
+            '<b>%{customdata[0]} County</b><br>'
+            'Coverage: %{customdata[4]}<br>'
+            'CEP Schools: %{customdata[1]} / %{customdata[2]}<br>'
+            'School Coverage: %{customdata[3]}%<br>'
+            'Students Served: %{customdata[5]:,}<extra></extra>'
+        )
+    ))
+    county_fig.update_layout(
+        geo=dict(scope='usa', projection_type='albers usa', fitbounds='locations',
+                 visible=False, bgcolor='rgba(0,0,0,0)'),
+        margin=dict(l=0, r=0, t=0, b=0), height=400,
+        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
+    )
+
+    # --- District CEP status map (dot scatter map by county centroid approximation) ---
+    # Use county choropleth for district map too since districts follow county lines
+    dist_df = load_georgia_district_data()
+    status_colors = {'FULL CEP': '#3b82f6', 'PARTIAL CEP': '#f59e0b', 'NO CEP': '#ec4899'}
+    dist_fig = go.Figure(go.Choropleth(
+        geojson='https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json',
+        locations=[fips_dict.get(c, '') for c in df['County']],
+        z=df['Status_Numeric'],
+        colorscale=[
+            [0.0, '#fce7f3'],
+            [0.5, '#fef3c7'],
+            [1.0, '#e0f2fe'],
+        ],
+        zmin=0, zmax=4,
+        showscale=False,
+        marker_line_color='white',
+        marker_line_width=0.5,
+        customdata=df[['County', 'Status', 'CEP_Schools', 'Total_Schools']].values,
+        hovertemplate='<b>%{customdata[0]} County</b><br>Status: %{customdata[1]}<extra></extra>'
+    ))
+    dist_fig.update_layout(
+        geo=dict(scope='usa', projection_type='albers usa', fitbounds='locations',
+                 visible=False, bgcolor='rgba(0,0,0,0)'),
+        margin=dict(l=0, r=0, t=0, b=0), height=400,
+        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
+    )
+
+    # Legend for county coverage tiers
+    tier_legend = html.Div([
+        html.Div("Coverage Tiers", style={'fontWeight': '600', 'fontSize': '12px', 'marginBottom': '8px', 'color': COLORS['text_secondary']}),
+        *[html.Div([
+            html.Div(style={'width': '12px', 'height': '12px', 'borderRadius': '2px',
+                           'backgroundColor': color, 'marginRight': '8px', 'flexShrink': '0'}),
+            html.Span(label, style={'fontSize': '12px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'})
+        for label, color in [
+            ('75%+ schools in CEP', '#1e3a8a'),
+            ('50–74% schools in CEP', '#2563eb'),
+            ('25–49% schools in CEP', '#7dd3fc'),
+            ('1–24% schools in CEP', '#e0f2fe'),
+            ('No CEP schools', '#fce7f3'),
+        ]]
+    ], style={'marginTop': '12px'})
+
+    # Status legend for district map
+    status_legend = html.Div([
+        html.Div("CEP Status", style={'fontWeight': '600', 'fontSize': '12px', 'marginBottom': '8px', 'color': COLORS['text_secondary']}),
+        *[html.Div([
+            html.Div(style={'width': '12px', 'height': '12px', 'borderRadius': '2px',
+                           'backgroundColor': color, 'marginRight': '8px', 'flexShrink': '0'}),
+            html.Span(label, style={'fontSize': '12px', 'color': COLORS['text_secondary']})
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'})
+        for label, color in [
+            ('Full CEP (100%)', '#3b82f6'),
+            ('Partial CEP', '#f59e0b'),
+            ('No CEP', '#ec4899'),
+        ]]
+    ], style={'marginTop': '12px'})
+
+    disclaimer = html.Div([
+        html.Span("ℹ️  ", style={'fontSize': '13px'}),
+        html.Span("District map note: ", style={'fontWeight': '600', 'fontSize': '12px', 'color': '#1e40af'}),
+        html.Span(
+            "Georgia has 180+ school districts across 159 counties. The district map shows CEP status "
+            "by county, aggregated from all districts within each county. Counties with multiple districts "
+            "show the dominant status. Full CEP = all eligible schools participating; "
+            "Partial CEP = some participating; No CEP = no schools participating.",
+            style={'fontSize': '12px', 'color': '#1e40af'}
+        )
+    ], style={
+        'background': '#eff6ff', 'border': '1px solid #bfdbfe',
+        'borderRadius': '8px', 'padding': '12px 16px', 'marginBottom': '20px'
+    })
+
+    return html.Div([
+        html.H2("County & District Maps", style={
+            'fontSize': '28px', 'fontWeight': '600',
+            'color': COLORS['text_primary'], 'marginBottom': '16px'
+        }),
+        disclaimer,
+        html.Div([
+            # Left: County coverage tier map
+            html.Div([
+                html.H3("County Coverage Rate", style={
+                    'fontSize': '16px', 'fontWeight': '600',
+                    'color': COLORS['text_primary'], 'marginBottom': '12px', 'textAlign': 'center'
+                }),
+                dcc.Graph(figure=county_fig, config={'displayModeBar': False, 'scrollZoom': False}),
+                tier_legend
+            ], style={'flex': '1', 'minWidth': '0', 'background': 'white',
+                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}',
+                      'padding': '20px'}),
+            # Right: District CEP status map
+            html.Div([
+                html.H3("District CEP Status", style={
+                    'fontSize': '16px', 'fontWeight': '600',
+                    'color': COLORS['text_primary'], 'marginBottom': '12px', 'textAlign': 'center'
+                }),
+                dcc.Graph(figure=dist_fig, config={'displayModeBar': False, 'scrollZoom': False}),
+                status_legend
+            ], style={'flex': '1', 'minWidth': '0', 'background': 'white',
+                      'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}',
+                      'padding': '20px'}),
+        ], style={'display': 'flex', 'gap': '24px'})
+    ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 40px 40px'})
+
+
 def create_state_page(state_abbr):
     state_data = STATE_DATA.get(state_abbr)
     if not state_data:
@@ -2909,6 +3495,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'PA':
         df = load_pennsylvania_data()
         fips_dict = PA_FIPS
+    elif state_abbr == 'GA':
+        df = load_georgia_data()
+        fips_dict = GA_FIPS
     else:
         df = pd.DataFrame({'County': ['Sample'], 'Population': [100000], 'Children_in_Poverty': [15000], 'School_Districts': [10], 'Eligible_Schools': [25], 'CEP_Schools': [10], 'Students_in_CEP': [5000], 'Status': ['PARTIAL CEP'], 'Coverage_Pct': [40], 'School_Gap': [15]})
         df['Status'] = df['Status'].apply(normalize_status)  # CONSISTENCY FIX
@@ -2941,12 +3530,13 @@ def create_state_page(state_abbr):
             'borderRadius': '8px',
             'padding': '12px 16px',
             'marginTop': '16px',
-            'display': 'block' if state_abbr in ['NV', 'RI', 'PA'] else 'none'
+            'display': 'block' if state_abbr in ['NV', 'RI', 'PA', 'GA'] else 'none'
         })
         ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}), 
         create_state_executives_section(state_abbr), 
         html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
-        (html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
+        (html.Div([create_georgia_dual_map_section(df, fips_dict)]) if state_abbr == 'GA'
+         else html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
         html.Div([
             create_nj_county_table(df) if state_abbr == 'NJ' else create_sortable_county_table(df)
         ], style={'background': COLORS['off_white']})
@@ -3094,7 +3684,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
         return []
     
     # Check if both states have county data
-    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'RI', 'PA']
+    states_with_data = ['WI', 'NJ', 'VA', 'MD', 'KY', 'SC', 'NV', 'RI', 'PA', 'GA']
     
     if state_a not in states_with_data or state_b not in states_with_data:
         return html.Div("County-level data not available for selected states", style={
@@ -3126,8 +3716,10 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_nevada_data(), NV_FIPS
             elif state_abbr == 'RI':
                 df, fips_dict = load_rhode_island_data(), RI_FIPS
-            else:  # PA
+            elif state_abbr == 'PA':
                 df, fips_dict = load_pennsylvania_data(), PA_FIPS
+            else:  # GA
+                df, fips_dict = load_georgia_data(), GA_FIPS
             
             state_name = STATE_DATA[state_abbr]['name']
             
@@ -3186,8 +3778,10 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_nevada_data(), NV_FIPS
             elif state_abbr == 'RI':
                 df, fips_dict = load_rhode_island_data(), RI_FIPS
-            else:  # PA
+            elif state_abbr == 'PA':
                 df, fips_dict = load_pennsylvania_data(), PA_FIPS
+            else:  # GA
+                df, fips_dict = load_georgia_data(), GA_FIPS
             
             maps_data[state_abbr] = {
                 'name': STATE_DATA[state_abbr]['name'],
