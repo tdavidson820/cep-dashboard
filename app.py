@@ -122,31 +122,31 @@ STATE_CATEGORIES = {
 
 SESSION_DATA = {
     # Source: Ballotpedia 2026 legislative session dates + state legislature sites
-    # Status calculated as of May 30, 2026
+    # Status calculated as of May 31, 2026
     'KY': {
         'start': 'January 6, 2026',
         'end': 'April 15, 2026',
         'status': 'Adjourned',
-        'notes': 'Regular session concluded. Next session: January 2027.',
+        'notes': 'Regular session adjourned sine die. Interim committee meetings continue through 2026.',
         'source': 'https://ballotpedia.org/2026_Kentucky_legislative_session'
     },
     'MD': {
         'start': 'January 14, 2026',
         'end': 'April 13, 2026',
         'status': 'Adjourned',
-        'notes': 'Regular session concluded. Next session: January 2027.',
+        'notes': 'Regular session concluded. Interim committee activity continues.',
         'source': 'https://ballotpedia.org/2026_Maryland_legislative_session'
     },
     'VA': {
         'start': 'January 14, 2026',
         'end': 'March 14, 2026',
         'status': 'Adjourned',
-        'notes': 'Regular session concluded. Reconvened April 22 for Governor actions.',
+        'notes': 'Regular session concluded. Reconvened April 22 for Governor\'s actions. Interim committees active.',
         'source': 'https://ballotpedia.org/2026_Virginia_legislative_session'
     },
     'SC': {
         'start': 'January 13, 2026',
-        'end': 'June 4, 2026',
+        'end': 'June 2026',
         'status': 'In Session',
         'notes': 'Active — expected to adjourn early June 2026.',
         'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'
@@ -162,7 +162,7 @@ SESSION_DATA = {
         'start': 'January 12, 2026',
         'end': 'April 6, 2026',
         'status': 'Adjourned',
-        'notes': 'Regular session concluded. Next session: January 2027.',
+        'notes': 'Regular session concluded. Interim study committees meet through fall 2026.',
         'source': 'https://ballotpedia.org/2026_Georgia_legislative_session'
     },
     'PA': {
@@ -176,14 +176,14 @@ SESSION_DATA = {
         'start': 'January 6, 2025',
         'end': 'January 4, 2027',
         'status': 'Adjourned',
-        'notes': 'Adjourned February 20, 2026. Special session called April 14, 2026.',
+        'notes': 'Regular floor sessions adjourned February 20, 2026. Special session began April 14, 2026. Term runs through January 2027.',
         'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'
     },
     'NV': {
         'start': 'N/A',
         'end': 'N/A',
         'status': 'No 2026 Session',
-        'notes': 'Nevada meets in odd-numbered years only. Next session: February 2027.',
+        'notes': 'Nevada meets in odd-numbered years only. Interim committees active — key period for shaping 2027 legislation.',
         'source': 'https://www.multistate.us/resources/2026-legislative-session-dates'
     },
     'RI': {
@@ -3739,23 +3739,6 @@ def create_session_banner(state_abbr):
         'background': bg, 'border': f'1px solid {border}',
         'borderRadius': '8px', 'padding': '12px 16px', 'marginBottom': '12px'
     })
-
-    if is_campaign:
-        campaign_badge = html.Div([
-            html.Span('🎯 ', style={'fontSize': '14px'}),
-            html.Span('Active 2026 Solving Hunger Campaign', style={
-                'fontWeight': '700', 'fontSize': '13px', 'color': '#dc2626'
-            }),
-            html.Span(
-                ' — Tusk Philanthropies is currently running a legislative campaign in this state to expand school meals.',
-                style={'fontSize': '13px', 'color': '#7f1d1d'}
-            )
-        ], style={
-            'background': '#fef2f2', 'border': '1px solid #fca5a5',
-            'borderRadius': '8px', 'padding': '10px 16px', 'marginBottom': '12px',
-            'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap'
-        })
-        return html.Div([campaign_badge, banner])
 
     return banner
 
