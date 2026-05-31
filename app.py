@@ -61,6 +61,24 @@ application.index_string = '''
                     if (fallback) { fallback.style.display = 'flex'; }
                 }
             }, true);
+
+            // Timeline filter — show/hide event rows by policy type via data-type attribute
+            document.addEventListener('click', function(e) {
+                var input = e.target.closest('input[type="radio"]');
+                if (!input) return;
+                var form = input.closest('div');
+                if (!form || !form.id || !form.id.includes('timeline-filter')) return;
+                setTimeout(function() {
+                    var filter = document.querySelector('input[name*="timeline-filter"]:checked');
+                    if (!filter) return;
+                    var val = filter.value;
+                    var rows = document.querySelectorAll('.timeline-event-row');
+                    rows.forEach(function(row) {
+                        var type = row.getAttribute('data-type') || 'all';
+                        row.style.display = (val === 'all' || val === type) ? '' : 'none';
+                    });
+                }, 50);
+            });
         </script>
     </head>
     <body>
@@ -100,6 +118,88 @@ STATE_CATEGORIES = {
     'universal_breakfast': ['DE', 'PA'],  # 3 states with free breakfast only (added DE - Delaware)
     'fpl_states': ['HI', 'NJ', 'ND']  # 3 states with Federal Poverty Level eligibility
 }
+
+
+SESSION_DATA = {
+    # Source: Ballotpedia 2026 legislative session dates + state legislature sites
+    # Status calculated as of May 30, 2026
+    'KY': {
+        'start': 'January 6, 2026',
+        'end': 'April 15, 2026',
+        'status': 'Adjourned',
+        'notes': 'Regular session concluded. Next session: January 2027.',
+        'source': 'https://ballotpedia.org/2026_Kentucky_legislative_session'
+    },
+    'MD': {
+        'start': 'January 14, 2026',
+        'end': 'April 13, 2026',
+        'status': 'Adjourned',
+        'notes': 'Regular session concluded. Next session: January 2027.',
+        'source': 'https://ballotpedia.org/2026_Maryland_legislative_session'
+    },
+    'VA': {
+        'start': 'January 14, 2026',
+        'end': 'March 14, 2026',
+        'status': 'Adjourned',
+        'notes': 'Regular session concluded. Reconvened April 22 for Governor actions.',
+        'source': 'https://ballotpedia.org/2026_Virginia_legislative_session'
+    },
+    'SC': {
+        'start': 'January 13, 2026',
+        'end': 'June 4, 2026',
+        'status': 'In Session',
+        'notes': 'Active — expected to adjourn early June 2026.',
+        'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'
+    },
+    'NJ': {
+        'start': 'January 13, 2026',
+        'end': 'December 31, 2026',
+        'status': 'In Session',
+        'notes': 'Year-round legislature — active through December 2026.',
+        'source': 'https://ballotpedia.org/2026_New_Jersey_legislative_session'
+    },
+    'GA': {
+        'start': 'January 12, 2026',
+        'end': 'April 6, 2026',
+        'status': 'Adjourned',
+        'notes': 'Regular session concluded. Next session: January 2027.',
+        'source': 'https://ballotpedia.org/2026_Georgia_legislative_session'
+    },
+    'PA': {
+        'start': 'January 6, 2026',
+        'end': 'December 31, 2026',
+        'status': 'In Session',
+        'notes': 'Year-round legislature — active through December 2026.',
+        'source': 'https://www.multistate.us/resources/2026-legislative-session-dates'
+    },
+    'WI': {
+        'start': 'January 6, 2025',
+        'end': 'January 4, 2027',
+        'status': 'Adjourned',
+        'notes': 'Adjourned February 20, 2026. Special session called April 14, 2026.',
+        'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'
+    },
+    'NV': {
+        'start': 'N/A',
+        'end': 'N/A',
+        'status': 'No 2026 Session',
+        'notes': 'Nevada meets in odd-numbered years only. Next session: February 2027.',
+        'source': 'https://www.multistate.us/resources/2026-legislative-session-dates'
+    },
+    'RI': {
+        'start': 'January 2026',
+        'end': 'June/July 2026',
+        'status': 'In Session',
+        'notes': 'Active — Rhode Island typically adjourns June-July.',
+        'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'
+    },
+}
+
+
+# Active 2026 Tusk Philanthropies / Solving Hunger campaign states
+# Source: Tusk Philanthropies 2025 Annual Report
+# https://bradleytusk.substack.com/p/tusk-philanthropies-2025-annual-report
+ACTIVE_CAMPAIGN_STATES = ['VA', 'SC', 'NJ', 'KY', 'MD']
 
 # FPL percentages for hover display on landing page
 FPL_PERCENTAGES = {
@@ -1859,6 +1959,83 @@ def create_us_map():
         zmax=4,
         showscale=False
     ))
+
+    # Active 2026 campaign drop pins
+    # Source: Tusk Philanthropies 2025 Annual Report
+    # https://bradleytusk.substack.com/p/tusk-philanthropies-2025-annual-report
+    campaign_coords = {
+        'VA': (37.5, -79.0, 'Virginia'),
+        'SC': (33.8, -81.2, 'South Carolina'),
+        'NJ': (40.1, -74.7, 'New Jersey'),
+        'KY': (37.8, -85.0, 'Kentucky'),
+        'MD': (39.0, -76.7, 'Maryland'),
+    }
+    pin_lats = [v[0] for v in campaign_coords.values()]
+    pin_lons = [v[1] for v in campaign_coords.values()]
+    pin_names = [f"<b>{v[2]}</b><br>🔴 Active 2026 Campaign" for v in campaign_coords.values()]
+
+    # Red pins — Active 2026 campaigns
+    fig.add_trace(go.Scattergeo(
+        lat=pin_lats,
+        lon=pin_lons,
+        mode='markers',
+        marker=dict(
+            size=16,
+            color='#dc2626',
+            symbol='circle',
+            line=dict(color='white', width=2.5),
+            opacity=0.95
+        ),
+        hovertext=pin_names,
+        hovertemplate='%{hovertext}<extra></extra>',
+        hoverlabel=dict(
+            bgcolor='white',
+            font_size=13,
+            font_color='#1a1a1a',
+            bordercolor='#dc2626'
+        ),
+        showlegend=False,
+        geo='geo'
+    ))
+
+    # Blue pins — Proposed/target states (from Lisa's list)
+    proposed_coords = {
+        'IL': (40.0, -89.2, 'Illinois'),
+        'PA': (40.9, -77.8, 'Pennsylvania'),
+        'AZ': (34.3, -111.7, 'Arizona'),
+        'RI': (41.6, -71.5, 'Rhode Island'),
+        'NV': (38.8, -117.2, 'Nevada'),
+        'WI': (44.3, -89.8, 'Wisconsin'),
+        'GA': (32.5, -83.4, 'Georgia'),
+        'AR': (34.8, -92.4, 'Arkansas'),
+        'DE': (39.0, -75.5, 'Delaware'),
+    }
+    prop_lats = [v[0] for v in proposed_coords.values()]
+    prop_lons = [v[1] for v in proposed_coords.values()]
+    prop_names = [f"<b>{v[2]}</b><br>🔵 Proposed Target State" for v in proposed_coords.values()]
+
+    fig.add_trace(go.Scattergeo(
+        lat=prop_lats,
+        lon=prop_lons,
+        mode='markers',
+        marker=dict(
+            size=16,
+            color='#2563eb',
+            symbol='circle',
+            line=dict(color='white', width=2),
+            opacity=0.90
+        ),
+        hovertext=prop_names,
+        hovertemplate='%{hovertext}<extra></extra>',
+        hoverlabel=dict(
+            bgcolor='white',
+            font_size=13,
+            font_color='#1a1a1a',
+            bordercolor='#2563eb'
+        ),
+        showlegend=False,
+        geo='geo'
+    ))
     
     # Enhanced tooltip styling for clean appearance
     fig.update_traces(
@@ -2140,79 +2317,80 @@ def create_state_detail_panel(state_abbr=None):
 
 
 def create_explore_states_panel():
-    """Compact horizontal grid with neutral state cards - consistent landing page styling."""
-
-    # Only states with full county data - ALPHABETICAL ORDER + Nevada
+    """Compact horizontal badge strip — replaces the large card grid."""
     tracked_states = ['GA', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
 
-    def create_compact_state_card(state_abbr):
+    def create_state_badge(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
+        is_active = state_abbr in ACTIVE_CAMPAIGN_STATES
         flag_url = STATE_FLAGS.get(state_abbr, '')
 
         return html.A(
-            href=f"/state/{state_abbr}",
-            children=[
+            href=f"/state/{state_abbr.lower()}",
+            children=[html.Div([
+                html.Img(src=flag_url, style={
+                    'width': '32px', 'height': '22px',
+                    'borderRadius': '3px', 'objectFit': 'cover',
+                    'border': f'1px solid {COLORS["border"]}',
+                    'marginRight': '10px', 'flexShrink': '0'
+                }),
                 html.Div([
-                    # Flag at top - keep individual flag colors
-                    html.Img(src=flag_url, style={
-                        'width': '48px',
-                        'height': '32px',
-                        'marginBottom': '12px',
-                        'border': '1px solid #e5e7eb',
-                        'borderRadius': '4px',
-                        'objectFit': 'cover'
-                    }),
-                    # State abbreviation
-                    html.Div(state_abbr, style={
-                        'fontSize': '20px',
-                        'fontWeight': '700',
-                        'color': COLORS['text_primary'],
-                        'marginBottom': '4px'
-                    }),
-                    # State name
-                    html.Div(state_data.get('name', state_abbr), style={
-                        'fontSize': '13px',
-                        'fontWeight': '500',
-                        'color': COLORS['text_secondary']
-                    })
-                ], style={
-                    'display': 'flex',
-                    'flexDirection': 'column',
-                    'alignItems': 'center',
-                    'padding': '20px 16px',
-                    'background': 'white',
-                    'borderRadius': '12px',
-                    'border': f'2px solid {COLORS["border"]}',
-                    'boxShadow': '0 2px 8px rgba(15,23,42,0.04)',
-                    'transition': 'box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease',
-                    'cursor': 'pointer',
-                    'textAlign': 'center'
-                })
-            ],
-            style={'textDecoration': 'none', 'display': 'block'}
+                    html.Div([
+                        html.Span(state_abbr, style={
+                            'fontSize': '14px', 'fontWeight': '700',
+                            'color': COLORS['text_primary'], 'marginRight': '6px'
+                        }),
+                        # Active campaign badge
+                        html.Span("ACTIVE", style={
+                            'fontSize': '9px', 'fontWeight': '700',
+                            'color': 'white', 'backgroundColor': '#dc2626',
+                            'padding': '1px 5px', 'borderRadius': '999px',
+                            'letterSpacing': '0.4px'
+                        }) if is_active else None
+                    ], style={'display': 'flex', 'alignItems': 'center'}),
+                    html.Div(
+                        f"{state_data.get('coverage_pct', 0)}% CEP",
+                        style={'fontSize': '11px', 'color': COLORS['text_secondary'], 'fontWeight': '500'}
+                    )
+                ])
+            ], style={
+                'display': 'flex', 'alignItems': 'center',
+                'padding': '10px 16px',
+                'background': 'white',
+                'borderRadius': '10px',
+                'border': f'2px solid {"#dc2626" if is_active else COLORS["border"]}',
+                'boxShadow': '0 1px 4px rgba(15,23,42,0.06)',
+                'cursor': 'pointer',
+                'whiteSpace': 'nowrap',
+                'transition': 'box-shadow 0.15s ease, transform 0.15s ease'
+            })],
+            style={'textDecoration': 'none'}
         )
 
-    # Create cards for all tracked states
-    cards = [create_compact_state_card(state) for state in tracked_states]
+    badges = [create_state_badge(s) for s in tracked_states]
 
     return html.Div([
-        html.H3("Explore States", style={
-            'fontSize': '24px',
-            'fontWeight': '600',
-            'color': COLORS['text_primary'],
-            'marginBottom': '24px'
-        }),
-        html.Div(cards, style={
-            'display': 'grid',
-            'gridTemplateColumns': 'repeat(3, 1fr)',
-            'gap': '20px'
+        html.Div([
+            html.Span("Available States", style={
+                'fontSize': '13px', 'fontWeight': '700',
+                'color': COLORS['text_secondary'],
+                'textTransform': 'uppercase', 'letterSpacing': '0.6px',
+                'marginRight': '16px', 'whiteSpace': 'nowrap', 'flexShrink': '0'
+            }),
+            html.Div(badges, style={
+                'display': 'flex', 'flexWrap': 'wrap', 'gap': '10px'
+            })
+        ], style={
+            'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '12px',
+            'padding': '16px 24px',
+            'background': COLORS['off_white'],
+            'borderRadius': '12px',
+            'border': f'1px solid {COLORS["border"]}'
         })
-    ], style={
-        'padding': '40px 0'
-    })
+    ], style={'padding': '24px 0 40px 0'})
 
 def create_simple_timeline_section():
-    """Static infographic-style timeline with horizontal event rows and full program names."""
+    """Static infographic-style timeline with filter buttons for policy type."""
     return html.Div([
         html.Div([
             html.H2("Universal School Meals Adoption Timeline", style={
@@ -2229,10 +2407,37 @@ def create_simple_timeline_section():
                 'fontSize': '19px',
                 'fontWeight': '700',
                 'color': COLORS['text_secondary'],
-                'margin': '0',
+                'margin': '0 0 20px 0',
                 'textAlign': 'center'
-            })
-        ], style={'marginBottom': '26px'}),
+            }),
+            # Filter buttons
+            html.Div([
+                dcc.RadioItems(
+                    id='timeline-filter',
+                    options=[
+                        {'label': 'All Policies', 'value': 'all'},
+                        {'label': 'Universal School Meals', 'value': 'meals'},
+                        {'label': 'Universal Breakfast', 'value': 'breakfast'},
+                    ],
+                    value='all',
+                    inline=True,
+                    inputStyle={'marginRight': '6px'},
+                    labelStyle={
+                        'display': 'inline-flex',
+                        'alignItems': 'center',
+                        'marginRight': '12px',
+                        'padding': '8px 18px',
+                        'borderRadius': '999px',
+                        'border': f'1px solid {COLORS["border"]}',
+                        'cursor': 'pointer',
+                        'fontSize': '14px',
+                        'fontWeight': '600',
+                        'background': COLORS['white'],
+                        'color': COLORS['text_primary']
+                    }
+                )
+            ], style={'display': 'flex', 'justifyContent': 'center', 'marginBottom': '24px'}),
+        ], style={'marginBottom': '10px'}),
 
         html.Div([
             html.Div([
@@ -2389,75 +2594,74 @@ def create_simple_timeline_section():
 def create_map_section():
     """Enhanced: 3-column layout - Map + Detail Panel + Explore States"""
     
-    # Legend for the map - polished pills
+    # Legend for the map — two rows: state colors + drop pin key
     legend = html.Div([
+
+        # Row 1: State color categories
         html.Div([
-            html.Div(style={
-                'width': '20px', 
-                'height': '20px', 
-                'background': COLORS['universal_meals'], 
-                'borderRadius': '6px', 
-                'marginRight': '10px',
-                'boxShadow': '0 1px 2px rgba(0,0,0,0.1)'
+            html.Span("State Policy", style={
+                'fontSize': '11px', 'fontWeight': '700', 'color': COLORS['text_secondary'],
+                'textTransform': 'uppercase', 'letterSpacing': '0.6px',
+                'marginRight': '16px', 'whiteSpace': 'nowrap'
             }),
-            html.Span("Universal Meals (9)", style={
-                'fontSize': '14px', 
-                'color': COLORS['text_secondary'],
-                'fontWeight': '500'
-            })
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '28px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['universal_meals'],
+                                'borderRadius': '4px', 'marginRight': '8px', 'flexShrink': '0'}),
+                html.Span("Universal Meals (9)", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontWeight': '500'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '20px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['universal_breakfast'],
+                                'borderRadius': '4px', 'marginRight': '8px', 'flexShrink': '0'}),
+                html.Span("Universal Breakfast (3)", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontWeight': '500'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '20px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['fpl_states'],
+                                'borderRadius': '4px', 'marginRight': '8px', 'flexShrink': '0'}),
+                html.Span("FPL States (3)", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontWeight': '500'})
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '20px'}),
+            html.Div([
+                html.Div(style={'width': '16px', 'height': '16px', 'background': COLORS['other_states'],
+                                'borderRadius': '4px', 'marginRight': '8px', 'flexShrink': '0',
+                                'border': f'1px solid {COLORS["border"]}'}),
+                html.Span("Other States", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontWeight': '500'})
+            ], style={'display': 'flex', 'alignItems': 'center'}),
+        ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '4px',
+                  'paddingBottom': '12px', 'marginBottom': '12px',
+                  'borderBottom': f'1px solid {COLORS["border"]}'}),
+
+        # Row 2: Drop pin campaign status
         html.Div([
-            html.Div(style={
-                'width': '20px', 
-                'height': '20px', 
-                'background': COLORS['universal_breakfast'], 
-                'borderRadius': '6px', 
-                'marginRight': '10px',
-                'boxShadow': '0 1px 2px rgba(0,0,0,0.1)'
+            html.Span("Campaign Pins", style={
+                'fontSize': '11px', 'fontWeight': '700', 'color': COLORS['text_secondary'],
+                'textTransform': 'uppercase', 'letterSpacing': '0.6px',
+                'marginRight': '16px', 'whiteSpace': 'nowrap'
             }),
-            html.Span("Universal Breakfast (3)", style={
-                'fontSize': '14px', 
-                'color': COLORS['text_secondary'],
-                'fontWeight': '500'
-            })
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '28px'}),
-        html.Div([
-            html.Div(style={
-                'width': '20px', 
-                'height': '20px', 
-                'background': COLORS['fpl_states'], 
-                'borderRadius': '6px', 
-                'marginRight': '10px',
-                'boxShadow': '0 1px 2px rgba(0,0,0,0.1)'
-            }),
-            html.Span("FPL States (3)", style={
-                'fontSize': '14px', 
-                'color': COLORS['text_secondary'],
-                'fontWeight': '500'
-            })
-        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '28px'}),
-        html.Div([
-            html.Div(style={
-                'width': '20px', 
-                'height': '20px', 
-                'background': COLORS['other_states'], 
-                'borderRadius': '6px', 
-                'marginRight': '10px',
-                'border': f'1px solid {COLORS["border"]}'
-            }),
-            html.Span("Other States", style={
-                'fontSize': '14px', 
-                'color': COLORS['text_secondary'],
-                'fontWeight': '500'
-            })
-        ], style={'display': 'flex', 'alignItems': 'center'})
+            html.Div([
+                html.Div(style={
+                    'width': '14px', 'height': '14px', 'borderRadius': '50%',
+                    'backgroundColor': '#dc2626', 'border': '2px solid white',
+                    'boxShadow': '0 0 0 1.5px #dc2626', 'marginRight': '8px', 'flexShrink': '0'
+                }),
+                html.Span("Active 2026 Campaign — VA, SC, NJ, KY, MD", style={
+                    'fontSize': '13px', 'color': '#dc2626', 'fontWeight': '600'
+                })
+            ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+            html.Div([
+                html.Div(style={
+                    'width': '14px', 'height': '14px', 'borderRadius': '50%',
+                    'backgroundColor': '#2563eb', 'border': '2px solid white',
+                    'boxShadow': '0 0 0 1.5px #2563eb', 'marginRight': '8px', 'flexShrink': '0'
+                }),
+                html.Span("Proposed Target — IL, PA, AZ, RI, NV, WI, GA, AR, DE", style={
+                    'fontSize': '13px', 'color': '#2563eb', 'fontWeight': '600'
+                })
+            ], style={'display': 'flex', 'alignItems': 'center'}),
+        ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '4px'}),
+
     ], style={
-        'display': 'flex', 
-        'flexWrap': 'wrap', 
-        'gap': '8px',
-        'marginBottom': '28px', 
-        'padding': '20px 24px', 
-        'background': COLORS['off_white'], 
+        'marginBottom': '28px',
+        'padding': '16px 24px',
+        'background': COLORS['off_white'],
         'borderRadius': '10px',
         'border': f'1px solid {COLORS["border"]}'
     })
@@ -2512,7 +2716,21 @@ def create_map_section():
                     style={'maxWidth': '400px'}
                 )
             ], style={'marginBottom': '24px'}),
-            
+
+            # Click hint
+            html.Div([
+                html.Span("👆 ", style={'fontSize': '14px'}),
+                html.Span("Click any highlighted state to explore its CEP data", style={
+                    'fontSize': '13px', 'fontWeight': '600', 'color': COLORS['teal']
+                }),
+                html.Span("  —  grey states have no data yet", style={
+                    'fontSize': '13px', 'color': COLORS['text_secondary']
+                })
+            ], style={
+                'textAlign': 'center', 'marginBottom': '8px',
+                'padding': '8px', 'letterSpacing': '0.1px'
+            }),
+
             # USA Map
             html.Div([
                 dcc.Graph(
@@ -2996,9 +3214,13 @@ def create_county_map(df, fips_dict, state_abbr):
     return fig
 
 def create_sortable_county_table(df):
-    """Table with status pills and row highlighting - CONSISTENCY FIX APPLIED"""
+    """Table with status pills and row highlighting — default sorted by School Gap (eligible not participating) descending"""
+    # Sort by School_Gap descending by default — biggest opportunity first
+    df = df.sort_values('School_Gap', ascending=False).reset_index(drop=True)
     return html.Div([
-        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}), 
+        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}),
+        html.P("Sorted by largest opportunity first — counties with the most eligible schools not yet participating in CEP.",
+            style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '20px', 'fontStyle': 'italic'}),
         dash_table.DataTable(
             data=df.to_dict('records'),
             columns=[
@@ -3010,40 +3232,39 @@ def create_sortable_county_table(df):
                 {'name': 'CEP Schools', 'id': 'CEP_Schools', 'type': 'numeric'},
                 {'name': 'Students in CEP', 'id': 'Students_in_CEP', 'type': 'numeric', 'format': {'specifier': ','}},
                 {'name': '% Coverage', 'id': 'Coverage_Pct', 'type': 'numeric'},
-                {'name': 'School Gap', 'id': 'School_Gap', 'type': 'numeric'},
+                {'name': 'Eligible Not Participating ▼', 'id': 'School_Gap', 'type': 'numeric'},
                 {'name': 'Status', 'id': 'Status'}
             ],
             sort_action='native',
             filter_action='native',
-            page_action='none',  # Show all counties
-            style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'}, 
-            style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'}, 
-            style_cell={'padding': '16px 20px', 'fontSize': '15px', 'fontFamily': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'}, 
+            page_action='none',
+            style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'},
+            style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'},
+            style_cell={'padding': '16px 20px', 'fontSize': '15px', 'fontFamily': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'},
             style_cell_conditional=[
-                {'if': {'column_id': ['Population', 'Children_in_Poverty', 'Students_in_CEP']}, 'textAlign': 'right'}, 
-                {'if': {'column_id': ['School_Districts', 'Eligible_Schools', 'CEP_Schools', 'Coverage_Pct', 'School_Gap']}, 'textAlign': 'center'}, 
+                {'if': {'column_id': ['Population', 'Children_in_Poverty', 'Students_in_CEP']}, 'textAlign': 'right'},
+                {'if': {'column_id': ['School_Districts', 'Eligible_Schools', 'CEP_Schools', 'Coverage_Pct', 'School_Gap']}, 'textAlign': 'center'},
                 {'if': {'column_id': 'County'}, 'fontWeight': '500', 'minWidth': '120px'},
+                {'if': {'column_id': 'School_Gap'}, 'fontWeight': '700', 'color': '#dc2626'},
                 {'if': {'column_id': 'Status'}, 'minWidth': '180px', 'paddingLeft': '12px', 'paddingRight': '12px'}
-            ], 
+            ],
             style_data_conditional=[
-                # Row highlighting based on status
-                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#e0f2fe'},  # Light sky blue rows
-                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fef3c7'},  # Light yellow rows
-                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},  # Light pink rows
-                # Status pills (on top of row colors) - NEW COLORS: Sky Blue, Green, Pink
-                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600', 
-                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
-                    'textAlign': 'center'}, 
-                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#fbbf24', 'color': '#ffffff', 'fontWeight': '600', 
-                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
-                    'textAlign': 'center'}, 
-                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 
-                    'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 
-                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px',
-                    'textAlign': 'center'}
-            ], 
+                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#e0f2fe'},
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fef3c7'},
+                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},
+                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'},
+                    'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600',
+                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'},
+                    'backgroundColor': '#fbbf24', 'color': '#ffffff', 'fontWeight': '600',
+                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'},
+                    'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600',
+                    'fontSize': '14px', 'padding': '8px 16px', 'borderRadius': '20px', 'textAlign': 'center'},
+                # Highlight high gap rows
+                {'if': {'filter_query': '{School_Gap} >= 10', 'column_id': 'School_Gap'},
+                    'backgroundColor': '#fee2e2', 'fontWeight': '700', 'color': '#dc2626'}
+            ],
             style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '14px'}
         )
     ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
@@ -3474,6 +3695,71 @@ def create_georgia_dual_map_section(df, fips_dict):
         ], style={"display": "flex", "gap": "24px"})
     ], style={"maxWidth": "1400px", "margin": "0 auto", "padding": "0 40px 40px 40px"})
 
+def create_session_banner(state_abbr):
+    """Session status banner for each state page.
+    Source: Ballotpedia 2026 legislative session dates + state legislature sites.
+    """
+    session = SESSION_DATA.get(state_abbr)
+    if not session:
+        return html.Div()
+
+    status = session['status']
+    is_active = status == 'In Session'
+    is_campaign = state_abbr in ACTIVE_CAMPAIGN_STATES
+
+    # Colors
+    if status == 'In Session':
+        bg, border, dot, text_color = '#f0fdf4', '#86efac', '#16a34a', '#15803d'
+    elif status == 'Adjourned':
+        bg, border, dot, text_color = '#f9fafb', '#e5e7eb', '#9ca3af', '#6b7280'
+    else:  # No session
+        bg, border, dot, text_color = '#fefce8', '#fde68a', '#d97706', '#92400e'
+
+    items = [
+        html.Div([
+            html.Span('●', style={'color': dot, 'marginRight': '8px', 'fontSize': '16px'}),
+            html.Span(status, style={'fontWeight': '700', 'fontSize': '14px', 'color': text_color}),
+        ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
+    ]
+
+    if session['start'] != 'N/A':
+        items.append(html.Div([
+            html.Span('Session: ', style={'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary']}),
+            html.Span(f"{session['start']} – {session['end']}", style={'fontSize': '13px', 'color': COLORS['text_primary']}),
+        ], style={'marginRight': '24px'}))
+
+    if session['notes']:
+        items.append(html.Div(
+            session['notes'],
+            style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'}
+        ))
+
+    banner = html.Div(items, style={
+        'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '8px',
+        'background': bg, 'border': f'1px solid {border}',
+        'borderRadius': '8px', 'padding': '12px 16px', 'marginBottom': '12px'
+    })
+
+    if is_campaign:
+        campaign_badge = html.Div([
+            html.Span('🎯 ', style={'fontSize': '14px'}),
+            html.Span('Active 2026 Solving Hunger Campaign', style={
+                'fontWeight': '700', 'fontSize': '13px', 'color': '#dc2626'
+            }),
+            html.Span(
+                ' — Tusk Philanthropies is currently running a legislative campaign in this state to expand school meals.',
+                style={'fontSize': '13px', 'color': '#7f1d1d'}
+            )
+        ], style={
+            'background': '#fef2f2', 'border': '1px solid #fca5a5',
+            'borderRadius': '8px', 'padding': '10px 16px', 'marginBottom': '12px',
+            'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap'
+        })
+        return html.Div([campaign_badge, banner])
+
+    return banner
+
+
 def create_state_page(state_abbr):
     state_data = STATE_DATA.get(state_abbr)
     if not state_data:
@@ -3555,7 +3841,9 @@ def create_state_page(state_abbr):
             'display': 'block' if state_abbr in ['NV', 'RI', 'PA', 'GA'] else 'none'
         })
         ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}), 
-        create_state_executives_section(state_abbr), 
+        create_state_executives_section(state_abbr),
+        html.Div([create_session_banner(state_abbr)],
+            style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 16px 40px'}),
         html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
         (html.Div([create_georgia_dual_map_section(df, fips_dict)]) if state_abbr == 'GA'
          else html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
@@ -3582,6 +3870,23 @@ def update_comparison(state_a, state_b):
     return html.Div()
 
 # NEW CALLBACKS FOR ENHANCED LANDING PAGE
+
+# States that have full data pages
+STATES_WITH_DATA_PAGES = ['GA', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
+
+@application.callback(
+    Output('url', 'pathname'),
+    Input('us-map-graph', 'clickData'),
+    prevent_initial_call=True
+)
+def navigate_to_state_page(click_data):
+    """Navigate to state page when a data-available state is clicked on the map."""
+    if not click_data or 'points' not in click_data:
+        return dash.no_update
+    state_abbr = click_data['points'][0].get('location')
+    if state_abbr and state_abbr in STATES_WITH_DATA_PAGES:
+        return f'/state/{state_abbr.lower()}'
+    return dash.no_update
 
 @application.callback(
     [Output('state-detail-panel', 'children'),
