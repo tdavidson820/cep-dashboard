@@ -285,7 +285,7 @@ SESSION_DATA = {
 # Active 2026 Tusk Philanthropies / Solving Hunger campaign states
 # Source: Tusk Philanthropies 2025 Annual Report
 # https://bradleytusk.substack.com/p/tusk-philanthropies-2025-annual-report
-ACTIVE_CAMPAIGN_STATES = ['VA', 'SC', 'NJ', 'KY', 'MD']
+ACTIVE_CAMPAIGN_STATES = ['SC', 'NJ']
 
 # FPL percentages for hover display on landing page
 FPL_PERCENTAGES = {
