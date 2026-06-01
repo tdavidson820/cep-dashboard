@@ -2050,11 +2050,8 @@ def create_us_map():
     # Source: Tusk Philanthropies 2025 Annual Report
     # https://bradleytusk.substack.com/p/tusk-philanthropies-2025-annual-report
     campaign_coords = {
-        'VA': (37.5, -79.0, 'Virginia'),
         'SC': (33.8, -81.2, 'South Carolina'),
         'NJ': (40.1, -74.7, 'New Jersey'),
-        'KY': (37.8, -85.0, 'Kentucky'),
-        'MD': (39.0, -76.7, 'Maryland'),
     }
     pin_lats = [v[0] for v in campaign_coords.values()]
     pin_lons = [v[1] for v in campaign_coords.values()]
