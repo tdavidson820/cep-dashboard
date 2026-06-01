@@ -2500,6 +2500,7 @@ def create_timeline_pill(event):
 
 def create_timeline_body(filter_type='all'):
     """Build timeline body from TIMELINE_DATA filtered by policy type.
+    Layout: year label above line, dot ON the line, events card below.
     filter_type: 'all', 'meals', or 'breakfast'
     """
     year_colors = {
@@ -2518,18 +2519,33 @@ def create_timeline_body(filter_type='all'):
 
         year_color = year_colors.get(year, COLORS['text_primary'])
         columns.append(html.Div([
-            # Year header
+
+            # Year label — above the line
             html.Div(str(year), style={
                 'fontSize': '27px', 'fontWeight': '900',
-                'color': year_color, 'textAlign': 'center', 'marginBottom': '8px'
+                'color': year_color, 'textAlign': 'center',
+                'marginBottom': '8px', 'lineHeight': '1'
             }),
-            # Timeline dot
+
+            # Vertical stem connecting year label down to the dot on the line
             html.Div(style={
-                'width': '10px', 'height': '10px', 'borderRadius': '50%',
-                'background': 'white', 'border': f'2px solid {year_color}',
-                'margin': '0 auto 16px auto', 'position': 'relative', 'zIndex': '2'
+                'width': '2px', 'height': '24px',
+                'background': year_color,
+                'margin': '0 auto',
             }),
-            # Events
+
+            # Dot — sits ON the horizontal line (zIndex above line)
+            html.Div(style={
+                'width': '14px', 'height': '14px', 'borderRadius': '50%',
+                'background': 'white',
+                'border': f'3px solid {year_color}',
+                'margin': '0 auto',
+                'position': 'relative', 'zIndex': '3',
+                'marginBottom': '20px',
+                'boxShadow': f'0 0 0 3px white'
+            }),
+
+            # Events card — below the line
             html.Div([create_timeline_pill(e) for e in filtered], style={
                 'background': COLORS['white'],
                 'border': f'1px solid {COLORS["border"]}',
@@ -2537,7 +2553,11 @@ def create_timeline_body(filter_type='all'):
                 'padding': '16px 18px',
                 'boxShadow': '0 4px 14px rgba(15,23,42,0.07)'
             })
-        ], style={'flex': '1', 'minWidth': '180px', 'maxWidth': '300px'}))
+
+        ], style={
+            'flex': '1', 'minWidth': '200px', 'maxWidth': '320px',
+            'display': 'flex', 'flexDirection': 'column', 'alignItems': 'stretch'
+        }))
 
     if not columns:
         return html.Div(
@@ -2546,18 +2566,29 @@ def create_timeline_body(filter_type='all'):
                    'padding': '40px', 'fontSize': '15px'}
         )
 
+    # Calculate where the horizontal line sits:
+    # year label (~32px) + stem (24px) = ~56px from top of each column
+    # The dot center is at ~56px + 7px (half dot) = ~63px from top
     return html.Div([
-        # Timeline bar
-        html.Div(style={
-            'position': 'absolute', 'top': '43px', 'left': '0', 'right': '0',
-            'height': '6px', 'background': '#0f172a', 'borderRadius': '999px',
-            'zIndex': '1'
-        }),
-        html.Div(columns, style={
-            'display': 'flex', 'gap': '24px', 'position': 'relative',
-            'overflowX': 'auto', 'paddingTop': '8px', 'paddingBottom': '8px'
-        })
-    ], style={'position': 'relative', 'padding': '8px 0'})
+        html.Div([
+            # Horizontal timeline bar — positioned to intersect the dots
+            html.Div(style={
+                'position': 'absolute',
+                'top': '68px',   # year label + stem height
+                'left': '0', 'right': '0',
+                'height': '4px',
+                'background': '#0f172a',
+                'borderRadius': '999px',
+                'zIndex': '1'
+            }),
+            # Columns
+            html.Div(columns, style={
+                'display': 'flex', 'gap': '20px',
+                'position': 'relative', 'zIndex': '2',
+                'overflowX': 'auto',
+            })
+        ], style={'position': 'relative'})
+    ], style={'padding': '8px 0'})
 
 
 def create_simple_timeline_section():
