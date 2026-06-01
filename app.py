@@ -2750,7 +2750,7 @@ def create_map_section():
                     'backgroundColor': '#dc2626', 'border': '2px solid white',
                     'boxShadow': '0 0 0 1.5px #dc2626', 'marginRight': '8px', 'flexShrink': '0'
                 }),
-                html.Span("Active 2026 Campaign — VA, SC, NJ, KY, MD", style={
+                html.Span("Active 2026 Campaign — SC, NJ", style={
                     'fontSize': '13px', 'color': '#dc2626', 'fontWeight': '600'
                 })
             ], style={'display': 'flex', 'alignItems': 'center', 'marginRight': '24px'}),
