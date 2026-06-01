@@ -43,14 +43,44 @@ application.index_string = '''
 <html>
     <head>
         {%metas%}
-        <title>CEP Dashboard</title>
+        <title>CEP Intelligence Dashboard | Solving Hunger</title>
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
         {%favicon%}
         {%css%}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <style>
+            /* Apply Inter font globally */
+            * {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+            }
+            /* Branded loading screen */
+            ._dash-loading {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background: #ffffff;
+            }
+            ._dash-loading-callback {
+                display: none !important;
+            }
             /* Prevent map from capturing scroll */
             .js-plotly-plot .plotly .main-svg { pointer-events: none; }
             .js-plotly-plot .plotly .main-svg.draglayer { pointer-events: all; }
             .js-plotly-plot:focus-within .plotly .main-svg { pointer-events: all; }
+            /* Smooth hover on state badges */
+            a:hover > div {
+                box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
+                transform: translateY(-1px);
+            }
+            /* Better scrollbar */
+            ::-webkit-scrollbar { width: 6px; height: 6px; }
+            ::-webkit-scrollbar-track { background: #f1f3f5; }
+            ::-webkit-scrollbar-thumb { background: #dee2e6; border-radius: 3px; }
+            ::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
         </style>
         <script>
             // Replace broken portrait images with initials circle
@@ -62,7 +92,7 @@ application.index_string = '''
                 }
             }, true);
 
-            // Timeline filter — show/hide event rows by policy type via data-type attribute
+            // Timeline filter
             document.addEventListener('click', function(e) {
                 var input = e.target.closest('input[type="radio"]');
                 if (!input) return;
@@ -82,6 +112,33 @@ application.index_string = '''
         </script>
     </head>
     <body>
+        <div id="splash-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.4s ease;">
+            <div style="font-family:Inter,sans-serif;text-align:center;">
+                <div style="font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#6c757d;margin-bottom:12px;">Tusk Philanthropies</div>
+                <div style="font-size:36px;font-weight:800;color:#1a1a1a;letter-spacing:-0.03em;margin-bottom:6px;">Solving Hunger</div>
+                <div style="font-size:15px;font-weight:500;color:#6c757d;margin-bottom:40px;">CEP Intelligence Dashboard</div>
+                <div style="width:40px;height:3px;background:#047857;border-radius:2px;margin:0 auto;animation:loadbar 1.2s ease-in-out infinite;"></div>
+            </div>
+        </div>
+        <style>
+            @keyframes loadbar {
+                0% { width: 40px; opacity: 1; }
+                50% { width: 120px; opacity: 0.6; }
+                100% { width: 40px; opacity: 1; }
+            }
+        </style>
+        <script>
+            // Hide splash screen once app loads
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    var splash = document.getElementById('splash-screen');
+                    if (splash) {
+                        splash.style.opacity = '0';
+                        setTimeout(function() { splash.style.display = 'none'; }, 400);
+                    }
+                }, 1200);
+            });
+        </script>
         {%app_entry%}
         <footer>
             {%config%}
@@ -209,11 +266,11 @@ SESSION_DATA = {
         'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'
     },
     'NV': {
-        'start': 'N/A',
-        'end': 'N/A',
-        'status': 'No 2026 Session',
-        'notes': 'Nevada meets in odd-numbered years only. Interim committees active — key period for shaping 2027 legislation.',
-        'source': 'https://www.multistate.us/resources/2026-legislative-session-dates'
+        'start': 'June 3, 2025',
+        'end': 'February 1, 2027',
+        'status': 'Interim Period',
+        'notes': 'Nevada meets in odd-numbered years only. The 2025-2026 Interim is active — the Joint Interim Standing Committee on Education is currently holding public meetings and accepting testimony through early 2027.',
+        'source': 'https://www.leg.state.nv.us/App/InterimCommittee/REL/Interim2025/CommitteeList'
     },
     'RI': {
         'start': 'January 2026',
@@ -2535,22 +2592,24 @@ def create_simple_timeline_section():
                     ],
                     value='all',
                     inline=True,
-                    inputStyle={'marginRight': '6px'},
+                    inputStyle={'display': 'none'},
                     labelStyle={
                         'display': 'inline-flex',
                         'alignItems': 'center',
-                        'marginRight': '12px',
-                        'padding': '8px 18px',
+                        'padding': '8px 20px',
                         'borderRadius': '999px',
-                        'border': f'1px solid {COLORS["border"]}',
+                        'border': f'1.5px solid #dee2e6',
                         'cursor': 'pointer',
-                        'fontSize': '14px',
+                        'fontSize': '13px',
                         'fontWeight': '600',
-                        'background': COLORS['white'],
-                        'color': COLORS['text_primary']
+                        'background': '#ffffff',
+                        'color': '#1a1a1a',
+                        'marginRight': '8px',
+                        'transition': 'all 0.15s ease',
+                        'letterSpacing': '0.1px'
                     }
                 )
-            ], style={'display': 'flex', 'justifyContent': 'center', 'marginBottom': '24px'}),
+            ], style={'display': 'flex', 'justifyContent': 'center', 'marginBottom': '28px'}),
         ], style={'marginBottom': '10px'}),
 
         html.Div([
@@ -2954,7 +3013,7 @@ def create_landing_page():
         create_simple_timeline_section(),
         create_map_section(),
         create_comparison_section(),
-        html.Div("v2026-05-21-final", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
+        html.Div("v2026-05-31 | Tusk Philanthropies / Solving Hunger CEP Dashboard", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#999'})
     ])
 
 def create_comparison_cards(state_a, state_b):
@@ -3714,9 +3773,11 @@ def create_session_banner(state_abbr):
     # Colors
     if status == 'In Session':
         bg, border, dot, text_color = '#f0fdf4', '#86efac', '#16a34a', '#15803d'
+    elif status == 'Interim Period':
+        bg, border, dot, text_color = '#eff6ff', '#bfdbfe', '#2563eb', '#1d4ed8'
     elif status == 'Adjourned':
         bg, border, dot, text_color = '#f9fafb', '#e5e7eb', '#9ca3af', '#6b7280'
-    else:  # No session
+    else:
         bg, border, dot, text_color = '#fefce8', '#fde68a', '#d97706', '#92400e'
 
     items = [
@@ -3790,7 +3851,26 @@ def create_state_page(state_abbr):
         fips_dict = {}
     
     return html.Div([
-        html.Div([html.Div([html.A("← All States", href="/", style={'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'}), html.H1(state_data['name'], style={'fontSize': '56px', 'fontWeight': '600', 'letterSpacing': '-0.02em', 'color': COLORS['text_primary'], 'marginBottom': '12px'}), html.P(f"{state_data['coverage_pct']}% CEP Coverage", style={'fontSize': '21px', 'color': COLORS['text_secondary']}),
+        html.Div([html.Div([
+            html.A("← All States", href="/", style={
+                'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px',
+                'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'
+            }),
+            html.H1(state_data['name'], style={
+                'fontSize': '56px', 'fontWeight': '800', 'letterSpacing': '-0.03em',
+                'color': COLORS['text_primary'], 'marginBottom': '8px'
+            }),
+            html.Div([
+                html.Span(f"{state_data['coverage_pct']}% CEP Coverage", style={
+                    'fontSize': '21px', 'fontWeight': '600', 'color': COLORS['teal'],
+                    'marginRight': '24px'
+                }),
+                html.Span("·", style={'color': COLORS['border'], 'marginRight': '24px', 'fontSize': '21px'}),
+                html.Span(
+                    f"{state_data['eligible_schools'] - state_data['cep_schools']:,} eligible schools not yet participating",
+                    style={'fontSize': '17px', 'fontWeight': '500', 'color': '#dc2626'}
+                ),
+            ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '4px'}),
         # Data disclaimer for selected states
         html.Div([
             html.Span("ℹ️  ", style={'fontSize': '14px'}),
