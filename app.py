@@ -3458,54 +3458,51 @@ def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name):
             'borderRadius': '12px',
             'border': f'1px solid {COLORS["border"]}'
         }),
-        # Poverty legend - horizontal with explanation
+        # Poverty legend - enhanced with gradient bar
         html.Div([
-            # Explanation text
+            html.Div("Understanding the Poverty Distribution Map", style={
+                'fontSize': '14px', 'fontWeight': '700',
+                'color': COLORS['text_primary'], 'marginBottom': '6px'
+            }),
+            html.P(
+                "Each county is shaded by its child poverty rate. "
+                "Darker red = higher poverty. "
+                "Counties that are dark here but grey on the CEP Coverage map are the highest-priority gaps — "
+                "children in need who are not yet being served.",
+                style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '14px', 'lineHeight': '1.6'}
+            ),
+            # Gradient bar legend
             html.Div([
-                html.Div("Understanding the Poverty Distribution Map:", style={
-                    'fontSize': '14px',
-                    'fontWeight': '600',
-                    'color': COLORS['text_primary'],
-                    'marginBottom': '8px'
+                html.Div("Lower poverty", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginRight': '10px', 'whiteSpace': 'nowrap'}),
+                html.Div(style={
+                    'width': '200px', 'height': '14px', 'borderRadius': '4px',
+                    'background': 'linear-gradient(to right, #FEF3C7, #FB923C, #DC2626)',
+                    'border': '1px solid #e5e7eb', 'flexShrink': '0'
                 }),
-                html.P("This map shows child poverty rates across counties. High-poverty counties without Full CEP represent the greatest opportunity for policy impact. Compare this with the CEP Coverage map to identify gaps where children in need are not yet served.", style={
-                    'fontSize': '13px',
-                    'color': COLORS['text_secondary'],
-                    'marginBottom': '16px',
-                    'lineHeight': '1.6'
-                })
-            ]),
-            # Horizontal legend
-            html.Div([
-                html.Span("Poverty Distribution: ", style={
-                    'fontSize': '13px',
-                    'fontWeight': '600',
-                    'color': COLORS['text_primary'],
-                    'marginRight': '16px'
-                }),
+                html.Div("Higher poverty", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginLeft': '10px', 'whiteSpace': 'nowrap'}),
+                html.Div("│", style={'color': COLORS['border'], 'margin': '0 14px', 'fontSize': '16px'}),
                 html.Span([
-                    html.Span('■', style={'color': '#FEF3C7', 'fontSize': '18px', 'marginRight': '6px', 'textShadow': '0 0 1px #999'}),
-                    html.Span(f"0-15% Low (~{low_children:,} children)", style={'marginRight': '20px'})
-                ], style={'fontSize': '13px', 'color': COLORS['text_secondary']}),
+                    html.Span('■', style={'color': '#FEF3C7', 'fontSize': '16px', 'marginRight': '5px', 'textShadow': '0 0 1px #aaa'}),
+                    html.Span(f"0–15% ({low_children:,} children)", style={'marginRight': '16px'})
+                ], style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
                 html.Span([
-                    html.Span('■', style={'color': '#FB923C', 'fontSize': '18px', 'marginRight': '6px'}),
-                    html.Span(f"15-25% Moderate (~{mod_children:,} children)", style={'marginRight': '20px'})
-                ], style={'fontSize': '13px', 'color': COLORS['text_secondary']}),
+                    html.Span('■', style={'color': '#FB923C', 'fontSize': '16px', 'marginRight': '5px'}),
+                    html.Span(f"15–25% ({mod_children:,} children)", style={'marginRight': '16px'})
+                ], style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
                 html.Span([
-                    html.Span('■', style={'color': '#DC2626', 'fontSize': '18px', 'marginRight': '6px'}),
-                    html.Span(f"25%+ High (~{high_children:,} children)", style={'marginRight': '20px'})
-                ], style={'fontSize': '13px', 'color': COLORS['text_secondary']}),
-                html.Span("Data source: U.S. Census Bureau ACS 5-Year Estimates", style={
-                    'fontSize': '11px',
-                    'color': COLORS['text_secondary'],
-                    'fontStyle': 'italic'
-                })
-            ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '8px'})
+                    html.Span('■', style={'color': '#DC2626', 'fontSize': '16px', 'marginRight': '5px'}),
+                    html.Span(f"25%+ ({high_children:,} children)")
+                ], style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
+            ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '4px', 'marginBottom': '10px'}),
+            html.Div("Source: U.S. Census Bureau ACS 5-Year Estimates", style={
+                'fontSize': '11px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'
+            })
         ], style={
             'background': COLORS['off_white'],
-            'padding': '16px',
+            'padding': '16px 20px',
             'borderRadius': '8px',
-            'marginTop': '16px'
+            'marginTop': '16px',
+            'border': f'1px solid {COLORS["border"]}'
         })
     ])
     
@@ -3878,12 +3875,42 @@ def create_state_page(state_abbr):
         df['Status_Numeric'] = df['Status'].apply(status_to_numeric)  # CONSISTENCY FIX
         fips_dict = {}
     
+    # Next / prev state navigation
+    states_list = STATES_WITH_DATA_PAGES
+    current_idx = states_list.index(state_abbr) if state_abbr in states_list else -1
+    prev_state = states_list[current_idx - 1] if current_idx > 0 else None
+    next_state = states_list[current_idx + 1] if current_idx < len(states_list) - 1 else None
+    prev_name = STATE_DATA[prev_state]['name'] if prev_state else None
+    next_name = STATE_DATA[next_state]['name'] if next_state else None
+
     return html.Div([
+
+        # ── Persistent top nav bar ────────────────────────────────────────────────
+        html.Div([
+            html.Div([
+                html.A([
+                    html.Span("TUSK", style={'fontWeight': '800', 'color': COLORS['teal'], 'letterSpacing': '0.05em'}),
+                    html.Span(" / Solving Hunger", style={'fontWeight': '400', 'color': COLORS['text_secondary'], 'fontSize': '13px', 'marginLeft': '6px'}),
+                ], href="/", style={'textDecoration': 'none', 'display': 'flex', 'alignItems': 'center'}),
+                html.A("← All States", href="/", style={
+                    'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '14px',
+                    'fontWeight': '600', 'padding': '8px 18px',
+                    'border': f'1.5px solid {COLORS["teal"]}',
+                    'borderRadius': '20px',
+                }),
+            ], style={
+                'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px',
+                'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center',
+                'height': '56px'
+            })
+        ], style={
+            'position': 'sticky', 'top': '0', 'zIndex': '1000',
+            'background': 'white',
+            'borderBottom': f'1px solid {COLORS["border"]}',
+            'boxShadow': '0 1px 8px rgba(0,0,0,0.06)'
+        }),
+
         html.Div([html.Div([
-            html.A("← All States", href="/", style={
-                'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px',
-                'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'
-            }),
             html.H1(state_data['name'], style={
                 'fontSize': '56px', 'fontWeight': '800', 'letterSpacing': '-0.03em',
                 'color': COLORS['text_primary'], 'marginBottom': '8px'
@@ -3944,7 +3971,58 @@ def create_state_page(state_abbr):
          else html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
         html.Div([
             create_nj_county_table(df) if state_abbr == 'NJ' else create_sortable_county_table(df)
-        ], style={'background': COLORS['off_white']})
+        ], style={'background': COLORS['off_white']}),
+
+        # ── Prev / Next state navigation footer ─────────────────────────────────
+        html.Div([
+            html.Div([
+                # Prev button
+                html.A(
+                    [html.Span("←", style={'marginRight': '8px'}), html.Span(prev_name or "")],
+                    href=f"/{prev_state}" if prev_state else "#",
+                    style={
+                        'color': COLORS['teal'] if prev_state else COLORS['text_secondary'],
+                        'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '600',
+                        'padding': '12px 24px', 'borderRadius': '8px',
+                        'border': f'1.5px solid {COLORS["teal"] if prev_state else COLORS["border"]}',
+                        'background': 'white',
+                        'opacity': '1' if prev_state else '0.35',
+                        'pointerEvents': 'auto' if prev_state else 'none',
+                        'display': 'flex', 'alignItems': 'center'
+                    }
+                ) if prev_state else html.Div(),
+
+                # Center: back to all states
+                html.A("☰  All States", href="/", style={
+                    'color': COLORS['text_secondary'], 'textDecoration': 'none',
+                    'fontSize': '14px', 'fontWeight': '500'
+                }),
+
+                # Next button
+                html.A(
+                    [html.Span(next_name or ""), html.Span("→", style={'marginLeft': '8px'})],
+                    href=f"/{next_state}" if next_state else "#",
+                    style={
+                        'color': COLORS['teal'] if next_state else COLORS['text_secondary'],
+                        'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '600',
+                        'padding': '12px 24px', 'borderRadius': '8px',
+                        'border': f'1.5px solid {COLORS["teal"] if next_state else COLORS["border"]}',
+                        'background': 'white',
+                        'opacity': '1' if next_state else '0.35',
+                        'pointerEvents': 'auto' if next_state else 'none',
+                        'display': 'flex', 'alignItems': 'center'
+                    }
+                ) if next_state else html.Div(),
+            ], style={
+                'maxWidth': '1400px', 'margin': '0 auto', 'padding': '32px 40px',
+                'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center'
+            })
+        ], style={
+            'background': 'white',
+            'borderTop': f'1px solid {COLORS["border"]}',
+            'marginTop': '16px'
+        }),
+
     ], style={'background': COLORS['off_white'], 'minHeight': '100vh'})
 
 application.layout = html.Div([dcc.Location(id='url', refresh=False), html.Div(id='page-content')])
