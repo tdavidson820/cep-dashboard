@@ -316,6 +316,7 @@ STATE_FLAGS = {
     'KY': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+S1k8L3RleHQ+PC9zdmc+',
     'SC': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+U0M8L3RleHQ+PC9zdmc+',
     'NV': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzYTAiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmMiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzM2EwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+TlY8L3RleHQ+PC9zdmc+',
+    'IL': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDNEQTUiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzREE1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+SUw8L3RleHQ+PC9zdmc+',
     'AR': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNiZDAwMjEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjYmQwMDIxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+QVI8L3RleHQ+PC9zdmc+'
 }
 
@@ -1696,19 +1697,19 @@ STATE_EXECUTIVES = {
          'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Illinois-JB-Pritzker-January-2019.jpg',
          'branch': 'Executive'},
         {'title': 'Senate President', 'name': 'Don Harmon', 'party': 'Democrat',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7BCF3F6473-4E6D-4E84-A0A4-4FF7335132E2%7D.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Majority Leader', 'name': 'Kimberly Lightford', 'party': 'Democrat',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7B7FBA8DB0-281E-406F-BF9F-ABEB75B7B38E%7D.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Education Chair', 'name': 'Meg Loughran Cappel', 'party': 'Democrat',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7B344F07C5-9853-49B6-902A-89D5F81637BF%7D.jpg', 'branch': 'Legislative'},
         {'title': 'Senate Minority Leader', 'name': 'John Curran', 'party': 'Republican',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7B7FC724D0-C297-4D20-AC25-3D879DE286B8%7D.jpg', 'branch': 'Legislative'},
         {'title': 'House Speaker', 'name': 'Chris Welch', 'party': 'Democrat',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7B5D419B94-66B4-4F3B-86F1-BFF37B3FA55C%7D.jpg', 'branch': 'Legislative'},
         {'title': 'House Appropriations-Ed Chair', 'name': 'La Shawn K. Ford', 'party': 'Democrat',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7BBCC3C8D6-5728-4A69-8A3B-F203314DD563%7D.jpg', 'branch': 'Legislative'},
         {'title': 'House Minority Leader', 'name': 'Tony McCombie', 'party': 'Republican',
-         'portrait_url': '', 'branch': 'Legislative'},
+         'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7B0766A6E9-981F-491B-B3A1-12DF91F1DBDA%7D.jpg', 'branch': 'Legislative'},
     ],
     'WI': [
         # Executive Branch
@@ -4153,6 +4154,12 @@ def create_state_page(state_abbr):
                     "This data may not reflect current school year participation. Contact the Rhode Island Department of Education "
                     "for the most up-to-date figures."
                 ) if state_abbr == 'RI' else (
+                    "Illinois CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
+                    "Food Research & Action Center (FRAC). County-level data is aggregated from FRAC district-level records "
+                    "and is approximate. Poverty rates are from the U.S. Census Bureau SAIPE program (2023). "
+                    "This data may not reflect current school year participation. Contact the Illinois State Board of Education "
+                    "for the most up-to-date figures."
+                ) if state_abbr == 'IL' else (
                     "Nevada CEP participation data reflects the 2024–2025 school year, published October 2025 by the "
                     "Food Research & Action Center (FRAC). Poverty rates are from the U.S. Census Bureau SAIPE program. "
                     "This data may not reflect current school year participation. Contact the Nevada Department of Education "
@@ -4172,7 +4179,7 @@ def create_state_page(state_abbr):
         create_state_executives_section(state_abbr),
         html.Div([create_session_banner(state_abbr)],
             style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 16px 40px'}),
-        html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
+        html.Div([html.Div([html.Div([html.Div("CEP Coverage", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['coverage_pct']}%", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Students Served", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['students_in_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("In CEP schools", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Opportunity", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div("Data pending" if state_abbr == 'IL' else f"{state_data['children_without_cep']:,}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("Children without CEP", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}), html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}), 
         (html.Div([create_georgia_dual_map_section(df, fips_dict)]) if state_abbr == 'GA'
          else html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()), 
         html.Div([
