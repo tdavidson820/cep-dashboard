@@ -2604,7 +2604,7 @@ def create_state_detail_panel(state_abbr=None):
 
 def create_explore_states_panel():
     """Compact horizontal badge strip — replaces the large card grid."""
-    tracked_states = ['GA', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
+    tracked_states = ['GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
 
     def create_state_badge(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
@@ -4185,7 +4185,7 @@ def create_state_page(state_abbr):
                 # Prev button
                 html.A(
                     [html.Span("←", style={'marginRight': '8px'}), html.Span(prev_name or "")],
-                    href=f"/{prev_state}" if prev_state else "#",
+                    href=f"/state/{prev_state.lower()}" if prev_state else "#",
                     style={
                         'color': COLORS['teal'] if prev_state else COLORS['text_secondary'],
                         'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '600',
@@ -4207,7 +4207,7 @@ def create_state_page(state_abbr):
                 # Next button
                 html.A(
                     [html.Span(next_name or ""), html.Span("→", style={'marginLeft': '8px'})],
-                    href=f"/{next_state}" if next_state else "#",
+                    href=f"/state/{next_state.lower()}" if next_state else "#",
                     style={
                         'color': COLORS['teal'] if next_state else COLORS['text_secondary'],
                         'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '600',
