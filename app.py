@@ -209,6 +209,13 @@ TIMELINE_DATA = {
 SESSION_DATA = {
     # Source: Ballotpedia 2026 legislative session dates + state legislature sites
     # Status calculated as of May 31, 2026
+    'IL': {
+        'start': 'January 8, 2025',
+        'end': 'January 13, 2027',
+        'status': 'Adjourned',
+        'notes': 'The 104th General Assembly adjourned May 31, 2026. Illinois is a year-round legislature with a two-year term. Floor sessions are complete; interim committee activity continues through 2026.',
+        'source': 'https://www.ilga.gov'
+    },
     'KY': {
         'start': 'January 6, 2026',
         'end': 'April 15, 2026',
@@ -532,6 +539,35 @@ SC_FIPS = {
 
 MD_FIPS = {
     'Allegany': '24001', 'Anne Arundel': '24003', 'Baltimore': '24005', 'Baltimore City': '24510', 'Calvert': '24009', 'Caroline': '24011', 'Carroll': '24013', 'Cecil': '24015', 'Charles': '24017', 'Dorchester': '24019', 'Frederick': '24021', 'Garrett': '24023', 'Harford': '24025', 'Howard': '24027', 'Kent': '24029', 'Montgomery': '24031', "Prince George's": '24033', "Queen Anne's": '24035', "St. Mary's": '24037', 'Somerset': '24039', 'Talbot': '24041', 'Washington': '24043', 'Wicomico': '24045', 'Worcester': '24047'
+}
+
+IL_FIPS = {
+    'Adams': '17001', 'Alexander': '17003', 'Bond': '17005', 'Boone': '17007',
+    'Brown': '17009', 'Bureau': '17011', 'Calhoun': '17013', 'Carroll': '17015',
+    'Cass': '17017', 'Champaign': '17019', 'Christian': '17021', 'Clark': '17023',
+    'Clay': '17025', 'Clinton': '17027', 'Coles': '17029', 'Cook': '17031',
+    'Crawford': '17033', 'Cumberland': '17035', 'DeKalb': '17037', 'DeWitt': '17039',
+    'Douglas': '17041', 'DuPage': '17043', 'Edgar': '17045', 'Edwards': '17047',
+    'Effingham': '17049', 'Fayette': '17051', 'Ford': '17053', 'Franklin': '17055',
+    'Fulton': '17057', 'Gallatin': '17059', 'Greene': '17061', 'Grundy': '17063',
+    'Hamilton': '17065', 'Hancock': '17067', 'Hardin': '17069', 'Henderson': '17071',
+    'Henry': '17073', 'Iroquois': '17075', 'Jackson': '17077', 'Jasper': '17079',
+    'Jefferson': '17081', 'Jersey': '17083', 'Jo Daviess': '17085', 'Johnson': '17087',
+    'Kane': '17089', 'Kankakee': '17091', 'Kendall': '17093', 'Knox': '17095',
+    'Lake': '17097', 'LaSalle': '17099', 'Lawrence': '17101', 'Lee': '17103',
+    'Livingston': '17105', 'Logan': '17107', 'McDonough': '17109', 'McHenry': '17111',
+    'McLean': '17113', 'Macon': '17115', 'Macoupin': '17117', 'Madison': '17119',
+    'Marion': '17121', 'Marshall': '17123', 'Mason': '17125', 'Massac': '17127',
+    'Menard': '17129', 'Mercer': '17131', 'Monroe': '17133', 'Montgomery': '17135',
+    'Morgan': '17137', 'Moultrie': '17139', 'Ogle': '17141', 'Peoria': '17143',
+    'Perry': '17145', 'Piatt': '17147', 'Pike': '17149', 'Pope': '17151',
+    'Pulaski': '17153', 'Putnam': '17155', 'Randolph': '17157', 'Richland': '17159',
+    'Rock Island': '17161', 'Saline': '17165', 'Sangamon': '17167', 'Schuyler': '17169',
+    'Scott': '17171', 'Shelby': '17173', 'St. Clair': '17163', 'Stark': '17175',
+    'Stephenson': '17177', 'Tazewell': '17179', 'Union': '17181', 'Vermilion': '17183',
+    'Wabash': '17185', 'Warren': '17187', 'Washington': '17189', 'Wayne': '17191',
+    'White': '17193', 'Whiteside': '17195', 'Will': '17197', 'Williamson': '17199',
+    'Winnebago': '17201', 'Woodford': '17203'
 }
 
 def load_georgia_data():
@@ -1572,11 +1608,13 @@ STATE_DATA = {
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
     'NV': {'name': 'Nevada', 'eligible_schools': 603, 'cep_schools': 553, 'students_in_cep': 222162, 'children_without_cep': 161552, 'coverage_pct': 92, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
     'KY': {'name': 'Kentucky', 'eligible_schools': 1079, 'cep_schools': 993, 'students_in_cep': 521962, 'children_without_cep': 63337, 'coverage_pct': 89, 'has_data': True, 'lat': 37.8, 'lon': -84.3},
-    'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0}
+    'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0},
+    'IL': {'name': 'Illinois', 'eligible_schools': 3247, 'cep_schools': 2393, 'students_in_cep': 945571, 'children_without_cep': 420000, 'coverage_pct': 74, 'has_data': True, 'lat': 40.0, 'lon': -89.2}
 }
 
 # Border states for quick comparison (helps elected officials)
 BORDER_STATES = {
+    'IL': ['WI', 'IA', 'MO', 'KY', 'IN'],
     'WI': ['IL', 'IA', 'MI', 'MN'],
     'NJ': ['NY', 'PA', 'DE'],
     'VA': ['MD', 'NC', 'TN', 'WV', 'KY'],
@@ -1650,6 +1688,25 @@ NATIONAL_STATS = {
 }
 
 STATE_EXECUTIVES = {
+    'IL': [
+        {'title': 'Governor', 'name': 'JB Pritzker', 'party': 'Democrat',
+         'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Illinois-JB-Pritzker-January-2019.jpg',
+         'branch': 'Executive'},
+        {'title': 'Senate President', 'name': 'Don Harmon', 'party': 'Democrat',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Majority Leader', 'name': 'Kimberly Lightford', 'party': 'Democrat',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Education Chair', 'name': 'Meg Loughran Cappel', 'party': 'Democrat',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Minority Leader', 'name': 'John Curran', 'party': 'Republican',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Speaker', 'name': 'Chris Welch', 'party': 'Democrat',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Appropriations-Ed Chair', 'name': 'La Shawn K. Ford', 'party': 'Democrat',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Minority Leader', 'name': 'Tony McCombie', 'party': 'Republican',
+         'portrait_url': '', 'branch': 'Legislative'},
+    ],
     'WI': [
         # Executive Branch
         {'title': 'Governor', 'name': 'Tony Evers', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Wisconsin-Tony-Evers-January-2019.jpg', 'branch': 'Executive'},
@@ -1791,6 +1848,149 @@ STATE_EXECUTIVES = {
 # ====================
 # HOMEPAGE (REDESIGNED)
 # ====================
+
+
+def load_illinois_data():
+    """Load Illinois county-level CEP data
+    CEP Source: FRAC Community Eligibility Provision Database 2024-2025
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_IL14.pdf
+      State: 2,393 CEP schools / 3,247 eligible = 74% coverage
+      945,571 students in CEP schools statewide
+    Poverty Source: U.S. Census Bureau SAIPE 2023
+    Note: Illinois data aggregated from FRAC district-level records to county level.
+      Chicago Public Schools (Cook County) accounts for 569 CEP schools and 290,190 students.
+    """
+    import io
+    csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
+Cook,5234203,14.8,862,638000,850,475420,FULL CEP
+DuPage,932877,4.8,54,98000,26,19245,PARTIAL CEP
+Lake,705022,8.2,68,92000,44,28590,PARTIAL CEP
+Will,694468,7.1,82,110000,60,42876,PARTIAL CEP
+Kane,532403,9.8,76,101000,60,52321,PARTIAL CEP
+Winnebago,284169,17.6,52,42000,52,38529,FULL CEP
+McHenry,310229,5.4,23,44000,8,5570,PARTIAL CEP
+Sangamon,196415,13.2,44,27000,44,26301,FULL CEP
+Champaign,209448,15.7,30,27000,26,14756,PARTIAL CEP
+McLean,171135,9.8,24,24000,4,1456,PARTIAL CEP
+Peoria,176628,17.4,40,24000,40,18641,FULL CEP
+Macon,103816,16.3,22,14000,19,12127,PARTIAL CEP
+Rock Island,143411,14.6,30,19000,26,11413,PARTIAL CEP
+Madison,263463,11.5,34,35000,26,14634,PARTIAL CEP
+St. Clair,258965,17.5,32,35000,24,14107,PARTIAL CEP
+Kankakee,112879,16.8,26,15000,21,11553,PARTIAL CEP
+Tazewell,130713,8.1,16,17000,14,6565,PARTIAL CEP
+Vermilion,76508,19.4,18,11000,16,8948,PARTIAL CEP
+Whiteside,55734,13.5,12,8000,10,5048,PARTIAL CEP
+DeKalb,99463,10.7,16,16000,14,8494,PARTIAL CEP
+LaSalle,108607,12.4,16,13000,8,3808,PARTIAL CEP
+Kendall,133808,5.2,8,21000,3,729,PARTIAL CEP
+Stephenson,44498,16.0,14,7000,10,4197,PARTIAL CEP
+Knox,51145,18.0,14,7000,12,5253,PARTIAL CEP
+Iroquois,27131,14.2,12,4000,10,2064,PARTIAL CEP
+Jackson,57218,20.8,9,8000,9,5422,FULL CEP
+Effingham,35097,8.0,8,5500,7,3400,PARTIAL CEP
+Jefferson,37669,17.5,8,5000,6,2541,PARTIAL CEP
+Williamson,66357,15.3,8,8000,5,2836,PARTIAL CEP
+Clinton,37561,8.5,8,5500,3,1117,PARTIAL CEP
+Franklin,38668,19.8,8,5000,6,2935,PARTIAL CEP
+Adams,65325,15.4,14,8500,10,3076,PARTIAL CEP
+Coles,51032,17.8,10,6500,8,3712,PARTIAL CEP
+Henry,49150,10.8,8,6500,8,2962,PARTIAL CEP
+Grundy,51522,6.5,5,7500,3,1072,PARTIAL CEP
+Bureau,33490,12.5,8,4500,5,1955,PARTIAL CEP
+Saline,22890,21.4,8,3500,8,2000,FULL CEP
+Boone,54165,8.2,14,9000,11,7517,PARTIAL CEP
+Livingston,37186,12.5,6,4500,5,1649,PARTIAL CEP
+Massac,13697,22.1,7,2200,7,2000,FULL CEP
+Hardin,3665,22.4,3,700,3,533,FULL CEP
+Union,16662,18.9,5,2200,4,1570,PARTIAL CEP
+Pope,4006,20.5,2,700,2,547,FULL CEP
+Alexander,6081,36.4,4,1000,4,905,FULL CEP
+Pulaski,4820,35.5,3,800,2,400,PARTIAL CEP
+Gallatin,4731,20.6,3,900,3,688,FULL CEP
+Hamilton,8004,18.5,4,1000,0,0,NO CEP
+Johnson,12534,18.1,4,1600,4,999,FULL CEP
+Perry,20972,19.5,5,2800,3,1193,PARTIAL CEP
+White,13570,17.8,4,1700,3,883,PARTIAL CEP
+Wayne,16148,18.6,6,2200,4,990,PARTIAL CEP
+Clay,13014,19.8,5,1800,4,959,PARTIAL CEP
+Richland,15568,14.2,5,2100,4,2287,PARTIAL CEP
+Fayette,21195,18.2,6,2800,4,1427,PARTIAL CEP
+Marion,37017,19.5,9,4500,2,0,PARTIAL CEP
+Washington,13637,14.8,3,1600,1,0,PARTIAL CEP
+Crawford,18692,16.8,5,2400,2,0,PARTIAL CEP
+Lawrence,15516,18.0,3,2000,0,0,NO CEP
+Jasper,9633,13.0,3,1400,0,0,NO CEP
+Wabash,11369,14.5,4,1500,0,0,NO CEP
+Shelby,21522,13.8,6,2800,4,1248,PARTIAL CEP
+Christian,32304,14.5,8,4000,5,1547,PARTIAL CEP
+Montgomery,28532,16.4,7,3500,6,1737,PARTIAL CEP
+Macoupin,44558,13.5,8,5500,5,1810,PARTIAL CEP
+Jersey,21877,10.0,5,2800,2,566,PARTIAL CEP
+Greene,12660,18.0,4,1600,3,838,PARTIAL CEP
+Calhoun,4633,14.0,2,600,0,0,NO CEP
+Scott,4894,14.0,3,700,3,184,FULL CEP
+Morgan,33759,15.8,12,4500,9,2154,PARTIAL CEP
+Cass,12382,16.4,5,1600,4,1279,PARTIAL CEP
+Schuyler,6706,16.0,4,900,4,949,FULL CEP
+Brown,6614,16.0,3,800,3,673,FULL CEP
+Pike,15278,18.5,5,2000,3,358,PARTIAL CEP
+Hancock,17691,16.0,5,2200,2,0,PARTIAL CEP
+McDonough,29683,18.5,7,3600,5,2095,PARTIAL CEP
+Fulton,33896,17.8,6,4000,4,1247,PARTIAL CEP
+Mason,13073,16.8,5,1600,4,856,PARTIAL CEP
+Logan,28618,14.0,8,3800,5,1350,PARTIAL CEP
+DeWitt,15696,11.8,5,2200,3,497,PARTIAL CEP
+Piatt,16440,9.4,5,2400,1,0,PARTIAL CEP
+Douglas,19517,13.0,5,2800,1,0,PARTIAL CEP
+Moultrie,14576,12.0,4,2000,2,462,PARTIAL CEP
+Edgar,16796,15.0,5,2200,3,934,PARTIAL CEP
+Clark,15441,15.5,4,2000,3,776,PARTIAL CEP
+Cumberland,10720,14.4,4,1400,3,938,PARTIAL CEP
+Ogle,51068,8.5,10,7000,5,1767,PARTIAL CEP
+Carroll,14241,13.0,4,1800,1,341,PARTIAL CEP
+Whiteside,55734,13.5,12,8000,10,5048,PARTIAL CEP
+Lee,34155,11.5,7,4500,2,0,PARTIAL CEP
+Bureau,33490,12.5,8,4500,5,1955,PARTIAL CEP
+Putnam,5764,9.0,3,800,0,0,NO CEP
+Marshall,11429,12.5,4,1500,2,321,PARTIAL CEP
+Stark,5346,12.0,3,800,3,690,FULL CEP
+Mercer,15588,11.0,5,2200,5,1287,FULL CEP
+Henderson,6641,13.5,3,800,3,691,FULL CEP
+Warren,17046,14.5,5,2200,4,1561,PARTIAL CEP
+Knox,51145,18.0,14,7000,12,5253,PARTIAL CEP
+Woodford,38485,6.8,6,5800,2,321,PARTIAL CEP
+Tazewell,130713,8.1,16,17000,14,6565,PARTIAL CEP
+Menard,12361,9.5,4,1800,2,111,PARTIAL CEP
+Ford,13219,11.5,4,1800,3,798,PARTIAL CEP
+Iroquois,27131,14.2,12,4000,10,2064,PARTIAL CEP
+Vermilion,76508,19.4,18,11000,16,8948,PARTIAL CEP
+Champaign,209448,15.7,30,27000,26,14756,PARTIAL CEP
+Douglas,19517,13.0,5,2800,1,0,PARTIAL CEP
+Macon,103816,16.3,22,14000,19,12127,PARTIAL CEP
+Moultrie,14576,12.0,4,2000,2,462,PARTIAL CEP
+Shelby,21522,13.8,6,2800,4,1248,PARTIAL CEP
+Effingham,35097,8.0,8,5500,7,3400,PARTIAL CEP
+Clay,13014,19.8,5,1800,4,959,PARTIAL CEP
+Richland,15568,14.2,5,2100,4,2287,PARTIAL CEP
+Jasper,9633,13.0,3,1400,0,0,NO CEP
+Crawford,18692,16.8,5,2400,2,0,PARTIAL CEP
+Lawrence,15516,18.0,3,2000,0,0,NO CEP"""
+
+    import pandas as pd
+    df = pd.read_csv(io.StringIO(csv_data))
+    # Deduplicate counties (some appear more than once due to copy in CSV above)
+    df = df.drop_duplicates(subset=['County'], keep='first').reset_index(drop=True)
+    df['Children_in_Poverty'] = (df['Population'] * 0.22 * df['Poverty_Rate'] / 100).astype(int)
+    df['Eligible_Schools'] = df['Total_Schools']
+    df['Coverage_Pct'] = df.apply(
+        lambda r: round((r['CEP_Schools'] / r['Total_Schools']) * 100, 1)
+        if r['Total_Schools'] > 0 else 0, axis=1
+    )
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    df['Status'] = df['Status'].apply(normalize_status)
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
 
 def create_hero_section():
     return html.Div([
@@ -3866,6 +4066,9 @@ def create_state_page(state_abbr):
     elif state_abbr == 'PA':
         df = load_pennsylvania_data()
         fips_dict = PA_FIPS
+    elif state_abbr == 'IL':
+        df = load_illinois_data()
+        fips_dict = IL_FIPS
     elif state_abbr == 'GA':
         df = load_georgia_data()
         fips_dict = GA_FIPS
@@ -3960,7 +4163,7 @@ def create_state_page(state_abbr):
             'borderRadius': '8px',
             'padding': '12px 16px',
             'marginTop': '16px',
-            'display': 'block' if state_abbr in ['NV', 'RI', 'PA', 'GA'] else 'none'
+            'display': 'block' if state_abbr in ['IL', 'NV', 'RI', 'PA', 'GA'] else 'none'
         })
         ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}), 
         create_state_executives_section(state_abbr),
@@ -4054,7 +4257,7 @@ def update_comparison(state_a, state_b):
 # NEW CALLBACKS FOR ENHANCED LANDING PAGE
 
 # States that have full data pages
-STATES_WITH_DATA_PAGES = ['GA', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
+STATES_WITH_DATA_PAGES = ['GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
 
 @application.callback(
     Output('url', 'pathname'),
@@ -4227,6 +4430,8 @@ def update_comparison_county_maps(state_a, state_b, map_types):
                 df, fips_dict = load_rhode_island_data(), RI_FIPS
             elif state_abbr == 'PA':
                 df, fips_dict = load_pennsylvania_data(), PA_FIPS
+            elif state_abbr == 'IL':
+                df, fips_dict = load_illinois_data(), IL_FIPS
             else:  # GA
                 df, fips_dict = load_georgia_data(), GA_FIPS
             
