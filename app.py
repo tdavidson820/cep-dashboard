@@ -294,6 +294,9 @@ SESSION_DATA = {
 # https://bradleytusk.substack.com/p/tusk-philanthropies-2025-annual-report
 ACTIVE_CAMPAIGN_STATES = ['SC', 'NJ']
 
+# States that have full data pages (ordered alphabetically for prev/next nav)
+STATES_WITH_DATA_PAGES = ['GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
+
 # FPL percentages for hover display on landing page
 FPL_PERCENTAGES = {
     'HI': '300% of FPL',
@@ -4255,9 +4258,6 @@ def update_comparison(state_a, state_b):
     return html.Div()
 
 # NEW CALLBACKS FOR ENHANCED LANDING PAGE
-
-# States that have full data pages
-STATES_WITH_DATA_PAGES = ['GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'VA', 'WI']
 
 @application.callback(
     Output('url', 'pathname'),
