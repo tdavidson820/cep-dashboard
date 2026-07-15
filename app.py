@@ -2480,7 +2480,8 @@ def create_state_page(state_abbr):
             html.Div([
                 html.A("← All States", href="/", style={'fontSize': '14px', 'fontWeight': '600', 'color': COLORS['teal'], 'textDecoration': 'none', 'marginRight': '24px'}),
                 html.A(f"← {prev_name}", href=f"/state/{prev_abbr}", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textDecoration': 'none', 'marginRight': '16px'}) if prev_abbr else html.Span(),
-                html.A(f"{next_name} →", href=f"/state/{next_abbr}", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textDecoration': 'none'}) if next_abbr else html.Span(),
+                html.A(f"{next_name} →", href=f"/state/{next_abbr}", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textDecoration': 'none', 'marginRight': '20px'}) if next_abbr else html.Span(),
+                html.A("🖨 Print", href=f"/print/{state_abbr.lower()}", target="_blank", style={'fontSize': '13px', 'fontWeight': '600', 'color': 'white', 'background': COLORS['teal'], 'padding': '6px 16px', 'borderRadius': '6px', 'textDecoration': 'none'}),
             ], style={'display': 'flex', 'alignItems': 'center'}),
         ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px', 'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'height': '48px'})
         ], style={'position': 'sticky', 'top': '0', 'zIndex': '100', 'background': 'white', 'borderBottom': f'1px solid {COLORS["border"]}', 'boxShadow': '0 1px 4px rgba(0,0,0,0.06)'}),
@@ -2679,6 +2680,345 @@ def update_comparison_county_maps(state_a, state_b, map_types):
         ], style={'background': 'white', 'padding': '20px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}))
 
     return html.Div(maps, style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '24px'})
+
+
+# ====================
+# PRINT ROUTE — /print/STATE
+# Pure Flask HTML, no Dash overhead, optimized for print-to-PDF
+# ====================
+
+def build_print_html(state_abbr):
+    """Generate a standalone print-optimized HTML page for a state."""
+    from datetime import date as _date
+    import pandas as _pd
+
+    state_abbr = state_abbr.upper()
+    state_data = STATE_DATA.get(state_abbr)
+    if not state_data:
+        return "<html><body><h1>State not found</h1></body></html>", 404
+
+    state_name = state_data['name']
+    today = _date.today().strftime('%B %d, %Y')
+
+    # Load county data
+    loader_map = {
+        'WI': (load_wisconsin_data, WI_FIPS), 'NJ': (load_new_jersey_data, NJ_FIPS),
+        'VA': (load_virginia_data, VA_FIPS), 'GA': (load_georgia_data, GA_FIPS),
+        'PA': (load_pennsylvania_data, PA_FIPS), 'RI': (load_rhode_island_data, RI_FIPS),
+        'MD': (load_maryland_data, MD_FIPS), 'NV': (load_nevada_data, NV_FIPS),
+        'KY': (load_kentucky_data, KY_FIPS), 'SC': (load_south_carolina_data, SC_FIPS),
+        'IL': (load_illinois_data, IL_FIPS), 'SD': (load_south_dakota_data, SD_FIPS),
+        'UT': (load_utah_data, UT_FIPS), 'AR': (load_arkansas_data, AR_FIPS),
+        'DE': (load_delaware_data, DE_FIPS),
+    }
+    df = None
+    if state_abbr in loader_map:
+        loader_fn, _ = loader_map[state_abbr]
+        df = loader_fn()
+        if 'School_Gap' in df.columns:
+            df = df.sort_values('School_Gap', ascending=False).reset_index(drop=True)
+
+    # Session data
+    session = SESSION_DATA.get(state_abbr, {})
+    session_status = session.get('status', '')
+    session_notes = session.get('notes', '')
+    session_dates = f"{session.get('start','')} – {session.get('end','')}" if session.get('start') else ''
+    if session_status == 'In Session':
+        session_badge_color = '#059669'
+        session_bg = '#f0fdf4'
+    elif session_status == 'Adjourned':
+        session_badge_color = '#9ca3af'
+        session_bg = '#f9fafb'
+    else:
+        session_badge_color = '#3b82f6'
+        session_bg = '#eff6ff'
+
+    # Executives HTML
+    executives = STATE_EXECUTIVES.get(state_abbr, [])
+    def party_color(party):
+        if party == 'Democrat': return '#1d4ed8'
+        if party == 'Republican': return '#991b1b'
+        return '#374151'
+
+    exec_rows = ''
+    if executives:
+        exec_branch = [e for e in executives if e.get('branch') == 'Executive']
+        leg_branch = [e for e in executives if e.get('branch') == 'Legislative']
+        senate = [e for e in leg_branch if 'Senate' in e['title'] or 'senate' in e['title']]
+        house = [e for e in leg_branch if 'Senate' not in e['title'] and 'senate' not in e['title']]
+
+        def exec_section(title, officials):
+            if not officials: return ''
+            rows = ''.join(
+                f'<div class="exec-card">'
+                f'<div class="exec-initials" style="background:white;border:2px solid {party_color(o["party"])};color:{party_color(o["party"])};">'
+                f'{"".join(p[0] for p in o["name"].split() if p)[:2]}</div>'
+                f'<div><div class="exec-name" style="color:{party_color(o["party"])};">{o["name"]}</div>'
+                f'<div class="exec-title">{o["title"]}</div></div>'
+                f'</div>'
+                for o in officials
+            )
+            return f'<div class="exec-group"><div class="exec-group-label">{title}</div><div class="exec-grid">{rows}</div></div>'
+
+        exec_rows = (
+            exec_section('Executive Branch', exec_branch) +
+            exec_section('State Senate', senate) +
+            exec_section('State House / Assembly', house)
+        )
+
+    # County table HTML
+    table_html = ''
+    if df is not None and len(df) > 0:
+        display_cols = [
+            ('County', 'County', 'left'),
+            ('Population', 'Population', 'right'),
+            ('Children_in_Poverty', 'Children in Poverty', 'right'),
+            ('Eligible_Schools', 'Eligible Schools', 'center'),
+            ('CEP_Schools', 'CEP Schools', 'center'),
+            ('Students_in_CEP', 'Students in CEP', 'right'),
+            ('Coverage_Pct', '% Coverage', 'center'),
+            ('School_Gap', 'Not Participating ▼', 'center'),
+            ('Status', 'Status', 'center'),
+        ]
+        available = [(col, lbl, align) for col, lbl, align in display_cols if col in df.columns]
+        thead = '<tr>' + ''.join(f'<th style="text-align:{align}">{lbl}</th>' for _, lbl, align in available) + '</tr>'
+        tbody = ''
+        for _, row in df.iterrows():
+            status = str(row.get('Status', ''))
+            if 'FULL' in status:
+                row_bg = '#e0f2fe'
+                status_bg = '#87CEEB'; status_color = '#1a1a1a'
+            elif 'PARTIAL' in status:
+                row_bg = '#fef9c3'
+                status_bg = '#fbbf24'; status_color = '#fff'
+            else:
+                row_bg = '#fce7f3'
+                status_bg = '#ec4899'; status_color = '#fff'
+            cells = ''
+            for col, _, align in available:
+                val = row.get(col, '')
+                if col in ('Population', 'Children_in_Poverty', 'Students_in_CEP'):
+                    try: val = f"{int(val):,}"
+                    except: pass
+                elif col == 'Coverage_Pct':
+                    try: val = f"{float(val):.0f}%"
+                    except: pass
+                style = f'text-align:{align};'
+                if col == 'School_Gap':
+                    try:
+                        gap = int(val) if str(val).isdigit() else int(str(val).replace(',',''))
+                        style += 'font-weight:700;color:#dc2626;'
+                        if gap >= 10: style += 'background:#fee2e2;'
+                    except: pass
+                if col == 'Status':
+                    cells += f'<td style="{style}"><span style="background:{status_bg};color:{status_color};padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap">{val}</span></td>'
+                else:
+                    cells += f'<td style="background:{row_bg};{style}">{val}</td>'
+            tbody += f'<tr>{cells}</tr>'
+        table_html = f'<table class="county-table"><thead>{thead}</thead><tbody>{tbody}</tbody></table>'
+
+    # Stat cards
+    stats = [
+        ('CEP Coverage', f"{state_data['coverage_pct']}%", '#047857'),
+        ('Students Served', f"{state_data['students_in_cep']:,}", '#1e40af'),
+        ('CEP Schools', f"{state_data['cep_schools']:,} / {state_data['eligible_schools']:,}", '#374151'),
+        ('Eligible Not Participating', f"{state_data['eligible_schools'] - state_data['cep_schools']:,}", '#dc2626'),
+    ]
+    stat_cards = ''.join(
+        f'<div class="stat-card"><div class="stat-value" style="color:{color}">{val}</div>'
+        f'<div class="stat-label">{label}</div></div>'
+        for label, val, color in stats
+    )
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{state_name} CEP Report — Tusk Philanthropies</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    color: #1a1a1a;
+    background: white;
+    line-height: 1.5;
+  }}
+  /* ── Screen-only controls ── */
+  .screen-only {{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }}
+  .screen-only a {{ color: #047857; text-decoration: none; font-weight: 600; font-size: 13px; }}
+  .print-btn {{
+    background: #047857; color: white; border: none; padding: 8px 20px;
+    border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: inherit;
+  }}
+  .print-btn:hover {{ background: #065f46; }}
+  /* ── Page wrapper ── */
+  .page {{ max-width: 900px; margin: 0 auto; padding: 32px 40px; }}
+  /* ── Header ── */
+  .doc-header {{
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 3px solid #047857; padding-bottom: 16px; margin-bottom: 24px;
+  }}
+  .doc-header-left .org {{ font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #6b7280; margin-bottom: 4px; }}
+  .doc-header-left .campaign {{ font-size: 10px; color: #6b7280; }}
+  .doc-header-right {{ text-align: right; }}
+  .doc-header-right .state-name {{ font-size: 32px; font-weight: 800; color: #1a1a1a; letter-spacing: -0.03em; line-height: 1; }}
+  .doc-header-right .state-sub {{ font-size: 11px; color: #6b7280; margin-top: 4px; }}
+  /* ── Stat cards ── */
+  .stat-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }}
+  .stat-card {{ border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; }}
+  .stat-value {{ font-size: 22px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }}
+  .stat-label {{ font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }}
+  /* ── Section headers ── */
+  .section-title {{
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: #374151; border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 6px; margin: 24px 0 14px;
+  }}
+  /* ── Session banner ── */
+  .session-banner {{
+    background: {session_bg}; border: 1px solid #e5e7eb; border-radius: 6px;
+    padding: 10px 14px; margin-bottom: 24px; font-size: 11.5px;
+  }}
+  .session-banner .badge {{
+    display: inline-block; font-weight: 700; color: {session_badge_color};
+    margin-right: 16px;
+  }}
+  /* ── Executives ── */
+  .exec-group {{ margin-bottom: 16px; }}
+  .exec-group-label {{ font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; margin-bottom: 8px; }}
+  .exec-grid {{ display: flex; flex-wrap: wrap; gap: 10px; }}
+  .exec-card {{ display: flex; align-items: center; gap: 10px; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 12px; min-width: 200px; }}
+  .exec-initials {{ width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }}
+  .exec-name {{ font-size: 12px; font-weight: 700; }}
+  .exec-title {{ font-size: 10.5px; color: #6b7280; }}
+  /* ── County table ── */
+  .county-table {{ width: 100%; border-collapse: collapse; font-size: 10.5px; margin-top: 8px; }}
+  .county-table th {{
+    background: #f3f4f6; font-weight: 600; font-size: 9.5px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #6b7280; padding: 8px 6px; border-bottom: 2px solid #e5e7eb;
+  }}
+  .county-table td {{ padding: 6px 6px; border-bottom: 1px solid #e5e7eb; }}
+  .county-table tbody tr:last-child td {{ border-bottom: none; }}
+  /* ── Footer ── */
+  .doc-footer {{
+    margin-top: 32px; padding-top: 12px; border-top: 1px solid #e5e7eb;
+    font-size: 9.5px; color: #9ca3af; display: flex; justify-content: space-between;
+  }}
+  /* ── Legend ── */
+  .legend {{ display: flex; gap: 16px; margin-bottom: 8px; }}
+  .legend-item {{ display: flex; align-items: center; gap: 5px; font-size: 10px; color: #6b7280; }}
+  .legend-swatch {{ width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }}
+  /* ── PRINT STYLES ── */
+  @media print {{
+    @page {{ size: letter portrait; margin: 0.6in 0.65in; }}
+    @page :left {{ margin-left: 0.65in; }}
+    @page :right {{ margin-right: 0.65in; }}
+    body {{ font-size: 11px; }}
+    .screen-only {{ display: none !important; }}
+    .page {{ padding: 0; max-width: 100%; }}
+    .stat-grid {{ page-break-inside: avoid; }}
+    .exec-grid {{ page-break-inside: avoid; }}
+    .section-title {{ page-break-after: avoid; }}
+    .county-table {{ page-break-inside: auto; font-size: 9px; }}
+    .county-table thead {{ display: table-header-group; }}
+    .county-table tr {{ page-break-inside: avoid; }}
+    .doc-footer {{
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 6px 0; background: white;
+      border-top: 1px solid #e5e7eb;
+      font-size: 8.5px;
+    }}
+    a {{ color: inherit; text-decoration: none; }}
+  }}
+  @media print and (max-width: 7in) {{
+    @page {{ size: letter landscape; }}
+  }}
+</style>
+</head>
+<body>
+
+<!-- Screen controls only -->
+<div class="screen-only">
+  <a href="/state/{state_abbr.lower()}">← Back to {state_name}</a>
+  <div style="display:flex;gap:12px;align-items:center">
+    <span style="font-size:12px;color:#6b7280">{state_name} CEP Report · {today}</span>
+    <button class="print-btn" onclick="window.print()">🖨 Save as PDF</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <div class="org">Tusk Philanthropies</div>
+      <div style="font-size:14px;font-weight:700;color:#047857;margin-bottom:2px">Solving Hunger</div>
+      <div class="campaign">CEP Policy Intelligence · {today}</div>
+    </div>
+    <div class="doc-header-right">
+      <div class="state-name">{state_name}</div>
+      <div class="state-sub">Community Eligibility Provision — 2024–2025 School Year</div>
+    </div>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="stat-grid">{stat_cards}</div>
+
+  <!-- Session banner -->
+  {'<div class="section-title">Legislative Session</div>' if session_status else ''}
+  {f"""<div class="session-banner">
+    <span class="badge">● {session_status}</span>
+    {f'<strong>{session_dates}</strong>&nbsp;&nbsp;' if session_dates else ''}
+    {session_notes}
+  </div>""" if session_status else ''}
+
+  <!-- Executives -->
+  {f'<div class="section-title">State Leadership</div>{exec_rows}' if exec_rows else ''}
+
+  <!-- County table -->
+  {f'<div class="section-title">County-Level Detail — Sorted by Eligible Schools Not Participating</div>' if table_html else ''}
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch" style="background:#87CEEB"></div>Full CEP</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#fbbf24"></div>Partial CEP</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#ec4899"></div>No CEP</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#fee2e2"></div>Gap ≥ 10 schools (priority)</div>
+  </div>
+  {table_html}
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>Source: Food Research &amp; Action Center, Community Eligibility Provision Fact Sheet, October 2025 · frac.org</span>
+    <span>Tusk Philanthropies / Solving Hunger · Prepared {today}</span>
+  </div>
+
+</div>
+</body>
+</html>"""
+    return html
+
+
+@server.route('/print/<state_abbr>')
+def print_state_page(state_abbr):
+    from flask import Response
+    html, *status = build_print_html(state_abbr)
+    if isinstance(html, tuple):
+        return html
+    code = status[0] if status else 200
+    return Response(html, status=code, mimetype='text/html')
 
 
 if __name__ == '__main__':
