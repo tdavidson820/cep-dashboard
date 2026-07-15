@@ -1,5 +1,5 @@
 # CEP Policy Intelligence Platform - ENHANCED v3
-# VERSION: 2026-07-09-UT-AR-DE-ADD
+# VERSION: 2026-07-15-AR-DATA-CT-EXEC-FIX
 # Last Updated: June 29, 2026
 # Changes:
 #   - Nevada: Updated to FRAC October 2025 fact sheet (NV29)
@@ -126,7 +126,7 @@ COLORS = {
 
 STATE_CATEGORIES = {
     'universal_meals': ['CA', 'ME', 'CO', 'NM', 'MI', 'MN', 'MA', 'VT', 'NY', 'RI'],
-    'universal_breakfast': ['AR', 'DE', 'PA'],
+    'universal_breakfast': ['AR', 'CT', 'DE', 'PA'],
     'fpl_states': ['HI', 'NJ', 'ND']
 }
 
@@ -1421,11 +1421,15 @@ DE_FIPS = {
 
 def load_utah_data():
     """Load Utah county-level CEP data — 29 counties.
-    Source: Utah Condensed internal tracking document (uploaded PDF), cross-referenced
+    CEP Source: Utah Condensed internal tracking document (uploaded PDF), cross-referenced
       with FRAC CEP Fact Sheet October 2025 (UT45).
-    State totals: 68 CEP schools / 1,017 total public schools / 26,097 students in CEP
-    4.0% of students in CEP schools statewide.
-    Note: Morgan county shows 5/5 schools, 2,875 students — Full CEP.
+      https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_UT45.pdf
+    State totals (PDF footer): 68 CEP schools / 1,017 total public schools / 26,097 students
+      4.0% of students in CEP schools statewide.
+    Population/Poverty: U.S. Census Bureau ACS 5-Year Estimates 2019-2023.
+    Note: County rows sum to 59 CEP schools / 22,786 students. Gap vs. state headline
+      (68 / 26,097) = 9 charter schools + specialty schools not county-attributed.
+      Same methodology used across all state pages. Morgan County: 5/5 schools Full CEP.
     """
     import io
     csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
@@ -1472,92 +1476,94 @@ Rich,2510,0.3,4,470,0,0,NO CEP"""
 
 def load_arkansas_data():
     """Load Arkansas county-level CEP data — 75 counties.
-    CEP Source: FRAC Community Eligibility Provision Fact Sheet October 2025 (AR4).
-      State: 185 CEP schools / 468 eligible / 73,281 students / 40% take-up rate.
-      55 school districts adopted CEP; 118 eligible districts did not participate.
-    Note: AR adopted Universal School Breakfast in Feb 2025, so it is in
-      STATE_CATEGORIES['universal_breakfast']. CEP is a separate program (free lunch
-      for all students in high-poverty schools); both can coexist.
-      District data from FRAC fact sheet aggregated to counties.
-      County-level student populations from NCES/ACS 2023 estimates.
+    CEP + Provision 2 Source: CEP/P2 Map Arkansas (internal tracking document,
+      uploaded June 2026). District-level data aggregated to primary county.
+      Total: 1,050 schools / 379 CEP+P2 / 481,727 enrollment / 147,362 students served.
+      Multi-county districts assigned to county with largest share of schools.
+    FRAC AR04 (Oct 2025) cross-reference: AR adopted Universal Breakfast Feb 2025
+      (in STATE_CATEGORIES['universal_breakfast']). CEP is a separate program covering
+      free lunch in high-poverty schools; both programs coexist in AR.
+    Population/Poverty: U.S. Census Bureau ACS 5-Year Estimates 2019-2023.
+    Note: County rows sum to ~1,050 schools / 379 CEP+P2 / ~148K served.
+      Small variance (~1%) vs Excel footer due to multi-county district splitting.
     """
     import io
     csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
-Pulaski,400825,17.2,78,52000,14,7807,PARTIAL CEP
-Benton,292309,9.4,65,52000,0,0,NO CEP
-Washington,252828,15.8,58,38000,0,0,NO CEP
-Sebastian,131551,18.2,40,18000,0,0,NO CEP
-Faulkner,135524,10.8,35,20000,0,0,NO CEP
-Saline,130916,9.2,30,18000,0,0,NO CEP
-Craighead,114014,18.4,38,17000,10,6670,PARTIAL CEP
-Lonoke,82827,8.8,22,14000,0,0,NO CEP
-White,83154,15.2,25,12000,0,0,NO CEP
-Pope,65216,16.8,20,9500,0,0,NO CEP
-Crittenden,47726,30.4,19,8000,9,4655,PARTIAL CEP
-Miller,43257,20.4,18,8000,8,3871,PARTIAL CEP
-Jefferson,65040,29.8,22,9000,7,3165,PARTIAL CEP
-Garland,100016,16.2,28,13000,6,3675,PARTIAL CEP
-Mississippi,39476,28.2,20,7000,9,4655,PARTIAL CEP
-Greene,47003,15.8,14,7000,7,3137,PARTIAL CEP
-Drew,18266,22.4,10,3500,3,1241,PARTIAL CEP
-Poinsett,23512,24.8,14,4500,3,1192,PARTIAL CEP
-Union,36303,22.8,16,5500,0,0,NO CEP
-Ashley,19657,24.4,10,3400,0,0,NO CEP
-Independence,37661,17.4,14,6000,2,1119,PARTIAL CEP
-Hempstead,21516,24.8,10,3800,6,2280,PARTIAL CEP
-Lawrence,15978,22.8,8,2800,2,863,PARTIAL CEP
-St. Francis,24994,31.8,10,3600,2,987,PARTIAL CEP
-Conway,20954,20.4,8,3200,0,0,NO CEP
-Hot Spring,33771,18.4,12,5000,0,0,NO CEP
-Boone,37799,16.8,10,5800,3,831,PARTIAL CEP
-Carroll,28380,15.8,9,4200,3,707,PARTIAL CEP
-Sevier,17007,25.4,8,3000,0,0,NO CEP
-Columbia,22138,24.2,10,3600,0,0,NO CEP
-Logan,21074,18.8,10,3500,0,0,NO CEP
-Franklin,17677,19.8,8,2900,3,1328,PARTIAL CEP
-Yell,21341,22.8,10,3600,2,799,PARTIAL CEP
-Lee,8857,36.8,4,1600,2,644,PARTIAL CEP
-Phillips,16289,38.4,8,3000,2,987,PARTIAL CEP
-Bradley,10754,27.8,6,2000,3,1241,PARTIAL CEP
-Desha,11010,35.4,8,2200,4,932,PARTIAL CEP
-Monroe,6910,32.4,4,1400,2,439,PARTIAL CEP
-Lafayette,6657,30.4,4,1200,2,426,PARTIAL CEP
-Nevada,7726,28.4,4,1400,2,426,PARTIAL CEP
-Ouachita,22962,24.8,8,3600,0,0,NO CEP
-Arkansas,17537,24.4,8,2800,0,0,NO CEP
-Chicot,10118,42.8,6,2000,2,295,PARTIAL CEP
-Calhoun,4928,25.4,3,900,0,0,NO CEP
-Grant,18277,14.8,6,3000,0,0,NO CEP
-Cleburne,24537,16.8,8,3200,2,478,PARTIAL CEP
-Cross,16419,24.8,8,2800,2,661,PARTIAL CEP
-Randolph,18186,22.4,8,3000,2,1421,PARTIAL CEP
-Sharp,17193,20.8,7,2600,0,0,NO CEP
-Baxter,41513,14.8,10,5000,0,0,NO CEP
-Marion,16141,18.8,6,2200,0,0,NO CEP
-Polk,19964,22.4,8,3000,0,0,NO CEP
-Howard,13001,24.8,6,2200,0,0,NO CEP
-Montgomery,8901,24.4,4,1400,2,632,PARTIAL CEP
-Scott,10268,26.8,5,1800,0,0,NO CEP
-Johnson,25754,18.8,8,3800,3,1328,PARTIAL CEP
-Madison,15717,18.4,6,2400,0,0,NO CEP
-Fulton,11476,24.8,5,1800,0,0,NO CEP
-Stone,12445,24.4,5,1800,0,0,NO CEP
-Izard,13629,22.8,5,2000,0,0,NO CEP
-Van Buren,16116,22.8,6,2400,0,0,NO CEP
-Crawford,63257,15.4,20,9500,0,0,NO CEP
-Perry,10074,19.8,4,1600,0,0,NO CEP
-Prairie,8068,22.4,4,1400,0,0,NO CEP
-Dallas,6733,29.8,4,1200,0,0,NO CEP
-Cleveland,8153,22.4,4,1400,0,0,NO CEP
-Lincoln,13024,26.4,5,2000,3,1418,PARTIAL CEP
-Little River,12117,24.8,5,1800,0,0,NO CEP
-Clark,22138,22.4,8,3600,0,0,NO CEP
-Woodruff,6317,30.4,3,1000,2,529,PARTIAL CEP
-Pike,10718,25.4,5,1800,3,1004,PARTIAL CEP
-Searcy,7895,26.4,4,1400,0,0,NO CEP
-Newton,7753,24.8,5,1400,0,0,NO CEP
-Calhoun,4928,25.4,3,900,0,0,NO CEP
-Jackson,16889,24.8,6,2800,0,0,NO CEP"""
+Arkansas,17537,24.4,11,4300,2,857,PARTIAL CEP
+Ashley,19657,32.1,8,3188,0,0,NO CEP
+Baxter,41513,19.2,10,5091,4,1180,PARTIAL CEP
+Benton,292309,8.7,71,46910,3,616,PARTIAL CEP
+Boone,37799,14.3,17,5899,2,386,PARTIAL CEP
+Bradley,10754,16.9,6,1841,6,1841,FULL CEP
+Calhoun,4928,11.3,2,538,0,0,NO CEP
+Carroll,28380,19.1,10,3819,0,0,NO CEP
+Chicot,10118,42.8,6,1229,6,1229,FULL CEP
+Clark,22138,27.6,7,2519,0,0,NO CEP
+Clay,16419,29.0,7,2290,0,0,NO CEP
+Cleburne,24537,19.5,10,3350,2,503,PARTIAL CEP
+Cleveland,8153,21.2,4,1280,0,0,NO CEP
+Columbia,22138,36.2,11,3823,5,2678,PARTIAL CEP
+Conway,20954,31.4,10,3475,5,2471,PARTIAL CEP
+Craighead,114014,29.6,35,20248,17,10280,PARTIAL CEP
+Crawford,63257,28.6,24,10757,9,1783,PARTIAL CEP
+Crittenden,47726,27.7,17,9189,12,5325,PARTIAL CEP
+Cross,16419,29.8,6,3177,2,697,PARTIAL CEP
+Dallas,6733,23.1,2,737,2,737,FULL CEP
+Desha,11010,41.7,7,2045,7,2045,FULL CEP
+Drew,18266,28.9,7,2946,3,1259,PARTIAL CEP
+Faulkner,135524,20.0,36,18869,2,352,PARTIAL CEP
+Franklin,17677,24.0,10,3859,2,548,PARTIAL CEP
+Fulton,11476,17.1,6,1736,4,893,PARTIAL CEP
+Garland,100016,36.1,25,13999,11,5110,PARTIAL CEP
+Grant,18277,19.2,11,5465,0,0,NO CEP
+Greene,47003,26.8,14,6739,7,3131,PARTIAL CEP
+Hempstead,21516,34.7,17,6278,6,2303,PARTIAL CEP
+Hot Spring,33771,31.1,7,2221,0,0,NO CEP
+Howard,13001,26.1,8,2802,6,2288,PARTIAL CEP
+Independence,37661,25.9,13,6836,4,1126,PARTIAL CEP
+Izard,13629,27.0,7,1956,5,1056,PARTIAL CEP
+Jackson,16889,28.1,5,2186,2,1247,PARTIAL CEP
+Jefferson,65040,33.4,33,13013,22,9121,PARTIAL CEP
+Johnson,25754,31.6,11,4423,5,1907,PARTIAL CEP
+Lafayette,6657,30.7,2,524,2,524,FULL CEP
+Lawrence,15978,25.7,9,3199,2,871,PARTIAL CEP
+Lee,8857,31.7,2,649,2,649,FULL CEP
+Lincoln,13024,27.4,3,1393,3,1393,FULL CEP
+Little River,12117,18.9,5,1753,0,0,NO CEP
+Logan,21074,20.0,10,3324,8,2891,PARTIAL CEP
+Lonoke,82827,20.0,24,13397,2,649,PARTIAL CEP
+Madison,15717,28.5,6,2332,0,0,NO CEP
+Marion,16141,19.2,6,1906,6,1906,FULL CEP
+Miller,43257,25.1,7,2097,0,0,NO CEP
+Mississippi,39476,31.3,17,6247,11,3703,PARTIAL CEP
+Monroe,6910,35.9,4,930,4,930,FULL CEP
+Montgomery,8901,18.8,4,1029,0,0,NO CEP
+Nevada,7726,51.3,5,1350,5,1350,FULL CEP
+Newton,7753,16.8,8,1264,8,1264,FULL CEP
+Ouachita,22962,27.8,10,3535,7,2673,PARTIAL CEP
+Perry,10074,19.4,2,900,0,0,NO CEP
+Phillips,16289,45.5,11,3112,11,3112,FULL CEP
+Pike,10718,16.3,7,2069,4,1097,PARTIAL CEP
+Poinsett,23512,31.4,11,3694,11,3694,FULL CEP
+Polk,19964,25.2,12,3352,4,880,PARTIAL CEP
+Pope,65216,22.8,22,10288,5,1632,PARTIAL CEP
+Prairie,8068,9.4,4,1145,0,0,NO CEP
+Pulaski,400825,27.6,125,60811,68,37493,PARTIAL CEP
+Randolph,18186,29.9,6,2580,2,594,PARTIAL CEP
+Saline,130916,12.5,27,18341,0,0,NO CEP
+Scott,10268,25.4,4,1565,0,0,NO CEP
+Searcy,7895,26.4,6,1363,6,1363,FULL CEP
+Sebastian,131551,17.8,42,20773,3,1068,PARTIAL CEP
+Sevier,17007,28.6,7,3020,0,0,NO CEP
+Sharp,17193,22.4,6,2764,3,1562,PARTIAL CEP
+St. Francis,24994,36.8,7,2976,7,2976,FULL CEP
+Stone,12445,28.4,7,1610,7,1610,FULL CEP
+Union,36303,23.8,14,6862,7,4404,PARTIAL CEP
+Van Buren,16116,21.7,7,2172,7,2172,FULL CEP
+Washington,252828,14.3,68,42371,3,752,PARTIAL CEP
+White,83154,17.8,27,12402,2,468,PARTIAL CEP
+Woodruff,6317,27.0,4,937,2,366,PARTIAL CEP
+Yell,21341,15.6,11,3988,4,1126,PARTIAL CEP"""
     df = pd.read_csv(io.StringIO(csv_data))
     df = df.drop_duplicates(subset=['County'], keep='first').reset_index(drop=True)
     df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
@@ -1707,8 +1713,8 @@ STATE_DATA = {
     'SC': {'name': 'South Carolina', 'eligible_schools': 1118, 'cep_schools': 979, 'students_in_cep': 604701, 'children_without_cep': 120493, 'coverage_pct': 83, 'has_data': True, 'lat': 33.8, 'lon': -81.0},
     'IL': {'name': 'Illinois', 'eligible_schools': 3247, 'cep_schools': 2393, 'students_in_cep': 945571, 'children_without_cep': 420000, 'coverage_pct': 74, 'has_data': True, 'lat': 40.0, 'lon': -89.2},
     'SD': {'name': 'South Dakota', 'eligible_schools': 174, 'cep_schools': 103, 'students_in_cep': 15540, 'children_without_cep': 22800, 'coverage_pct': 59, 'has_data': True, 'lat': 44.4, 'lon': -100.3},
-    'UT': {'name': 'Utah', 'eligible_schools': 100, 'cep_schools': 68, 'students_in_cep': 26097, 'children_without_cep': 120000, 'coverage_pct': 4, 'has_data': True, 'lat': 39.3, 'lon': -111.1},
-    'AR': {'name': 'Arkansas', 'eligible_schools': 468, 'cep_schools': 185, 'students_in_cep': 73281, 'children_without_cep': 218000, 'coverage_pct': 40, 'has_data': True, 'lat': 34.8, 'lon': -92.2},
+    'UT': {'name': 'Utah', 'eligible_schools': 1017, 'cep_schools': 68, 'students_in_cep': 26097, 'children_without_cep': 120000, 'coverage_pct': 4, 'has_data': True, 'lat': 39.3, 'lon': -111.1},
+    'AR': {'name': 'Arkansas', 'eligible_schools': 1050, 'cep_schools': 379, 'students_in_cep': 147362, 'children_without_cep': 218000, 'coverage_pct': 36, 'has_data': True, 'lat': 34.8, 'lon': -92.2},
     'DE': {'name': 'Delaware', 'eligible_schools': 181, 'cep_schools': 159, 'students_in_cep': 80610, 'children_without_cep': 17500, 'coverage_pct': 88, 'has_data': True, 'lat': 39.0, 'lon': -75.5}
 }
 
@@ -1865,14 +1871,20 @@ STATE_EXECUTIVES = {
         {'title': 'House Appropriations Chair', 'name': 'Val Peterson', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
     ],
     'AR': [
+        # Executive Branch — 95th General Assembly (2025-2026)
         {'title': 'Governor', 'name': 'Sarah Huckabee Sanders', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2023/01/AR-Sanders.jpg', 'branch': 'Executive'},
+        {'title': 'Lieutenant Governor', 'name': 'Leslie Rutledge', 'party': 'Republican', 'portrait_url': 'https://ltgovernor.arkansas.gov/wp-content/uploads/2023/01/LG-Rutledge-Headshot-scaled.jpg', 'branch': 'Executive'},
         {'title': 'Secretary of Education', 'name': 'Jacob Oliva', 'party': 'Nonpartisan', 'portrait_url': '', 'branch': 'Executive'},
-        {'title': 'Senate President Pro Tempore', 'name': 'Bart Hester', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
-        {'title': 'Senate Majority Leader', 'name': 'Trent Garner', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
-        {'title': 'Senate Education Chair', 'name': 'Jane English', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
-        {'title': 'House Speaker', 'name': 'Matthew Shepherd', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
-        {'title': 'House Majority Leader', 'name': 'Marcus Richmond', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
-        {'title': 'House Education Chair', 'name': 'Brian Evans', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
+        # Senate — Bart Hester (Pro Tem) and Blake Johnson (Majority Leader) confirmed 95th Assembly
+        {'title': 'Senate President Pro Tempore', 'name': 'Bart Hester', 'party': 'Republican', 'portrait_url': 'https://senate.arkansas.gov/wp-content/uploads/2023/01/Hester-Bart-2023.jpg', 'branch': 'Legislative'},
+        {'title': 'Senate Majority Leader', 'name': 'Blake Johnson', 'party': 'Republican', 'portrait_url': 'https://senate.arkansas.gov/wp-content/uploads/2023/01/Johnson-Blake-2023.jpg', 'branch': 'Legislative'},
+        {'title': 'Senate Education Chair', 'name': 'Dan Sullivan', 'party': 'Republican', 'portrait_url': 'https://senate.arkansas.gov/wp-content/uploads/2023/01/Sullivan-Dan-2023.jpg', 'branch': 'Legislative'},
+        # House — Brian Evans became Speaker Jan 13 2025 (succeeded Matthew Shepherd)
+        # Howard Beaty became Majority Leader Jan 2025 (succeeded Marcus Richmond)
+        # Keith Brooks chairs House Education Committee in 95th Assembly
+        {'title': 'House Speaker', 'name': 'Brian S. Evans', 'party': 'Republican', 'portrait_url': 'https://www.arkansashouse.org/images/members/evans_brian.jpg', 'branch': 'Legislative'},
+        {'title': 'House Majority Leader', 'name': 'Howard Beaty', 'party': 'Republican', 'portrait_url': 'https://www.arkansashouse.org/images/members/beaty_howard.jpg', 'branch': 'Legislative'},
+        {'title': 'House Education Chair', 'name': 'Keith Brooks', 'party': 'Republican', 'portrait_url': 'https://www.arkansashouse.org/images/members/brooks_keith.jpg', 'branch': 'Legislative'},
     ],
     'DE': [
         {'title': 'Governor', 'name': 'Matt Meyer', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2025/01/DE-Meyer.jpg', 'branch': 'Executive'},
@@ -2035,10 +2047,10 @@ def create_map_section():
         html.Div([dcc.Dropdown(id='state-search-dropdown', options=all_state_options, placeholder='🔍 Search states...', clearable=True, searchable=True, style={'maxWidth': '400px'})], style={'marginBottom': '16px'}),
         legend,
         html.Div([
-            html.Div([dcc.Graph(id='us-map-graph', figure=create_us_map(), config={'displayModeBar': False}, style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '20px'})]),
-            html.Div([create_explore_states_panel()])
-        ], style={'display': 'grid', 'gridTemplateColumns': '1fr 360px', 'gap': '20px', 'marginBottom': '24px'}),
-        html.Div(id='county-map-container', children=[])
+            dcc.Graph(id='us-map-graph', figure=create_us_map(), config={'displayModeBar': False}, style={'background': 'white', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'padding': '20px'})
+        ], style={'marginBottom': '16px'}),
+        create_explore_states_panel(),
+        html.Div(id='county-map-container', children=[], style={'marginTop': '24px'})
     ], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '80px 40px', 'background': 'white'})
 
 def create_comparison_section():
