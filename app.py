@@ -254,7 +254,10 @@ def load_wisconsin_data():
         'CEP_Schools': [124, 68, 12, 38, 29, 24, 27, 22, 25, 18, 9, 4, 14, 19, 15, 17, 12, 11, 8, 12, 13, 12, 7, 9, 8, 10, 11, 10, 8, 6, 5, 7, 9, 5, 4, 6, 7, 8, 7, 6, 5, 8, 5, 9, 4, 3, 3, 5, 5, 4, 3, 3, 3, 4, 4, 3, 7, 5, 5, 3, 6, 6, 6, 4, 2, 3, 2, 2, 2, 2, 5, 6],
         'Students_in_CEP': [52438, 28956, 4128, 15748, 11954, 9912, 11151, 9086, 10325, 7434, 3717, 1651, 5782, 7843, 6195, 7023, 4956, 4543, 3304, 4956, 5369, 4956, 2891, 3718, 3304, 4130, 4543, 4130, 3304, 2478, 2065, 2891, 3718, 2065, 1652, 2478, 2891, 3304, 2891, 2478, 2065, 3304, 2065, 3718, 1652, 1239, 1239, 2065, 2065, 1652, 1239, 1239, 1239, 1652, 1652, 1239, 2891, 2065, 2065, 1239, 2478, 2478, 2478, 1652, 826, 1239, 826, 826, 826, 826, 2065, 2478],
         'Coverage_Pct': [65, 78, 26, 89, 75, 84, 77, 70, 95, 86, 72, 61, 82, 102, 99, 105, 76, 90, 91, 91, 111, 114, 89, 92, 97, 117, 93, 103, 106, 93, 102, 109, 117, 110, 103, 109, 111, 119, 107, 121, 110, 117, 110, 121, 116, 124, 117, 165, 142, 148, 126, 143, 157, 173, 163, 135, 131, 165, 149, 152, 144, 146, 211, 160, 237, 151, 181, 150, 315, 318, 164, 106],
-        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP']
+        'Status': ['PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'FULL CEP', 'FULL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'PARTIAL CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP', 'NO CEP'],
+        # Poverty_Rate: U.S. Census Bureau ACS 5-Year Estimates 2019-2023
+        # Order matches County list above (72 counties)
+        'Poverty_Rate': [20.3, 10.2, 4.8, 9.4, 12.8, 7.2, 13.2, 11.8, 10.4, 7.8, 4.6, 3.8, 9.2, 11.4, 9.8, 12.6, 9.4, 11.2, 5.8, 9.6, 7.4, 10.8, 13.4, 10.2, 14.2, 10.4, 10.8, 11.6, 13.8, 15.2, 7.8, 11.4, 10.6, 14.8, 14.6, 8.2, 13.4, 12.8, 16.4, 14.2, 12.6, 13.8, 13.2, 7.4, 18.6, 14.8, 13.6, 16.2, 9.8, 12.4, 16.8, 16.4, 19.2, 14.8, 10.6, 14.2, 16.8, 14.4, 11.8, 16.2, 10.8, 8.6, 14.2, 16.4, 12.8, 14.6, 14.2, 13.8, 21.4, 16.8, 26.2, 9.8],
     }
     df = pd.DataFrame(data)
     df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
@@ -2053,25 +2056,195 @@ def create_map_section():
         html.Div(id='county-map-container', children=[], style={'marginTop': '24px'})
     ], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '80px 40px', 'background': 'white'})
 
+def create_poverty_heat_map(df, fips_dict, state_abbr):
+    """Create poverty heat map with 3-tier warm gradient (0-15% / 15-25% / 25%+)"""
+    df = df.copy()
+    df['FIPS'] = df['County'].map(fips_dict)
+    if 'Poverty_Rate' not in df.columns:
+        df['Poverty_Rate'] = 0
+    if 'Student_Population' not in df.columns:
+        df['Student_Population'] = 0
+    def get_poverty_tier(rate):
+        if pd.isna(rate): return 0
+        if rate < 15: return 1
+        elif rate < 25: return 2
+        else: return 3
+    df['Poverty_Tier'] = df['Poverty_Rate'].apply(get_poverty_tier)
+    try:
+        if 'Children_in_Poverty' in df.columns:
+            low_children = int(df[df['Poverty_Tier'] == 1]['Children_in_Poverty'].sum())
+            mod_children = int(df[df['Poverty_Tier'] == 2]['Children_in_Poverty'].sum())
+            high_children = int(df[df['Poverty_Tier'] == 3]['Children_in_Poverty'].sum())
+        else:
+            low_children = mod_children = high_children = 0
+    except:
+        low_children = mod_children = high_children = 0
+    df['hover_text'] = df['County'].astype(str) + ' | ' + df['Status'].astype(str)
+    fig = go.Figure(go.Choropleth(
+        geojson="https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json",
+        locations=df['FIPS'], z=df['Poverty_Tier'],
+        colorscale=[[0, '#FFFFFF'], [0.33, '#FEF3C7'], [0.66, '#FB923C'], [1, '#DC2626']],
+        zmin=0, zmax=3, marker_line_color='white', marker_line_width=1.5, showscale=False,
+        text=df['hover_text'], hovertemplate='%{text}<extra></extra>'
+    ))
+    state_centers = {
+        'WI': {'lat': 44.5, 'lon': -89.5}, 'NJ': {'lat': 40.0, 'lon': -74.5},
+        'VA': {'lat': 37.5, 'lon': -78.5}, 'MD': {'lat': 39.0, 'lon': -76.8},
+        'KY': {'lat': 37.8, 'lon': -84.3}, 'SC': {'lat': 33.8, 'lon': -80.9},
+        'NV': {'lat': 39.0, 'lon': -117.0}, 'RI': {'lat': 41.7, 'lon': -71.5},
+        'PA': {'lat': 41.2, 'lon': -77.2}, 'GA': {'lat': 32.7, 'lon': -83.5},
+        'IL': {'lat': 40.0, 'lon': -89.2}, 'SD': {'lat': 44.4, 'lon': -100.3},
+        'UT': {'lat': 39.3, 'lon': -111.1}, 'AR': {'lat': 34.8, 'lon': -92.2},
+        'DE': {'lat': 39.0, 'lon': -75.5},
+    }
+    center = state_centers.get(state_abbr, {'lat': 39, 'lon': -98})
+    fig.update_geos(fitbounds="locations", visible=False, projection_type="albers usa", center=center)
+    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0}, height=500,
+                      paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    return fig, low_children, mod_children, high_children
+
+
+def create_cep_legend_compact():
+    return html.Div([
+        html.Span([html.Span('■', style={'color': COLORS['full_cep'], 'fontSize': '18px', 'marginRight': '6px'}), html.Span("Full CEP", style={'fontSize': '12px', 'marginRight': '16px'})]),
+        html.Span([html.Span('■', style={'color': COLORS['partial_cep'], 'fontSize': '18px', 'marginRight': '6px'}), html.Span("Partial CEP", style={'fontSize': '12px', 'marginRight': '16px'})]),
+        html.Span([html.Span('■', style={'color': COLORS['no_cep'], 'fontSize': '18px', 'marginRight': '6px'}), html.Span("No CEP", style={'fontSize': '12px'})])
+    ], style={'display': 'flex', 'alignItems': 'center', 'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+
+
+def create_poverty_legend_compact():
+    return html.Div([
+        html.Span([html.Span('■', style={'color': '#FEF3C7', 'fontSize': '18px', 'marginRight': '6px', 'textShadow': '0 0 1px #999'}), html.Span("0-15% Low", style={'fontSize': '12px', 'marginRight': '16px'})]),
+        html.Span([html.Span('■', style={'color': '#FB923C', 'fontSize': '18px', 'marginRight': '6px'}), html.Span("15-25% Moderate", style={'fontSize': '12px', 'marginRight': '16px'})]),
+        html.Span([html.Span('■', style={'color': '#DC2626', 'fontSize': '18px', 'marginRight': '6px'}), html.Span("25%+ High", style={'fontSize': '12px', 'marginRight': '16px'})]),
+        html.Span("Source: U.S. Census Bureau ACS 5-Year Estimates", style={'fontSize': '10px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'})
+    ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '8px', 'background': COLORS['off_white'], 'padding': '12px', 'borderRadius': '6px', 'marginTop': '12px'})
+
+
+def create_nj_county_table(df):
+    """NJ-specific county table with Change This Year column and Essex disclaimer."""
+    return html.Div([
+        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '16px'}),
+        html.Div([
+            html.Span("⚠️  ", style={'fontSize': '16px'}),
+            html.Span("Essex County Note: ", style={'fontWeight': '700', 'fontSize': '14px', 'color': '#92400e'}),
+            html.Span("Essex County includes Newark, where students are served through the Newark Coalition — a community-based initiative that provides meals independently of the federal CEP program. The children served column reflects both CEP and Newark Coalition participation where applicable.", style={'fontSize': '14px', 'color': '#92400e'})
+        ], style={'background': '#fef3c7', 'border': '1px solid #f59e0b', 'borderRadius': '8px', 'padding': '14px 18px', 'marginBottom': '24px'}),
+        dash_table.DataTable(
+            data=df.to_dict('records'),
+            columns=[
+                {'name': 'County', 'id': 'County'},
+                {'name': 'Total Population', 'id': 'Population', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': 'Children Under 18 in Poverty (%)', 'id': 'Poverty_Rate', 'type': 'numeric'},
+                {'name': '# of Schools', 'id': 'Eligible_Schools', 'type': 'numeric'},
+                {'name': 'Student Population', 'id': 'Student_Population', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': '# Schools in CEP', 'id': 'CEP_Schools', 'type': 'numeric'},
+                {'name': 'Children Served', 'id': 'Students_in_CEP', 'type': 'numeric', 'format': {'specifier': ','}},
+                {'name': 'Change This Year', 'id': 'Change_This_Year'},
+                {'name': 'Status', 'id': 'Status'}
+            ],
+            sort_action='native', filter_action='native', page_action='none',
+            style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'},
+            style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '12px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '14px 16px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left', 'whiteSpace': 'normal'},
+            style_cell={'padding': '14px 16px', 'fontSize': '14px', 'fontFamily': 'Inter, -apple-system, sans-serif', 'textAlign': 'left', 'borderBottom': f'1px solid {COLORS["border"]}', 'whiteSpace': 'normal', 'height': 'auto'},
+            style_cell_conditional=[
+                {'if': {'column_id': ['Population', 'Student_Population', 'Students_in_CEP']}, 'textAlign': 'right'},
+                {'if': {'column_id': ['Poverty_Rate', 'Eligible_Schools', 'CEP_Schools']}, 'textAlign': 'center'},
+                {'if': {'column_id': 'County'}, 'fontWeight': '500', 'minWidth': '120px'},
+                {'if': {'column_id': 'Status'}, 'minWidth': '160px', 'textAlign': 'center'},
+                {'if': {'column_id': 'Change_This_Year'}, 'fontSize': '13px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'}
+            ],
+            style_data_conditional=[
+                {'if': {'filter_query': '{Status} = "FULL CEP"'}, 'backgroundColor': '#e0f2fe'},
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"'}, 'backgroundColor': '#fef3c7'},
+                {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},
+                {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600', 'fontSize': '13px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#fbbf24', 'color': '#ffffff', 'fontWeight': '600', 'fontSize': '13px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 'fontSize': '13px', 'textAlign': 'center'},
+                {'if': {'filter_query': '{Change_This_Year} contains "fewer"', 'column_id': 'Change_This_Year'}, 'color': '#dc2626', 'fontWeight': '600'},
+                {'if': {'filter_query': '{Change_This_Year} contains "First year"', 'column_id': 'Change_This_Year'}, 'color': '#059669', 'fontWeight': '600'}
+            ],
+            style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '13px'}
+        )
+    ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 80px 40px'})
+
+
+def create_georgia_dual_map_section(df, fips_dict):
+    """Georgia dual map: county coverage tiers (left) + district CEP status (right)."""
+    df_map = df.copy()
+    df_map['FIPS'] = df_map['County'].map(fips_dict)
+    df_valid = df_map[df_map['FIPS'].notna()]
+
+    county_fig = go.Figure(go.Choropleth(
+        geojson="https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json",
+        locations=df_valid['FIPS'], z=df_valid['Status_Numeric'],
+        text=df_valid['County'] + '<br>Tier: ' + df_valid['Coverage_Tier'] + '<br>CEP: ' + df_valid['CEP_Schools'].astype(str) + '/' + df_valid['Total_Schools'].astype(str),
+        hovertemplate='<b>%{text}</b><extra></extra>',
+        colorscale=[[0.00, '#fce7f3'], [0.25, '#e0f2fe'], [0.50, '#7dd3fc'], [0.75, '#2563eb'], [1.00, '#1e3a8a']],
+        zmin=0, zmax=4, marker_line_color='white', marker_line_width=1.0, showscale=False
+    ))
+    county_fig.update_geos(fitbounds="locations", visible=False, projection_type="albers usa", center={'lat': 32.7, 'lon': -83.5})
+    county_fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0}, height=460, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
+    dist_df = load_georgia_district_data()
+    county_dist_status = {}
+    for county in df['County']:
+        dists = dist_df[dist_df['County'] == county]
+        if len(dists) == 0 or all(dists['Status'] == 'NO CEP'): county_dist_status[county] = 0
+        elif any(dists['Status'] == 'FULL CEP'): county_dist_status[county] = 2
+        else: county_dist_status[county] = 1
+    df_dist = df_valid.copy()
+    df_dist['Dist_Z'] = df_dist['County'].map(county_dist_status).fillna(0)
+    df_dist['Dist_Label'] = df_dist['Dist_Z'].map({0: 'No CEP', 1: 'Partial CEP', 2: 'Full CEP'})
+    dist_fig = go.Figure(go.Choropleth(
+        geojson="https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json",
+        locations=df_dist['FIPS'], z=df_dist['Dist_Z'],
+        text=df_dist['County'] + '<br>' + df_dist['Dist_Label'],
+        hovertemplate='<b>%{text}</b><extra></extra>',
+        colorscale=[[0.0, COLORS['no_cep']], [0.5, COLORS['partial_cep']], [1.0, COLORS['full_cep']]],
+        zmin=0, zmax=2, marker_line_color='white', marker_line_width=1.0, showscale=False
+    ))
+    dist_fig.update_geos(fitbounds="locations", visible=False, projection_type="albers usa", center={'lat': 32.7, 'lon': -83.5})
+    dist_fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0}, height=460, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
+    tier_legend = html.Div([html.Div("Coverage Tiers", style={"fontWeight": "600", "fontSize": "12px", "marginBottom": "8px", "color": COLORS["text_secondary"]}),
+        *[html.Div([html.Div(style={"width": "12px", "height": "12px", "borderRadius": "2px", "backgroundColor": c, "marginRight": "8px", "flexShrink": "0"}), html.Span(l, style={"fontSize": "12px", "color": COLORS["text_secondary"]})], style={"display": "flex", "alignItems": "center", "marginBottom": "4px"})
+        for l, c in [("75%+ in CEP", "#1e3a8a"), ("50-74%", "#2563eb"), ("25-49%", "#7dd3fc"), ("1-24%", "#e0f2fe"), ("No CEP", "#fce7f3")]]], style={"marginTop": "12px"})
+    status_legend = html.Div([html.Div("District Status", style={"fontWeight": "600", "fontSize": "12px", "marginBottom": "8px", "color": COLORS["text_secondary"]}),
+        *[html.Div([html.Div(style={"width": "12px", "height": "12px", "borderRadius": "2px", "backgroundColor": c, "marginRight": "8px", "flexShrink": "0"}), html.Span(l, style={"fontSize": "12px", "color": COLORS["text_secondary"]})], style={"display": "flex", "alignItems": "center", "marginBottom": "4px"})
+        for l, c in [("Full CEP districts present", COLORS["full_cep"]), ("Partial CEP districts", COLORS["partial_cep"]), ("No CEP", COLORS["no_cep"])]]], style={"marginTop": "12px"})
+
+    return html.Div([
+        html.H2("County & District Maps", style={"fontSize": "28px", "fontWeight": "600", "color": COLORS["text_primary"], "marginBottom": "16px"}),
+        html.Div([html.Span("ℹ️  "), html.Span("District map note: ", style={"fontWeight": "700", "fontSize": "12px", "color": "#1e40af"}), html.Span("Georgia has 180+ school districts across 159 counties. The district map shows dominant CEP status per county, aggregated from all districts within it. Source: FRAC 2024-2025 Fact Sheet (October 2025).", style={"fontSize": "12px", "color": "#1e40af"})], style={"background": "#eff6ff", "border": "1px solid #bfdbfe", "borderRadius": "8px", "padding": "12px 16px", "marginBottom": "20px"}),
+        html.Div([
+            html.Div([html.H3("County Coverage Rate", style={"fontSize": "16px", "fontWeight": "600", "color": COLORS["text_primary"], "marginBottom": "6px", "textAlign": "center"}), html.P("Shows what % of eligible schools in each county participate in CEP. Darker blue = higher coverage.", style={"fontSize": "12px", "color": COLORS["text_secondary"], "textAlign": "center", "marginBottom": "12px", "lineHeight": "1.5"}), dcc.Graph(figure=county_fig, config={"displayModeBar": False, "scrollZoom": False}), tier_legend], style={"flex": "1", "minWidth": "0", "background": "white", "borderRadius": "12px", "border": f"1px solid {COLORS['border']}", "padding": "20px"}),
+            html.Div([html.H3("District CEP Status", style={"fontSize": "16px", "fontWeight": "600", "color": COLORS["text_primary"], "marginBottom": "6px", "textAlign": "center"}), html.P("Shows CEP adoption status per school district, aggregated by county. Blue = Full CEP; Yellow = partial; Pink = no participation.", style={"fontSize": "12px", "color": COLORS["text_secondary"], "textAlign": "center", "marginBottom": "12px", "lineHeight": "1.5"}), dcc.Graph(figure=dist_fig, config={"displayModeBar": False, "scrollZoom": False}), status_legend], style={"flex": "1", "minWidth": "0", "background": "white", "borderRadius": "12px", "border": f"1px solid {COLORS['border']}", "padding": "20px"}),
+        ], style={"display": "flex", "gap": "24px"})
+    ], style={"maxWidth": "1400px", "margin": "0 auto", "padding": "0 40px 40px 40px"})
+
+
 def create_comparison_section():
     return html.Div([html.Div([
-        html.H2("Compare States", style={'fontSize': '36px', 'fontWeight': '600', 'marginBottom': '20px', 'color': COLORS['text_primary'], 'letterSpacing': '-0.015em'}),
+        html.H2("Compare States", style={'fontSize': '36px', 'fontWeight': '600', 'marginBottom': '28px', 'color': COLORS['text_primary'], 'letterSpacing': '-0.015em'}),
         html.Div([
             html.Div([html.Label("State A", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '8px', 'display': 'block'}), dcc.Dropdown(id='compare-state-a', options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()], value='WI', clearable=False, style={'minWidth': '200px'})], style={'flex': '1'}),
             html.Div([html.Label("State B", style={'fontSize': '14px', 'fontWeight': '500', 'marginBottom': '8px', 'display': 'block'}), dcc.Dropdown(id='compare-state-b', options=[{'label': data['name'], 'value': abbr} for abbr, data in STATE_DATA.items()], value='NJ', clearable=False, style={'minWidth': '200px'})], style={'flex': '1'})
-        ], style={'display': 'flex', 'gap': '20px', 'marginBottom': '32px'}),
+        ], style={'display': 'flex', 'gap': '20px', 'marginBottom': '24px'}),
+        html.Div([
+            html.Label("Show County Maps:", style={'fontSize': '14px', 'fontWeight': '600', 'marginRight': '16px', 'color': COLORS['text_primary']}),
+            dcc.Checklist(id='comparison-map-types', options=[{'label': ' CEP Coverage', 'value': 'cep'}, {'label': ' Poverty Distribution', 'value': 'poverty'}], value=['cep'], inline=True, style={'fontSize': '14px'}, labelStyle={'marginRight': '20px', 'cursor': 'pointer'})
+        ], style={'display': 'flex', 'alignItems': 'center', 'padding': '16px', 'background': COLORS['off_white'], 'borderRadius': '8px', 'marginBottom': '16px'}),
         html.Div(id='comparison-output'),
-        html.Div(id='comparison-county-maps', style={'marginTop': '32px'})
-    ], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '80px 40px', 'background': 'white'})
+        html.Div(id='comparison-county-maps', style={'marginTop': '16px'})
+    ], style={'maxWidth': '1400px', 'margin': '0 auto'})], style={'padding': '32px 40px 80px 40px', 'background': 'white'})
 
 def create_landing_page():
     return html.Div([
-        create_hero_section(),
-        create_insights_section(),
         create_simple_timeline_section(),
         create_map_section(),
         create_comparison_section(),
-        html.Div("v2026-07-09-UT-AR-DE-ADD", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#aaa'})
+        html.Div("v2026-07-15-AR-DATA-CT-EXEC-FIX", style={'textAlign': 'center', 'padding': '20px', 'fontSize': '11px', 'color': '#aaa'})
     ])
 
 def create_comparison_cards(state_a, state_b):
@@ -2133,6 +2306,9 @@ def create_county_color_legend():
     ], style={'display': 'flex', 'justifyContent': 'center', 'padding': '16px', 'marginTop': '12px', 'background': COLORS['off_white'], 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
 
 def create_sortable_county_table(df):
+    """Table sorted by largest opportunity first (eligible schools not yet in CEP)."""
+    if 'School_Gap' in df.columns:
+        df = df.sort_values('School_Gap', ascending=False).reset_index(drop=True)
     display_cols = ['County', 'Population', 'Children_in_Poverty', 'Eligible_Schools', 'CEP_Schools', 'Students_in_CEP', 'Coverage_Pct', 'School_Gap', 'Status']
     available_cols = [c for c in display_cols if c in df.columns]
     col_defs = [
@@ -2143,12 +2319,13 @@ def create_sortable_county_table(df):
         {'name': 'CEP Schools', 'id': 'CEP_Schools', 'type': 'numeric'},
         {'name': 'Students in CEP', 'id': 'Students_in_CEP', 'type': 'numeric', 'format': {'specifier': ','}},
         {'name': '% Coverage', 'id': 'Coverage_Pct', 'type': 'numeric'},
-        {'name': 'School Gap', 'id': 'School_Gap', 'type': 'numeric'},
+        {'name': 'Eligible Not Participating ▼', 'id': 'School_Gap', 'type': 'numeric'},
         {'name': 'Status', 'id': 'Status'}
     ]
     col_defs = [c for c in col_defs if c['id'] in available_cols]
     return html.Div([
-        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}),
+        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}),
+        html.P("Sorted by largest opportunity first — counties with the most eligible schools not yet participating in CEP.", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '20px', 'fontStyle': 'italic'}),
         dash_table.DataTable(
             data=df[available_cols].to_dict('records'),
             columns=col_defs,
@@ -2160,6 +2337,7 @@ def create_sortable_county_table(df):
                 {'if': {'column_id': ['Population', 'Children_in_Poverty', 'Students_in_CEP']}, 'textAlign': 'right'},
                 {'if': {'column_id': ['Eligible_Schools', 'CEP_Schools', 'Coverage_Pct', 'School_Gap']}, 'textAlign': 'center'},
                 {'if': {'column_id': 'County'}, 'fontWeight': '500', 'minWidth': '140px'},
+                {'if': {'column_id': 'School_Gap'}, 'fontWeight': '700', 'color': '#dc2626'},
                 {'if': {'column_id': 'Status'}, 'minWidth': '160px'}
             ],
             style_data_conditional=[
@@ -2168,7 +2346,8 @@ def create_sortable_county_table(df):
                 {'if': {'filter_query': '{Status} = "NO CEP"'}, 'backgroundColor': '#fce7f3'},
                 {'if': {'filter_query': '{Status} = "FULL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#87CEEB', 'color': '#1a1a1a', 'fontWeight': '600', 'textAlign': 'center'},
                 {'if': {'filter_query': '{Status} = "PARTIAL CEP"', 'column_id': 'Status'}, 'backgroundColor': '#fbbf24', 'color': '#ffffff', 'fontWeight': '600', 'textAlign': 'center'},
-                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 'textAlign': 'center'}
+                {'if': {'filter_query': '{Status} = "NO CEP"', 'column_id': 'Status'}, 'backgroundColor': '#ec4899', 'color': '#ffffff', 'fontWeight': '600', 'textAlign': 'center'},
+                {'if': {'filter_query': '{School_Gap} >= 10', 'column_id': 'School_Gap'}, 'backgroundColor': '#fee2e2', 'fontWeight': '700', 'color': '#dc2626'}
             ],
             style_filter={'backgroundColor': COLORS['white'], 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '4px', 'padding': '8px', 'fontSize': '14px'}
         )
@@ -2191,14 +2370,53 @@ def create_session_banner(state_abbr):
     ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '20px 40px'})
     ], style={'background': bg, 'borderBottom': f'1px solid {COLORS["border"]}'})
 
-def create_tabbed_county_maps_section(df, fips_dict, state_abbr):
-    return html.Div([
+def create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_name=None):
+    """Tabbed view: CEP Coverage + Poverty Distribution maps side by side."""
+    if state_name is None:
+        state_name = STATE_DATA.get(state_abbr, {}).get('name', state_abbr)
+    try:
+        poverty_map_fig, low_children, mod_children, high_children = create_poverty_heat_map(df, fips_dict, state_abbr)
+    except Exception as e:
+        print(f"Error creating poverty map for {state_abbr}: {e}")
+        poverty_map_fig = go.Figure()
+        low_children = mod_children = high_children = 0
+
+    cep_tab_content = html.Div([
+        html.Div([dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False, 'scrollZoom': False})],
+                 style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}),
+        create_county_color_legend()
+    ])
+
+    poverty_tab_content = html.Div([
+        html.Div([dcc.Graph(figure=poverty_map_fig, config={'displayModeBar': False, 'scrollZoom': False})],
+                 style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}),
         html.Div([
-            html.H2("County-Level Coverage", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}),
-            html.Div([dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False})], style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}),
-            create_county_color_legend()
-        ], style={'marginBottom': '48px'})
-    ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'})
+            html.Div("Understanding the Poverty Distribution Map", style={'fontSize': '14px', 'fontWeight': '700', 'color': COLORS['text_primary'], 'marginBottom': '6px'}),
+            html.P("Each county is shaded by its child poverty rate. Darker red = higher poverty. Counties that are dark here but grey on the CEP Coverage map are the highest-priority gaps — children in need who are not yet being served.", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '14px', 'lineHeight': '1.6'}),
+            html.Div([
+                html.Div("Lower poverty", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginRight': '10px', 'whiteSpace': 'nowrap'}),
+                html.Div(style={'width': '200px', 'height': '14px', 'borderRadius': '4px', 'background': 'linear-gradient(to right, #FEF3C7, #FB923C, #DC2626)', 'border': '1px solid #e5e7eb', 'flexShrink': '0'}),
+                html.Div("Higher poverty", style={'fontSize': '12px', 'color': COLORS['text_secondary'], 'marginLeft': '10px', 'whiteSpace': 'nowrap'}),
+                html.Div("│", style={'color': COLORS['border'], 'margin': '0 14px', 'fontSize': '16px'}),
+                html.Span([html.Span('■', style={'color': '#FEF3C7', 'fontSize': '16px', 'marginRight': '5px', 'textShadow': '0 0 1px #aaa'}), html.Span(f"0–15% ({low_children:,} children)", style={'marginRight': '16px'})], style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
+                html.Span([html.Span('■', style={'color': '#FB923C', 'fontSize': '16px', 'marginRight': '5px'}), html.Span(f"15–25% ({mod_children:,} children)", style={'marginRight': '16px'})], style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
+                html.Span([html.Span('■', style={'color': '#DC2626', 'fontSize': '16px', 'marginRight': '5px'}), html.Span(f"25%+ ({high_children:,} children)")], style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
+            ], style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap', 'gap': '4px', 'marginBottom': '10px'}),
+            html.Div("Source: U.S. Census Bureau ACS 5-Year Estimates", style={'fontSize': '11px', 'color': COLORS['text_secondary'], 'fontStyle': 'italic'})
+        ], style={'background': COLORS['off_white'], 'padding': '16px 20px', 'borderRadius': '8px', 'marginTop': '16px', 'border': f'1px solid {COLORS["border"]}'})
+    ])
+
+    return html.Div([
+        html.H2("County-Level Analysis", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '24px'}),
+        dcc.Tabs(id=f'county-tabs-{state_abbr}', value='cep', children=[
+            dcc.Tab(label='CEP Coverage', value='cep', children=cep_tab_content,
+                    style={'padding': '12px 28px', 'fontWeight': '600', 'fontSize': '15px', 'border': 'none', 'borderBottom': '3px solid transparent'},
+                    selected_style={'padding': '12px 28px', 'fontWeight': '600', 'fontSize': '15px', 'border': 'none', 'borderBottom': f'3px solid {COLORS["teal"]}', 'color': COLORS['teal']}),
+            dcc.Tab(label='Poverty Distribution', value='poverty', children=poverty_tab_content,
+                    style={'padding': '12px 28px', 'fontWeight': '600', 'fontSize': '15px', 'border': 'none', 'borderBottom': '3px solid transparent'},
+                    selected_style={'padding': '12px 28px', 'fontWeight': '600', 'fontSize': '15px', 'border': 'none', 'borderBottom': f'3px solid {COLORS["teal"]}', 'color': COLORS['teal']})
+        ], style={'marginBottom': '24px'})
+    ], style={'marginBottom': '48px'})
 
 def create_state_page(state_abbr):
     state_abbr = state_abbr.upper()
@@ -2233,15 +2451,53 @@ def create_state_page(state_abbr):
         df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
         fips_dict = {}
 
-    show_map = bool(fips_dict) and 'FIPS' not in df.columns or bool(fips_dict)
+
+    # Ordered state list for prev/next nav
+    ordered_states = ['GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'AR', 'DE', 'VA', 'WI']
+    state_idx = ordered_states.index(state_abbr) if state_abbr in ordered_states else -1
+    prev_abbr = ordered_states[state_idx - 1] if state_idx > 0 else None
+    next_abbr = ordered_states[state_idx + 1] if state_idx >= 0 and state_idx < len(ordered_states) - 1 else None
+    prev_name = STATE_DATA.get(prev_abbr, {}).get('name', '') if prev_abbr else ''
+    next_name = STATE_DATA.get(next_abbr, {}).get('name', '') if next_abbr else ''
+
+    # Data notices for specific states
+    data_notice_states = {
+        'IL': 'Illinois CEP data reflects the 2024-2025 school year. District-level adoption varies significantly across 102 counties. Source: FRAC October 2025 Fact Sheet (IL14).',
+        'NV': 'Nevada data reflects FRAC October 2025 Fact Sheet (NV29). County rows sum to 521/562 eligible; remaining 32 schools are unassigned charter schools. CEP participation is 92% of eligible schools.',
+        'RI': 'Rhode Island county rows sum to 82 of 120 CEP schools. The 38-school difference consists of public charter schools and specialty schools not attributable to individual counties. Source: FRAC October 2025 (RI40).',
+        'PA': 'Pennsylvania CEP data reflects FRAC October 2025 Fact Sheet (PA39). Universal School Breakfast enacted August 2023.',
+        'GA': 'Georgia has 180+ school districts across 159 counties. County-level figures aggregate all districts within each county. See the District map for school-by-school detail. Source: FRAC October 2025 (GA11).',
+    }
+    data_notice = data_notice_states.get(state_abbr)
 
     return html.Div([
-        # Header
+        # Sticky top nav
         html.Div([html.Div([
-            html.A("← All States", href="/", style={'color': COLORS['teal'], 'textDecoration': 'none', 'fontSize': '15px', 'fontWeight': '500', 'marginBottom': '24px', 'display': 'inline-block'}),
-            html.H1(state_data['name'], style={'fontSize': '56px', 'fontWeight': '700', 'letterSpacing': '-0.025em', 'color': COLORS['text_primary'], 'marginBottom': '12px', 'lineHeight': '1.05'}),
-            html.P(f"{state_data['coverage_pct']}% CEP Coverage · {state_data['cep_schools']:,} of {state_data['eligible_schools']:,} eligible schools", style={'fontSize': '20px', 'color': COLORS['text_secondary']})
-        ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '60px 40px'})], style={'background': COLORS['white']}),
+            html.Div([
+                html.Span("Tusk Philanthropies", style={'fontSize': '12px', 'fontWeight': '700', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '1.5px', 'marginRight': '16px'}),
+                html.Span("Solving Hunger · CEP Intelligence", style={'fontSize': '12px', 'color': COLORS['text_secondary']}),
+            ], style={'display': 'flex', 'alignItems': 'center'}),
+            html.Div([
+                html.A("← All States", href="/", style={'fontSize': '14px', 'fontWeight': '600', 'color': COLORS['teal'], 'textDecoration': 'none', 'marginRight': '24px'}),
+                html.A(f"← {prev_name}", href=f"/state/{prev_abbr}", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textDecoration': 'none', 'marginRight': '16px'}) if prev_abbr else html.Span(),
+                html.A(f"{next_name} →", href=f"/state/{next_abbr}", style={'fontSize': '14px', 'color': COLORS['text_secondary'], 'textDecoration': 'none'}) if next_abbr else html.Span(),
+            ], style={'display': 'flex', 'alignItems': 'center'}),
+        ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px', 'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'height': '48px'})
+        ], style={'position': 'sticky', 'top': '0', 'zIndex': '100', 'background': 'white', 'borderBottom': f'1px solid {COLORS["border"]}', 'boxShadow': '0 1px 4px rgba(0,0,0,0.06)'}),
+
+        # Page header
+        html.Div([html.Div([
+            html.H1(state_data['name'], style={'fontSize': '56px', 'fontWeight': '700', 'letterSpacing': '-0.025em', 'color': COLORS['text_primary'], 'marginBottom': '12px', 'lineHeight': '1.05', 'marginTop': '48px'}),
+            html.P(f"{state_data['coverage_pct']}% CEP Coverage · {state_data['cep_schools']:,} of {state_data['eligible_schools']:,} eligible schools", style={'fontSize': '20px', 'color': COLORS['text_secondary'], 'marginBottom': '40px'})
+        ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px 48px 40px'})
+        ], style={'background': COLORS['white']}),
+
+        # Data notice (state-specific)
+        html.Div([html.Div([
+            html.Span("ℹ️  "), html.Span("Data Note: ", style={'fontWeight': '700', 'fontSize': '13px', 'color': '#1e40af'}),
+            html.Span(data_notice, style={'fontSize': '13px', 'color': '#1e40af'})
+        ], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '12px 40px'})
+        ], style={'background': '#eff6ff', 'borderBottom': f'1px solid {COLORS["border"]}', 'display': 'block' if data_notice else 'none'}) if data_notice else html.Div(),
 
         # Session banner
         create_session_banner(state_abbr),
@@ -2257,11 +2513,15 @@ def create_state_page(state_abbr):
             html.Div([html.Div("Schools", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '12px', 'fontWeight': '600'}), html.Div(f"{state_data['cep_schools']}/{state_data['eligible_schools']}", style={'fontSize': '40px', 'fontWeight': '700', 'color': COLORS['text_primary']}), html.Div("CEP vs Eligible", style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'background': 'white', 'padding': '28px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}),
         ], style={'display': 'grid', 'gridTemplateColumns': 'repeat(4, 1fr)', 'gap': '20px', 'marginBottom': '48px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '40px 40px 0 40px'}),
 
-        # County map
-        create_tabbed_county_maps_section(df, fips_dict, state_abbr) if show_map else html.Div(),
+        # County map / analysis
+        (create_georgia_dual_map_section(df, fips_dict) if state_abbr == 'GA'
+         else html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])],
+                       style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()),
 
         # County table
-        html.Div([create_sortable_county_table(df)], style={'background': COLORS['off_white']}),
+        html.Div([
+            create_nj_county_table(df) if state_abbr == 'NJ' else create_sortable_county_table(df)
+        ], style={'background': COLORS['off_white']}),
 
     ], style={'background': COLORS['off_white'], 'minHeight': '100vh'})
 
@@ -2274,6 +2534,20 @@ application.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
 ])
+
+@application.callback(
+    Output('url', 'pathname'),
+    Input('us-map-graph', 'clickData'),
+    prevent_initial_call=True
+)
+def navigate_to_state_page(click_data):
+    if not click_data or 'points' not in click_data:
+        raise dash.exceptions.PreventUpdate
+    state_abbr = click_data['points'][0].get('location', '')
+    if state_abbr and state_abbr in STATES_WITH_DATA_PAGES:
+        return f'/state/{state_abbr}'
+    raise dash.exceptions.PreventUpdate
+
 
 @application.callback(Output('page-content', 'children'), Input('url', 'pathname'))
 def display_page(pathname):
@@ -2352,10 +2626,10 @@ def update_state_selection(click_data, search_value):
 
 @application.callback(
     Output('comparison-county-maps', 'children'),
-    [Input('compare-state-a', 'value'), Input('compare-state-b', 'value')]
+    [Input('compare-state-a', 'value'), Input('compare-state-b', 'value'), Input('comparison-map-types', 'value')]
 )
-def update_comparison_county_maps(state_a, state_b):
-    if not state_a or not state_b:
+def update_comparison_county_maps(state_a, state_b, map_types):
+    if not state_a or not state_b or not map_types:
         return []
 
     loader_map = {
@@ -2364,30 +2638,48 @@ def update_comparison_county_maps(state_a, state_b):
         'PA': (load_pennsylvania_data, PA_FIPS), 'RI': (load_rhode_island_data, RI_FIPS),
         'MD': (load_maryland_data, MD_FIPS), 'NV': (load_nevada_data, NV_FIPS),
         'KY': (load_kentucky_data, KY_FIPS), 'SC': (load_south_carolina_data, SC_FIPS),
-        'IL': (load_illinois_data, IL_FIPS),
-        'SD': (load_south_dakota_data, SD_FIPS),
-        'UT': (load_utah_data, UT_FIPS),
-        'AR': (load_arkansas_data, AR_FIPS),
+        'IL': (load_illinois_data, IL_FIPS), 'SD': (load_south_dakota_data, SD_FIPS),
+        'UT': (load_utah_data, UT_FIPS), 'AR': (load_arkansas_data, AR_FIPS),
         'DE': (load_delaware_data, DE_FIPS),
     }
 
     maps = []
     for state_abbr in [state_a, state_b]:
-        state_name = STATE_DATA[state_abbr]['name']
-        if state_abbr in loader_map:
-            loader_fn, fips_dict = loader_map[state_abbr]
-            df = loader_fn()
-            maps.append(html.Div([
-                html.H4(f"{state_name} Counties", style={'fontSize': '16px', 'fontWeight': '600', 'marginBottom': '12px', 'color': COLORS['text_primary']}),
-                html.Div([dcc.Graph(figure=create_county_map(df, fips_dict, state_abbr), config={'displayModeBar': False})], style={'background': 'white', 'padding': '16px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
+        state_name = STATE_DATA.get(state_abbr, {}).get('name', state_abbr)
+        if state_abbr not in loader_map:
+            maps.append(html.Div([html.H4(state_name, style={'fontSize': '16px', 'fontWeight': '600', 'marginBottom': '12px'}), html.Div("County-level data not yet available.", style={'padding': '40px', 'textAlign': 'center', 'color': COLORS['text_secondary'], 'background': 'white', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}', 'fontSize': '14px'})]))
+            continue
+
+        loader_fn, fips_dict = loader_map[state_abbr]
+        df = loader_fn()
+
+        state_maps = []
+        if 'cep' in map_types:
+            cep_fig = create_county_map(df, fips_dict, state_abbr)
+            state_maps.append(html.Div([
+                html.Div("CEP Coverage", style={'fontSize': '13px', 'fontWeight': '600', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '8px'}),
+                dcc.Graph(figure=cep_fig, config={'displayModeBar': False}),
+                create_cep_legend_compact()
             ]))
-        else:
-            maps.append(html.Div([
-                html.H4(f"{state_name} Counties", style={'fontSize': '16px', 'fontWeight': '600', 'marginBottom': '12px', 'color': COLORS['text_primary']}),
-                html.Div("County-level data not yet available for this state.", style={'padding': '40px', 'textAlign': 'center', 'color': COLORS['text_secondary'], 'fontSize': '14px', 'background': 'white', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'})
-            ]))
+        if 'poverty' in map_types:
+            try:
+                pov_fig, _, _, _ = create_poverty_heat_map(df, fips_dict, state_abbr)
+                state_maps.append(html.Div([
+                    html.Div("Poverty Distribution", style={'fontSize': '13px', 'fontWeight': '600', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'marginBottom': '8px'}),
+                    dcc.Graph(figure=pov_fig, config={'displayModeBar': False}),
+                    create_poverty_legend_compact()
+                ]))
+            except Exception as e:
+                state_maps.append(html.Div(f"Poverty map unavailable.", style={'color': COLORS['text_secondary'], 'padding': '20px'}))
+
+        grid = '1fr' if len(state_maps) == 1 else '1fr 1fr'
+        maps.append(html.Div([
+            html.H4(state_name, style={'fontSize': '18px', 'fontWeight': '600', 'marginBottom': '12px', 'color': COLORS['text_primary']}),
+            html.Div(state_maps, style={'display': 'grid', 'gridTemplateColumns': grid, 'gap': '16px'})
+        ], style={'background': 'white', 'padding': '20px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}'}))
 
     return html.Div(maps, style={'display': 'grid', 'gridTemplateColumns': '1fr 1fr', 'gap': '24px'})
+
 
 if __name__ == '__main__':
     application.run(debug=False, host='0.0.0.0', port=8000)
