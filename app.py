@@ -162,7 +162,7 @@ SESSION_DATA = {
     'KY': {'start': 'January 6, 2026', 'end': 'April 15, 2026', 'status': 'Adjourned', 'notes': 'Regular session adjourned sine die. Interim committee meetings continue through 2026.', 'source': 'https://ballotpedia.org/2026_Kentucky_legislative_session'},
     'MD': {'start': 'January 14, 2026', 'end': 'April 13, 2026', 'status': 'Adjourned', 'notes': 'Regular session concluded. Interim committee activity continues.', 'source': 'https://ballotpedia.org/2026_Maryland_legislative_session'},
     'VA': {'start': 'January 14, 2026', 'end': 'March 14, 2026', 'status': 'Adjourned', 'notes': 'Regular session concluded. Reconvened April 22 for Governor\'s actions. Interim committees active.', 'source': 'https://ballotpedia.org/2026_Virginia_legislative_session'},
-    'SC': {'start': 'January 13, 2026', 'end': 'June 2026', 'status': 'In Session', 'notes': 'Active — expected to adjourn early June 2026.', 'source': 'https://ballotpedia.org/Dates_of_2026_state_legislative_sessions'},
+    'SC': {'start': 'January 13, 2026', 'end': 'May 14, 2026', 'status': 'Adjourned', 'notes': 'The 126th General Assembly adjourned sine die May 14, 2026. Gov. McMaster called a special session May 15 for redistricting and the state budget.', 'source': 'https://www.sccadvasa.org/state-house-session-advocacy/'},
     'NJ': {'start': 'January 13, 2026', 'end': 'December 31, 2026', 'status': 'In Session', 'notes': 'Year-round legislature — active through December 2026.', 'source': 'https://ballotpedia.org/2026_New_Jersey_legislative_session'},
     'GA': {'start': 'January 12, 2026', 'end': 'April 6, 2026', 'status': 'Adjourned', 'notes': 'Regular session concluded. Interim study committees meet through fall 2026.', 'source': 'https://ballotpedia.org/2026_Georgia_legislative_session'},
     'PA': {'start': 'January 6, 2026', 'end': 'December 31, 2026', 'status': 'In Session', 'notes': 'Year-round legislature — active through December 2026.', 'source': 'https://www.multistate.us/resources/2026-legislative-session-dates'},
@@ -195,7 +195,8 @@ STATE_FLAGS = {
     'SD': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzOTkiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmNjMDAiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzMzk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+U0Q8L3RleHQ+PC9zdmc+',
     'UT': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiM3MzJCMkIiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjNzMyQjJCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+VVQ8L3RleHQ+PC9zdmc+',
     'AR': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNiZDAwMjEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjYmQwMDIxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+QVI8L3RleHQ+PC9zdmc+',
-    'DE': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDM0ODciLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmNjMDAiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzNDg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+REU8L3RleHQ+PC9zdmc+'
+    'DE': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDM0ODciLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmNjMDAiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzNDg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+REU8L3RleHQ+PC9zdmc+',
+    'SC': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+U0M8L3RleHQ+PC9zdmc+'
 }
 
 
@@ -1708,7 +1709,7 @@ STATE_DATA = {
     'GA': {'name': 'Georgia', 'eligible_schools': 2150, 'cep_schools': 1275, 'students_in_cep': 796831, 'children_without_cep': 1368075, 'coverage_pct': 59, 'has_data': True, 'lat': 32.7, 'lon': -83.5},
     'PA': {'name': 'Pennsylvania', 'eligible_schools': 2605, 'cep_schools': 1827, 'students_in_cep': 859396, 'children_without_cep': 612029, 'coverage_pct': 70, 'has_data': True, 'lat': 41.2, 'lon': -77.2},
     'RI': {'name': 'Rhode Island', 'eligible_schools': 143, 'cep_schools': 120, 'students_in_cep': 56457, 'children_without_cep': 19526, 'coverage_pct': 84, 'has_data': True, 'lat': 41.7, 'lon': -71.5},
-    'NJ': {'name': 'New Jersey', 'eligible_schools': 2591, 'cep_schools': 575, 'students_in_cep': 275703, 'children_without_cep': 1092370, 'coverage_pct': 20, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
+    'NJ': {'name': 'New Jersey', 'eligible_schools': 1034, 'cep_schools': 343, 'students_in_cep': 144466, 'children_without_cep': 251000, 'coverage_pct': 33, 'has_data': True, 'lat': 40.0, 'lon': -74.5},
     'VA': {'name': 'Virginia', 'eligible_schools': 1850, 'cep_schools': 1054, 'students_in_cep': 389000, 'children_without_cep': 142000, 'coverage_pct': 57, 'has_data': True, 'lat': 37.5, 'lon': -78.5},
     'MD': {'name': 'Maryland', 'eligible_schools': 1411, 'cep_schools': 701, 'students_in_cep': 390551, 'children_without_cep': 502940, 'coverage_pct': 44, 'has_data': True, 'lat': 39.0, 'lon': -76.6},
     'NV': {'name': 'Nevada', 'eligible_schools': 603, 'cep_schools': 553, 'students_in_cep': 222162, 'children_without_cep': 161552, 'coverage_pct': 92, 'has_data': True, 'lat': 39.0, 'lon': -117.0},
@@ -1807,11 +1808,12 @@ STATE_EXECUTIVES = {
     ],
     'SC': [
         {'title': 'Governor', 'name': 'Henry McMaster', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/McMaster-Gov.-2025a-full-size_square-scaled.jpg', 'branch': 'Executive'},
+        {'title': 'Lieutenant Governor', 'name': 'Pamela Evette', 'party': 'Republican', 'portrait_url': '', 'branch': 'Executive'},
         {'title': 'Senate President', 'name': 'Thomas Alexander', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'Senate Majority Leader', 'name': 'Shane Massey', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Speaker', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
         {'title': 'House Education Chair', 'name': 'Shannon Erickson', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
-        {'title': 'House Ways and Means Chair', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'}
+        {'title': 'House Ways and Means Chair', 'name': 'Murrell Smith', 'party': 'Republican', 'portrait_url': '', 'branch': 'Legislative'},
     ],
     'GA': [
         {'title': 'Governor', 'name': 'Brian Kemp', 'party': 'Republican', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/GovBrianKemp_2024WEB.jpg', 'branch': 'Executive'},
