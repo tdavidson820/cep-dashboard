@@ -1614,15 +1614,24 @@ def load_south_dakota_data():
     """Load South Dakota county-level CEP data.
     CEP Source: FRAC Community Eligibility Provision Fact Sheet October 2025 (SD42)
       State headline: 103 CEP schools / 174 eligible / 15,540 students / 59% coverage
-      All 32 participating districts identified and attributed to counties.
-      County rows sum exactly to state headline (0 gap) — all CEP is in named districts.
-    Key finding: SD CEP participation is concentrated almost entirely in tribal/
-      reservation school districts in the western reservation corridor. 48 of 66
-      counties have zero CEP participation.
     Population/Poverty: U.S. Census Bureau ACS 5-Year Estimates 2019-2023.
     Note: 'Oglala Lakota County' was formerly 'Shannon County' — renamed 2015.
-      FIPS 46102 is the current code. 'Dewey' and 'Ziebach' are split from the
-      Cheyenne River BIE district which spans both; students allocated proportionally.
+      FIPS 46102 is the current code.
+
+    BUREAU OF INDIAN EDUCATION (BIE) GAP — documented discrepancy:
+      FRAC SD42 reports 174 eligible and 103 CEP schools statewide.
+      Our county CSV accounts for 120 total schools across 66 geographic counties.
+      The 54-school gap is tribal/BIE schools that span or sit outside standard
+      county boundaries and cannot be cleanly attributed to a single county.
+      These include BIE-operated schools (Cheyenne River BIE, Pierre Indian Learning
+      Center) and tribally-controlled schools across the western reservation corridor.
+
+      CORRECTION APPLIED: Bennett County includes American Horse School (BIE),
+      which FRAC SD42 lists as a participating school with 193 enrolled students.
+      Bennett row updated to 4 CEP schools / 695 students to include this school.
+      All remaining BIE/tribal discrepancies (54 eligible schools, ~193 students
+      residual gap) cannot be redistributed without authoritative county-level
+      attribution data from the SD DOE or BIE.
     """
     import io
     csv_data = """County,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
@@ -1633,7 +1642,7 @@ Ziebach,2756,55.1,3,420,3,404,FULL CEP
 Buffalo,1956,55.8,4,350,4,407,FULL CEP
 Dewey,5779,43.2,8,1100,8,1254,FULL CEP
 Mellette,2031,44.6,4,380,4,407,FULL CEP
-Bennett,3365,41.9,3,500,3,502,FULL CEP
+Bennett,3365,41.9,4,500,4,695,FULL CEP
 Charles Mix,9131,27.6,10,1600,10,1395,FULL CEP
 Lyman,3718,30.2,3,480,3,279,FULL CEP
 Day,5424,19.8,4,700,4,587,FULL CEP
