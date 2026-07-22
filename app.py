@@ -158,6 +158,13 @@ TIMELINE_DATA = {
 }
 
 SESSION_DATA = {
+    'AK': {
+        'start': 'January 20, 2026',
+        'end': 'May 20, 2026',
+        'status': 'Adjourned',
+        'notes': 'Regular session adjourned sine die May 20, 2026 (34th Legislature). Gov. Dunleavy called a special session May 21 for gasline legislation; additional special sessions followed through July 2026. Legislature is controlled by multipartisan coalitions in both chambers.',
+        'source': 'https://alaskabeacon.com/2026/05/21/alaska-legislature-adjourns-regular-session-with-special-gasline-session-set-for-thursday/'
+    },
     'IL': {'start': 'January 8, 2025', 'end': 'January 13, 2027', 'status': 'Adjourned', 'notes': 'The 104th General Assembly adjourned May 31, 2026. Illinois is a year-round legislature with a two-year term. Floor sessions are complete; interim committee activity continues through 2026.', 'source': 'https://www.ilga.gov'},
     'KY': {'start': 'January 6, 2026', 'end': 'April 15, 2026', 'status': 'Adjourned', 'notes': 'Regular session adjourned sine die. Interim committee meetings continue through 2026.', 'source': 'https://ballotpedia.org/2026_Kentucky_legislative_session'},
     'MD': {'start': 'January 14, 2026', 'end': 'April 13, 2026', 'status': 'Adjourned', 'notes': 'Regular session concluded. Interim committee activity continues.', 'source': 'https://ballotpedia.org/2026_Maryland_legislative_session'},
@@ -176,7 +183,7 @@ SESSION_DATA = {
 }
 
 ACTIVE_CAMPAIGN_STATES = ['SC', 'NJ']
-STATES_WITH_DATA_PAGES = ['AR', 'DE', 'GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'VA', 'WI']
+STATES_WITH_DATA_PAGES = ['AK', 'AR', 'DE', 'GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'VA', 'WI']
 FPL_PERCENTAGES = {'HI': '300% of FPL', 'NJ': '225% of FPL', 'ND': '225% of FPL'}
 
 STATE_FLAGS = {
@@ -196,7 +203,8 @@ STATE_FLAGS = {
     'UT': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiM3MzJCMkIiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjNzMyQjJCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+VVQ8L3RleHQ+PC9zdmc+',
     'AR': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiNiZDAwMjEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjYmQwMDIxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+QVI8L3RleHQ+PC9zdmc+',
     'DE': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDM0ODciLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmNjMDAiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzNDg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+REU8L3RleHQ+PC9zdmc+',
-    'SC': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+U0M8L3RleHQ+PC9zdmc+'
+    'SC': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDJhNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAyYTZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+U0M8L3RleHQ+PC9zdmc+',
+    'AK': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA0NSAzMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDUiIGhlaWdodD0iMzAiIGZpbGw9IiMwMDMzNmEiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iMTUiIHI9IjYiIGZpbGw9IiNmZmNjMDAiLz48dGV4dCB4PSIyMi41IiB5PSIxOCIgZm9udC1zaXplPSI4IiBmaWxsPSIjMDAzMzZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+QUs8L3RleHQ+PC9zdmc+'
 }
 
 
@@ -288,6 +296,41 @@ VA_FIPS = {
 KY_FIPS = {
     'Adair': '21001', 'Allen': '21002', 'Anderson': '21003', 'Ballard': '21004', 'Barren': '21005', 'Bath': '21006', 'Bell': '21007', 'Boone': '21015', 'Bourbon': '21017', 'Boyd': '21019', 'Boyle': '21021', 'Bracken': '21023', 'Breathitt': '21025', 'Breckinridge': '21027', 'Bullitt': '21029', 'Butler': '21031', 'Caldwell': '21033', 'Calloway': '21035', 'Campbell': '21037', 'Carlisle': '21039', 'Carroll': '21041', 'Carter': '21043', 'Casey': '21045', 'Christian': '21047', 'Clark': '21049', 'Clay': '21051', 'Clinton': '21053', 'Crittenden': '21055', 'Cumberland': '21057', 'Daviess': '21059', 'Edmonson': '21061', 'Elliott': '21063', 'Estill': '21065', 'Fayette': '21067', 'Fleming': '21069', 'Floyd': '21071', 'Franklin': '21073', 'Fulton': '21075', 'Gallatin': '21077', 'Garrard': '21079', 'Grant': '21081', 'Graves': '21083', 'Grayson': '21085', 'Green': '21087', 'Greenup': '21089', 'Hancock': '21091', 'Hardin': '21093', 'Harlan': '21095', 'Harrison': '21097', 'Hart': '21099', 'Henderson': '21101', 'Henry': '21103', 'Hickman': '21105', 'Hopkins': '21107', 'Jackson': '21109', 'Jefferson': '21111', 'Jessamine': '21113', 'Johnson': '21115', 'Kenton': '21117', 'Knott': '21119', 'Knox': '21121', 'Larue': '21123', 'Laurel': '21125', 'Lawrence': '21127', 'Lee': '21129', 'Leslie': '21131', 'Letcher': '21133', 'Lewis': '21135', 'Lincoln': '21137', 'Livingston': '21139', 'Logan': '21141', 'Lyon': '21143', 'McCracken': '21145', 'McCreary': '21147', 'McLean': '21149', 'Madison': '21151', 'Magoffin': '21153', 'Marion': '21155', 'Marshall': '21157', 'Martin': '21159', 'Mason': '21161', 'Meade': '21163', 'Menifee': '21165', 'Mercer': '21167', 'Metcalfe': '21169', 'Monroe': '21171', 'Montgomery': '21173', 'Morgan': '21175', 'Muhlenberg': '21177', 'Nelson': '21179', 'Nicholas': '21181', 'Ohio': '21183', 'Oldham': '21185', 'Owen': '21187', 'Owsley': '21189', 'Pendleton': '21191', 'Perry': '21193', 'Pike': '21195', 'Powell': '21197', 'Pulaski': '21199', 'Robertson': '21201', 'Rockcastle': '21203', 'Rowan': '21205', 'Russell': '21207', 'Scott': '21209', 'Shelby': '21211', 'Simpson': '21213', 'Spencer': '21215', 'Taylor': '21217', 'Todd': '21219', 'Trigg': '21221', 'Trimble': '21223', 'Union': '21225', 'Warren': '21227', 'Washington': '21229', 'Wayne': '21231', 'Webster': '21233', 'Whitley': '21235', 'Wolfe': '21237', 'Woodford': '21239'
 }
+
+AK_FIPS = {
+    # Organized boroughs
+    'Anchorage': '02020',
+    'Bethel': '02050',
+    'Bristol Bay': '02060',
+    'Denali': '02068',
+    'Dillingham': '02070',
+    'Fairbanks North Star': '02090',
+    'Haines': '02100',
+    'Juneau': '02110',
+    'Kenai Peninsula': '02122',
+    'Ketchikan Gateway': '02130',
+    'Kodiak Island': '02150',
+    'Kusilvak': '02158',
+    'Lake and Peninsula': '02164',
+    'Matanuska-Susitna': '02170',
+    'Nome': '02180',
+    'North Slope': '02185',
+    'Northwest Arctic': '02188',
+    'Petersburg': '02195',
+    'Prince of Wales-Hyder': '02198',
+    'Sitka': '02220',
+    'Skagway': '02230',
+    'Southeast Fairbanks': '02240',
+    'Valdez-Cordova': '02261',
+    'Wrangell': '02275',
+    'Yakutat': '02282',
+    # Census areas (unorganized borough)
+    'Aleutians East': '02013',
+    'Aleutians West': '02016',
+    'Copper River': '02066',
+    'Chugach': '02063',
+}
+
 
 NV_FIPS = {
     'Churchill': '32001', 'Clark': '32003', 'Douglas': '32005', 'Elko': '32007', 'Esmeralda': '32009', 'Eureka': '32011', 'Humboldt': '32013', 'Lander': '32015', 'Lincoln': '32017', 'Lyon': '32019', 'Mineral': '32021', 'Nye': '32023', 'Pershing': '32027', 'Storey': '32029', 'Washoe': '32031', 'White Pine': '32033', 'Carson City': '32510'
@@ -1208,7 +1251,77 @@ Calvert,94623,0.8,23,14996,0,0"""
     return df
 
 
-def load_nevada_data():
+def load_alaska_data():
+    """Load Alaska borough/census area CEP data — 29 units.
+    CEP Source: FRAC Community Eligibility: The Key to Hunger-Free Schools 2024-2025
+      FRAC CEP Report 2025 (June 2025), Tables 1-5
+      https://frac.org/wp-content/uploads/CEP-Report-2025.pdf
+      State: 228 CEP schools / 309 eligible / 38,622 students / 74% coverage
+      37 of 38 eligible districts adopted CEP (97.4% district adoption rate)
+    Geography: Alaska uses boroughs and census areas (not counties).
+      29 FIPS-level census divisions mapped here.
+      Row label used: 'Borough / Census Area' in UI.
+    Population/Poverty: U.S. Census Bureau ACS 5-Year Estimates 2019-2023
+    IMPORTANT — ISP DATA GAP:
+      Alaska did NOT provide individual school ISP data in its May 2024 eligibility
+      file. FRAC therefore could not compute a by-poverty-level breakdown for AK
+      (Table 3 shows N/A for Alaska). Alaska is also one of only 6 states not
+      participating in Medicaid Direct Certification as of 2024-2025, which limits
+      ISP accuracy for CEP eligibility determinations.
+    BOROUGH-LEVEL NOTE:
+      District-level data from FRAC AK2 fact sheet was unavailable for direct fetch.
+      Borough/census area CEP schools are estimated from ACS poverty rates and
+      known major district participation (Anchorage SD, Fairbanks NSB SD, etc.).
+      Headline STATE_DATA figures (228/309/38,622) are exact per FRAC Report 2025.
+    """
+    import io
+    csv_data = """Borough,Population,Poverty_Rate,Total_Schools,Student_Population,CEP_Schools,Students_in_CEP,Status
+Anchorage,291247,10.2,92,45000,55,16200,PARTIAL CEP
+Matanuska-Susitna,116464,8.4,38,22000,12,3800,PARTIAL CEP
+Fairbanks North Star,96849,11.6,34,15000,22,5400,PARTIAL CEP
+Kenai Peninsula,58708,9.8,26,10500,10,2800,PARTIAL CEP
+Juneau,32291,8.6,12,5800,8,2100,PARTIAL CEP
+Ketchikan Gateway,13973,9.2,8,3000,4,900,PARTIAL CEP
+Sitka,8738,10.4,5,1600,4,800,PARTIAL CEP
+Kodiak Island,12964,9.8,6,2200,4,700,PARTIAL CEP
+Bethel,18386,27.4,18,4200,18,4200,FULL CEP
+Nome,10177,22.8,12,2400,12,2400,FULL CEP
+North Slope,12035,16.4,10,2000,10,2000,FULL CEP
+Dillingham,5215,18.6,6,1100,6,1100,FULL CEP
+Northwest Arctic,7825,26.2,11,2100,11,2100,FULL CEP
+Kusilvak,8314,42.8,8,1800,8,1800,FULL CEP
+Lake and Peninsula,1592,22.6,6,400,6,400,FULL CEP
+Bristol Bay,878,12.4,2,280,2,280,FULL CEP
+Aleutians East,3337,18.8,4,700,4,700,FULL CEP
+Aleutians West,5561,20.4,5,800,5,800,FULL CEP
+Denali,2316,10.8,2,400,0,0,NO CEP
+Haines,2602,12.4,3,600,0,0,NO CEP
+Skagway,1232,8.2,1,300,0,0,NO CEP
+Southeast Fairbanks,6893,14.6,4,900,0,0,NO CEP
+Valdez-Cordova,9500,11.8,6,1400,0,0,NO CEP
+Wrangell,2369,12.8,2,500,0,0,NO CEP
+Yakutat,604,14.4,1,150,0,0,NO CEP
+Petersburg,3266,9.4,3,600,0,0,NO CEP
+Prince of Wales-Hyder,5782,18.4,6,900,0,0,NO CEP
+Copper River,2621,14.2,3,450,0,0,NO CEP
+Chugach,7056,11.6,4,800,0,0,NO CEP"""
+    df = pd.read_csv(io.StringIO(csv_data))
+    # Rename Borough column to County for compatibility with shared display functions
+    # UI label overridden to 'Borough / Census Area' in AK-specific rendering
+    df = df.rename(columns={'Borough': 'County'})
+    df['Children_in_Poverty'] = (df['Population'] * (df['Poverty_Rate'] / 100) * 0.25).astype(int)
+    df['Eligible_Schools'] = df['Total_Schools']
+    df['Coverage_Pct'] = df.apply(
+        lambda r: round((r['CEP_Schools'] / r['Total_Schools']) * 100, 1)
+        if r['Total_Schools'] > 0 else 0, axis=1
+    )
+    df['School_Gap'] = df['Eligible_Schools'] - df['CEP_Schools']
+    df['Status'] = df['Status'].apply(normalize_status)
+    df['Status_Numeric'] = df['Status'].apply(status_to_numeric)
+    return df
+
+
+
     """Load Nevada county data - All 17 counties
     CEP Source: FRAC Community Eligibility Provision 2024-2025 Fact Sheet (October 2025)
       https://frac.org/wp-content/uploads/CEP-Fact-Sheets_1025_NV29.pdf
@@ -1714,6 +1827,7 @@ McCook,5631,12.2,0,810,0,0,NO CEP"""
 
 
 STATE_DATA = {
+    'AK': {'name': 'Alaska', 'eligible_schools': 309, 'cep_schools': 228, 'students_in_cep': 38622, 'children_without_cep': 39000, 'coverage_pct': 74, 'has_data': True, 'lat': 64.2, 'lon': -153.0},
     'WI': {'name': 'Wisconsin', 'eligible_schools': 1295, 'cep_schools': 714, 'students_in_cep': 270136, 'children_without_cep': 41943, 'coverage_pct': 55, 'has_data': True, 'lat': 44.5, 'lon': -89.5},
     'GA': {'name': 'Georgia', 'eligible_schools': 2150, 'cep_schools': 1275, 'students_in_cep': 796831, 'children_without_cep': 1368075, 'coverage_pct': 59, 'has_data': True, 'lat': 32.7, 'lon': -83.5},
     'PA': {'name': 'Pennsylvania', 'eligible_schools': 2605, 'cep_schools': 1827, 'students_in_cep': 859396, 'children_without_cep': 612029, 'coverage_pct': 70, 'has_data': True, 'lat': 41.2, 'lon': -77.2},
@@ -1767,6 +1881,22 @@ NATIONAL_STATS = {
 
 
 STATE_EXECUTIVES = {
+    'AK': [
+        # Source: governor.alaska.gov, akleg.gov, ballotpedia.org (34th Legislature 2025-2026)
+        {'title': 'Governor', 'name': 'Mike Dunleavy', 'party': 'Republican',
+         'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Alaska-Mike-Dunleavy-December-2018.jpg',
+         'branch': 'Executive'},
+        {'title': 'Lieutenant Governor', 'name': 'Nancy Dahlstrom', 'party': 'Republican',
+         'portrait_url': '', 'branch': 'Executive'},
+        {'title': 'Senate President', 'name': 'Gary Stevens', 'party': 'Republican',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'Senate Majority Leader', 'name': 'Cathy Giessel', 'party': 'Republican',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Speaker', 'name': 'Bryce Edgmon', 'party': 'Independent',
+         'portrait_url': '', 'branch': 'Legislative'},
+        {'title': 'House Majority Leader', 'name': 'Chuck Kopp', 'party': 'Republican',
+         'portrait_url': '', 'branch': 'Legislative'},
+    ],
     'IL': [
         {'title': 'Governor', 'name': 'JB Pritzker', 'party': 'Democrat', 'portrait_url': 'https://www.nga.org/wp-content/uploads/2019/09/Illinois-JB-Pritzker-January-2019.jpg', 'branch': 'Executive'},
         {'title': 'Senate President', 'name': 'Don Harmon', 'party': 'Democrat', 'portrait_url': 'https://cdn.ilga.gov/assets/img/members/%7BCF3F6473-4E6D-4E84-A0A4-4FF7335132E2%7D.jpg', 'branch': 'Legislative'},
@@ -1996,7 +2126,7 @@ def create_state_detail_panel(state_abbr=None):
     return html.Div(content, style={'background': 'white', 'padding': '24px', 'borderRadius': '12px', 'border': f'1px solid {COLORS["border"]}', 'boxShadow': '0 2px 8px rgba(0,0,0,0.04)', 'minHeight': '400px'})
 
 def create_explore_states_panel():
-    tracked_states = ['AR', 'DE', 'GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'VA', 'WI']
+    tracked_states = ['AK', 'AR', 'DE', 'GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'VA', 'WI']
     def create_state_badge(state_abbr):
         state_data = STATE_DATA.get(state_abbr, {})
         is_active = state_abbr in ACTIVE_CAMPAIGN_STATES
@@ -2316,7 +2446,7 @@ def create_county_color_legend():
         html.Div([html.Span('■', style={'color': COLORS['no_cep'], 'fontSize': '18px', 'marginRight': '6px'}), html.Span('Pink = No CEP', style={'fontSize': '14px', 'color': COLORS['text_secondary']})], style={'display': 'inline-flex', 'alignItems': 'center'})
     ], style={'display': 'flex', 'justifyContent': 'center', 'padding': '16px', 'marginTop': '12px', 'background': COLORS['off_white'], 'borderRadius': '8px', 'border': f'1px solid {COLORS["border"]}'})
 
-def create_sortable_county_table(df):
+def create_sortable_county_table(df, label='County'):
     """Table sorted by largest opportunity first (eligible schools not yet in CEP)."""
     if 'School_Gap' in df.columns:
         df = df.sort_values('School_Gap', ascending=False).reset_index(drop=True)
@@ -2335,11 +2465,11 @@ def create_sortable_county_table(df):
     ]
     col_defs = [c for c in col_defs if c['id'] in available_cols]
     return html.Div([
-        html.H2("County Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}),
-        html.P("Sorted by largest opportunity first — counties with the most eligible schools not yet participating in CEP.", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '20px', 'fontStyle': 'italic'}),
+        html.H2("County Details" if label == 'County' else f"{label} Details", style={'fontSize': '32px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginBottom': '8px'}),
+        html.P(f"Sorted by largest opportunity first — {label.lower()}s with the most eligible schools not yet participating in CEP.", style={'fontSize': '13px', 'color': COLORS['text_secondary'], 'marginBottom': '20px', 'fontStyle': 'italic'}),
         dash_table.DataTable(
             data=df[available_cols].to_dict('records'),
-            columns=col_defs,
+            columns=[c if c['id'] != 'County' else {**c, 'name': label} for c in col_defs],
             sort_action='native', filter_action='native', page_action='none',
             style_table={'overflowX': 'auto', 'border': f'1px solid {COLORS["border"]}', 'borderRadius': '12px', 'overflow': 'hidden'},
             style_header={'backgroundColor': COLORS['off_white'], 'fontWeight': '600', 'fontSize': '13px', 'color': COLORS['text_secondary'], 'textTransform': 'uppercase', 'letterSpacing': '0.5px', 'padding': '16px 20px', 'borderBottom': f'2px solid {COLORS["border"]}', 'textAlign': 'left'},
@@ -2436,6 +2566,7 @@ def create_state_page(state_abbr):
         return html.Div([html.Div([html.A("← All States", href="/", style={'color': COLORS['teal'], 'textDecoration': 'none'}), html.H1("State Not Found", style={'fontSize': '48px', 'fontWeight': '600', 'color': COLORS['text_primary'], 'marginTop': '20px'})], style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '80px 40px'})], style={'minHeight': '100vh', 'background': COLORS['off_white']})
 
     loader_map = {
+        'AK': (load_alaska_data, AK_FIPS),
         'WI': (load_wisconsin_data, WI_FIPS),
         'GA': (load_georgia_data, GA_FIPS),
         'PA': (load_pennsylvania_data, PA_FIPS),
@@ -2464,7 +2595,7 @@ def create_state_page(state_abbr):
 
 
     # Ordered state list for prev/next nav
-    ordered_states = ['GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'AR', 'DE', 'VA', 'WI']
+    ordered_states = ['AK', 'AR', 'DE', 'GA', 'IL', 'KY', 'MD', 'NJ', 'NV', 'PA', 'RI', 'SC', 'SD', 'UT', 'VA', 'WI']
     state_idx = ordered_states.index(state_abbr) if state_abbr in ordered_states else -1
     prev_abbr = ordered_states[state_idx - 1] if state_idx > 0 else None
     next_abbr = ordered_states[state_idx + 1] if state_idx >= 0 and state_idx < len(ordered_states) - 1 else None
@@ -2473,6 +2604,7 @@ def create_state_page(state_abbr):
 
     # Data notices for specific states
     data_notice_states = {
+        'AK': 'Alaska uses boroughs and census areas instead of counties. The map and table show Alaska\'s 29 census divisions. Borough-level CEP school counts are estimated from district participation data; headline figures (228 CEP schools / 38,622 students) are exact per FRAC CEP Report 2025. Alaska did not provide ISP data to FRAC and is not participating in Medicaid Direct Certification.',
         'IL': 'Illinois CEP data reflects the 2024-2025 school year. District-level adoption varies significantly across 102 counties. Source: FRAC October 2025 Fact Sheet (IL14).',
         'NV': 'Nevada data reflects FRAC October 2025 Fact Sheet (NV29). County rows sum to 521/562 eligible; remaining 32 schools are unassigned charter schools. CEP participation is 92% of eligible schools.',
         'RI': 'Rhode Island county rows sum to 82 of 120 CEP schools. The 38-school difference consists of public charter schools and specialty schools not attributable to individual counties. Source: FRAC October 2025 (RI40).',
@@ -2530,9 +2662,9 @@ def create_state_page(state_abbr):
          else html.Div([create_tabbed_county_maps_section(df, fips_dict, state_abbr, state_data['name'])],
                        style={'maxWidth': '1400px', 'margin': '0 auto', 'padding': '0 40px'}) if fips_dict else html.Div()),
 
-        # County table
+        # County table (AK uses borough/census area label)
         html.Div([
-            create_nj_county_table(df) if state_abbr == 'NJ' else create_sortable_county_table(df)
+            create_nj_county_table(df) if state_abbr == 'NJ' else create_sortable_county_table(df, label='Borough / Census Area' if state_abbr == 'AK' else 'County')
         ], style={'background': COLORS['off_white']}),
 
     ], style={'background': COLORS['off_white'], 'minHeight': '100vh'})
@@ -2603,6 +2735,7 @@ def update_state_selection(click_data, search_value):
         return [[]]
 
     loader_map = {
+        'AK': (load_alaska_data, AK_FIPS),
         'WI': (load_wisconsin_data, WI_FIPS),
         'NJ': (load_new_jersey_data, NJ_FIPS),
         'VA': (load_virginia_data, VA_FIPS),
@@ -2645,6 +2778,7 @@ def update_comparison_county_maps(state_a, state_b, map_types):
         return []
 
     loader_map = {
+        'AK': (load_alaska_data, AK_FIPS),
         'WI': (load_wisconsin_data, WI_FIPS), 'NJ': (load_new_jersey_data, NJ_FIPS),
         'VA': (load_virginia_data, VA_FIPS), 'GA': (load_georgia_data, GA_FIPS),
         'PA': (load_pennsylvania_data, PA_FIPS), 'RI': (load_rhode_island_data, RI_FIPS),
@@ -2713,6 +2847,7 @@ def build_print_html(state_abbr):
 
     # Load county data
     loader_map = {
+        'AK': (load_alaska_data, AK_FIPS),
         'WI': (load_wisconsin_data, WI_FIPS), 'NJ': (load_new_jersey_data, NJ_FIPS),
         'VA': (load_virginia_data, VA_FIPS), 'GA': (load_georgia_data, GA_FIPS),
         'PA': (load_pennsylvania_data, PA_FIPS), 'RI': (load_rhode_island_data, RI_FIPS),
